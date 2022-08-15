@@ -20,18 +20,6 @@ inline function onbutton_titleControl(component, value)
 	}
 };
 
-
-// Freeze Button
-Content.getComponent("button_text_freeze").setControlCallback(onbutton_text_freezeControl);
-inline function onbutton_text_freezeControl(component, value)
-{
-	if (value == 1.0) {
-		Console.print('Freeze enabled');		
-	} else {
-		Console.print('Freeze disabled');
-	}
-};
-
 Content.getComponent("combo_size").setControlCallback(oncombo_sizeControl);
 inline function oncombo_sizeControl(component, value)
 {
