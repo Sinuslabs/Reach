@@ -31,24 +31,20 @@ inline function oncombo_sizeControl(component, value)
 // REVERB SLIDERS
 
 // 	SPACE
+
+const var Reverb = Synth.getEffect("Simple Reverb1");
+
 Content.getComponent("knob_reverb_space").setControlCallback(onknob_reverb_spaceControl);
 inline function onknob_reverb_spaceControl(component, value)
 {
-	Console.print('space');
-
+	Console.print('freeeeze ' + value);
 };
 
-var t = Engine.createTimerObject();
-const var header_vumeter_ch1 = Content.getComponent("header_vumeter_ch1");
-const var header_vumeter_ch2 = Content.getComponent("header_vumeter_ch2");
 
-
-
-t.setTimerCallback(function()
+Content.getComponent("knob_reverb_space").setControlCallback(onknob_reverb_spaceControl);
+inline function onknob_reverb_spaceControl(component, value)
 {
-	var ch1 = Engine.getMasterPeakLevel(0);
-	var ch2 = Engine.getMasterPeakLevel(1);
-	header_vumeter_ch1.setValue(ch1);
-	header_vumeter_ch2.setValue(ch2);
-});
-t.startTimer(50);
+	Reverb.setAttribute(Reverb.RoomSize, value);
+	updateParameterWithPercent('SPACE', value);
+};
+
