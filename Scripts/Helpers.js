@@ -5,3 +5,12 @@ function updateParameterWithPercent(parameter, value) {
 	
 	updateDisplay();
 }
+
+function updateFreezeParameter(value) {
+	if (value == 1.0) {
+		STATE.freezeMode = true;
+	} else {
+		STATE.freezeMode = false;
+	}	
+	updateDisplay();
+}
