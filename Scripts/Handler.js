@@ -30,7 +30,6 @@ inline function oncombo_sizeControl(component, value)
 
 // REVERB SLIDERS
 
-// 	SPACE
 
 const var Reverb = Synth.getEffect("Simple Reverb1");
 
@@ -47,4 +46,48 @@ inline function onknob_reverb_spaceControl(component, value)
 	Reverb.setAttribute(Reverb.RoomSize, value);
 	updateParameterWithPercent('SPACE', value);
 };
+
+
+Content.getComponent("knob_reverb_damping").setControlCallback(onknob_reverb_dampingControl);
+inline function onknob_reverb_dampingControl(component, value)
+{
+	Reverb.setAttribute(Reverb.Damping, value);
+	updateParameterWithPercent('DAMPING', value);
+};
+
+
+Content.getComponent("knob_reverb_stereo").setControlCallback(onknob_reverb_stereoControl);
+inline function onknob_reverb_stereoControl(component, value)
+{
+	Reverb.setAttribute(Reverb.Width, value);
+	updateParameterWithPercent('STEREO', value);
+};
+
+
+Content.getComponent("knob_reverb_mix").setControlCallback(onknob_reverb_mixControl);
+inline function onknob_reverb_mixControl(component, value)
+{
+	Reverb.setAttribute(Reverb.DryLevel, value);
+	updateParameterWithPercent('REVERB DRY', value);
+};
+
+Content.getComponent("button_freeze").setControlCallback(onbutton_freezeControl);
+inline function onbutton_freezeControl(component, value)
+{
+	Reverb.setAttribute(Reverb.FreezeMode, value);
+	updateFreezeParameter(value);
+};
+
+Content.getComponent("knob_reverb_drywet").setControlCallback(onknob_reverb_drywetControl);
+inline function onknob_reverb_drywetControl(component, value)
+{
+	Reverb.setAttribute(Reverb.WetLevel, value);
+	updateParameterWithPercent('REVERB WET', value);
+};
+
+
+
+
+
+
 
