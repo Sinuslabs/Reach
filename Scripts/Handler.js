@@ -38,5 +38,17 @@ inline function onknob_reverb_spaceControl(component, value)
 
 };
 
+var t = Engine.createTimerObject();
+const var header_vumeter_ch1 = Content.getComponent("header_vumeter_ch1");
+const var header_vumeter_ch2 = Content.getComponent("header_vumeter_ch2");
 
 
+
+t.setTimerCallback(function()
+{
+	var ch1 = Engine.getMasterPeakLevel(0);
+	var ch2 = Engine.getMasterPeakLevel(1);
+	header_vumeter_ch1.setValue(ch1);
+	header_vumeter_ch2.setValue(ch2);
+});
+t.startTimer(50);
