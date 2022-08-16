@@ -85,6 +85,17 @@ inline function onknob_reverb_drywetControl(component, value)
 	updateParameterWithPercent('REVERB WET', value);
 };
 
+// DEGRADE
+
+const var Degrade = Synth.getEffect("Degrade1");
+
+Content.getComponent("knob_degrade_bit").setControlCallback(onknob_degrade_bitControl);
+inline function onknob_degrade_bitControl(component, value)
+{
+	Degrade.setAttribute(Degrade.Quant, value);
+	updateParameterWithBit('CRUSH', value);
+};
+
 
 
 
