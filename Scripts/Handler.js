@@ -99,6 +99,14 @@ inline function onknob_degrade_bitControl(component, value)
 
 
 
+Content.getComponent("knob_degrade_rate").setControlCallback(onknob_degrade_rateControl);
+inline function onknob_degrade_rateControl(component, value)
+{
+	Degrade.setAttribute(Degrade.Rate, value);
+	updateParameterWithFixedSampleRate('SAMPLE RATE', value);
+};
+
+
 
 
 
