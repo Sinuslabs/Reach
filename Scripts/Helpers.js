@@ -1,4 +1,3 @@
-
 function updateParameterWithPercent(parameter, value) {
 	STATE.parameter = parameter;
 	STATE.value = Math.round(value * 100) + '%';
@@ -24,11 +23,40 @@ function updateParameterWithBit(parameter, value) {
 	updateDisplay();
 }
 
-function updateParameterWithRate(parameter, value) {
+function updateParameterWithFixedSampleRate(parameter, value) {
 	
+	var index = (value - 0.53) * 100;
+	if (index <= -2) {
+		index = 0;
+	}
+	
+	Console.print(Math.round(index));
+	
+	var sampleRates = [
+		44,
+		25,
+		22,
+		20,
+		14,
+		11,
+		8820,
+		7350,
+		6300,
+		5312,
+		4410,
+		3675,
+		3150,
+	];
+	
+	var currentRate = sampleRates[index];
+	var label = 'Hz';
+	if (currentRate < 50) {
+		label = 'kHz';
+	}
 
+	
 	STATE.parameter = parameter;
-	STATE.value = Math.round(value * 10) + ' Hz';
+	STATE.value = sampleRates[index] + label;
 	
 	updateDisplay();
 }
