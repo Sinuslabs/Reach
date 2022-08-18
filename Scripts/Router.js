@@ -29,9 +29,6 @@ function displayShow(route) {
 
 function displayShowMain(route) {
 	
-	
-	Console.print('show route ' + route);
-
 	if (route == 'default') { route = 'waveform'; };
 	displayDisableAll();
 	displayMain.set('visible', true);

@@ -46,6 +46,9 @@ inline function onknob_reverb_spaceControl(component, value)
 	Reverb.setAttribute(Reverb.RoomSize, value);
 	updateParameterWithLabel('SPACE', value, '%');
 	showTempScreen('reverb');
+	
+	ReverbAnimationPanel.setValue(component.get("max") + 1 - (value * -1) * 7);
+	ReverbAnimationPanel.repaint();
 };
 
 
@@ -55,6 +58,9 @@ inline function onknob_reverb_dampingControl(component, value)
 	Reverb.setAttribute(Reverb.Damping, value);
 	updateParameterWithLabel('DAMPING', value, '%');
 	showTempScreen('reverb');
+	
+	AN_STATE.outterThickness = value * 10;
+	ReverbAnimationPanel.repaint();
 };
 
 
@@ -64,6 +70,9 @@ inline function onknob_reverb_stereoControl(component, value)
 	Reverb.setAttribute(Reverb.Width, value);
 	updateParameterWithLabel('STEREO', value, '%');
 	showTempScreen('reverb');
+	
+	AN_STATE.limit = value * 40;
+	ReverbAnimationPanel.repaint();
 };
 
 
@@ -89,6 +98,9 @@ inline function onknob_reverb_drywetControl(component, value)
 	Reverb.setAttribute(Reverb.WetLevel, value);
 	updateParameterWithLabel('REVERB WET', value, '%');
 	showTempScreen('reverb');
+	
+	AN_STATE.innerThickness = value * 5;
+	ReverbAnimationPanel.repaint();
 };
 
 // DEGRADE
@@ -101,6 +113,14 @@ inline function onknob_degrade_bitControl(component, value)
 	Degrade.setAttribute(Degrade.Quant, value);
 	updateParameterWithBit('CRUSH', value);
 	showTempScreen('degrade');
+	
+	var min = 0.4;
+	var max = 1.0;
+	var range = max - min;
+	var normalized = (value - min) / range;
+	
+	DEGRADE_STATE.innerThickness = 8 + value * -7;
+	DegradeAnimationPanel.repaint();
 };
 
 
@@ -112,6 +132,14 @@ inline function onknob_degrade_rateControl(component, value)
 	Degrade.setAttribute(Degrade.Rate, value);
 	updateParameterWithFixedSampleRate('SAMPLE RATE', value);
 	showTempScreen('degrade');
+	
+	var min = 0.52;
+	var max = 0.64;
+	var range = max - min;
+	var normalized = (value - min) / range;
+
+	DegradeAnimationPanel.setValue(component.get("max") + 1 - normalized * 20);
+	DegradeAnimationPanel.repaint();
 };
 
 
@@ -121,6 +149,9 @@ inline function onknob_degrade_mixControl(component, value)
 	Degrade.setAttribute(Degrade.PostFilt, value);
 	updateParameterWithLabel('POST FILTER', value, '%');
 	showTempScreen('degrade');
+	
+	DEGRADE_STATE.corner = 80 + (value * -80);
+	DegradeAnimationPanel.repaint();
 };
 
 // FLAIR
@@ -133,6 +164,12 @@ inline function onknob_flair_flairControl(component, value)
 	Flair.setAttribute(Flair.Saturation, value);
 	updateParameterWithLabel('FLAIR', value, '%');
 	showTempScreen('flair');
+	
+	local initialPosX = 300;
+	local move = value * 50;
+	
+	Flair1AnimationPanel.set('x', initialPosX + move);
+	Flair2AnimationPanel.set('x', initialPosX - move);
 };
 
 // FILTER
@@ -152,7 +189,6 @@ Content.getComponent("knob_filter_q").setControlCallback(onknob_filter_qControl)
 inline function onknob_filter_qControl(component, value)
 {
 	
-	Console.print(value);
 	Filter.setAttribute(Filter.Q, value);
 	updateParameterWithLabel('Q', value, '');
 	showTempScreen('filter');
@@ -173,7 +209,6 @@ inline function onknob_filter_gainControl(component, value)
 Content.getComponent("combo_filter_type").setControlCallback(oncombo_filter_typeControl);
 inline function oncombo_filter_typeControl(component, value)
 {
-	Console.print(value - 1);
 	Filter.setAttribute(Filter.Type, value - 1);
 	showTempScreen('filter');
 };

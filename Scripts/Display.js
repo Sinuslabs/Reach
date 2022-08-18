@@ -21,6 +21,6 @@ function showTempScreen(route) {
 		screenTimer.resetCounter();
 	}
 	
-	screenTimer.startTimer(850);
+	screenTimer.startTimer(1500);
 	displayShowMain(route);
 }
