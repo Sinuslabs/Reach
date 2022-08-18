@@ -31,6 +31,28 @@ inline function oncombo_sizeControl(component, value)
 // REVERB
 const var Reverb = Synth.getEffect("Simple Reverb1");
 
+// BYPASS
+Content.getComponent("button_toggle_reverb").setControlCallback(onbutton_toggle_reverbControl);
+const var panel_reverb = Content.getComponent("panel_reverb");
+
+// fix for no 100% reverb disable.
+var saveWetLevel = 0;
+
+inline function onbutton_toggle_reverbControl(component, value)
+{
+	var newWetLevel  = 0;
+	if (value == 1.0) {
+		saveWetLevel = Reverb.getAttribute(Reverb.WetLevel);		
+	} else {
+		newWetLevel = saveWetLevel;
+	}
+	
+	Reverb.setAttribute('Bypass', value);
+	// Reverb specific fix :(
+	Reverb.setAttribute(Reverb.WetLevel, newWetLevel);
+	panel_reverb.set('enabled', value);
+};
+
 Content.getComponent("knob_reverb_space").setControlCallback(onknob_reverb_spaceControl);
 inline function onknob_reverb_spaceControl(component, value)
 {
@@ -100,6 +122,16 @@ inline function onknob_reverb_drywetControl(component, value)
 // DEGRADE
 const var Degrade = Synth.getEffect("Degrade1");
 
+// BYPASS
+Content.getComponent("button_toggle_degrade").setControlCallback(onbutton_toggle_degradeControl);
+const var panel_degrade = Content.getComponent("panel_degrade");
+
+inline function onbutton_toggle_degradeControl(component, value)
+{
+	Degrade.setAttribute('Enabled', value);
+	panel_degrade.set('enabled', value);
+};
+
 Content.getComponent("knob_degrade_bit").setControlCallback(onknob_degrade_bitControl);
 inline function onknob_degrade_bitControl(component, value)
 {
@@ -147,6 +179,16 @@ inline function onknob_degrade_mixControl(component, value)
 
 const var Flair = Synth.getEffect("Saturator1");
 
+// BYPASS
+Content.getComponent("button_toggle_flair").setControlCallback(onbutton_toggle_flairControl);
+const var panel_flair = Content.getComponent("panel_flair");
+
+inline function onbutton_toggle_flairControl(component, value)
+{
+	Flair.setAttribute('Bypass', value);
+	panel_flair.set('enabled', value);
+};
+
 Content.getComponent("knob_flair_flair").setControlCallback(onknob_flair_flairControl);
 inline function onknob_flair_flairControl(component, value)
 {
@@ -164,6 +206,16 @@ inline function onknob_flair_flairControl(component, value)
 // FILTER
 const var Filter = Synth.getEffect("Parametriq EQ1");
 Content.getComponent("knob_filter_freq").setControlCallback(onknob_filter_freqControl);
+
+// BYPASS
+Content.getComponent("button_toggle_filter").setControlCallback(onbutton_toggle_filterControl);
+const var panel_filter = Content.getComponent("panel_filter");
+
+inline function onbutton_toggle_filterControl(component, value)
+{
+	Filter.setAttribute('Bypass', value);
+	panel_filter.set('enabled', value);
+};
 
 inline function onknob_filter_freqControl(component, value)
 {
@@ -195,9 +247,6 @@ inline function oncombo_filter_typeControl(component, value)
 	Filter.setAttribute(Filter.Type, value - 1);
 	showTempScreen('filter');
 };
-
-
-
 
 
 
