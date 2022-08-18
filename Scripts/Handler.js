@@ -23,14 +23,12 @@ inline function onbutton_titleControl(component, value)
 Content.getComponent("combo_size").setControlCallback(oncombo_sizeControl);
 inline function oncombo_sizeControl(component, value)
 {
-	// 300 max sclaing / 12 options = 25 steps.
+	// 300 max scaling / 12 options = 25 steps.
 	// so 1x25 = 0.25 scaling
 	Settings.setZoomLevel(value * 0.15);
 };
 
-// REVERB SLIDERS
-
-
+// REVERB
 const var Reverb = Synth.getEffect("Simple Reverb1");
 
 Content.getComponent("knob_reverb_space").setControlCallback(onknob_reverb_spaceControl);
@@ -38,7 +36,6 @@ inline function onknob_reverb_spaceControl(component, value)
 {
 	Console.print('freeeeze ' + value);
 };
-
 
 Content.getComponent("knob_reverb_space").setControlCallback(onknob_reverb_spaceControl);
 inline function onknob_reverb_spaceControl(component, value)
@@ -51,7 +48,6 @@ inline function onknob_reverb_spaceControl(component, value)
 	ReverbAnimationPanel.repaint();
 };
 
-
 Content.getComponent("knob_reverb_damping").setControlCallback(onknob_reverb_dampingControl);
 inline function onknob_reverb_dampingControl(component, value)
 {
@@ -63,7 +59,6 @@ inline function onknob_reverb_dampingControl(component, value)
 	ReverbAnimationPanel.repaint();
 };
 
-
 Content.getComponent("knob_reverb_stereo").setControlCallback(onknob_reverb_stereoControl);
 inline function onknob_reverb_stereoControl(component, value)
 {
@@ -74,7 +69,6 @@ inline function onknob_reverb_stereoControl(component, value)
 	AN_STATE.limit = value * 40;
 	ReverbAnimationPanel.repaint();
 };
-
 
 Content.getComponent("knob_reverb_mix").setControlCallback(onknob_reverb_mixControl);
 inline function onknob_reverb_mixControl(component, value)
@@ -104,7 +98,6 @@ inline function onknob_reverb_drywetControl(component, value)
 };
 
 // DEGRADE
-
 const var Degrade = Synth.getEffect("Degrade1");
 
 Content.getComponent("knob_degrade_bit").setControlCallback(onknob_degrade_bitControl);
@@ -123,9 +116,6 @@ inline function onknob_degrade_bitControl(component, value)
 	DegradeAnimationPanel.repaint();
 };
 
-
-
-
 Content.getComponent("knob_degrade_rate").setControlCallback(onknob_degrade_rateControl);
 inline function onknob_degrade_rateControl(component, value)
 {
@@ -141,7 +131,6 @@ inline function onknob_degrade_rateControl(component, value)
 	DegradeAnimationPanel.setValue(component.get("max") + 1 - normalized * 20);
 	DegradeAnimationPanel.repaint();
 };
-
 
 Content.getComponent("knob_degrade_mix").setControlCallback(onknob_degrade_mixControl);
 inline function onknob_degrade_mixControl(component, value)
@@ -173,7 +162,6 @@ inline function onknob_flair_flairControl(component, value)
 };
 
 // FILTER
-
 const var Filter = Synth.getEffect("Parametriq EQ1");
 Content.getComponent("knob_filter_freq").setControlCallback(onknob_filter_freqControl);
 
@@ -184,7 +172,6 @@ inline function onknob_filter_freqControl(component, value)
 	showTempScreen('filter');
 };
 
-
 Content.getComponent("knob_filter_q").setControlCallback(onknob_filter_qControl);
 inline function onknob_filter_qControl(component, value)
 {
@@ -194,7 +181,6 @@ inline function onknob_filter_qControl(component, value)
 	showTempScreen('filter');
 }
 
-
 Content.getComponent("knob_filter_gain").setControlCallback(onknob_filter_gainControl);
 inline function onknob_filter_gainControl(component, value)
 {
@@ -202,9 +188,6 @@ inline function onknob_filter_gainControl(component, value)
 	updateParameterWithLabel('GAIN', value, 'dB');
 	showTempScreen('filter');
 };
-
-
-
 
 Content.getComponent("combo_filter_type").setControlCallback(oncombo_filter_typeControl);
 inline function oncombo_filter_typeControl(component, value)
