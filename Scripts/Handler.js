@@ -45,6 +45,7 @@ inline function onknob_reverb_spaceControl(component, value)
 {
 	Reverb.setAttribute(Reverb.RoomSize, value);
 	updateParameterWithLabel('SPACE', value, '%');
+	showTempScreen('reverb');
 };
 
 
@@ -53,6 +54,7 @@ inline function onknob_reverb_dampingControl(component, value)
 {
 	Reverb.setAttribute(Reverb.Damping, value);
 	updateParameterWithLabel('DAMPING', value, '%');
+	showTempScreen('reverb');
 };
 
 
@@ -61,6 +63,7 @@ inline function onknob_reverb_stereoControl(component, value)
 {
 	Reverb.setAttribute(Reverb.Width, value);
 	updateParameterWithLabel('STEREO', value, '%');
+	showTempScreen('reverb');
 };
 
 
@@ -69,6 +72,7 @@ inline function onknob_reverb_mixControl(component, value)
 {
 	Reverb.setAttribute(Reverb.DryLevel, value);
 	updateParameterWithLabel('REVERB DRY', value, '%');
+	showTempScreen('reverb');
 };
 
 Content.getComponent("button_freeze").setControlCallback(onbutton_freezeControl);
@@ -76,6 +80,7 @@ inline function onbutton_freezeControl(component, value)
 {
 	Reverb.setAttribute(Reverb.FreezeMode, value);
 	updateFreezeParameter(value);
+	showTempScreen('reverb');
 };
 
 Content.getComponent("knob_reverb_drywet").setControlCallback(onknob_reverb_drywetControl);
@@ -83,6 +88,7 @@ inline function onknob_reverb_drywetControl(component, value)
 {
 	Reverb.setAttribute(Reverb.WetLevel, value);
 	updateParameterWithLabel('REVERB WET', value, '%');
+	showTempScreen('reverb');
 };
 
 // DEGRADE
@@ -94,6 +100,7 @@ inline function onknob_degrade_bitControl(component, value)
 {
 	Degrade.setAttribute(Degrade.Quant, value);
 	updateParameterWithBit('CRUSH', value);
+	showTempScreen('degrade');
 };
 
 
@@ -104,6 +111,7 @@ inline function onknob_degrade_rateControl(component, value)
 {
 	Degrade.setAttribute(Degrade.Rate, value);
 	updateParameterWithFixedSampleRate('SAMPLE RATE', value);
+	showTempScreen('degrade');
 };
 
 
@@ -112,6 +120,7 @@ inline function onknob_degrade_mixControl(component, value)
 {
 	Degrade.setAttribute(Degrade.PostFilt, value);
 	updateParameterWithLabel('POST FILTER', value, '%');
+	showTempScreen('degrade');
 };
 
 // FLAIR
@@ -123,6 +132,7 @@ inline function onknob_flair_flairControl(component, value)
 {
 	Flair.setAttribute(Flair.Saturation, value);
 	updateParameterWithLabel('FLAIR', value, '%');
+	showTempScreen('flair');
 };
 
 // FILTER
@@ -134,14 +144,18 @@ inline function onknob_filter_freqControl(component, value)
 {
 	Filter.setAttribute(Filter.Freq , value);
 	updateParameterWithLabel('FREQUENCY', value, 'Hz');
+	showTempScreen('filter');
 };
 
 
 Content.getComponent("knob_filter_q").setControlCallback(onknob_filter_qControl);
 inline function onknob_filter_qControl(component, value)
 {
+	
+	Console.print(value);
 	Filter.setAttribute(Filter.Q, value);
 	updateParameterWithLabel('Q', value, '');
+	showTempScreen('filter');
 }
 
 
@@ -149,8 +163,8 @@ Content.getComponent("knob_filter_gain").setControlCallback(onknob_filter_gainCo
 inline function onknob_filter_gainControl(component, value)
 {
 	Filter.setAttribute(Filter.Gain, value);
-	Console.print(parseInt(value));
 	updateParameterWithLabel('GAIN', value, 'dB');
+	showTempScreen('filter');
 };
 
 
@@ -161,6 +175,7 @@ inline function oncombo_filter_typeControl(component, value)
 {
 	Console.print(value - 1);
 	Filter.setAttribute(Filter.Type, value - 1);
+	showTempScreen('filter');
 };
 
 

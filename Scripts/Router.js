@@ -11,6 +11,7 @@ function displayDisableAll() {
 }
 
 function displayShow(route) {
+
 	displayDisableAll();
 	for (display in displayRoutes) {
 		var displayName = display.get('text').replace('display_');
@@ -27,6 +28,10 @@ function displayShow(route) {
 }
 
 function displayShowMain(route) {
+	
+	
+	Console.print('show route ' + route);
+
 	if (route == 'default') { route = 'waveform'; };
 	displayDisableAll();
 	displayMain.set('visible', true);

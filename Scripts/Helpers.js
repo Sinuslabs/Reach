@@ -1,6 +1,10 @@
 function updateParameterWithLabel(parameter, value, label) {
-	STATE.value = Math.round(value) + label;
-	STATE.parameter = parameter + ' | ' + Math.round(parseInt(value * 100)) + label;
+	
+	if (label != 'Hz') {
+		value = value * 100;
+	}
+	
+	STATE.parameter = parameter + ' | ' + Math.round(parseInt(value)) + label;
 	updateDisplay();
 }
 
@@ -57,6 +61,3 @@ function updateFreezeParameter(value) {
 	updateDisplay();
 }
 
-function showTempScreen(mainRoute) {
-	
-}
