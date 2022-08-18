@@ -44,7 +44,7 @@ Content.getComponent("knob_reverb_space").setControlCallback(onknob_reverb_space
 inline function onknob_reverb_spaceControl(component, value)
 {
 	Reverb.setAttribute(Reverb.RoomSize, value);
-	updateParameterWithPercent('SPACE', value);
+	updateParameterWithLabel('SPACE', value, '%');
 };
 
 
@@ -52,7 +52,7 @@ Content.getComponent("knob_reverb_damping").setControlCallback(onknob_reverb_dam
 inline function onknob_reverb_dampingControl(component, value)
 {
 	Reverb.setAttribute(Reverb.Damping, value);
-	updateParameterWithPercent('DAMPING', value);
+	updateParameterWithLabel('DAMPING', value, '%');
 };
 
 
@@ -60,7 +60,7 @@ Content.getComponent("knob_reverb_stereo").setControlCallback(onknob_reverb_ster
 inline function onknob_reverb_stereoControl(component, value)
 {
 	Reverb.setAttribute(Reverb.Width, value);
-	updateParameterWithPercent('STEREO', value);
+	updateParameterWithLabel('STEREO', value, '%');
 };
 
 
@@ -68,7 +68,7 @@ Content.getComponent("knob_reverb_mix").setControlCallback(onknob_reverb_mixCont
 inline function onknob_reverb_mixControl(component, value)
 {
 	Reverb.setAttribute(Reverb.DryLevel, value);
-	updateParameterWithPercent('REVERB DRY', value);
+	updateParameterWithLabel('REVERB DRY', value, '%');
 };
 
 Content.getComponent("button_freeze").setControlCallback(onbutton_freezeControl);
@@ -82,7 +82,7 @@ Content.getComponent("knob_reverb_drywet").setControlCallback(onknob_reverb_dryw
 inline function onknob_reverb_drywetControl(component, value)
 {
 	Reverb.setAttribute(Reverb.WetLevel, value);
-	updateParameterWithPercent('REVERB WET', value);
+	updateParameterWithLabel('REVERB WET', value, '%');
 };
 
 // DEGRADE
@@ -105,6 +105,46 @@ inline function onknob_degrade_rateControl(component, value)
 	Degrade.setAttribute(Degrade.Rate, value);
 	updateParameterWithFixedSampleRate('SAMPLE RATE', value);
 };
+
+
+Content.getComponent("knob_degrade_mix").setControlCallback(onknob_degrade_mixControl);
+inline function onknob_degrade_mixControl(component, value)
+{
+	Degrade.setAttribute(Degrade.PostFilt, value);
+	updateParameterWithLabel('POST FILTER', value, '%');
+};
+
+// FLAIR
+
+const var Flair = Synth.getEffect("Saturator1");
+
+Content.getComponent("knob_flair_flair").setControlCallback(onknob_flair_flairControl);
+inline function onknob_flair_flairControl(component, value)
+{
+	Flair.setAttribute(Flair.Saturation, value);
+	updateParameterWithLabel('FLAIR', value, '%');
+};
+
+// FILTER
+
+const var Filter = Synth.getEffect("Parametriq EQ1");
+Content.getComponent("knob_filter_freq").setControlCallback(onknob_filter_freqControl);
+
+inline function onknob_filter_freqControl(component, value)
+{
+	Filter.setAttribute(Filter.Freq , value);
+	updateParameterWithLabel('FREQUENCY', value, 'Hz');
+};
+
+
+Content.getComponent("knob_filter_q").setControlCallback(onknob_filter_qControl);
+inline function onknob_filter_qControl(component, value)
+{
+	Filter.setAttribute(Filter.Q, value);
+	updateParameterWithLabel('Q', value, '');
+};
+
+
 
 
 
