@@ -56,3 +56,7 @@ function updateFreezeParameter(value) {
 	}	
 	updateDisplay();
 }
+
+function showTempScreen(mainRoute) {
+	
+}

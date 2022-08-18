@@ -142,7 +142,30 @@ inline function onknob_filter_qControl(component, value)
 {
 	Filter.setAttribute(Filter.Q, value);
 	updateParameterWithLabel('Q', value, '');
+}
+
+
+Content.getComponent("knob_filter_gain").setControlCallback(onknob_filter_gainControl);
+inline function onknob_filter_gainControl(component, value)
+{
+	Filter.setAttribute(Filter.Gain, value);
+	Console.print(parseInt(value));
+	updateParameterWithLabel('GAIN', value, 'dB');
 };
+
+
+
+
+Content.getComponent("combo_filter_type").setControlCallback(oncombo_filter_typeControl);
+inline function oncombo_filter_typeControl(component, value)
+{
+	Console.print(value - 1);
+	Filter.setAttribute(Filter.Type, value - 1);
+};
+
+
+
+
 
 
 
