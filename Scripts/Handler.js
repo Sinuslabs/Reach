@@ -130,6 +130,7 @@ inline function onbutton_toggle_degradeControl(component, value)
 {
 	Degrade.setAttribute('Enabled', value);
 	panel_degrade.set('enabled', value);
+	icon_panel_degrade.repaint();
 };
 
 Content.getComponent("knob_degrade_bit").setControlCallback(onknob_degrade_bitControl);
@@ -185,8 +186,9 @@ const var panel_flair = Content.getComponent("panel_flair");
 
 inline function onbutton_toggle_flairControl(component, value)
 {
-	Flair.setAttribute('Bypass', value);
+	Flair.setAttribute('Enabled', value);
 	panel_flair.set('enabled', value);
+	icon_panel_flair.repaint();
 };
 
 Content.getComponent("knob_flair_flair").setControlCallback(onknob_flair_flairControl);
