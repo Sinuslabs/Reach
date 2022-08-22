@@ -40,16 +40,7 @@ var saveWetLevel = 0;
 
 inline function onbutton_toggle_reverbControl(component, value)
 {
-	var newWetLevel  = 0;
-	if (value == 1.0) {
-		saveWetLevel = Reverb.getAttribute(Reverb.WetLevel);		
-	} else {
-		newWetLevel = saveWetLevel;
-	}
-	
-	Reverb.setAttribute('Bypass', value);
-	// Reverb specific fix :(
-	Reverb.setAttribute(Reverb.WetLevel, newWetLevel);
+	Reverb.setBypassed(!value);
 	panel_reverb.set('enabled', value);
 };
 
@@ -128,7 +119,8 @@ const var panel_degrade = Content.getComponent("panel_degrade");
 
 inline function onbutton_toggle_degradeControl(component, value)
 {
-	Degrade.setAttribute('Enabled', value);
+	//Degrade.setAttribute('Enabled', value);
+	Degrade.setBypassed(!value);
 	panel_degrade.set('enabled', value);
 	icon_panel_degrade.repaint();
 };
@@ -186,7 +178,7 @@ const var panel_flair = Content.getComponent("panel_flair");
 
 inline function onbutton_toggle_flairControl(component, value)
 {
-	Flair.setAttribute('Enabled', value);
+	Flair.setBypassed(!value);
 	panel_flair.set('enabled', value);
 	icon_panel_flair.repaint();
 };
@@ -215,7 +207,7 @@ const var panel_filter = Content.getComponent("panel_filter");
 
 inline function onbutton_toggle_filterControl(component, value)
 {
-	Filter.setAttribute('Bypass', value);
+	Fiter.setBypassed(!value);
 	panel_filter.set('enabled', value);
 };
 
