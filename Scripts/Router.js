@@ -8,6 +8,7 @@ function displayDisableAll() {
 	for (display in displayRoutes) {
 		display.set('visible', false);
 	}
+	screenTimer.stopTimer();
 }
 
 function displayShow(route) {
