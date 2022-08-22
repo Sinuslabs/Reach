@@ -8,7 +8,6 @@ function displayDisableAll() {
 	for (display in displayRoutes) {
 		display.set('visible', false);
 	}
-	screenTimer.stopTimer();
 }
 
 function displayShow(route) {
@@ -18,6 +17,7 @@ function displayShow(route) {
 		var displayName = display.get('text').replace('display_');
 		if (route == displayName) {
 			display.set('visible', true);
+			screenTimer.stopTimer();
 			CURRENT_ROUTE = displayName;
 		} else if (route == 'main') {
 			displayShowMain('waveform');
