@@ -207,7 +207,7 @@ const var panel_filter = Content.getComponent("panel_filter");
 
 inline function onbutton_toggle_filterControl(component, value)
 {
-	Fiter.setBypassed(!value);
+	Filter.setBypassed(!value);
 	panel_filter.set('enabled', value);
 };
 
