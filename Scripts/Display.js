@@ -12,7 +12,8 @@ const screenTimer = Engine.createTimerObject();
 screenTimer.setTimerCallback(showMainScreen);
 
 inline function showMainScreen() {
-	displayShow('main');
+	displayShow('main');	
+	Console.print('stopTimer');
 	screenTimer.stopTimer();
 }
 
