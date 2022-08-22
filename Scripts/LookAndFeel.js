@@ -29,7 +29,6 @@ icon_panel_degrade.setPaintRoutine(function(g) {
 
 icon_panel_flair.setPaintRoutine(function(g) {
 	var enabled = getBoolean(getPanelState('panel_flair'));
-	Console.print('enabled: ' + enabled);
 	g.setColour(getIconColor(enabled));
 	g.drawPath(Paths.icons['flair'], [1, 1, 30, 20], 2);
 });
