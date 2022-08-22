@@ -61,3 +61,16 @@ function updateFreezeParameter(value) {
 	updateDisplay();
 }
 
+function getIconColor(enabled) {
+	if (enabled) { return '0x6B6B6B' }
+	else { return '0xA3A3A3'}
+}
+
+function getPanelState(panelName) {
+	var panel = Content.getComponent(panelName);
+	return panel.get('enabled');
+}
+
+function getBoolean(value) {
+	if (value == 1) {return true} else {return false}
+}

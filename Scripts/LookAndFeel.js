@@ -22,12 +22,15 @@ icon_panel_freeze.setPaintRoutine(function(g) {
 });
 
 icon_panel_degrade.setPaintRoutine(function(g) {
-	g.setColour('0x6B6B6B');
+	var enabled = getBoolean(getPanelState('panel_degrade'));
+	g.setColour(getIconColor(enabled));
 	g.drawPath(Paths.icons['degrade'], [1, 1, 20, 20], 2);
 });
 
 icon_panel_flair.setPaintRoutine(function(g) {
-	g.setColour('0x6B6B6B');
+	var enabled = getBoolean(getPanelState('panel_flair'));
+	Console.print('enabled: ' + enabled);
+	g.setColour(getIconColor(enabled));
 	g.drawPath(Paths.icons['flair'], [1, 1, 30, 20], 2);
 });
 
