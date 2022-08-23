@@ -1,18 +1,26 @@
 Server.setBaseURL('https://sinuslabs.io/');
 Server.setHttpHeader('Authorization: Basic ' + AUTH_KEY);
 
-Console.print(AUTH_KEY);
+// NOT FOUND LABEL
+const var label_not_found = Content.getComponent("label_not_found");
 
-function activateLicense(status, obj) {
-	Console.print('STATUS: '+status);
-
-    if(status == 200) 
+function getActivation(status, obj) {
+	if (status == 404) {
+		label_not_found.set('visible', true);
+	}
+	
+    if(status == 200) {
 		var data = {object: obj, date: Engine.getSystemTime(true)};
 		var machineId = FileSystem.getSystemId();
 		var appDateDir = FileSystem.getFolder(FileSystem.UserPresets).getParentDirectory();
 		appDateDir.getChildFile("license.dat").writeEncryptedObject(data, machineId);
 		Console.print('ACTIVATED');
 		STATE.ACTIVATED = true;
+		// update panels
+		panel_non_activated.set('visible', !STATE.ACTIVATED);
+		panel_non_activated.repaint();
+		label_status_main.set('visible', !STATE.ACTIVATED);
+	}
 };
 
 function getActivationStatus() {
@@ -22,8 +30,8 @@ function getActivationStatus() {
 
 function activateLicense(KEY) {
 	Console.print('key is: ' + KEY);
-
-	//Server.callWithGET('wp-json/lmfwc/v2/licenses/validate/'+KEY, {}, activateLicense);		
+	Console.print('what is this?');
+	Server.callWithGET('wp-json/lmfwc/v2/licenses/validate/'+KEY, {}, getActivation);		
 }
 
 function getLocalLicense() {

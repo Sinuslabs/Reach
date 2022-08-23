@@ -14,14 +14,14 @@ Content.getComponent("button_activate").setControlCallback(onbutton_activateCont
 const var label_serial_key = Content.getComponent("label_serial_key");
 inline function onbutton_activateControl(component, value)
 {
-	var userKey = label_serial_key.get('text');
-	Console.print(userKey);
-	activateLicense(userKey);
+	if (value == 1.0) {
+		var userKey = label_serial_key.get('text');		
+		activateLicense(userKey);
+	}
 };
 
 // Account License Panel
 const var panel_non_activated = Content.getComponent("panel_non_activated");
-Console.print('set panel');
 panel_non_activated.set('visible', !STATE.ACTIVATED);
 panel_non_activated.repaint();
 
