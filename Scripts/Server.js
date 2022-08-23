@@ -1,0 +1,1 @@
+Console.print('sever fetch activation status');

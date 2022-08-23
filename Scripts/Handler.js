@@ -20,6 +20,15 @@ inline function onbutton_titleControl(component, value)
 	}
 };
 
+
+Content.getComponent("button_x1").setControlCallback(onbutton_xControl);
+inline function onbutton_xControl(component, value)
+{
+	displayShowMain('default');
+};
+
+
+
 Content.getComponent("combo_size").setControlCallback(oncombo_sizeControl);
 inline function oncombo_sizeControl(component, value)
 {

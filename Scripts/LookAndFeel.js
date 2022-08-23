@@ -43,7 +43,11 @@ const laf = Engine.createGlobalScriptLookAndFeel();
 
 laf.registerFunction('drawToggleButton', function(g, obj) {	
 	var a = obj.area;
-	if (obj.text.indexOf('icon') != -1) {
+	if (obj.text.indexOf('icon-outline-') != -1) {
+		g.setColour(obj.itemColour1);
+		var icon = obj.text.replace('icon-outline-');
+		g.drawPath(Paths.icons[icon], [this.getHeight / 2, this.getWidth / 2, parseInt(a[2]), parseInt(a[3])], 2);
+	} else if (obj.text.indexOf('icon') != -1) {
 		var icon = obj.text.replace('icon-');
 		g.fillPath(Paths.icons[icon], [this.getHeight / 2, this.getWidth / 2, parseInt(a[2]), parseInt(a[3])]);
 	} else if (obj.text.indexOf("label-") != -1) {
