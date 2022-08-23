@@ -1,21 +1,6 @@
 var STATE = {
-	parameter: 'TEST',
+	parameter: 'NONE',
 	value: '50%',
 	freezeMode: false,
-	ACTIVATED: false,
+	ACTIVATED: true,
 };
-
-function getDisplayParameter() {return {'parameter': parameter, 'value': value};}
-
-function setFreezeMode(freezeMode) {
-	STATE.freezeMode = freezeMode;
-}
-
-function getFreezeMode() {return STATE.freezeMode;}
-
-
-function setActivated(status) {
-	STATE.ACTIVATED = status;
-}
-
-function getActivated() {return STATE.ACTIVATED;}
