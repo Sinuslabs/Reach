@@ -4,7 +4,7 @@ var KEY = 'SLDBCD-22CC-142B-42C4';
 
 
 Server.setBaseURL('https://sinuslabs.io/');
-Server.setHttpHeader('Authorization: Basic Y2tfNDE2NGIxYjg2NDgxYmUyOGI4ZGNkZjk4MzEzN2QxZGJkMTM0NjA4Mzpjc19kYzgyODQzYjZmYjk0ZTRmMWRmZDFkZmFiOWQwMTkyN2MyMDIwZjA1');
+Server.setHttpHeader('Authorization: Basic '+CONFIG.AUTH_KEY);
 
 function activateLicense(status, obj) {
     if(status == 200) 
