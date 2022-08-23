@@ -38,8 +38,6 @@ inline function onbutton_titleControl(component, value)
 };
 
 // X Button
-
-
 Content.getComponent("button_x2").setControlCallback(onbutton_x2Control);
 Content.getComponent("button_x1").setControlCallback(onbutton_x2Control);
 inline function onbutton_x2Control(component, value)
@@ -47,17 +45,7 @@ inline function onbutton_x2Control(component, value)
 	displayShowMain('default');
 };
 
-
-
-
-Content.getComponent("button_x1").setControlCallback(onbutton_xControl);
-inline function onbutton_xControl(component, value)
-{
-	displayShowMain('default');
-};
-
-
-
+// scaling combo box
 Content.getComponent("combo_size").setControlCallback(oncombo_sizeControl);
 inline function oncombo_sizeControl(component, value)
 {
