@@ -18,7 +18,7 @@ icon_panel_logo.setPaintRoutine(function(g) {
 
 icon_panel_freeze2.setPaintRoutine(function(g) {
 	g.setColour('0xD4D4D4');
-	g.fillPath(Paths.icons['freeze'], [0, 0, 40, 40]);
+	g.fillPath(Paths.icons['freeze'], [0, 0, 30, 30]);
 });
 
 icon_panel_degrade.setPaintRoutine(function(g) {

@@ -14,8 +14,8 @@ function getActivation(status, obj) {
 		var machineId = FileSystem.getSystemId();
 		var appDateDir = FileSystem.getFolder(FileSystem.UserPresets).getParentDirectory();
 		appDateDir.getChildFile("license.dat").writeEncryptedObject(data, machineId);
-		Console.print('ACTIVATED');
 		STATE.ACTIVATED = true;
+		
 		// update panels
 		panel_non_activated.set('visible', !STATE.ACTIVATED);
 		panel_non_activated.repaint();
@@ -29,8 +29,6 @@ function getActivationStatus() {
 }
 
 function activateLicense(KEY) {
-	Console.print('key is: ' + KEY);
-	Console.print('what is this?');
 	Server.callWithGET('wp-json/lmfwc/v2/licenses/validate/'+KEY, {}, getActivation);		
 }
 
