@@ -264,6 +264,26 @@ inline function oncombo_filter_typeControl(component, value)
 	showTempScreen('filter');
 };
 
+// IO
+
+const var InputGain = Synth.getEffect("Simple Gain1");
+const var OutputGain = Synth.getEffect("Simple Gain2");
+
+Content.getComponent("knob_io_in").setControlCallback(onknob_io_inControl);
+inline function onknob_io_inControl(component, value)
+{
+	
+	InputGain.setAttribute('Gain', value);
+	updateParameterWithDb('Input Gain', Math.floor(value * 100) / 100);
+};
+
+Content.getComponent("knob_io_out").setControlCallback(onknob_io_outControl);
+inline function onknob_io_outControl(component, value)
+{
+	OutputGain.setAttribute('Gain', value);
+	updateParameterWithDb('Output Gain', Math.floor(value * 100) / 100);
+};
+
 
 
 

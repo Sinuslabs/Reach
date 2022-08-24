@@ -8,6 +8,12 @@ function updateParameterWithLabel(parameter, value, label) {
 	updateDisplay();
 }
 
+function updateParameterWithDb(parameter, value) {
+	
+	STATE.parameter = parameter + ' | ' + value + 'dB';
+	updateDisplay();
+}
+
 function updateParameterWithBit(parameter, value) {
 	var index = Math.round(value * 10) - 4;
 	var bitMapping = [
