@@ -12,7 +12,7 @@ ReverbAnimationPanel.setPaintRoutine(function(g)
 {
     g.setColour(Colours.white);
     
-    g.drawEllipse([1, 1, this.getWidth() - 2, this.getHeight() - 2], AN_STATE.outterThickness);
+    g.drawEllipse([5, 5, this.getWidth() - 10, this.getHeight() - 10], AN_STATE.outterThickness);
         
     var radius = this.getWidth() / 2 - 10 * this.getValue();
     var diameter;
@@ -23,6 +23,6 @@ ReverbAnimationPanel.setPaintRoutine(function(g)
         diameter = (radius * 2 / 4 * i + 10);
         pos = this.getWidth() / 2 - diameter / 2;
         if (pos > 0)
-            g.drawEllipse([pos + 1, pos + 1, diameter - 2, diameter - 2], AN_STATE.innerThickness);
+            g.drawEllipse([pos + 5, pos + 5, diameter - 10, diameter - 10], AN_STATE.innerThickness);
     } 
 });
