@@ -57,7 +57,8 @@ function updateFreezeParameter(value) {
 		STATE.freezeMode = true;
 	} else {
 		STATE.freezeMode = false;
-	}	
+	}
+	icon_panel_freeze2.set('visible', !STATE.freezeMode);
 	updateDisplay();
 }
 

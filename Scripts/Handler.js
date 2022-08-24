@@ -60,21 +60,15 @@ const var Reverb = Synth.getEffect("Simple Reverb1");
 // BYPASS
 Content.getComponent("button_toggle_reverb").setControlCallback(onbutton_toggle_reverbControl);
 const var panel_reverb = Content.getComponent("panel_reverb");
-
-// fix for no 100% reverb disable.
-var saveWetLevel = 0;
-
 inline function onbutton_toggle_reverbControl(component, value)
 {
 	Reverb.setBypassed(!value);
 	panel_reverb.set('enabled', value);
 };
 
-Content.getComponent("knob_reverb_space").setControlCallback(onknob_reverb_spaceControl);
-inline function onknob_reverb_spaceControl(component, value)
-{
-	Console.print('freeeeze ' + value);
-};
+
+
+
 
 Content.getComponent("knob_reverb_space").setControlCallback(onknob_reverb_spaceControl);
 inline function onknob_reverb_spaceControl(component, value)
@@ -117,12 +111,14 @@ inline function onknob_reverb_mixControl(component, value)
 	showTempScreen('reverb');
 };
 
+const var panel_freeze_shadow = Content.getComponent("panel_freeze_shadow");
 Content.getComponent("button_freeze").setControlCallback(onbutton_freezeControl);
 inline function onbutton_freezeControl(component, value)
 {
+	panel_freeze_shadow.set('visible', value);
 	Reverb.setAttribute(Reverb.FreezeMode, value);
 	updateFreezeParameter(value);
-	showTempScreen('reverb');
+	
 };
 
 Content.getComponent("knob_reverb_drywet").setControlCallback(onknob_reverb_drywetControl);
