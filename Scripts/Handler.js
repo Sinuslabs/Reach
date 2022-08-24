@@ -37,6 +37,22 @@ inline function onbutton_titleControl(component, value)
 	}
 };
 
+// Website
+Content.getComponent("button_website").setControlCallback(onpanel_githubControl);
+inline function onpanel_githubControl(component, value)
+{
+	if (value) Engine.openWebsite('https://sinuslabs.io');
+};
+
+// Github
+Content.getComponent("button_github").setControlCallback(onButton3Control);
+inline function onButton3Control(component, value)
+{ 
+	if (value) Engine.openWebsite('https://github.com/Sinuslabs/Reach');
+};
+
+
+
 // X Button
 Content.getComponent("button_x2").setControlCallback(onbutton_x2Control);
 Content.getComponent("button_x1").setControlCallback(onbutton_x2Control);
@@ -66,10 +82,6 @@ inline function onbutton_toggle_reverbControl(component, value)
 	panel_reverb.set('enabled', value);
 };
 
-
-
-
-
 Content.getComponent("knob_reverb_space").setControlCallback(onknob_reverb_spaceControl);
 inline function onknob_reverb_spaceControl(component, value)
 {
@@ -88,7 +100,7 @@ inline function onknob_reverb_dampingControl(component, value)
 	updateParameterWithLabel('DAMPING', value, '%');
 	showTempScreen('reverb');
 	
-	AN_STATE.outterThickness = value * 10;
+	AN_STATE.outterThickness = (value + 0.2) * 10 ;
 	ReverbAnimationPanel.repaint();
 };
 
@@ -99,7 +111,7 @@ inline function onknob_reverb_stereoControl(component, value)
 	updateParameterWithLabel('STEREO', value, '%');
 	showTempScreen('reverb');
 	
-	AN_STATE.limit = value * 40;
+	AN_STATE.limit = value * 14;
 	ReverbAnimationPanel.repaint();
 };
 
@@ -283,11 +295,3 @@ inline function onknob_io_outControl(component, value)
 	OutputGain.setAttribute('Gain', value);
 	updateParameterWithDb('Output Gain', Math.floor(value * 100) / 100);
 };
-
-
-
-
-
-
-
-

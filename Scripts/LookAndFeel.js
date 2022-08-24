@@ -48,21 +48,19 @@ laf.registerFunction('drawToggleButton', function(g, obj) {
 		obj.text = obj.text.replace('toggle-');
 		if (obj.text.indexOf('rounded-') != -1) {
 			obj.text = obj.text.replace('rounded-');	
-			
-			
 			g.fillRoundedRectangle(a, 4);
 		} else {
 			g.fillRect(a);
 		}
 		
 		g.addNoise({
-			alpha: 0.01,
+			alpha: 0.02,
 			monochromatic: true,
 			scaleFactor: 10.0,
 			area: a,
 		});	
-		g.setColour(obj.textColour);
-		g.setFont('inter-semi', 20.0);
+		obj.value == 1 ? g.setColour(obj.itemColour2) : g.setColour(obj.textColour);
+		g.setFont('space', 32.0);
 		g.drawAlignedText(obj.text, a, 'centred');
 	}
 	if (obj.text.indexOf('icon-outline-') != -1) {
