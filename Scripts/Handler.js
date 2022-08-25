@@ -127,7 +127,7 @@ const var panel_freeze_shadow = Content.getComponent("panel_freeze_shadow");
 Content.getComponent("button_freeze").setControlCallback(onbutton_freezeControl);
 inline function onbutton_freezeControl(component, value)
 {
-	panel_freeze_shadow.set('visible', value);
+	panel_freeze_shadow.set('visible', !value);
 	Reverb.setAttribute(Reverb.FreezeMode, value);
 	updateFreezeParameter(value);
 	
@@ -153,7 +153,6 @@ const var panel_degrade = Content.getComponent("panel_degrade");
 
 inline function onbutton_toggle_degradeControl(component, value)
 {
-	//Degrade.setAttribute('Enabled', value);
 	Degrade.setBypassed(!value);
 	panel_degrade.set('enabled', value);
 	icon_panel_degrade.repaint();
