@@ -37,6 +37,31 @@ inline function onbutton_titleControl(component, value)
 	}
 };
 
+// Preset Browser Button
+
+Content.getComponent("button_presetBrowser").setControlCallback(onbutton_presetBrowserControl);
+const var label_preset_browser = Content.getComponent("label_preset_browser");
+inline function onbutton_presetBrowserControl(component, value)
+{
+	if (Engine.getCurrentUserPresetName() == '') {
+		label_preset_browser.set('text', 'Blackhole');
+	} else {
+		label_preset_browser.set('text', Engine.getCurrentUserPresetName());
+	}
+	value ? displayShow('presetBrowser') : displayShowMain();
+};
+
+
+Content.getComponent("FloatingTile2").setControlCallback(onFloatingTile2Control);
+inline function onFloatingTile2Control(component, value)
+{
+	Console.print(value);
+
+};
+
+
+
+
 // Website
 Content.getComponent("button_website").setControlCallback(onpanel_githubControl);
 inline function onpanel_githubControl(component, value)
@@ -113,14 +138,6 @@ inline function onknob_reverb_stereoControl(component, value)
 	
 	AN_STATE.limit = value * 14;
 	ReverbAnimationPanel.repaint();
-};
-
-Content.getComponent("knob_reverb_mix").setControlCallback(onknob_reverb_mixControl);
-inline function onknob_reverb_mixControl(component, value)
-{
-	Reverb.setAttribute(Reverb.DryLevel, value);
-	updateParameterWithLabel('REVERB DRY', value, '%');
-	showTempScreen('reverb');
 };
 
 const var panel_freeze_shadow = Content.getComponent("panel_freeze_shadow");

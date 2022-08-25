@@ -5,6 +5,8 @@ Server.setHttpHeader('Authorization: Basic ' + AUTH_KEY);
 const var label_not_found = Content.getComponent("label_not_found");
 
 function getActivation(status, obj) {
+	Console.print(status);
+
 	if (status == 404) {
 		label_not_found.set('visible', true);
 	}
