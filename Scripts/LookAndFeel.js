@@ -43,7 +43,11 @@ const laf = Engine.createGlobalScriptLookAndFeel();
 
 laf.registerFunction('drawToggleButton', function(g, obj) {	
 	var a = obj.area;
-	obj.value == 1 ? g.setColour(obj.bgColour) : g.setColour(obj.itemColour1);
+	obj.value == 1 ? g.setColour(obj.itemColour1) : g.setColour(obj.bgColour);
+	
+	if (obj.over == 1) {
+		g.setColour(obj.itemColour1);
+	}
 	if (obj.text.indexOf('toggle-') != -1) {
 		obj.text = obj.text.replace('toggle-');
 		if (obj.text.indexOf('rounded-') != -1) {
@@ -59,7 +63,7 @@ laf.registerFunction('drawToggleButton', function(g, obj) {
 			scaleFactor: 10.0,
 			area: a,
 		});	
-		obj.value == 1 ? g.setColour(obj.itemColour2) : g.setColour(obj.textColour);
+		obj.value == 1 ? g.setColour(obj.textColour) : g.setColour(obj.itemColour2);
 		g.setFont('space', 32.0);
 		g.drawAlignedText(obj.text, a, 'centred');
 	}
