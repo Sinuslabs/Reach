@@ -13,7 +13,6 @@ screenTimer.setTimerCallback(showMainScreen);
 
 inline function showMainScreen() {
 	displayShow('main');	
-	Console.print('stopTimer');
 	screenTimer.stopTimer();
 }
 

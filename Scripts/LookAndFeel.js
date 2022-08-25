@@ -43,16 +43,33 @@ const laf = Engine.createGlobalScriptLookAndFeel();
 
 laf.registerFunction('drawToggleButton', function(g, obj) {	
 	var a = obj.area;
-	obj.value == 1 ? g.setColour(obj.itemColour1) : g.setColour(obj.bgColour);
 	
-	if (obj.over == 1) {
-		g.setColour(obj.itemColour1);
+	if (obj.text.indexOf('button-') != -1) {
+		obj.text = obj.text.replace('button-');
+		obj.over == 1 ? g.setColour(obj.itemColour1) : g.setColour(obj.bgColour);
+		g.fillRect(a);
+		g.setColour(obj.textColour);
+		g.setFont('space', 32.0);
+		g.drawAlignedText(obj.text, a, 'centred');
 	}
 	if (obj.text.indexOf('toggle-') != -1) {
+		obj.value == 1 ? g.setColour(obj.itemColour1) : g.setColour(obj.bgColour);
+		
+		if (obj.over == 1) {
+			g.setColour(obj.itemColour1);
+		}
 		obj.text = obj.text.replace('toggle-');
 		if (obj.text.indexOf('rounded-') != -1) {
-			obj.text = obj.text.replace('rounded-');	
+			obj.text = obj.text.replace('rounded-');
 			g.fillRoundedRectangle(a, 4);
+			if (obj.text.indexOf('icon-') != -1) {
+				if (obj.over == 1) {
+					g.setColour(obj.itemColour2);
+				}
+				obj.text = obj.text.replace('icon-');
+				obj.value == 1 ? g.setColour(obj.textColour) : g.setColour(obj.itemColour2);
+				g.fillPath(Paths.icons['freeze'], [20, 20, 40, 40]);
+			}
 		} else {
 			g.fillRect(a);
 		}
@@ -63,6 +80,7 @@ laf.registerFunction('drawToggleButton', function(g, obj) {
 			scaleFactor: 10.0,
 			area: a,
 		});	
+		
 		obj.value == 1 ? g.setColour(obj.textColour) : g.setColour(obj.itemColour2);
 		g.setFont('space', 32.0);
 		g.drawAlignedText(obj.text, a, 'centred');
@@ -76,6 +94,7 @@ laf.registerFunction('drawToggleButton', function(g, obj) {
 		g.fillPath(Paths.icons[icon], [this.getHeight / 2, this.getWidth / 2, parseInt(a[2]), parseInt(a[3])]);
 	} else if (obj.text.indexOf("label-") != -1) {
 		var text = obj.text.replace("label-");
+		g.setFont('inter-semi', 26);
 		g.drawAlignedText(text, a, "left");
 	} else if (obj.text.replace("text") != -1) {
 		var text = obj.text.replace("text-");
@@ -84,4 +103,24 @@ laf.registerFunction('drawToggleButton', function(g, obj) {
 });
 
 
+// override preset browser search bar to hide it
+laf.registerFunction("drawPresetBrowserSearchBar", function(g, obj)
+{});
 
+
+laf.registerFunction("drawPresetBrowserListItem", function(g, obj)
+{
+	var a = obj.area;
+
+    if(obj.selected)
+    {
+        g.setColour('0xFFDDDDDD');
+        g.fillRoundedRectangle(a, 0);
+        g.setColour('0x#FF000000');
+    } else {
+    	g.setColour(obj.textColour);	    
+    }
+   
+   	g.setFont('space', 32.0);
+    g.drawAlignedText(obj.text, [5, a[1], a[2], a[3]], "left");
+});
