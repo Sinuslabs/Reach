@@ -104,9 +104,7 @@ laf.registerFunction('drawToggleButton', function(g, obj) {
 
 
 // override preset browser search bar to hide it
-laf.registerFunction("drawPresetBrowserSearchBar", function(g, obj)
-{});
-
+laf.registerFunction("drawPresetBrowserSearchBar", function(g, obj){});
 
 laf.registerFunction("drawPresetBrowserListItem", function(g, obj)
 {
