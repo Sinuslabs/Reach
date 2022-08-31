@@ -8,7 +8,7 @@ vuMeterTimer.setTimerCallback(function()
 	var ch2 = getNormalizedPeakValue(Engine.getMasterPeakLevel(0));
 	
 	header_vumeter_ch1.setValue(ch2);
-	header_vumeter_ch2.setValue(ch2);
+	header_vumeter_ch2.setValue(ch1);
 });
 vuMeterTimer.startTimer(50);
 
