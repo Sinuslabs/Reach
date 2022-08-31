@@ -9,21 +9,21 @@
     <Control type="ScriptButton" id="button_preset_leftArrow" value="0.0"/>
     <Control type="ScriptButton" id="button_preset_rightArrow" value="0.0"/>
     <Control type="ScriptButton" id="button_presetBrowser" value="1.0"/>
-    <Control type="ScriptSlider" id="knob_reverb_space" value="0.8500000238418579"/>
-    <Control type="ScriptSlider" id="knob_reverb_damping" value="0.7200000286102295"/>
-    <Control type="ScriptSlider" id="knob_reverb_stereo" value="0.8299999833106995"/>
-    <Control type="ScriptSlider" id="knob_reverb_drywet" value="0.75"/>
+    <Control type="ScriptSlider" id="knob_reverb_space" value="0.2099999934434891"/>
+    <Control type="ScriptSlider" id="knob_reverb_damping" value="1.0"/>
+    <Control type="ScriptSlider" id="knob_reverb_stereo" value="0.0"/>
+    <Control type="ScriptSlider" id="knob_reverb_drywet" value="0.2599999904632568"/>
     <Control type="ScriptButton" id="button_freeze" value="0.0"/>
-    <Control type="ScriptSlider" id="knob_degrade_bit" value="0.699999988079071"/>
+    <Control type="ScriptSlider" id="knob_degrade_bit" value="0.7000000476837158"/>
     <Control type="ScriptSlider" id="knob_degrade_rate" value="0.5299999713897705"/>
     <Control type="ScriptSlider" id="knob_degrade_mix" value="1.0"/>
     <Control type="ScriptSlider" id="knob_flair_flair" value="1.0"/>
-    <Control type="ScriptSlider" id="knob_filter_gain" value="-12.59999942779541"/>
-    <Control type="ScriptSlider" id="knob_filter_freq" value="9934.0"/>
-    <Control type="ScriptSlider" id="knob_filter_q" value="0.0"/>
-    <Control type="ScriptComboBox" id="combo_filter_type" value="1.0"/>
-    <Control type="ScriptSlider" id="knob_io_in" value="1.700000047683716"/>
-    <Control type="ScriptSlider" id="knob_io_out" value="12.60000133514404"/>
+    <Control type="ScriptSlider" id="knob_filter_gain" value="-17.70000076293945"/>
+    <Control type="ScriptSlider" id="knob_filter_freq" value="5928.0"/>
+    <Control type="ScriptSlider" id="knob_filter_q" value="1.870000004768372"/>
+    <Control type="ScriptComboBox" id="combo_filter_type" value="4.0"/>
+    <Control type="ScriptSlider" id="knob_io_in" value="0.0"/>
+    <Control type="ScriptSlider" id="knob_io_out" value="0.0"/>
     <Control type="ScriptButton" id="button_website" value="0.0"/>
     <Control type="ScriptButton" id="button_github" value="0.0"/>
     <Control type="ScriptButton" id="button_x1" value="0.0"/>

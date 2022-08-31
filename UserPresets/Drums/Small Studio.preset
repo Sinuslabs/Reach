@@ -9,10 +9,10 @@
     <Control type="ScriptButton" id="button_preset_leftArrow" value="0.0"/>
     <Control type="ScriptButton" id="button_preset_rightArrow" value="0.0"/>
     <Control type="ScriptButton" id="button_presetBrowser" value="1.0"/>
-    <Control type="ScriptSlider" id="knob_reverb_space" value="0.4099999964237213"/>
-    <Control type="ScriptSlider" id="knob_reverb_damping" value="0.6499999761581421"/>
-    <Control type="ScriptSlider" id="knob_reverb_stereo" value="0.5899999737739563"/>
-    <Control type="ScriptSlider" id="knob_reverb_drywet" value="1.0"/>
+    <Control type="ScriptSlider" id="knob_reverb_space" value="0.2800000011920929"/>
+    <Control type="ScriptSlider" id="knob_reverb_damping" value="1.0"/>
+    <Control type="ScriptSlider" id="knob_reverb_stereo" value="0.1299999952316284"/>
+    <Control type="ScriptSlider" id="knob_reverb_drywet" value="0.25"/>
     <Control type="ScriptButton" id="button_freeze" value="0.0"/>
     <Control type="ScriptSlider" id="knob_degrade_bit" value="0.699999988079071"/>
     <Control type="ScriptSlider" id="knob_degrade_rate" value="0.5299999713897705"/>
@@ -22,8 +22,8 @@
     <Control type="ScriptSlider" id="knob_filter_freq" value="71.0"/>
     <Control type="ScriptSlider" id="knob_filter_q" value="0.0"/>
     <Control type="ScriptComboBox" id="combo_filter_type" value="2.0"/>
-    <Control type="ScriptSlider" id="knob_io_in" value="1.700000047683716"/>
-    <Control type="ScriptSlider" id="knob_io_out" value="12.60000133514404"/>
+    <Control type="ScriptSlider" id="knob_io_in" value="0.0"/>
+    <Control type="ScriptSlider" id="knob_io_out" value="0.0"/>
     <Control type="ScriptButton" id="button_website" value="0.0"/>
     <Control type="ScriptButton" id="button_github" value="0.0"/>
     <Control type="ScriptButton" id="button_x1" value="0.0"/>
@@ -32,9 +32,9 @@
     <Control type="ScriptButton" id="button_buy_reach" value="1.0"/>
     <Control type="ScriptButton" id="button_activate" value="0.0"/>
     <Control type="ScriptButton" id="button_toggle_reverb" value="1.0"/>
-    <Control type="ScriptButton" id="button_toggle_degrade" value="1.0"/>
+    <Control type="ScriptButton" id="button_toggle_degrade" value="0.0"/>
     <Control type="ScriptButton" id="button_toggle_flair" value="0.0"/>
-    <Control type="ScriptButton" id="button_toggle_filter" value="1.0"/>
+    <Control type="ScriptButton" id="button_toggle_filter" value="0.0"/>
   </Content>
   <MidiAutomation/>
   <MPEData Enabled="0"/>

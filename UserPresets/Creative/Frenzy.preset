@@ -9,21 +9,21 @@
     <Control type="ScriptButton" id="button_preset_leftArrow" value="0.0"/>
     <Control type="ScriptButton" id="button_preset_rightArrow" value="0.0"/>
     <Control type="ScriptButton" id="button_presetBrowser" value="1.0"/>
-    <Control type="ScriptSlider" id="knob_reverb_space" value="0.2599999904632568"/>
+    <Control type="ScriptSlider" id="knob_reverb_space" value="0.3499999940395355"/>
     <Control type="ScriptSlider" id="knob_reverb_damping" value="0.0"/>
     <Control type="ScriptSlider" id="knob_reverb_stereo" value="0.0"/>
-    <Control type="ScriptSlider" id="knob_reverb_drywet" value="0.7300000190734863"/>
+    <Control type="ScriptSlider" id="knob_reverb_drywet" value="0.4099999964237213"/>
     <Control type="ScriptButton" id="button_freeze" value="0.0"/>
-    <Control type="ScriptSlider" id="knob_degrade_bit" value="0.9000000357627869"/>
-    <Control type="ScriptSlider" id="knob_degrade_rate" value="0.60999995470047"/>
-    <Control type="ScriptSlider" id="knob_degrade_mix" value="1.0"/>
-    <Control type="ScriptSlider" id="knob_flair_flair" value="1.0"/>
-    <Control type="ScriptSlider" id="knob_filter_gain" value="7.000000476837158"/>
-    <Control type="ScriptSlider" id="knob_filter_freq" value="1501.0"/>
-    <Control type="ScriptSlider" id="knob_filter_q" value="2.130000114440918"/>
+    <Control type="ScriptSlider" id="knob_degrade_bit" value="0.5"/>
+    <Control type="ScriptSlider" id="knob_degrade_rate" value="0.6499999761581421"/>
+    <Control type="ScriptSlider" id="knob_degrade_mix" value="0.8600000143051147"/>
+    <Control type="ScriptSlider" id="knob_flair_flair" value="0.550000011920929"/>
+    <Control type="ScriptSlider" id="knob_filter_gain" value="5.200000286102295"/>
+    <Control type="ScriptSlider" id="knob_filter_freq" value="1063.0"/>
+    <Control type="ScriptSlider" id="knob_filter_q" value="0.6200000047683716"/>
     <Control type="ScriptComboBox" id="combo_filter_type" value="5.0"/>
-    <Control type="ScriptSlider" id="knob_io_in" value="1.700000047683716"/>
-    <Control type="ScriptSlider" id="knob_io_out" value="12.60000133514404"/>
+    <Control type="ScriptSlider" id="knob_io_in" value="3.500001430511475"/>
+    <Control type="ScriptSlider" id="knob_io_out" value="1.490116119384766e-6"/>
     <Control type="ScriptButton" id="button_website" value="0.0"/>
     <Control type="ScriptButton" id="button_github" value="0.0"/>
     <Control type="ScriptButton" id="button_x1" value="0.0"/>
