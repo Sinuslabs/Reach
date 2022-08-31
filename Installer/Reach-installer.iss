@@ -23,7 +23,7 @@ AllowNoIcons=yes
 ; Uncomment the following line to run in non administrative install mode (install for current user only.)
 ;PrivilegesRequired=lowest
 OutputDir=C:\Users\iso\Documents\GitHub\Reach\Installer\Images
-OutputBaseFilename=reach
+OutputBaseFilename=reach-installer-{#MyAppVersion}
 Compression=lzma
 SolidCompression=yes
 WizardStyle=modern
