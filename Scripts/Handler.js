@@ -51,16 +51,17 @@ inline function onbutton_presetBrowserControl(component, value)
 	value ? displayShow('presetBrowser') : displayShowMain();
 };
 
-
-Content.getComponent("FloatingTile2").setControlCallback(onFloatingTile2Control);
-inline function onFloatingTile2Control(component, value)
+Content.getComponent("button_preset_leftArrow").setControlCallback(onbutton_preset_leftArrowControl);
+inline function onbutton_preset_leftArrowControl(component, value)
 {
-	Console.print(value);
-
+	Engine.loadPreviousUserPreset(false);
 };
 
-
-
+Content.getComponent("button_preset_rightArrow").setControlCallback(onbutton_preset_rightArrowControl);
+inline function onbutton_preset_rightArrowControl(component, value)
+{
+	Engine.loadNextUserPreset(false);
+};
 
 // Website
 Content.getComponent("button_website").setControlCallback(onpanel_githubControl);
