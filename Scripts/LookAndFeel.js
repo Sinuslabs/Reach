@@ -87,10 +87,17 @@ laf.registerFunction('drawToggleButton', function(g, obj) {
 	}
 	if (obj.text.indexOf('icon-outline-') != -1) {
 		g.setColour(obj.itemColour1);
+		if (obj.over == 1) {
+			g.setColour(obj.itemColour2);
+		}
 		var icon = obj.text.replace('icon-outline-');
 		g.drawPath(Paths.icons[icon], [this.getHeight / 2, this.getWidth / 2, parseInt(a[2]), parseInt(a[3])], 2);
 	} else if (obj.text.indexOf('icon') != -1) {
 		var icon = obj.text.replace('icon-');
+		g.setColour(obj.bgColour);
+		if (obj.over == 1) {
+			g.setColour(obj.itemColour1);
+		}
 		g.fillPath(Paths.icons[icon], [this.getHeight / 2, this.getWidth / 2, parseInt(a[2]), parseInt(a[3])]);
 	} else if (obj.text.indexOf("label-") != -1) {
 		var text = obj.text.replace("label-");
