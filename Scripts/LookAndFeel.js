@@ -101,8 +101,12 @@ laf.registerFunction('drawToggleButton', function(g, obj) {
 		g.fillPath(Paths.icons[icon], [this.getHeight / 2, this.getWidth / 2, parseInt(a[2]), parseInt(a[3])]);
 	} else if (obj.text.indexOf("label-") != -1) {
 		var text = obj.text.replace("label-");
-		g.setFont('inter-semi', 26);
-		g.drawAlignedText(text, a, "left");
+		g.setFont('inter-semi', 32);
+		obj.value == 1 ? g.setColour(obj.textColour) : g.setColour(obj.itemColour1);
+		if (obj.over == 1) {
+			g.setColour(obj.itemColour2);
+		}
+		g.drawAlignedText(text, a, "centred");
 	} else if (obj.text.replace("text") != -1) {
 		var text = obj.text.replace("text-");
 		g.drawAlignedText(text, a, 'centred');
