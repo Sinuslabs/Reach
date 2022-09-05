@@ -164,7 +164,7 @@ inline function onknob_reverb_drywetControl(component, value)
 
 // DEGRADE
 const var Degrade = Synth.getEffect("Degrade1");
-
+const var SimpleGain3 = Synth.getEffect("Simple Gain3");
 // BYPASS
 Content.getComponent("button_toggle_degrade").setControlCallback(onbutton_toggle_degradeControl);
 const var panel_degrade = Content.getComponent("panel_degrade");
@@ -172,6 +172,7 @@ const var panel_degrade = Content.getComponent("panel_degrade");
 inline function onbutton_toggle_degradeControl(component, value)
 {
 	Degrade.setBypassed(!value);
+	SimpleGain3.setBypassed(!value);
 	panel_degrade.set('enabled', value);
 	icon_panel_degrade.repaint();
 };
