@@ -6,8 +6,6 @@
     <Control type="ScriptSlider" id="header_vumeter_ch2" value="0.0"/>
     <Control type="ScriptButton" id="button_title" value="1.0"/>
     <Control type="ScriptButton" id="button_logo" value="0.0"/>
-    <Control type="ScriptButton" id="button_preset_leftArrow" value="0.0"/>
-    <Control type="ScriptButton" id="button_preset_rightArrow" value="0.0"/>
     <Control type="ScriptButton" id="button_presetBrowser" value="1.0"/>
     <Control type="ScriptSlider" id="knob_reverb_space" value="0.2099999934434891"/>
     <Control type="ScriptSlider" id="knob_reverb_damping" value="0.1400000005960464"/>
@@ -22,7 +20,7 @@
     <Control type="ScriptSlider" id="knob_filter_freq" value="38.0"/>
     <Control type="ScriptSlider" id="knob_filter_q" value="0.0"/>
     <Control type="ScriptComboBox" id="combo_filter_type" value="2.0"/>
-    <Control type="ScriptSlider" id="knob_io_in" value="1.700000047683716"/>
+    <Control type="ScriptSlider" id="knob_io_in" value="0.0"/>
     <Control type="ScriptSlider" id="knob_io_out" value="0.0"/>
     <Control type="ScriptButton" id="button_website" value="0.0"/>
     <Control type="ScriptButton" id="button_github" value="0.0"/>
