@@ -63,6 +63,18 @@ inline function onbutton_preset_rightArrowControl(component, value)
 	Engine.loadNextUserPreset(false);
 };
 
+// SHORTCUT HANDLER
+const var panel_background = Content.getComponent("panel_background");
+
+panel_background.setKeyPressCallback(onBackgroundKeypress);
+inline function onBackgroundKeypress(key) {
+	
+	// CTRL + , -> Settings
+	if (key.cmd == true && key.keyCode == 44) CURRENT_ROUTE == 'account' ?  displayShowMain('default') : displayShow('account');
+	// ESC -> main Screen
+	if (key.keyCode == 27) displayShowMain('default');
+}
+
 // Website
 Content.getComponent("button_website").setControlCallback(onpanel_githubControl);
 inline function onpanel_githubControl(component, value)
