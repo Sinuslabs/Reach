@@ -22,6 +22,9 @@ function getActivation(status, obj) {
 		panel_non_activated.set('visible', !STATE.ACTIVATED);
 		panel_non_activated.repaint();
 		label_status_main.set('visible', !STATE.ACTIVATED);
+		
+		// Disable noise
+		NoiseGen.setBypassed(true);
 	}
 };
 
