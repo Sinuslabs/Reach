@@ -12,10 +12,11 @@ inline function onbutton_logoControl(component, value)
 // Activate Button
 Content.getComponent("button_activate").setControlCallback(onbutton_activateControl);
 const var label_serial_key = Content.getComponent("label_serial_key");
+var userKey;
 inline function onbutton_activateControl(component, value)
 {
 	if (value == 1.0) {
-		var userKey = label_serial_key.get('text');		
+		 userKey = label_serial_key.get('text');		
 		activateLicense(userKey);
 	}
 };
@@ -190,34 +191,32 @@ inline function onbutton_toggle_degradeControl(component, value)
 };
 
 Content.getComponent("knob_degrade_bit").setControlCallback(onknob_degrade_bitControl);
+
 inline function onknob_degrade_bitControl(component, value)
 {
 	Degrade.setAttribute(Degrade.Quant, value);
 	updateParameterWithBit('CRUSH', value);
 	showTempScreen('degrade');
-	
-	var min = 0.4;
-	var max = 1.0;
-	var range = max - min;
-	var normalized = (value - min) / range;
-	
+
 	DEGRADE_STATE.innerThickness = 8 + value * -7;
 	DegradeAnimationPanel.repaint();
 };
 
 Content.getComponent("knob_degrade_rate").setControlCallback(onknob_degrade_rateControl);
+const rateMin = 0.52;
+const rateMax = 0.64;
+const rateRange = rateMax - rateMin;
+
+
 inline function onknob_degrade_rateControl(component, value)
 {
 	Degrade.setAttribute(Degrade.Rate, value);
 	updateParameterWithFixedSampleRate('SAMPLE RATE', value);
 	showTempScreen('degrade');
 	
-	var min = 0.52;
-	var max = 0.64;
-	var range = max - min;
-	var normalized = (value - min) / range;
+	local rateNormalized = (value - rateMin) / rateRange;
 
-	DegradeAnimationPanel.setValue(component.get("max") + 1 - normalized * 20);
+	DegradeAnimationPanel.setValue(component.get("max") + 1 - rateNormalized * 20);
 	DegradeAnimationPanel.repaint();
 };
 
