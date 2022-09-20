@@ -5,14 +5,16 @@ Server.setHttpHeader('Authorization: Basic ' + AUTH_KEY);
 const var label_not_found = Content.getComponent("label_not_found");
 
 function getActivation(status, obj) {
-	Console.print(status);
+	Console.print(obj.data.productId);
 
-	if (status == 404) {
+	if (status == 404 || obj.data.productId != 422) {
 		label_not_found.set('visible', true);
+		return;
 	}
 	
     if(status == 200) {
 		var data = {object: obj, date: Engine.getSystemTime(true)};
+		Console.print(trace(data));
 		var machineId = FileSystem.getSystemId();
 		var appDateDir = FileSystem.getFolder(FileSystem.UserPresets).getParentDirectory();
 		appDateDir.getChildFile("license.dat").writeEncryptedObject(data, machineId);
@@ -34,7 +36,7 @@ function getActivationStatus() {
 }
 
 function activateLicense(KEY) {
-	Server.callWithGET('wp-json/lmfwc/v2/licenses/validate/'+KEY, {}, getActivation);		
+	Server.callWithGET('wp-json/lmfwc/v2/licenses/activate/'+KEY, {}, getActivation);		
 }
 
 function getLocalLicense() {
