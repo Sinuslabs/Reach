@@ -2,6 +2,7 @@
 Content.getComponent("button_logo").setControlCallback(onbutton_logoControl);
 inline function onbutton_logoControl(component, value)
 {
+
 	if (CURRENT_ROUTE != 'account') {
 		displayShow('account');		
 	} else {
@@ -39,18 +40,38 @@ inline function onbutton_titleControl(component, value)
 };
 
 // Preset Browser Button
-
-Content.getComponent("button_presetBrowser").setControlCallback(onbutton_presetBrowserControl);
+const presetBrowserButton = Content.getComponent("button_presetBrowser")
+presetBrowserButton.setControlCallback(onbutton_presetBrowserControl);
 const var label_preset_browser = Content.getComponent("label_preset_browser");
 inline function onbutton_presetBrowserControl(component, value)
 {
+	
+	Console.print('value: ' + value);
+	
+	if (value) {
+		STATE.presetBrowserOpen = true;
+		displayShow('presetBrowser');
+	} else {
+		STATE.presetBrowserOpen = false;
+		displayShowMain();
+	}
+	
+};
+
+
+inline function onButton1Control(component, value)
+{
+	Console.print('toggle '+ value);
+
 	if (Engine.getCurrentUserPresetName() == '') {
 		label_preset_browser.set('text', 'Blackhole');
 	} else {
 		label_preset_browser.set('text', Engine.getCurrentUserPresetName());
 	}
-	value ? displayShow('presetBrowser') : displayShowMain();
 };
+
+Content.getComponent("Button1").setControlCallback(onButton1Control);
+
 
 Content.getComponent("button_preset_leftArrow").setControlCallback(onbutton_preset_leftArrowControl);
 inline function onbutton_preset_leftArrowControl(component, value)
@@ -95,6 +116,15 @@ inline function onButton3Control(component, value)
 // X Button
 Content.getComponent("button_x2").setControlCallback(onbutton_x2Control);
 Content.getComponent("button_x1").setControlCallback(onbutton_x2Control);
+Content.getComponent("button_x3").setControlCallback(onbutton_closePreset_Control);;
+
+inline function onbutton_closePreset_Control(component, value)
+{
+	presetBrowserButton.setValue(0);
+	STATE.presetBrowserOpen = false;
+	displayShowMain('default');
+};
+
 inline function onbutton_x2Control(component, value)
 {
 	displayShowMain('default');
@@ -210,7 +240,6 @@ const rateRange = rateMax - rateMin;
 
 inline function onknob_degrade_rateControl(component, value)
 {
-	Degrade.setAttribute(Degrade.Rate, value);
 	updateParameterWithFixedSampleRate('SAMPLE RATE', value);
 	showTempScreen('degrade');
 	

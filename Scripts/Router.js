@@ -29,7 +29,7 @@ function displayShow(route) {
 }
 
 function displayShowMain(route) {
-	
+	if (STATE.presetBrowserOpen) return;
 	if (route == 'default') { route = 'waveform'; };
 	displayDisableAll();
 	displayMain.set('visible', true);
