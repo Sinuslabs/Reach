@@ -12,6 +12,9 @@ const screenTimer = Engine.createTimerObject();
 screenTimer.setTimerCallback(showMainScreen);
 
 inline function showMainScreen() {
+	
+	if (STATE.presetBrowserOpen) return;
+
 	displayShow('main');	
 	screenTimer.stopTimer();
 }

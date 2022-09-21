@@ -3,4 +3,5 @@ var STATE = {
 	value: '50%',
 	freezeMode: false,
 	ACTIVATED: false,
+	presetBrowserOpen: false,
 };
