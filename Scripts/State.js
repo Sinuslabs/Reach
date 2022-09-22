@@ -4,4 +4,5 @@ var STATE = {
 	freezeMode: false,
 	ACTIVATED: false,
 	presetBrowserOpen: false,
+	filterOpen: false,
 };
