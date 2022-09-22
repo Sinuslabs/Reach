@@ -272,7 +272,7 @@ inline function onbutton_toggle_flairControl(component, value)
 Content.getComponent("knob_flair_flair").setControlCallback(onknob_flair_flairControl);
 inline function onknob_flair_flairControl(component, value)
 {
-	Flair.setAttribute(Flair.Saturation, value);
+	Flair.setAttribute(Flair.WetAmount, value);
 	updateParameterWithLabel('FLAIR', value, '%');
 	showTempScreen('flair');
 	
@@ -338,22 +338,26 @@ inline function onbutton_showFilterControl(component, value)
 
 // MASTER
 
-const var InputGain = Synth.getEffect("Simple Gain1");
+const var Gain = Synth.getEffect("Simple Gain4");
 const var OutputGain = Synth.getEffect("Simple Gain2");
 
 Content.getComponent("knob_io_in").setControlCallback(onknob_io_inControl);
 inline function onknob_io_inControl(component, value)
 {
 	
-	InputGain.setAttribute('Gain', value);
+	Gain.setAttribute('Gain', value);
 	updateParameterWithDb('Input Gain', Math.floor(value * 100) / 100);
 };
 
 Content.getComponent("knob_io_out").setControlCallback(onknob_io_outControl);
+const mixMin = -50;
+const mixMax = 0;
+const mixRange = mixMax - mixMin;
 inline function onknob_io_outControl(component, value)
 {
-	Console.print('set wet');
 
+	local normalized = (Math.floor(value) - mixMin) / mixRange;
+	
 	OutputGain.setAttribute('Gain', value);
-	//updateParameterWithDb('Output Gain', Math.floor(value * 100) / 100);
+	updateParameterWithLabel('MIX', normalized, '%');
 };
