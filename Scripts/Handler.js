@@ -40,9 +40,10 @@ presetBrowserButton.setControlCallback(onbutton_presetBrowserControl);
 const var label_preset_browser = Content.getComponent("label_preset_browser");
 inline function onbutton_presetBrowserControl(component, value)
 {
-	
 	if (value) {
 		STATE.presetBrowserOpen = true;
+		STATE.filterOpen = false;
+		button_showFilter.setValue(0);
 		displayShow('presetBrowser');
 	} else {
 		STATE.presetBrowserOpen = false;
@@ -53,8 +54,6 @@ inline function onbutton_presetBrowserControl(component, value)
 
 inline function onButton1Control(component, value)
 {
-	Console.print('toggle '+ value);
-
 	if (Engine.getCurrentUserPresetName() == '') {
 		label_preset_browser.set('text', 'Blackhole');
 	} else {
@@ -296,8 +295,8 @@ inline function onbutton_toggle_filterControl(component, value)
 {
 	Filter.setBypassed(!value);
 	STATE.filterOpen = false;
-	displayShowMain('default');
 	button_showFilter.setValue(0);
+	displayShowMain('default');
 	panel_filter.set('enabled', value);
 };
 
