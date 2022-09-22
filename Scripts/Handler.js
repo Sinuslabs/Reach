@@ -352,6 +352,8 @@ inline function onknob_io_inControl(component, value)
 Content.getComponent("knob_io_out").setControlCallback(onknob_io_outControl);
 inline function onknob_io_outControl(component, value)
 {
+	Console.print('set wet');
+
 	OutputGain.setAttribute('Gain', value);
-	updateParameterWithDb('Output Gain', Math.floor(value * 100) / 100);
+	//updateParameterWithDb('Output Gain', Math.floor(value * 100) / 100);
 };
