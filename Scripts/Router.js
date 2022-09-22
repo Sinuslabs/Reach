@@ -11,7 +11,6 @@ function displayDisableAll() {
 }
 
 function displayShow(route) {
-
 	displayDisableAll();
 	for (display in displayRoutes) {
 		var displayName = display.get('text').replace('display_');

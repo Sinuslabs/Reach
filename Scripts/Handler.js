@@ -1,13 +1,8 @@
 // Logo Click
 Content.getComponent("button_logo").setControlCallback(onbutton_logoControl);
 inline function onbutton_logoControl(component, value)
-{
-
-	if (CURRENT_ROUTE != 'account') {
-		displayShow('account');		
-	} else {
-		displayShowMain('default');
-	}
+{ 
+	CURRENT_ROUTE != 'account' ? displayShow('account') : displayShowMain('default'); 
 };
 
 // Activate Button
@@ -17,7 +12,7 @@ var userKey;
 inline function onbutton_activateControl(component, value)
 {
 	if (value == 1.0) {
-		 userKey = label_serial_key.get('text');		
+	 	userKey = label_serial_key.get('text');		
 		activateLicense(userKey);
 	}
 };
@@ -46,8 +41,6 @@ const var label_preset_browser = Content.getComponent("label_preset_browser");
 inline function onbutton_presetBrowserControl(component, value)
 {
 	
-	Console.print('value: ' + value);
-	
 	if (value) {
 		STATE.presetBrowserOpen = true;
 		displayShow('presetBrowser');
@@ -55,7 +48,6 @@ inline function onbutton_presetBrowserControl(component, value)
 		STATE.presetBrowserOpen = false;
 		displayShowMain();
 	}
-	
 };
 
 
@@ -149,6 +141,11 @@ inline function onbutton_toggle_reverbControl(component, value)
 {
 	Reverb.setBypassed(!value);
 	panel_reverb.set('enabled', value);
+	if (Reverb.getAttribute(Reverb.FreezeMode) == 0.0) {
+		panel_freeze_shadow.set('visible', value);
+	} else {
+		updateFreezeParameter(value);
+	}
 };
 
 Content.getComponent("knob_reverb_space").setControlCallback(onknob_reverb_spaceControl);
@@ -188,10 +185,10 @@ const var panel_freeze_shadow = Content.getComponent("panel_freeze_shadow");
 Content.getComponent("button_freeze").setControlCallback(onbutton_freezeControl);
 inline function onbutton_freezeControl(component, value)
 {
+
 	panel_freeze_shadow.set('visible', !value);
 	Reverb.setAttribute(Reverb.FreezeMode, value);
 	updateFreezeParameter(value);
-	
 };
 
 Content.getComponent("knob_reverb_drywet").setControlCallback(onknob_reverb_drywetControl);
@@ -217,7 +214,6 @@ inline function onbutton_toggle_degradeControl(component, value)
 	Degrade.setBypassed(!value);
 	SimpleGain3.setBypassed(!value);
 	panel_degrade.set('enabled', value);
-	icon_panel_degrade.repaint();
 };
 
 Content.getComponent("knob_degrade_bit").setControlCallback(onknob_degrade_bitControl);
@@ -272,7 +268,6 @@ inline function onbutton_toggle_flairControl(component, value)
 {
 	Flair.setBypassed(!value);
 	panel_flair.set('enabled', value);
-	icon_panel_flair.repaint();
 };
 
 Content.getComponent("knob_flair_flair").setControlCallback(onknob_flair_flairControl);
@@ -300,6 +295,9 @@ const var panel_filter = Content.getComponent("panel_filter");
 inline function onbutton_toggle_filterControl(component, value)
 {
 	Filter.setBypassed(!value);
+	STATE.filterOpen = false;
+	displayShowMain('default');
+	button_showFilter.setValue(0);
 	panel_filter.set('enabled', value);
 };
 
@@ -307,7 +305,6 @@ inline function onknob_filter_freqControl(component, value)
 {
 	Filter.setAttribute(Filter.Freq , value);
 	updateParameterWithLabel('FREQUENCY', value, 'Hz');
-	showTempScreen('filter');
 };
 
 Content.getComponent("knob_filter_q").setControlCallback(onknob_filter_qControl);
@@ -316,7 +313,6 @@ inline function onknob_filter_qControl(component, value)
 	
 	Filter.setAttribute(Filter.Q, value);
 	updateParameterWithLabel('Q', value, '');
-	showTempScreen('filter');
 }
 
 Content.getComponent("knob_filter_gain").setControlCallback(onknob_filter_gainControl);
@@ -324,17 +320,24 @@ inline function onknob_filter_gainControl(component, value)
 {
 	Filter.setAttribute(Filter.Gain, value);
 	updateParameterWithLabel('GAIN', value, 'dB');
-	showTempScreen('filter');
 };
 
-Content.getComponent("combo_filter_type").setControlCallback(oncombo_filter_typeControl);
-inline function oncombo_filter_typeControl(component, value)
+const var button_showFilter = Content.getComponent("button_showFilter");
+button_showFilter.setControlCallback(onbutton_showFilterControl);
+inline function onbutton_showFilterControl(component, value)
 {
-	Filter.setAttribute(Filter.Type, value - 1);
-	showTempScreen('filter');
+	if (value) {
+		STATE.filterOpen = true;
+		displayShowMain('filter');
+	} else {
+		STATE.filterOpen = false;
+		displayShowMain('default');
+	}
 };
 
-// IO
+
+
+// MASTER
 
 const var InputGain = Synth.getEffect("Simple Gain1");
 const var OutputGain = Synth.getEffect("Simple Gain2");

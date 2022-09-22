@@ -4,9 +4,7 @@
   <Content Processor="Interface">
     <Control type="ScriptSlider" id="header_vumeter_ch1" value="0.0"/>
     <Control type="ScriptSlider" id="header_vumeter_ch2" value="0.0"/>
-    <Control type="ScriptButton" id="button_title" value="1.0"/>
-    <Control type="ScriptButton" id="button_logo" value="0.0"/>
-    <Control type="ScriptButton" id="button_presetBrowser" value="1.0"/>
+    <Control type="ScriptButton" id="Button1" value="0.0"/>
     <Control type="ScriptSlider" id="knob_reverb_space" value="0.6399999856948853"/>
     <Control type="ScriptSlider" id="knob_reverb_damping" value="1.0"/>
     <Control type="ScriptSlider" id="knob_reverb_stereo" value="1.0"/>
@@ -19,14 +17,10 @@
     <Control type="ScriptSlider" id="knob_filter_gain" value="-12.59999942779541"/>
     <Control type="ScriptSlider" id="knob_filter_freq" value="63.0"/>
     <Control type="ScriptSlider" id="knob_filter_q" value="0.0"/>
-    <Control type="ScriptComboBox" id="combo_filter_type" value="2.0"/>
     <Control type="ScriptSlider" id="knob_io_in" value="0.0"/>
     <Control type="ScriptSlider" id="knob_io_out" value="0.0"/>
     <Control type="ScriptButton" id="button_website" value="0.0"/>
     <Control type="ScriptButton" id="button_github" value="0.0"/>
-    <Control type="ScriptButton" id="button_x1" value="0.0"/>
-    <Control type="ScriptComboBox" id="combo_size" value="5.0"/>
-    <Control type="ScriptButton" id="button_x2" value="1.0"/>
     <Control type="ScriptButton" id="button_buy_reach" value="1.0"/>
     <Control type="ScriptButton" id="button_activate" value="0.0"/>
     <Control type="ScriptButton" id="button_toggle_reverb" value="1.0"/>
