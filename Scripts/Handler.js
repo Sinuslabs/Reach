@@ -377,6 +377,7 @@ inline function onbutton_HighPassControl(component, value)
 	local idx = 1;
 
 	Filter.setAttribute(STATE.currentBandIndex + 4, idx);
+	Console.print('FILTER TYPE: ' + Filter.getAttribute(STATE.currentBandIndex + 4));
 	filterTypeRadio(idx);
 };
 
@@ -389,6 +390,7 @@ inline function onbutton_lowShelfControl(component, value)
 	local idx = 2;
 
 	Filter.setAttribute(STATE.currentBandIndex + 4, idx);
+	Console.print('FILTER TYPE: ' + Filter.getAttribute(STATE.currentBandIndex + 4));
 	filterTypeRadio(idx);
 };
 
@@ -401,6 +403,7 @@ inline function onbutton_highShelfControl(component, value)
 	local idx = 3;
 
 	Filter.setAttribute(STATE.currentBandIndex + 4, idx);
+	Console.print('FILTER TYPE: ' + Filter.getAttribute(STATE.currentBandIndex + 4));
 	filterTypeRadio(idx);
 	
 };
@@ -413,6 +416,7 @@ inline function onbutton_bandPassControl(component, value)
 	local idx = 4;
 
 	Filter.setAttribute(STATE.currentBandIndex + 4, idx);
+	Console.print('FILTER TYPE: ' + Filter.getAttribute(STATE.currentBandIndex + 4));
 	filterTypeRadio(idx);
 };
 
