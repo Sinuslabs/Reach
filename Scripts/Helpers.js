@@ -8,6 +8,13 @@ function updateParameterWithLabel(parameter, value, label) {
 	updateDisplay();
 }
 
+
+// each caller needs to handle conversion (used for filter multi value update);
+function customParameter(parameter) {
+	STATE.parameter = parameter;
+	updateDisplay();
+}
+
 function updateParameterWithDb(parameter, value) {
 	
 	STATE.parameter = parameter + ' | ' + Engine.doubleToString(value, 1) + 'dB';
@@ -87,9 +94,22 @@ function filterTypeRadio(active) {
 		filterButtons[i].setValue(0);
 	}
 	filterButtons[active].setValue(1);
-	if (active == 0 ) STATE.currentBandFilterType = 'LOWPASS';
-	if (active == 1 ) STATE.currentBandFilterType = 'HIGHPASS';
-	if (active == 2 ) STATE.currentBandFilterType = 'LOWSHELF';
-	if (active == 3 ) STATE.currentBandFilterType = 'HIGHSHELF';
-	if (active == 4 ) STATE.currentBandFilterType = 'BANDPASS';
+
+	STATE.currentBandFilterType = bandTypeToLabel(active);
+	
+	updateFilterLabel();
+}
+
+function bandTypeToLabel(type) {
+	if (type == 0 ) return 'LOWPASS';
+	if (type == 1 ) return 'HIGHPASS';
+	if (type == 2 ) return 'LOWSHELF';
+	if (type == 3 ) return 'HIGHSHELF';
+	if (type == 4 ) return 'BANDPASS';
+}
+
+function updateFilterLabel() {
+	var band = STATE.currentBandIndex;
+	var type = STATE.currentBandFilterType;
+	label_bandDisplay.set('text', 'BAND ' + Engine.doubleToString(band / 5, 0) + ' | ' + type);
 }
