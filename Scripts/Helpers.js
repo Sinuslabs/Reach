@@ -10,7 +10,7 @@ function updateParameterWithLabel(parameter, value, label) {
 
 function updateParameterWithDb(parameter, value) {
 	
-	STATE.parameter = parameter + ' | ' + value + 'dB';
+	STATE.parameter = parameter + ' | ' + Engine.doubleToString(value, 1) + 'dB';
 	updateDisplay();
 }
 
@@ -80,4 +80,16 @@ function getPanelState(panelName) {
 
 function getBoolean(value) {
 	if (value == 1) {return true} else {return false}
+}
+
+function filterTypeRadio(active) {
+	for (var i=0; i<filterButtons.length; i++) {
+		filterButtons[i].setValue(0);
+	}
+	filterButtons[active].setValue(1);
+	if (active == 0 ) STATE.currentBandFilterType = 'LOWPASS';
+	if (active == 1 ) STATE.currentBandFilterType = 'HIGHPASS';
+	if (active == 2 ) STATE.currentBandFilterType = 'LOWSHELF';
+	if (active == 3 ) STATE.currentBandFilterType = 'HIGHSHELF';
+	if (active == 4 ) STATE.currentBandFilterType = 'BANDPASS';
 }

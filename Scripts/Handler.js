@@ -285,7 +285,8 @@ inline function onknob_flair_flairControl(component, value)
 
 // FILTER
 const var Filter = Synth.getEffect("Parametriq EQ1");
-Content.getComponent("knob_filter_freq").setControlCallback(onknob_filter_freqControl);
+const var panel_filterButtons = Content.getComponent("panel_filterButtons");
+
 
 // BYPASS
 Content.getComponent("button_toggle_filter").setControlCallback(onbutton_toggle_filterControl);
@@ -300,25 +301,30 @@ inline function onbutton_toggle_filterControl(component, value)
 	panel_filter.set('enabled', value);
 };
 
+
+const var knob_filter_freq = Content.getComponent("knob_filter_freq");
+knob_filter_freq.setControlCallback(onknob_filter_freqControl);
 inline function onknob_filter_freqControl(component, value)
 {
-	Filter.setAttribute(Filter.Freq , value);
+	Filter.setAttribute(STATE.currentBandIndex + 1 , value);
 	updateParameterWithLabel('FREQUENCY', value, 'Hz');
 };
 
-Content.getComponent("knob_filter_q").setControlCallback(onknob_filter_qControl);
+const var knob_filter_gain = Content.getComponent("knob_filter_gain");
+knob_filter_gain.setControlCallback(onknob_filter_qControl);
 inline function onknob_filter_qControl(component, value)
 {
 	
-	Filter.setAttribute(Filter.Q, value);
+	Filter.setAttribute(STATE.currentBandIndex, value);
 	updateParameterWithLabel('Q', value, '');
 }
 
-Content.getComponent("knob_filter_gain").setControlCallback(onknob_filter_gainControl);
+const var knob_filter_q = Content.getComponent("knob_filter_q");
+knob_filter_q.setControlCallback(onknob_filter_gainControl);
 inline function onknob_filter_gainControl(component, value)
 {
-	Filter.setAttribute(Filter.Gain, value);
-	updateParameterWithLabel('GAIN', value, 'dB');
+	Filter.setAttribute(STATE.currentBandIndex + 2, value);
+	updateParameterWithDb('GAIN', value);
 };
 
 const var button_showFilter = Content.getComponent("button_showFilter");
@@ -335,9 +341,84 @@ inline function onbutton_showFilterControl(component, value)
 };
 
 
+Content.getComponent("button_disableBand").setControlCallback(onbutton_disableBandControl);
+inline function onbutton_disableBandControl(component, value)
+{	
+	
+	Console.print('CURRENT BAND INDEX' + STATE.currentBandIndex);
+	Filter.setAttribute(STATE.currentBandIndex + 3, value);
+	label_bandDisplay.set('enabled', value);
+};
+
+// Display Filter Knobs
+
+const filterButtons = [
+	Content.getComponent("button_lowPass"),
+	Content.getComponent("button_HighPass"),
+	Content.getComponent("button_lowShelf"),
+	Content.getComponent("button_highShelf"),
+	Content.getComponent("button_bandPass")
+];
+
+filterButtons[0].setControlCallback(onbutton_lowPassControl);
+inline function onbutton_lowPassControl(component, value)
+{
+	local idx = 0;
+
+	Filter.setAttribute(STATE.currentBandIndex + 4, idx);
+	filterTypeRadio(idx);
+};
+
+
+filterButtons[1].setControlCallback(onbutton_HighPassControl);
+inline function onbutton_HighPassControl(component, value)
+{
+	
+	local idx = 1;
+
+	Filter.setAttribute(STATE.currentBandIndex + 4, idx);
+	filterTypeRadio(idx);
+};
+
+
+
+filterButtons[2].setControlCallback(onbutton_lowShelfControl);
+inline function onbutton_lowShelfControl(component, value)
+{
+	
+	local idx = 2;
+
+	Filter.setAttribute(STATE.currentBandIndex + 4, idx);
+	filterTypeRadio(idx);
+};
+
+
+
+filterButtons[3].setControlCallback(onbutton_highShelfControl);
+inline function onbutton_highShelfControl(component, value)
+{
+	
+	local idx = 3;
+
+	Filter.setAttribute(STATE.currentBandIndex + 4, idx);
+	filterTypeRadio(idx);
+	
+};
+
+
+
+filterButtons[4].setControlCallback(onbutton_bandPassControl);
+inline function onbutton_bandPassControl(component, value)
+{
+	local idx = 4;
+
+	Filter.setAttribute(STATE.currentBandIndex + 4, idx);
+	filterTypeRadio(idx);
+};
+
+
 
 // MASTER
-
 const var Gain = Synth.getEffect("Simple Gain4");
 const var OutputGain = Synth.getEffect("Simple Gain2");
 
