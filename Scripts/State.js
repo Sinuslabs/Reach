@@ -5,5 +5,6 @@ var STATE = {
 	ACTIVATED: false,
 	presetBrowserOpen: false,
 	filterOpen: false,
-	eqBand: 0,
+	currentBandIndex: 0,
+	currentBandFilterType: 'LOWPASS'
 };

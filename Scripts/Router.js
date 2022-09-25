@@ -12,6 +12,10 @@ function displayDisableAll() {
 
 function displayShow(route) {
 	displayDisableAll();
+	
+	//disable filter panel
+	panel_filterButtons.set('visible', false);
+				
 	for (display in displayRoutes) {
 		var displayName = display.get('text').replace('display_');
 		if (route == displayName) {
@@ -31,6 +35,9 @@ function displayShowMain(route) {
 	if (STATE.presetBrowserOpen) return;
 	if (route == 'default') { route = 'waveform'; };
 	displayDisableAll();
+	
+	route == 'filter' ? panel_filterButtons.set('visible', true) : panel_filterButtons.set('visible', false);
+	
 	displayMain.set('visible', true);
 	for (mainDisplay in mainDisplayRoutes) {
 		var mainDisplayName = mainDisplay.get('text').replace('display_main_');

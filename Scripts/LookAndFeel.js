@@ -89,12 +89,12 @@ laf.registerFunction('drawToggleButton', function(g, obj) {
 		g.drawAlignedText(obj.text, a, 'centred');
 	}
 	if (obj.text.indexOf('icon-outline-') != -1) {
-		g.setColour(obj.itemColour1);
+		obj.value == 1 ? g.setColour(obj.bgColour) : g.setColour(obj.itemColour2);
 		if (obj.over == 1) {
-			g.setColour(obj.itemColour2);
+			g.setColour(obj.itemColour1);
 		}
 		var icon = obj.text.replace('icon-outline-');
-		g.drawPath(Paths.icons[icon], [this.getHeight / 2, this.getWidth / 2, parseInt(a[2]), parseInt(a[3])], 2);
+		g.drawPath(Paths.icons[icon], [this.getHeight / 2 + 5, this.getWidth / 2 + 5, parseInt(a[2] - 10), parseInt(a[3] - 10)], 5);
 	} else if (obj.text.indexOf('icon') != -1) {
 		var icon = obj.text.replace('icon-');
 		obj.value == 1 ? g.setColour(obj.bgColour) : g.setColour(obj.itemColour2);
@@ -136,3 +136,24 @@ laf.registerFunction("drawPresetBrowserListItem", function(g, obj)
    	g.setFont('space', 32.0);
     g.drawAlignedText(obj.text, [5, a[1], a[2], a[3]], "left");
 });
+
+
+const localLaf = Content.createLocalLookAndFeel();
+localLaf.registerFunction("drawFilterDragHandle", function(g, obj)
+{	
+	var SIZE = 26;
+	var area = [obj.handle[0], obj.handle[1], SIZE, SIZE];
+	
+	g.setColour(0XFFFFFFFF);
+	g.fillEllipse(area);
+	
+	g.setColour(0XFF000000);
+	g.drawEllipse(area, 2);
+	
+	g.setFont("space", 24); 
+	g.drawAlignedText(obj.index, area, "centred");
+});
+
+const var EQ = Content.getComponent("tile_eq");
+EQ.setLocalLookAndFeel(localLaf);
+
