@@ -5,11 +5,11 @@ const var Analyser1 = Synth.getEffect("Analyser1");
 
 vuMeterTimer.setTimerCallback(function()
 {
-	var ch1 = getNormalizedPeakValue(Analyser1.getCurrentLevel(true));
-	var ch2 = getNormalizedPeakValue(Analyser1.getCurrentLevel());
+	var ch1 = getNormalizedPeakValue(Analyser1.getCurrentLevel(false));
+	var ch2 = getNormalizedPeakValue(Analyser1.getCurrentLevel(true));
 	
-	header_vumeter_ch1.setValue(ch2);
-	header_vumeter_ch2.setValue(ch1);
+	header_vumeter_ch1.setValue(ch2 - 0.11);
+	header_vumeter_ch2.setValue(ch1 - 0.11);
 });
 vuMeterTimer.startTimer(30);
 
