@@ -143,7 +143,8 @@ inline function onbutton_toggle_reverbControl(component, value)
 	if (Reverb.getAttribute(Reverb.FreezeMode) == 0.0) {
 		panel_freeze_shadow.set('visible', value);
 	} else {
-		updateFreezeParameter(value);
+		panel_freeze_shadow.set('visible', value);
+		updateFreezeParameter(false);
 	}
 };
 
@@ -181,7 +182,8 @@ inline function onknob_reverb_stereoControl(component, value)
 };
 
 const var panel_freeze_shadow = Content.getComponent("panel_freeze_shadow");
-Content.getComponent("button_freeze").setControlCallback(onbutton_freezeControl);
+const var button_freeze = Content.getComponent("button_freeze");
+button_freeze.setControlCallback(onbutton_freezeControl);
 inline function onbutton_freezeControl(component, value)
 {
 
