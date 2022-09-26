@@ -91,15 +91,12 @@ laf.registerFunction('drawToggleButton', function(g, obj) {
 	if (obj.text.indexOf('settings-') != -1) {
 		obj.text = obj.text.replace('settings-');
 		obj.value == 1 ? g.setColour(obj.textColour) : g.setColour(obj.bgColour);
-		if (obj.over) {
-			g.setColour(obj.itemColour1);	
-		}
+		if (obj.over) g.setColour(obj.itemColour1);	
 		g.fillRect(a);
 		
 		obj.value == 1 ? g.setColour(obj.bgColour) : g.setColour(obj.textColour);
-		if (obj.over) {
-			g.setColour(obj.bgColour);
-		}
+		if (obj.over) g.setColour(obj.bgColour);
+
 		g.setFont('space', 32.0);
 		g.drawAlignedText(obj.text, [a[0] + 30, a[1], a[2], a[3]], 'left');
 	}

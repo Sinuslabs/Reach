@@ -5,6 +5,39 @@ inline function onbutton_logoControl(component, value)
 	CURRENT_ROUTE != 'account' ? displayShow('account') : displayShowMain('default'); 
 };
 
+const var settingsButtons = [
+	Content.getComponent('button_settings_general'),
+	Content.getComponent('button_settings_activate'),
+	Content.getComponent('button_settings_about')
+]
+
+
+settingsButtons[0].setControlCallback(onbutton_settings_generalControl);
+ inline function onbutton_settings_generalControl(component, value)
+ {
+	Console.print(0);
+
+ 	settingsButtonsRadio(0);
+ };
+
+ settingsButtons[1].setControlCallback(onbutton_settings_activateControl);
+ inline function onbutton_settings_activateControl(component, value)
+ {
+	Console.print(1);
+
+ 	settingsButtonsRadio(1);
+ };
+
+settingsButtons[2].setControlCallback(onbutton_settings_aboutControl);
+inline function onbutton_settings_aboutControl(component, value)
+{
+	Console.print(2);
+
+	settingsButtonsRadio(2);
+};
+
+
+
 // Activate Button
 Content.getComponent("button_activate").setControlCallback(onbutton_activateControl);
 const var label_serial_key = Content.getComponent("label_serial_key");
@@ -347,7 +380,6 @@ Content.getComponent("button_disableBand").setControlCallback(onbutton_disableBa
 inline function onbutton_disableBandControl(component, value)
 {	
 	
-	Console.print('CURRENT BAND INDEX' + STATE.currentBandIndex);
 	Filter.setAttribute(STATE.currentBandIndex + 3, value);
 	label_bandDisplay.set('enabled', value);
 };

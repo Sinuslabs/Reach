@@ -94,10 +94,16 @@ function filterTypeRadio(active) {
 		filterButtons[i].setValue(0);
 	}
 	filterButtons[active].setValue(1);
-
 	STATE.currentBandFilterType = bandTypeToLabel(active);
-	
+
 	updateFilterLabel();
+}
+
+function settingsButtonsRadio(idx) {
+	for (var i=0; i<settingsButtons.length; i++) {
+		settingsButtons[i].setValue(0);
+	}
+	settingsButtons[idx].setValue(1);
 }
 
 function bandTypeToLabel(type) {
