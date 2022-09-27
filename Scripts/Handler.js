@@ -3,7 +3,7 @@ Content.getComponent("button_logo").setControlCallback(onbutton_logoControl);
 inline function onbutton_logoControl(component, value)
 { 
 	if (CURRENT_ROUTE != 'settings') {
-		displayShow('settings');
+		displayShowSettings(0);
 		STATE.settingsOpen = true;
 	} else {
 		displayShowMain('default');
@@ -13,6 +13,7 @@ inline function onbutton_logoControl(component, value)
 
 const var settingsButtons = [
 	Content.getComponent('button_settings_general'),
+	Content.getComponent('button_settings_audio'),
 	Content.getComponent('button_settings_activate'),
 	Content.getComponent('button_settings_about')
 ]
@@ -21,27 +22,28 @@ const var settingsButtons = [
 settingsButtons[0].setControlCallback(onbutton_settings_generalControl);
  inline function onbutton_settings_generalControl(component, value)
  {
-	Console.print(0);
-
  	settingsButtonsRadio(0);
  	displayShowSettings('general');
  };
+ 
+ settingsButtons[1].setControlCallback(onbutton_settings_audioControl);
+  inline function onbutton_settings_audioControl(component, value)
+  {
+  	settingsButtonsRadio(1);
+  	displayShowSettings('audio');
+  };
 
- settingsButtons[1].setControlCallback(onbutton_settings_activateControl);
+ settingsButtons[2].setControlCallback(onbutton_settings_activateControl);
  inline function onbutton_settings_activateControl(component, value)
  {
-	Console.print(1);
-
- 	settingsButtonsRadio(1);
+ 	settingsButtonsRadio(2);
  	displayShowSettings('activate');
  };
 
-settingsButtons[2].setControlCallback(onbutton_settings_aboutControl);
+settingsButtons[3].setControlCallback(onbutton_settings_aboutControl);
 inline function onbutton_settings_aboutControl(component, value)
 {
-	Console.print(2);
-
-	settingsButtonsRadio(2);
+	settingsButtonsRadio(3);
 	displayShowSettings('about');
 };
 
