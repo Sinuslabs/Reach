@@ -402,6 +402,7 @@ inline function onbutton_showFilterControl(component, value)
 	if (value) {
 		STATE.filterOpen = true;
 		displayShowMain('filter');
+		updateFreezeParameter(false);
 	} else {
 		STATE.filterOpen = false;
 		displayShowMain('default');

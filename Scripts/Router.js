@@ -16,7 +16,9 @@ function displayShow(route) {
 	
 	//disable filter panel
 	panel_filterButtons.set('visible', false);
-				
+	
+	updateFreezeParameter(button_freeze.getValue());
+	
 	for (display in displayRoutes) {
 		var displayName = display.get('text').replace('display_');
 		if (route == displayName) {
@@ -39,6 +41,7 @@ function displayShowMain(route) {
 	
 	route == 'filter' ? panel_filterButtons.set('visible', true) : panel_filterButtons.set('visible', false);
 	
+	updateFreezeParameter(button_freeze.getValue());
 	displayMain.set('visible', true);
 	for (mainDisplay in mainDisplayRoutes) {
 		var mainDisplayName = mainDisplay.get('text').replace('display_main_');
