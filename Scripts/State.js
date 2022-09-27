@@ -7,5 +7,6 @@ var STATE = {
 	filterOpen: false,
 	settingsOpen: false,
 	currentBandIndex: 0,
-	currentBandFilterType: 'LOWPASS'
+	currentBandFilterType: 'LOWPASS',
+	enableAnimations: true
 };

@@ -34,7 +34,7 @@ function displayShow(route) {
 
 function displayShowMain(route) {
 	if (STATE.presetBrowserOpen) return;
-	if (route == 'default') { route = 'waveform'; };
+	if (route == 'default') { route = 'waveform'; STATE.settingsOpen = false; };
 	displayDisableAll();
 	
 	route == 'filter' ? panel_filterButtons.set('visible', true) : panel_filterButtons.set('visible', false);
