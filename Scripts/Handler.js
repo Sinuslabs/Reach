@@ -3,7 +3,8 @@ Content.getComponent("button_logo").setControlCallback(onbutton_logoControl);
 inline function onbutton_logoControl(component, value)
 { 
 	if (CURRENT_ROUTE != 'settings') {
-		displayShowSettings(0);
+		settingsButtonsRadio(0);
+		displayShowSettings('general');
 		STATE.settingsOpen = true;
 	} else {
 		displayShowMain('default');
@@ -149,7 +150,6 @@ inline function onButton3Control(component, value)
 
 
 // X Button
-Content.getComponent("button_x2").setControlCallback(onbutton_x2Control);
 Content.getComponent("button_x1").setControlCallback(onbutton_x1Control);
 Content.getComponent("button_x3").setControlCallback(onbutton_closePreset_Control);;
 
@@ -160,6 +160,8 @@ inline function onbutton_closePreset_Control(component, value)
 	displayShowMain('default');
 };
 
+
+Content.getComponent("button_x2").setControlCallback(onbutton_x2Control);
 inline function onbutton_x2Control(component, value)
 {
 	displayShowMain('default');
