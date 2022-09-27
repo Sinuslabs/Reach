@@ -32,16 +32,17 @@ laf.registerFunction('drawToggleButton', function(g, obj) {
 	var a = obj.area;
 	
 	if (obj.text.indexOf("onOff-label-") != -1) {
-			obj.text = obj.text.replace('onOff-label-');
-			obj.value == 1 ? g.setColour(obj.itemColour1) : g.setColour(obj.bgColour);
+		obj.text = obj.text.replace('onOff-label-');
+		obj.value == 1 ? g.setColour(obj.itemColour1) : g.setColour(obj.bgColour);
 		
-			if (obj.over == 1) {
-				g.setColour(obj.itemColour2);
-			}
-			var text = obj.text.replace("onOff-label-");
-			g.fillPath(Paths.icons['onOff'], [10, 10, 20, 20]);
-			g.setFont('inter-semi', 32.0);
-			g.drawAlignedText(text, a, 'centred');
+		if (obj.over == 1) {
+			g.setColour(obj.itemColour2);
+		}
+		var text = obj.text.replace("onOff-label-");
+		g.fillPath(Paths.icons['onOff'], [10, 10, 20, 20]);
+		g.setFont('inter-semi', 32.0);
+		g.drawAlignedText(text, a, 'centred');
+		return;
 	}
 	
 	if (obj.text.indexOf('button-') != -1) {
@@ -51,6 +52,7 @@ laf.registerFunction('drawToggleButton', function(g, obj) {
 		g.setColour(obj.textColour);
 		g.setFont('space', 32.0);
 		g.drawAlignedText(obj.text, a, 'centred');
+		return;
 	}
 	if (obj.text.indexOf('toggle-') != -1) {
 		obj.value == 1 ? g.setColour(obj.itemColour1) : g.setColour(obj.bgColour);
@@ -87,6 +89,7 @@ laf.registerFunction('drawToggleButton', function(g, obj) {
 		});	
 		g.setFont('space', 32.0);
 		g.drawAlignedText(obj.text, a, 'centred');
+		return;
 	}
 	if (obj.text.indexOf('settings-') != -1) {
 		obj.text = obj.text.replace('settings-');
@@ -99,6 +102,7 @@ laf.registerFunction('drawToggleButton', function(g, obj) {
 
 		g.setFont('space', 32.0);
 		g.drawAlignedText(obj.text, [a[0] + 30, a[1], a[2], a[3]], 'left');
+		return;
 	}
 	if (obj.text.indexOf('icon-outline2-') != -1) {
 		bj.value == 1 ? g.setColour(obj.bgColour) : g.setColour(obj.itemColour2);
@@ -115,6 +119,7 @@ laf.registerFunction('drawToggleButton', function(g, obj) {
 		}
 		var icon = obj.text.replace('icon-outline-');
 		g.drawPath(Paths.icons[icon], [this.getHeight / 2 + 5, this.getWidth / 2 + 5, parseInt(a[2] - 10), parseInt(a[3] - 10)], 5);
+		return;
 	} else if (obj.text.indexOf('icon') != -1) {
 		var icon = obj.text.replace('icon-');
 		obj.value == 1 ? g.setColour(obj.bgColour) : g.setColour(obj.itemColour2);
@@ -130,9 +135,11 @@ laf.registerFunction('drawToggleButton', function(g, obj) {
 		}
 		g.setFont('inter-semi', 26);
 		g.drawAlignedText(text, a, "centred");
+		return;
 	} else if (obj.text.indexOf("text-") != -1) {
 		var text = obj.text.replace("text-");
 		g.drawAlignedText(text, a, 'centred');
+		return;
 	}
 	
 	if (obj.text.indexOf('animationToggle') != -1) {

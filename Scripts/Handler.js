@@ -1,14 +1,18 @@
 // Logo Click
-Content.getComponent("button_logo").setControlCallback(onbutton_logoControl);
+
+const var logoButton = Content.getComponent('button_logo');
+
+logoButton.setControlCallback(onbutton_logoControl);
 inline function onbutton_logoControl(component, value)
 { 
-	if (CURRENT_ROUTE != 'settings') {
+
+	if (value) {
 		settingsButtonsRadio(0);
 		displayShowSettings('general');
 		STATE.settingsOpen = true;
 	} else {
-		displayShowMain('default');
 		STATE.settingsOpen = false;
+		displayShowMain('default');
 	}
 };
 
@@ -47,6 +51,18 @@ inline function onbutton_settings_aboutControl(component, value)
 	settingsButtonsRadio(3);
 	displayShowSettings('about');
 };
+
+
+// General Settings
+
+// Animations
+Content.getComponent("button_animationToggle").setControlCallback(onbutton_animationToggleControl);
+inline function onbutton_animationToggleControl(component, value)
+{
+	STATE.enableAnimations = value;
+};
+
+
 
 
 
@@ -165,6 +181,7 @@ Content.getComponent("button_x2").setControlCallback(onbutton_x2Control);
 inline function onbutton_x2Control(component, value)
 {
 	displayShowMain('default');
+	logoButton.setValue(0);
 };
 
 inline function onbutton_x1Control(component, value)
