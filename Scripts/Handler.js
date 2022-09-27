@@ -2,7 +2,13 @@
 Content.getComponent("button_logo").setControlCallback(onbutton_logoControl);
 inline function onbutton_logoControl(component, value)
 { 
-	CURRENT_ROUTE != 'account' ? displayShow('account') : displayShowMain('default'); 
+	if (CURRENT_ROUTE != 'settings') {
+		displayShow('settings');
+		STATE.settingsOpen = true;
+	} else {
+		displayShowMain('default');
+		STATE.settingsOpen = false;
+	}
 };
 
 const var settingsButtons = [
@@ -18,6 +24,7 @@ settingsButtons[0].setControlCallback(onbutton_settings_generalControl);
 	Console.print(0);
 
  	settingsButtonsRadio(0);
+ 	displayShowSettings('general');
  };
 
  settingsButtons[1].setControlCallback(onbutton_settings_activateControl);
@@ -26,6 +33,7 @@ settingsButtons[0].setControlCallback(onbutton_settings_generalControl);
 	Console.print(1);
 
  	settingsButtonsRadio(1);
+ 	displayShowSettings('activate');
  };
 
 settingsButtons[2].setControlCallback(onbutton_settings_aboutControl);
@@ -34,6 +42,7 @@ inline function onbutton_settings_aboutControl(component, value)
 	Console.print(2);
 
 	settingsButtonsRadio(2);
+	displayShowSettings('about');
 };
 
 
@@ -139,7 +148,7 @@ inline function onButton3Control(component, value)
 
 // X Button
 Content.getComponent("button_x2").setControlCallback(onbutton_x2Control);
-Content.getComponent("button_x1").setControlCallback(onbutton_x2Control);
+Content.getComponent("button_x1").setControlCallback(onbutton_x1Control);
 Content.getComponent("button_x3").setControlCallback(onbutton_closePreset_Control);;
 
 inline function onbutton_closePreset_Control(component, value)
@@ -150,6 +159,11 @@ inline function onbutton_closePreset_Control(component, value)
 };
 
 inline function onbutton_x2Control(component, value)
+{
+	displayShowMain('default');
+};
+
+inline function onbutton_x1Control(component, value)
 {
 	displayShowMain('default');
 };

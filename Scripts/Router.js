@@ -1,6 +1,7 @@
 const var mainDisplayRoutes = Content.getAllComponents('display_main_');
 const var displayRoutes = Content.getAllComponents('display_');
 const var displayMain = Content.getComponent("display_main");
+const var displaySettings = Content.getAllComponents("display_settings_");
 
 var CURRENT_ROUTE = 'main';
 
@@ -50,6 +51,21 @@ function displayShowMain(route) {
 			CURRENT_ROUTE = 'main_' + mainDisplayName;
 		} else {
 			mainDisplay.set('visible', false);
+		}
+	}
+}
+
+function displayShowSettings(route) {
+	displayDisableAll();
+	
+	displayShow('settings');
+	for (settingsScreen in displaySettings) {
+		var settingsScreenName = settingsScreen.get('text').replace('display_settings_');
+		if (route == settingsScreenName) {		
+			settingsScreen.set('visible', true);
+			CURRENT_ROUTE = 'settings_' + settingsScreenName;
+		} else {
+			settingsScreen.set('visible', false);
 		}
 	}
 }
