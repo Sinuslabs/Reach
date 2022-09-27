@@ -100,6 +100,14 @@ laf.registerFunction('drawToggleButton', function(g, obj) {
 		g.setFont('space', 32.0);
 		g.drawAlignedText(obj.text, [a[0] + 30, a[1], a[2], a[3]], 'left');
 	}
+	if (obj.text.indexOf('icon-outline2-') != -1) {
+		bj.value == 1 ? g.setColour(obj.bgColour) : g.setColour(obj.itemColour2);
+				if (obj.over == 1) {
+					g.setColour(obj.itemColour1);
+				}
+				var icon = obj.text.replace('icon-outline2-');
+				g.drawPath(Paths.icons[icon], [this.getHeight / 2 , this.getWidth / 2, a[2], a[3]], 2);
+	}
 	if (obj.text.indexOf('icon-outline-') != -1) {
 		obj.value == 1 ? g.setColour(obj.bgColour) : g.setColour(obj.itemColour2);
 		if (obj.over == 1) {
@@ -136,12 +144,10 @@ laf.registerFunction('drawToggleButton', function(g, obj) {
 		g.setFont('space', 26.0);
 		
 		if (obj.value) {
-			g.fillRect([a[2] / 2, border, a[2] / 2 - border, a[3] - border * 2]);
-				
+			g.fillRect([a[2] / 2, border, a[2] / 2 - border, a[3] - border * 2]);		
 			g.drawAlignedText('ON', [0, 0, a[2] / 2, a[3]], 'centred');
 		} else {	
 			g.fillRect([border, border, a[2] / 2 - border, a[3] - border * 2]);
-		
 			g.drawAlignedText('OFF', [a[2] / 2, 0, a[2] / 2, a[3]], 'centred');
 		}
 		
