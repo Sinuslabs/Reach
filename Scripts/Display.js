@@ -12,7 +12,7 @@ const screenTimer = Engine.createTimerObject();
 screenTimer.setTimerCallback(showMainScreen);
 
 inline function showMainScreen() {
-	if (STATE.presetBrowserOpen || STATE.filterOpen) return;
+	if (STATE.presetBrowserOpen || STATE.filterOpen || STATE.settingsOpen) return;
 
 	displayShow('main');	
 	screenTimer.stopTimer();
@@ -20,7 +20,7 @@ inline function showMainScreen() {
 
 function showTempScreen(route) {
 	
-	if (STATE.presetBrowserOpen || STATE.filterOpen) return;
+	if (STATE.presetBrowserOpen || STATE.filterOpen || STATE.settingsOpen) return;
 
 	if (screenTimer.isTimerRunning()) {
 		screenTimer.resetCounter();

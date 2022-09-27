@@ -126,6 +126,27 @@ laf.registerFunction('drawToggleButton', function(g, obj) {
 		var text = obj.text.replace("text-");
 		g.drawAlignedText(text, a, 'centred');
 	}
+	
+	if (obj.text.indexOf('animationToggle') != -1) {
+		
+		var border = 10;
+	
+		g.setColour(obj.bgColour);
+		g.drawRect(a, 3);
+		g.setFont('space', 26.0);
+		
+		if (obj.value) {
+			g.fillRect([a[2] / 2, border, a[2] / 2 - border, a[3] - border * 2]);
+				
+			g.drawAlignedText('ON', [0, 0, a[2] / 2, a[3]], 'centred');
+		} else {	
+			g.fillRect([border, border, a[2] / 2 - border, a[3] - border * 2]);
+		
+			g.drawAlignedText('OFF', [a[2] / 2, 0, a[2] / 2, a[3]], 'centred');
+		}
+		
+
+	}
 });
 
 
