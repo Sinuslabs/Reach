@@ -208,12 +208,10 @@ inline function onbutton_toggle_reverbControl(component, value)
 {
 	Reverb.setBypassed(!value);
 	panel_reverb.set('enabled', value);
-	if (Reverb.getAttribute(Reverb.FreezeMode) == 0.0) {
-		panel_freeze_shadow.set('visible', value);
-	} else {
-		panel_freeze_shadow.set('visible', value);
-		updateFreezeParameter(false);
-	}
+	
+	button_freeze.setValue(0);
+	panel_freeze_shadow.set('visible', value);
+	updateFreezeParameter(false);
 };
 
 Content.getComponent("knob_reverb_space").setControlCallback(onknob_reverb_spaceControl);
