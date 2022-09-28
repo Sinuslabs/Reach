@@ -62,10 +62,6 @@ inline function onbutton_animationToggleControl(component, value)
 	STATE.enableAnimations = value;
 };
 
-
-
-
-
 // Activate Button
 Content.getComponent("button_activate").setControlCallback(onbutton_activateControl);
 const var label_serial_key = Content.getComponent("label_serial_key");
@@ -163,8 +159,6 @@ inline function onButton3Control(component, value)
 	if (value) Engine.openWebsite('https://github.com/Sinuslabs/Reach');
 };
 
-
-
 // X Button
 Content.getComponent("button_x1").setControlCallback(onbutton_x1Control);
 Content.getComponent("button_x3").setControlCallback(onbutton_closePreset_Control);;
@@ -209,8 +203,7 @@ inline function onbutton_toggle_reverbControl(component, value)
 	Reverb.setBypassed(!value);
 	panel_reverb.set('enabled', value);
 	
-	button_freeze.setValue(0);
-	panel_freeze_shadow.set('visible', value);
+	button_freeze.setValue(!value);
 	updateFreezeParameter(false);
 };
 
@@ -247,13 +240,10 @@ inline function onknob_reverb_stereoControl(component, value)
 	ReverbAnimationPanel.repaint();
 };
 
-const var panel_freeze_shadow = Content.getComponent("panel_freeze_shadow");
 const var button_freeze = Content.getComponent("button_freeze");
 button_freeze.setControlCallback(onbutton_freezeControl);
 inline function onbutton_freezeControl(component, value)
 {
-
-	panel_freeze_shadow.set('visible', !value);
 	Reverb.setAttribute(Reverb.FreezeMode, value);
 	updateFreezeParameter(value);
 };
@@ -303,6 +293,8 @@ const rateRange = rateMax - rateMin;
 
 inline function onknob_degrade_rateControl(component, value)
 {
+	Degrade.setAttribute(Degrade.Rate, value);
+
 	updateParameterWithFixedSampleRate('SAMPLE RATE', value);
 	showTempScreen('degrade');
 	
