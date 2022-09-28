@@ -170,7 +170,7 @@ laf.registerFunction('drawToggleButton', function(g, obj) {
 		g.drawRect(a, 3);
 		g.setFont('space', 26.0);
 		
-		if (obj.value) {
+		if (obj.value == 1.0) {
 			g.fillRect([a[2] / 2, border, a[2] / 2 - border, a[3] - border * 2]);		
 			g.drawAlignedText('ON', [0, 0, a[2] / 2, a[3]], 'centred');
 		} else {	
