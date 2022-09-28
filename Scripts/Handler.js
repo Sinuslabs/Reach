@@ -183,15 +183,6 @@ inline function onbutton_x1Control(component, value)
 	displayShowMain('default');
 };
 
-// scaling combo box
-Content.getComponent("combo_size").setControlCallback(oncombo_sizeControl);
-inline function oncombo_sizeControl(component, value)
-{
-	// 300 max scaling / 12 options = 25 steps.
-	// so 1x25 = 0.25 scaling
-	Settings.setZoomLevel(value * 0.15);
-};
-
 // REVERB
 const var Reverb = Synth.getEffect("Simple Reverb1");
 
