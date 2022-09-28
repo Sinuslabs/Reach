@@ -37,5 +37,5 @@ DisableDirPage=no
 Name: "english"; MessagesFile: "compiler:Default.isl"; LicenseFile: "C:\Users\iso\Documents\GitHub\Reach\LICENSE"
 
 [Files]
-Source: "C:\Users\iso\Documents\GitHub\Reach\Binaries\Compiled\VST3\*"; DestDir: "C:\Program Files (x86)\Common Files\VST3\Reach"; Flags: ignoreversion recursesubdirs createallsubdirs
+Source: "C:\Users\iso\Documents\GitHub\Reach\Binaries\Compiled\VST3\*"; DestDir: "C:\Program Files\Common Files\VST3\Reach"; Flags: ignoreversion recursesubdirs createallsubdirs
 Source: "C:\Users\iso\Documents\GitHub\Reach\UserPresets\*"; DestDir: {userappdata}\Sinuslabs\Reach\UserPresets\; Flags: ignoreversion recursesubdirs createallsubdirs

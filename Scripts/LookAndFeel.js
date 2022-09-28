@@ -45,6 +45,26 @@ laf.registerFunction('drawToggleButton', function(g, obj) {
 		return;
 	}
 	
+	if (obj.text.indexOf('freeze-icon-') != -1) {
+		
+		var border = 3;
+		
+
+		if (!obj.value) {
+			g.setColour(obj.itemColour1);
+			g.fillRoundedRectangle([a[0] + border, a[1] + border + 3, a[2] - border * 2, a[3] - border * 2], 4);
+		}
+		
+		g.setColour(obj.bgColour);
+		
+		if (obj.over == 1) { g.setColour(obj.itemColour2);}
+		g.fillRoundedRectangle([a[0] + border, a[1] + border, a[2] - border * 2, a[3] - border * 2], 4);
+		
+		obj.value == 1 ? g.setColour(obj.itemColour1) : g.setColour(obj.textColour);
+		g.fillPath(Paths.icons['freeze'], [20, 20, 40, 40]);
+		return;
+	}
+	
 	if (obj.text.indexOf('button-') != -1) {
 		obj.text = obj.text.replace('button-');
 		obj.over == 1 ? g.setColour(obj.itemColour1) : g.setColour(obj.bgColour);
