@@ -4,6 +4,7 @@ const var icon_panel_freeze2 = Content.getComponent("icon_panel_freeze2");
 const var icon_panel_io = Content.getComponent("icon_panel_io");
 const var icon_panel_logo = Content.getComponent("icon_panel_logo");
 const var icon_panel_heart = Content.getComponent("icon_panel_heart");
+const var icon_panel_fullLogo = Content.getComponent('icon_panel_fullLogo');
 
 icon_panel_heart.setPaintRoutine(function(g) {
 	g.setColour('0xFF7A00');
@@ -13,6 +14,11 @@ icon_panel_heart.setPaintRoutine(function(g) {
 icon_panel_logo.setPaintRoutine(function(g) {
 	g.setColour('0xffffff');
 	g.fillPath(Paths.icons['logo'], [0, 0, 75, 75]);
+});
+
+icon_panel_fullLogo.setPaintRoutine(function(g) {
+	g.setColour('0xffffff');
+	g.fillPath(Paths.icons['fullLogo'], [0, 0, 360, 40]);
 });
 
 icon_panel_freeze2.setPaintRoutine(function(g) {
@@ -75,38 +81,21 @@ laf.registerFunction('drawToggleButton', function(g, obj) {
 		return;
 	}
 	if (obj.text.indexOf('toggle-') != -1) {
-		obj.value == 1 ? g.setColour(obj.itemColour1) : g.setColour(obj.bgColour);
-		if (!panel_reverb.get('enabled')) g.setColour(obj.itemColour1);	
-
+		
 		obj.text = obj.text.replace('toggle-');
-		if (obj.text.indexOf('rounded-') != -1) {
-			if (obj.over == 1) {
-				g.setColour(obj.itemColour1);
-			}
-		
-			obj.text = obj.text.replace('rounded-');
-			g.fillRoundedRectangle(a, 4);
-			if (obj.text.indexOf('icon-') != -1) {
-				if (obj.over == 1) {
-					g.setColour(obj.itemColour2);
-				}
-				obj.text = obj.text.replace('icon-');
-				obj.value == 1 ? g.setColour(obj.textColour) : g.setColour(obj.itemColour2);
-				if (!panel_reverb.get('enabled')) g.setColour(obj.textColour);	
-				g.fillPath(Paths.icons['freeze'], [20, 20, 40, 40]);
-			}
-		} else {
-			obj.value == 1 ? g.setColour(obj.bgColour) : g.setColour(obj.bgColour);
-			obj.over == 1 ? g.setColour(obj.itemColour1) : g.setColour(obj.itemColour2);
-			g.fillRect(a);
+		obj.value == 1 ? g.setColour(obj.itemColour1) : g.setColour(obj.bgColour);
+
+		if (obj.over == 1) {
+			g.setColour(obj.itemColour1);
 		}
-		
+		g.fillRect(a);
 		g.addNoise({
 			alpha: 0.02,
 			monochromatic: true,
 			scaleFactor: 10.0,
 			area: a,
 		});	
+		g.setColour(obj.textColour);
 		g.setFont('space', 32.0);
 		g.drawAlignedText(obj.text, a, 'centred');
 		return;
