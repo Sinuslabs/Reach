@@ -149,7 +149,7 @@ inline function onBackgroundKeypress(key) {
 Content.getComponent("button_website").setControlCallback(onpanel_githubControl);
 inline function onpanel_githubControl(component, value)
 {
-	if (value) Engine.openWebsite('https://sinuslabs.io');
+	if (value) Engine.openWebsite('https://sinuslabs.io/product/reach');
 };
 
 // Github
