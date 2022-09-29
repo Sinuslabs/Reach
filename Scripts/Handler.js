@@ -59,7 +59,7 @@ inline function onbutton_settings_aboutControl(component, value)
 Content.getComponent("button_animationToggle").setControlCallback(onbutton_animationToggleControl);
 inline function onbutton_animationToggleControl(component, value)
 {
-	STATE.enableAnimations = value;
+	STATE.enableAnimations = !value;
 };
 
 // Activate Button
@@ -73,6 +73,16 @@ inline function onbutton_activateControl(component, value)
 		activateLicense(userKey);
 	}
 };
+
+
+Content.getComponent("button_not_activated").setControlCallback(onbutton_not_activatedControl);
+inline function onbutton_not_activatedControl(component, value)
+{
+	displayShowSettings('activate');
+	STATE.settingsOpen = true;
+};
+
+
 
 // Account License Panel
 const var panel_non_activated = Content.getComponent("panel_non_activated");
@@ -111,6 +121,9 @@ inline function onbutton_presetBrowserControl(component, value)
 
 inline function onButton1Control(component, value)
 {
+	// reset band to band 1; 
+	STATE.currentBandIndex = 0;
+
 	if (Engine.getCurrentUserPresetName() == '') {
 		label_preset_browser.set('text', 'Blackhole');
 	} else {
@@ -396,7 +409,6 @@ inline function onbutton_showFilterControl(component, value)
 Content.getComponent("button_disableBand").setControlCallback(onbutton_disableBandControl);
 inline function onbutton_disableBandControl(component, value)
 {	
-	
 	Filter.setAttribute(STATE.currentBandIndex + 3, value);
 	label_bandDisplay.set('enabled', value);
 };
@@ -414,10 +426,12 @@ const filterButtons = [
 filterButtons[0].setControlCallback(onbutton_lowPassControl);
 inline function onbutton_lowPassControl(component, value)
 {
-	local idx = 0;
-
-	Filter.setAttribute(STATE.currentBandIndex + 4, idx);
-	filterTypeRadio(idx);
+	
+	if (value) {
+			local idx = 0;
+			Filter.setAttribute(STATE.currentBandIndex + 4, idx);
+			filterTypeRadio(idx);
+	}
 };
 
 
@@ -425,11 +439,11 @@ filterButtons[1].setControlCallback(onbutton_HighPassControl);
 inline function onbutton_HighPassControl(component, value)
 {
 	
-	local idx = 1;
-
-	Filter.setAttribute(STATE.currentBandIndex + 4, idx);
-	Console.print('FILTER TYPE: ' + Filter.getAttribute(STATE.currentBandIndex + 4));
-	filterTypeRadio(idx);
+	if (value) {
+		local idx = 1;
+		Filter.setAttribute(STATE.currentBandIndex + 4, idx);
+		filterTypeRadio(idx);
+	}
 };
 
 
@@ -438,11 +452,12 @@ filterButtons[2].setControlCallback(onbutton_lowShelfControl);
 inline function onbutton_lowShelfControl(component, value)
 {
 	
-	local idx = 2;
-
-	Filter.setAttribute(STATE.currentBandIndex + 4, idx);
-	Console.print('FILTER TYPE: ' + Filter.getAttribute(STATE.currentBandIndex + 4));
-	filterTypeRadio(idx);
+	if (value) {
+		local idx = 2;
+		Filter.setAttribute(STATE.currentBandIndex + 4, idx);
+		filterTypeRadio(idx);
+	
+	}
 };
 
 
@@ -450,13 +465,11 @@ inline function onbutton_lowShelfControl(component, value)
 filterButtons[3].setControlCallback(onbutton_highShelfControl);
 inline function onbutton_highShelfControl(component, value)
 {
-	
-	local idx = 3;
-
-	Filter.setAttribute(STATE.currentBandIndex + 4, idx);
-	Console.print('FILTER TYPE: ' + Filter.getAttribute(STATE.currentBandIndex + 4));
-	filterTypeRadio(idx);
-	
+	if (value) {
+		local idx = 3;
+		Filter.setAttribute(STATE.currentBandIndex + 4, idx);
+		filterTypeRadio(idx);
+	}
 };
 
 
@@ -465,17 +478,16 @@ filterButtons[4].setControlCallback(onbutton_bandPassControl);
 inline function onbutton_bandPassControl(component, value)
 {
 	local idx = 4;
-
-	Filter.setAttribute(STATE.currentBandIndex + 4, idx);
-	Console.print('FILTER TYPE: ' + Filter.getAttribute(STATE.currentBandIndex + 4));
-	filterTypeRadio(idx);
+	if (value) {
+		Filter.setAttribute(STATE.currentBandIndex + 4, idx);
+		filterTypeRadio(idx);
+	}
 };
 
 
 
 // MASTER
 const var Gain = Synth.getEffect("Simple Gain4");
-const var OutputGain = Synth.getEffect("Simple Gain2");
 
 Content.getComponent("knob_io_in").setControlCallback(onknob_io_inControl);
 inline function onknob_io_inControl(component, value)
@@ -485,15 +497,18 @@ inline function onknob_io_inControl(component, value)
 	updateParameterWithDb('Input Gain', Math.floor(value * 100) / 100);
 };
 
+
+const var DryGain = Synth.getEffect("DryGain");
+const var WetGain = Synth.getEffect("WetGain");
+
 Content.getComponent("knob_io_out").setControlCallback(onknob_io_outControl);
-const mixMin = -50;
-const mixMax = 0;
-const mixRange = mixMax - mixMin;
 inline function onknob_io_outControl(component, value)
 {
-
-	local normalized = (Math.floor(value) - mixMin) / mixRange;
+	DryGain.setAttribute(DryGain.Gain, Engine.getDecibelsForGainFactor(1-value));
+	WetGain.setAttribute(WetGain.Gain, Engine.getDecibelsForGainFactor(value));
 	
-	OutputGain.setAttribute('Gain', value);
-	updateParameterWithLabel('MIX', normalized, '%');
+	local dryAmount = parseInt((1- value) * 100);
+	local wetAmount = parseInt(value * 100);
+	
+	customParameter('DRY: ' + dryAmount + ' | WET: ' + wetAmount);
 };

@@ -1,7 +1,6 @@
 // Icons
 const var icon_panel_freeze2 = Content.getComponent("icon_panel_freeze2");
 
-const var icon_panel_io = Content.getComponent("icon_panel_io");
 const var icon_panel_logo = Content.getComponent("icon_panel_logo");
 const var icon_panel_heart = Content.getComponent("icon_panel_heart");
 const var icon_panel_fullLogo = Content.getComponent('icon_panel_fullLogo');
@@ -24,11 +23,6 @@ icon_panel_fullLogo.setPaintRoutine(function(g) {
 icon_panel_freeze2.setPaintRoutine(function(g) {
 	g.setColour('0xD4D4D4');
 	g.fillPath(Paths.icons['freeze'], [0, 0, 30, 30]);
-});
-
-icon_panel_io.setPaintRoutine(function(g) {
-	g.setColour('0x6B6B6B');
-	g.fillPath(Paths.icons['inOut'], [0, 0, 80, 15]);
 });
 
 // Buttons
@@ -147,6 +141,10 @@ laf.registerFunction('drawToggleButton', function(g, obj) {
 		return;
 	} else if (obj.text.indexOf("text-") != -1) {
 		var text = obj.text.replace("text-");
+		obj.value == 1 ? g.setColour(obj.textColour) : g.setColour(obj.itemColour1);
+		if (obj.over == 1) {
+			g.setColour(obj.itemColour2);
+		}
 		g.drawAlignedText(text, a, 'centred');
 		return;
 	}
@@ -159,7 +157,7 @@ laf.registerFunction('drawToggleButton', function(g, obj) {
 		g.drawRect(a, 3);
 		g.setFont('space', 26.0);
 		
-		if (obj.value == 1.0) {
+		if (obj.value == 0.0) {
 			g.fillRect([a[2] / 2, border, a[2] / 2 - border, a[3] - border * 2]);		
 			g.drawAlignedText('ON', [0, 0, a[2] / 2, a[3]], 'centred');
 		} else {	

@@ -4,9 +4,9 @@ Server.setHttpHeader('Authorization: Basic ' + AUTH_KEY);
 // NOT FOUND LABEL
 const var label_not_found = Content.getComponent("label_not_found");
 
-function getActivation(status, obj) {
-	Console.print(obj.data.productId);
 
+
+function getActivation(status, obj) {
 	if (status == 404 || obj.data.productId != 422) {
 		label_not_found.set('visible', true);
 		return;
@@ -24,9 +24,7 @@ function getActivation(status, obj) {
 		panel_non_activated.set('visible', !STATE.ACTIVATED);
 		panel_non_activated.repaint();
 		label_status_main.set('visible', !STATE.ACTIVATED);
-		
-		// Disable noise
-		NoiseGen.setBypassed(true);
+		label_thank_you.set('visible', STATE.ACTIVATED);
 	}
 };
 
