@@ -78,8 +78,10 @@ inline function onbutton_activateControl(component, value)
 Content.getComponent("button_not_activated").setControlCallback(onbutton_not_activatedControl);
 inline function onbutton_not_activatedControl(component, value)
 {
-	displayShowSettings('activate');
-	STATE.settingsOpen = true;
+	if (value) {
+		displayShowSettings('activate');
+		STATE.settingsOpen = true;
+	}
 };
 
 
