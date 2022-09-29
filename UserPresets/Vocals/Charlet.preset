@@ -2,37 +2,37 @@
 
 <Preset Version="1.0.0">
   <Content Processor="Interface">
-    <Control type="ScriptSlider" id="header_vumeter_ch1" value="0.0"/>
-    <Control type="ScriptSlider" id="header_vumeter_ch2" value="0.0"/>
-    <Control type="ScriptButton" id="button_title" value="1.0"/>
-    <Control type="ScriptButton" id="button_logo" value="0.0"/>
-    <Control type="ScriptButton" id="button_presetBrowser" value="1.0"/>
-    <Control type="ScriptSlider" id="knob_reverb_space" value="0.1800000071525574"/>
+    <Control type="ScriptSlider" id="header_vumeter_ch1" value="-0.11"/>
+    <Control type="ScriptSlider" id="header_vumeter_ch2" value="-0.11"/>
+    <Control type="ScriptButton" id="Button1" value="0.0"/>
+    <Control type="ScriptSlider" id="knob_reverb_space" value="0.1799999922513962"/>
     <Control type="ScriptSlider" id="knob_reverb_damping" value="0.6499999761581421"/>
     <Control type="ScriptSlider" id="knob_reverb_stereo" value="0.550000011920929"/>
-    <Control type="ScriptSlider" id="knob_reverb_drywet" value="0.4600000083446503"/>
-    <Control type="ScriptButton" id="button_freeze" value="0.0"/>
+    <Control type="ScriptSlider" id="knob_reverb_drywet" value="0.4599999785423279"/>
+    <Control type="ScriptButton" id="button_freeze" value="0"/>
     <Control type="ScriptSlider" id="knob_degrade_bit" value="0.5"/>
     <Control type="ScriptSlider" id="knob_degrade_rate" value="0.5699999928474426"/>
     <Control type="ScriptSlider" id="knob_degrade_mix" value="0.7699999809265137"/>
     <Control type="ScriptSlider" id="knob_flair_flair" value="0.2599999904632568"/>
-    <Control type="ScriptSlider" id="knob_filter_gain" value="-12.59999942779541"/>
+    <Control type="ScriptSlider" id="knob_filter_gain" value="-12.59999847412109"/>
     <Control type="ScriptSlider" id="knob_filter_freq" value="71.0"/>
     <Control type="ScriptSlider" id="knob_filter_q" value="0.0"/>
-    <Control type="ScriptComboBox" id="combo_filter_type" value="2.0"/>
     <Control type="ScriptSlider" id="knob_io_in" value="0.0"/>
-    <Control type="ScriptSlider" id="knob_io_out" value="0.0"/>
-    <Control type="ScriptButton" id="button_website" value="0.0"/>
-    <Control type="ScriptButton" id="button_github" value="0.0"/>
-    <Control type="ScriptButton" id="button_x1" value="0.0"/>
-    <Control type="ScriptComboBox" id="combo_size" value="5.0"/>
-    <Control type="ScriptButton" id="button_x2" value="1.0"/>
+    <Control type="ScriptSlider" id="knob_io_out" value="0.6399999856948853"/>
     <Control type="ScriptButton" id="button_buy_reach" value="1.0"/>
     <Control type="ScriptButton" id="button_activate" value="0.0"/>
+    <Control type="ScriptButton" id="button_website" value="0.0"/>
+    <Control type="ScriptButton" id="button_github" value="0.0"/>
     <Control type="ScriptButton" id="button_toggle_reverb" value="1.0"/>
     <Control type="ScriptButton" id="button_toggle_degrade" value="1.0"/>
     <Control type="ScriptButton" id="button_toggle_flair" value="1.0"/>
     <Control type="ScriptButton" id="button_toggle_filter" value="1.0"/>
+    <Control type="ScriptButton" id="button_disableBand" value="1.0"/>
+    <Control type="ScriptButton" id="button_lowPass" value="0"/>
+    <Control type="ScriptButton" id="button_HighPass" value="1"/>
+    <Control type="ScriptButton" id="button_lowShelf" value="0"/>
+    <Control type="ScriptButton" id="button_highShelf" value="0"/>
+    <Control type="ScriptButton" id="button_bandPass" value="0"/>
   </Content>
   <MidiAutomation/>
   <MPEData Enabled="0"/>

@@ -8,6 +8,7 @@ eqWatcher.addListener("RefreshFunction", function(component, event)
     if(event.drag || event.clicked) {
 		var movingBand = getMovingBand();
 		if (movingBand) {
+			
 			updateFilterLabel();
 			
 			var frequency = movingBand.frequency;
@@ -25,12 +26,6 @@ eqWatcher.addListener("RefreshFunction", function(component, event)
     }
 });
 
-function getBandLength() {
-	for (var i = 0; i < 5; i + 5) {
-		Console.print(Filter.getAttribute(i));
-	}
-}
-
 function getMovingBand() {
 	for (var i = 0; i < lastBands.length; i++) {
 		
@@ -38,7 +33,6 @@ function getMovingBand() {
 		
 		// get the index for each handle and extract data
 		var currentBand = getCurrentBand(i);
-		
 		// if one of the parameters has changed compared to the last time update that Band
 		if (lastBand.gain != currentBand.gain || lastBand.frequency != currentBand.frequency || lastBand.q != currentBand.q){
 			// add to the lastBands buffer for next comparison
@@ -47,6 +41,8 @@ function getMovingBand() {
 			STATE.currentBandIndex = currentBand.index;
 			// Get the filter type for the currently used band
 			STATE.currentBandFilterType = bandTypeToLabel(parseInt(Filter.getAttribute(currentBand.index + 4)));
+			
+			Console.print('currentBand filter type' + STATE.currentBandFilterType);
 			return {
 				name: 'Band ' + i,
 				frequency: currentBand.frequency,
