@@ -116,7 +116,7 @@ inline function onbutton_presetBrowserControl(component, value)
 		displayShow('presetBrowser');
 	} else {
 		STATE.presetBrowserOpen = false;
-		displayShowMain();
+		displayShowMain('default');
 	}
 };
 
@@ -180,22 +180,27 @@ Content.getComponent("button_x3").setControlCallback(onbutton_closePreset_Contro
 
 inline function onbutton_closePreset_Control(component, value)
 {
-	presetBrowserButton.setValue(0);
-	STATE.presetBrowserOpen = false;
-	displayShowMain('default');
+	showMain();
 };
+
+
+inline function onbutton_x4Control(component, value)
+{
+	showMain();
+};
+
+Content.getComponent("button_x4").setControlCallback(onbutton_x4Control);
 
 
 Content.getComponent("button_x2").setControlCallback(onbutton_x2Control);
 inline function onbutton_x2Control(component, value)
 {
-	displayShowMain('default');
-	logoButton.setValue(0);
+	showMain();
 };
 
 inline function onbutton_x1Control(component, value)
 {
-	displayShowMain('default');
+	showMain();
 };
 
 // REVERB

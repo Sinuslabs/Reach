@@ -11,8 +11,34 @@ function displayDisableAll() {
 	}
 }
 
+function showMain() {
+	disableStates();
+	updateFreezeParameter();
+	displayShowMain('default');
+}
+
+function disableStates() {
+	STATE.filterOpen = false;
+	button_showFilter.setValue(0);
+	
+	STATE.presetBrowserOpen = false;
+	presetBrowserButton.setValue(0);
+	
+	logoButton.setValue(0);
+}
+
 function displayShow(route) {
 	displayDisableAll();
+	
+	if (route == 'about') {
+		disableStates();
+	}
+	
+	if (route == 'settings') {
+		disableStates();	
+		STATE.settingsOpen = true;
+		logoButton.setValue(1);
+	}
 	
 	//disable filter panel
 	panel_filterButtons.set('visible', false);
@@ -26,7 +52,7 @@ function displayShow(route) {
 			screenTimer.stopTimer();
 			CURRENT_ROUTE = displayName;
 		} else if (route == 'main') {
-			displayShowMain('waveform');
+			displayShowMain('default');
 			return;
 		} else {
 			display.set('visible', false);
@@ -35,12 +61,24 @@ function displayShow(route) {
 }
 
 function displayShowMain(route) {
+	if (route == 'default') {
+	 route = 'waveform';
+	 disableStates();
+	};
+	if (route == 'filter') {
+		disableStates();	
+		STATE.filterOpen = true;
+		button_showFilter.setValue(1);
+		panel_filterButtons.set('visible', true);
+	} else {
+		STATE.filterOpen = false;
+		panel_filterButtons.set('visible', false);
+	}
+
+	
 	if (STATE.presetBrowserOpen) return;
-	if (route == 'default') { route = 'waveform'; STATE.settingsOpen = false; };
 	displayDisableAll();
-	
-	route == 'filter' ? panel_filterButtons.set('visible', true) : panel_filterButtons.set('visible', false);
-	
+	Console.print(button_freeze.getValue());
 	updateFreezeParameter(button_freeze.getValue());
 	displayMain.set('visible', true);
 	for (mainDisplay in mainDisplayRoutes) {

@@ -14,7 +14,7 @@ screenTimer.setTimerCallback(showMainScreen);
 inline function showMainScreen() {
 	if (STATE.presetBrowserOpen || !STATE.enableAnimations || STATE.filterOpen || STATE.settingsOpen) return;
 
-	displayShow('main');	
+	displayShowMain('default');	
 	screenTimer.stopTimer();
 }
 
