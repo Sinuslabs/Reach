@@ -9,7 +9,7 @@
 [Setup]
 ; NOTE: The value of AppId uniquely identifies this application. Do not use the same AppId value in installers for other applications.
 ; (To generate a new GUID, click Tools | Generate GUID inside the IDE.)
-AppId={{4266338E-5825-4F2A-AEDC-0D0935273D03}
+AppId={{42AD152E-52E3-41E3-AE93-F00EE1D45196}
 DisableWelcomePage=no
 AppName={#MyAppName}
 AppVersion={#MyAppVersion}
@@ -30,12 +30,13 @@ WizardStyle=modern
 AppCopyright=2022 Sinuslabs
 SetupIconFile=C:\Users\iso\Documents\GitHub\Reach\Installer\icon.ico
 WizardImageFile=C:\Users\iso\Documents\GitHub\Reach\Installer\Wizard-image.bmp
-DefaultDirName="C:\Program Files (x86)\Common Files\VST3\"
+DefaultDirName="C:\Program Files\Common Files\VST3\"
 DisableDirPage=no
+DirExistsWarning=no
 
 [Languages]
 Name: "english"; MessagesFile: "compiler:Default.isl"; LicenseFile: "C:\Users\iso\Documents\GitHub\Reach\LICENSE"
 
 [Files]
-Source: "C:\Users\iso\Documents\GitHub\Reach\Binaries\Compiled\VST3\*"; DestDir: "C:\Program Files\Common Files\VST3\Reach"; Flags: ignoreversion recursesubdirs createallsubdirs
+Source: "C:\Users\iso\Documents\GitHub\Reach\Binaries\Compiled\VST3\Reach.vst3"; DestDir: "C:\Program Files\Common Files\VST3\"; Flags: ignoreversion recursesubdirs createallsubdirs
 Source: "C:\Users\iso\Documents\GitHub\Reach\UserPresets\*"; DestDir: {userappdata}\Sinuslabs\Reach\UserPresets\; Flags: ignoreversion recursesubdirs createallsubdirs
