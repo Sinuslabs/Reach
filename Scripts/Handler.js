@@ -121,6 +121,7 @@ inline function onbutton_presetBrowserControl(component, value)
 };
 
 
+Content.getComponent("Button1").setControlCallback(onButton1Control);
 inline function onButton1Control(component, value)
 {
 	// reset band to band 1; 
@@ -132,8 +133,6 @@ inline function onButton1Control(component, value)
 		label_preset_browser.set('text', Engine.getCurrentUserPresetName());
 	}
 };
-
-Content.getComponent("Button1").setControlCallback(onButton1Control);
 
 
 Content.getComponent("button_preset_leftArrow").setControlCallback(onbutton_preset_leftArrowControl);
@@ -180,6 +179,9 @@ Content.getComponent("button_x3").setControlCallback(onbutton_closePreset_Contro
 
 inline function onbutton_closePreset_Control(component, value)
 {
+	
+	STATE.presetBrowserOpen = false;
+	presetBrowserButton.setValue(false);
 	showMain();
 };
 

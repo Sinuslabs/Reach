@@ -63,7 +63,10 @@ function displayShow(route) {
 function displayShowMain(route) {
 	if (route == 'default') {
 	 route = 'waveform';
-	 disableStates();
+   	STATE.filterOpen = false;
+	button_showFilter.setValue(0);
+	
+	logoButton.setValue(0);
 	};
 	if (route == 'filter') {
 		disableStates();	
@@ -78,7 +81,6 @@ function displayShowMain(route) {
 	
 	if (STATE.presetBrowserOpen) return;
 	displayDisableAll();
-	Console.print(button_freeze.getValue());
 	updateFreezeParameter(button_freeze.getValue());
 	displayMain.set('visible', true);
 	for (mainDisplay in mainDisplayRoutes) {

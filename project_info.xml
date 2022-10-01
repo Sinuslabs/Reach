@@ -6,8 +6,8 @@
   <Description value="Creative Reverb Plugin"/>
   <BundleIdentifier value="com.sinuslabs.reach"/>
   <PluginCode value="Reac"/>
-  <EmbedAudioFiles value="Yes"/>
-  <EmbedImageFiles value="Yes"/>
+  <EmbedAudioFiles value="0"/>
+  <EmbedImageFiles value="1"/>
   <SupportFullDynamicsHLAC value="No"/>
   <AdditionalDspLibraries value=""/>
   <OSXStaticLibs value=""/>
