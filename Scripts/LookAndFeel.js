@@ -190,6 +190,51 @@ laf.registerFunction("drawPresetBrowserListItem", function(g, obj)
     g.drawAlignedText(obj.text, [5, a[1], a[2], a[3]], "left");
 });
 
+laf.registerFunction("drawPopupMenuItem", function(g, obj)
+{
+    var a = obj.area;
+    var h = a[3];
+    
+    if(obj.isTicked)
+    {
+        g.setColour(Colours.white);
+        g.fillEllipse([a[0] + h/3, a[1] + h/3, h/3, h/3]);
+    }
+    
+    if(obj.isHighlighted)
+    {
+        g.setColour(0x22FFFFFF);
+        g.fillRect(obj.area);
+    }
+    
+    g.setFont("space", 38.0);
+    g.setColour(Colours.white);
+    g.drawAlignedText(obj.text, [a[0] + h, a[1], a[2] - h, a[3]], "left");
+});
+
+laf.registerFunction("drawComboBox", function(g, obj)
+{
+    var a = obj.area;
+
+    g.setColour(obj.bgColour);
+    g.fillRoundedRectangle([a[0], a[1], a[2], a[3]], 2.0);
+    g.setColour(Colours.withAlpha(obj.textColour, (obj.enabled && obj.active) ? 1.0 : 0.2));
+    g.setFont("space", 36.0);
+   
+    g.drawAlignedText(obj.text, [a[0] + 30, a[1], a[2]-10, a[3]], "left");
+    var h = a[3];
+    g.fillTriangle([a[0] + a[2] - h/3 - 10, a[1] + h/3, h/3, h/3], Math.PI);
+});
+
+laf.registerFunction("getIdealPopupMenuItemSize", function(obj)
+{		 
+	// this will set the width to 200 and height to 50
+	//return [200, 50];
+	 
+	// sets the height to 30
+	return 60;
+});
+
 
 const localLaf = Content.createLocalLookAndFeel();
 localLaf.registerFunction("drawFilterDragHandle", function(g, obj)

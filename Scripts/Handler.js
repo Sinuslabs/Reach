@@ -120,13 +120,25 @@ inline function onbutton_presetBrowserControl(component, value)
 	}
 };
 
+const var presetBrowserWatcher = Engine.createBroadcaster({"component": undefined, "event": undefined});
+
+presetBrowserWatcher.attachToComponentMouseEvents("FloatingTile2", "All Callbacks");
+
+
+presetBrowserWatcher.addListener("RefreshFunction", function(component, event)
+{
+    if(event.doubleClick) {
+		STATE.presetBrowserOpen = false;
+		presetBrowserButton.setValue(false);
+		showMain();
+    }
+});
 
 Content.getComponent("Button1").setControlCallback(onButton1Control);
 inline function onButton1Control(component, value)
 {
 	// reset band to band 1; 
 	STATE.currentBandIndex = 0;
-
 	if (Engine.getCurrentUserPresetName() == '') {
 		label_preset_browser.set('text', 'Blackhole');
 	} else {
