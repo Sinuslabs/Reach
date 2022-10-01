@@ -12,10 +12,10 @@
   <AdditionalDspLibraries value=""/>
   <OSXStaticLibs value=""/>
   <WindowsStaticLibFolder value=""/>
-  <ExtraDefinitionsWindows value=""/>
-  <ExtraDefinitionsOSX value=""/>
-  <ExtraDefinitionsIOS value=""/>
-  <ExtraDefinitionsLinux value=""/>
+  <ExtraDefinitionsWindows value="ENABLE_ALL_PEAK_METERS=1"/>
+  <ExtraDefinitionsOSX value="ENABLE_ALL_PEAK_METERS=1"/>
+  <ExtraDefinitionsIOS value="ENABLE_ALL_PEAK_METERS=1"/>
+  <ExtraDefinitionsLinux value="ENABLE_ALL_PEAK_METERS=1"/>
   <AppGroupID value=""/>
   <RedirectSampleFolder value=""/>
   <AAXCategoryFX value="AAX_ePlugInCategory_Modulation"/>

@@ -124,7 +124,6 @@ const var presetBrowserWatcher = Engine.createBroadcaster({"component": undefine
 
 presetBrowserWatcher.attachToComponentMouseEvents("FloatingTile2", "All Callbacks");
 
-
 presetBrowserWatcher.addListener("RefreshFunction", function(component, event)
 {
     if(event.doubleClick) {
