@@ -2,7 +2,7 @@
 
 <ProjectSettings>
   <Name value="Reach"/>
-  <Version value="1.0.0"/>
+  <Version value="1.2.0"/>
   <Description value="Creative Reverb Plugin"/>
   <BundleIdentifier value="com.sinuslabs.reach"/>
   <PluginCode value="Reac"/>
