@@ -11,8 +11,9 @@ vuMeterTimer.setTimerCallback(function()
 	header_vumeter_ch1.setValue(ch2 - 0.11);
 	header_vumeter_ch2.setValue(ch1 - 0.11);
 });
-vuMeterTimer.startTimer(30);
+vuMeterTimer.startTimer(20);
 
 function getNormalizedPeakValue(gain) {
 		return 0.01 * (100.0 + Engine.getDecibelsForGainFactor(gain));
 }
+
