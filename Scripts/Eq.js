@@ -64,7 +64,7 @@ function getCurrentBand(bandIndex) {
 	};
 }
 
-function getParameterFromBand(frequency, gain, q) { return Engine.doubleToString(STATE.currentBandIndex / 5, 0) + ' | ' + Math.round(parseInt(frequency)) + 'Hz | ' +  Engine.doubleToString(gain, 1) + 'dB | ' + q + ' Q';   }
+function getParameterFromBand(frequency, gain, q) { return Engine.doubleToString(STATE.currentBandIndex / 5, 0) + ' | ' + Math.round(parseInt(frequency)) + 'Hz | ' +  Engine.doubleToString(gain, 1) + 'dB | ' + Engine.doubleToString(q, 2) + ' Q';   }
 
 var lastBands = [
 	{
