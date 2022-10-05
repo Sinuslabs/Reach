@@ -2,14 +2,14 @@
 ; SEE THE DOCUMENTATION FOR DETAILS ON CREATING INNO SETUP SCRIPT FILES!
 
 #define MyAppName "Reach"
-#define MyAppVersion "1.0"
+#define MyAppVersion "1.2"
 #define MyAppPublisher "Sinuslabs"
 #define MyAppURL "https://sinuslabs.io"
 
 [Setup]
 ; NOTE: The value of AppId uniquely identifies this application. Do not use the same AppId value in installers for other applications.
 ; (To generate a new GUID, click Tools | Generate GUID inside the IDE.)
-AppId={{42AD152E-52E3-41E3-AE93-F00EE1D45196}
+AppId={{EF151A82-10FA-4B07-A5D9-6D760D4868B9}
 DisableWelcomePage=no
 AppName={#MyAppName}
 AppVersion={#MyAppVersion}
