@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<Preset Version="1.0.0">
+<Preset Version="1.2.0">
   <Content Processor="Interface">
     <Control type="ScriptSlider" id="header_vumeter_ch1" value="-0.11"/>
     <Control type="ScriptSlider" id="header_vumeter_ch2" value="-0.11"/>
@@ -13,12 +13,13 @@
     <Control type="ScriptSlider" id="knob_degrade_bit" value="0.7000000476837158"/>
     <Control type="ScriptSlider" id="knob_degrade_rate" value="0.559999942779541"/>
     <Control type="ScriptSlider" id="knob_degrade_mix" value="1.0"/>
-    <Control type="ScriptSlider" id="knob_flair_flair" value="0.5400000214576721"/>
+    <Control type="ScriptSlider" id="knob_flair_flair" value="0.2199999988079071"/>
     <Control type="ScriptSlider" id="knob_filter_gain" value="-11.55000019073486"/>
     <Control type="ScriptSlider" id="knob_filter_freq" value="255.8699951171875"/>
     <Control type="ScriptSlider" id="knob_filter_q" value="0.300000011920929"/>
     <Control type="ScriptSlider" id="knob_io_in" value="0.0"/>
     <Control type="ScriptSlider" id="knob_io_out" value="0.6600000262260437"/>
+    <Control type="ScriptButton" id="button_not_activated" value="0.0"/>
     <Control type="ScriptButton" id="button_buy_reach" value="1.0"/>
     <Control type="ScriptButton" id="button_activate" value="0.0"/>
     <Control type="ScriptButton" id="button_website" value="0.0"/>
