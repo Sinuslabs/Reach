@@ -75,6 +75,15 @@ inline function onbutton_activateControl(component, value)
 };
 
 
+// Buy Reach Button
+Content.getComponent("button_buy_reach").setControlCallback(onbutton_buy_reachControl);
+inline function onbutton_buy_reachControl(component, value)
+{
+	if (value) Engine.openWebsite('https://sinuslabs.io/product/reach');
+};
+
+
+
 Content.getComponent("button_not_activated").setControlCallback(onbutton_not_activatedControl);
 inline function onbutton_not_activatedControl(component, value)
 {
@@ -379,9 +388,17 @@ const var panel_filter = Content.getComponent("panel_filter");
 inline function onbutton_toggle_filterControl(component, value)
 {
 	Filter.setBypassed(!value);
-	STATE.filterOpen = false;
-	button_showFilter.setValue(0);
-	displayShowMain('default');
+	button_showFilter.setValue(value);
+	
+	if (value) {
+		STATE.filterOpen = true;
+		displayShowMain('filter');
+		updateFreezeParameter(false);
+	} else {
+		STATE.filterOpen = false;
+		displayShowMain('default');
+	}
+	
 	panel_filter.set('enabled', value);
 };
 
@@ -392,6 +409,9 @@ inline function onknob_filter_freqControl(component, value)
 {
 	Filter.setAttribute(STATE.currentBandIndex + 1 , value);
 	updateParameterWithLabel('FREQUENCY', value, 'Hz');
+	STATE.filterOpen = true;
+	displayShowMain('filter');
+	updateFreezeParameter(false);
 };
 
 const var knob_filter_q = Content.getComponent("knob_filter_q");
@@ -401,6 +421,9 @@ inline function onknob_filter_qControl(component, value)
 	
 	Filter.setAttribute(STATE.currentBandIndex, value);
 	updateParameterWithLabel('Q', value, '');
+	STATE.filterOpen = true;
+	displayShowMain('filter');
+	updateFreezeParameter(false);
 }
 
 const var knob_filter_gain = Content.getComponent("knob_filter_gain");
@@ -409,6 +432,9 @@ inline function onknob_filter_gainControl(component, value)
 {
 	Filter.setAttribute(STATE.currentBandIndex + 2, value);
 	updateParameterWithDb('GAIN', value);
+	STATE.filterOpen = true;
+	displayShowMain('filter');
+	updateFreezeParameter(false);
 };
 
 const var button_showFilter = Content.getComponent("button_showFilter");
