@@ -42,7 +42,6 @@ function getMovingBand() {
 			// Get the filter type for the currently used band
 			STATE.currentBandFilterType = bandTypeToLabel(parseInt(Filter.getAttribute(currentBand.index + 4)));
 			
-			Console.print('currentBand filter type' + STATE.currentBandFilterType);
 			return {
 				name: 'Band ' + i,
 				frequency: currentBand.frequency,
