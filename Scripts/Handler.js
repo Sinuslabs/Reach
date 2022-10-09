@@ -52,7 +52,6 @@ inline function onbutton_settings_aboutControl(component, value)
 	displayShowSettings('about');
 };
 
-
 // General Settings
 
 // Animations
