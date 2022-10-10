@@ -18,7 +18,8 @@ function getActivation(status, obj) {
 		STATE.ACTIVATED = true;
 		
 		// Disable gain reduction
-		GainReduction.setBypassed(STATE.ACTIVATED);
+		GainReduction.setBypassed(true);
+		GainReductionTimer.stopTimer();
 				
 		// update panels
 		panel_non_activated.set('visible', !STATE.ACTIVATED);
