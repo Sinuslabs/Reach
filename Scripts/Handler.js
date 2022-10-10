@@ -21,7 +21,7 @@ const var settingsButtons = [
 	Content.getComponent('button_settings_audio'),
 	Content.getComponent('button_settings_activate'),
 	Content.getComponent('button_settings_about')
-]
+];
 
 
 settingsButtons[0].setControlCallback(onbutton_settings_generalControl);
@@ -55,11 +55,24 @@ inline function onbutton_settings_aboutControl(component, value)
 // General Settings
 
 // Animations
-Content.getComponent("button_animationToggle").setControlCallback(onbutton_animationToggleControl);
+const var button_animationToggle = Content.getComponent("button_animationToggle");
+button_animationToggle.setControlCallback(onbutton_animationToggleControl);
 inline function onbutton_animationToggleControl(component, value)
 {
 	STATE.enableAnimations = !value;
+	saveSettings();
 };
+
+const var button_filterOnDrag = Content.getComponent("button_filterOnDrag");
+button_filterOnDrag.setControlCallback(onbutton_filterOnDragControl);
+inline function onbutton_filterOnDragControl(component, value)
+{
+	STATE.filterOnDrag = !value;
+	saveSettings();
+};
+
+
+
 
 // Activate Button
 Content.getComponent("button_activate").setControlCallback(onbutton_activateControl);
