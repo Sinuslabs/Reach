@@ -3,9 +3,7 @@
 const var logoButton = Content.getComponent('button_logo');
 
 logoButton.setControlCallback(onbutton_logoControl);
-inline function onbutton_logoControl(component, value)
-{ 
-
+inline function onbutton_logoControl(component, value) { 
 	if (value) {
 		settingsButtonsRadio(0);
 		displayShowSettings('general');
@@ -22,7 +20,6 @@ const var settingsButtons = [
 	Content.getComponent('button_settings_activate'),
 	Content.getComponent('button_settings_about')
 ];
-
 
 settingsButtons[0].setControlCallback(onbutton_settings_generalControl);
  inline function onbutton_settings_generalControl(component, value)
@@ -54,6 +51,31 @@ inline function onbutton_settings_aboutControl(component, value)
 
 // General Settings
 
+// Zoom factor
+
+const zoomFactors = [
+	0.3,
+	0.4,
+	0.5,
+	0.6,
+	0.75,
+	1.0,
+	1.25,
+	1.50,
+	1.75,
+	2.0,
+	2.5,
+	3.0
+];
+
+const var comboBox_zoom = Content.getComponent("ComboBox_zoom")
+comboBox_zoom.setControlCallback(onComboBox_zoomControl);
+inline function onComboBox_zoomControl(component, value)
+{
+	Settings.setZoomLevel(zoomFactors[value - 1]);
+	saveSettings();
+};
+
 // Animations
 const var button_animationToggle = Content.getComponent("button_animationToggle");
 button_animationToggle.setControlCallback(onbutton_animationToggleControl);
@@ -63,6 +85,7 @@ inline function onbutton_animationToggleControl(component, value)
 	saveSettings();
 };
 
+// Filter on Drag
 const var button_filterOnDrag = Content.getComponent("button_filterOnDrag");
 button_filterOnDrag.setControlCallback(onbutton_filterOnDragControl);
 inline function onbutton_filterOnDragControl(component, value)
@@ -83,15 +106,12 @@ inline function onbutton_activateControl(component, value)
 	}
 };
 
-
 // Buy Reach Button
 Content.getComponent("button_buy_reach").setControlCallback(onbutton_buy_reachControl);
 inline function onbutton_buy_reachControl(component, value)
 {
 	if (value) Engine.openWebsite('https://sinuslabs.io/product/reach');
 };
-
-
 
 Content.getComponent("button_not_activated").setControlCallback(onbutton_not_activatedControl);
 inline function onbutton_not_activatedControl(component, value)
@@ -102,13 +122,10 @@ inline function onbutton_not_activatedControl(component, value)
 	}
 };
 
-
-
 // Account License Panel
 const var panel_non_activated = Content.getComponent("panel_non_activated");
 panel_non_activated.set('visible', !STATE.ACTIVATED);
 panel_non_activated.repaint();
-
 
 // Title Button
 Content.getComponent("button_title").setControlCallback(onbutton_titleControl);
@@ -139,9 +156,7 @@ inline function onbutton_presetBrowserControl(component, value)
 };
 
 const var presetBrowserWatcher = Engine.createBroadcaster({"component": undefined, "event": undefined});
-
 presetBrowserWatcher.attachToComponentMouseEvents("FloatingTile2", "All Callbacks");
-
 presetBrowserWatcher.addListener("RefreshFunction", function(component, event)
 {
     if(event.doubleClick) {
@@ -163,7 +178,6 @@ inline function onButton1Control(component, value)
 	}
 };
 
-
 Content.getComponent("button_preset_leftArrow").setControlCallback(onbutton_preset_leftArrowControl);
 inline function onbutton_preset_leftArrowControl(component, value)
 {
@@ -178,7 +192,6 @@ inline function onbutton_preset_rightArrowControl(component, value)
 
 // SHORTCUT HANDLER
 const var panel_background = Content.getComponent("panel_background");
-
 panel_background.setKeyPressCallback(onBackgroundKeypress);
 inline function onBackgroundKeypress(key) {
 	
@@ -214,14 +227,12 @@ inline function onbutton_closePreset_Control(component, value)
 	showMain();
 };
 
-
 inline function onbutton_x4Control(component, value)
 {
 	showMain();
 };
 
 Content.getComponent("button_x4").setControlCallback(onbutton_x4Control);
-
 
 Content.getComponent("button_x2").setControlCallback(onbutton_x2Control);
 inline function onbutton_x2Control(component, value)
@@ -358,10 +369,9 @@ inline function onknob_degrade_mixControl(component, value)
 };
 
 // FLAIR
-
 const var Flair = Synth.getEffect("Saturator1");
 
-// BYPASS
+// FLAIR BYPASS
 Content.getComponent("button_toggle_flair").setControlCallback(onbutton_toggle_flairControl);
 const var panel_flair = Content.getComponent("panel_flair");
 
@@ -388,7 +398,6 @@ inline function onknob_flair_flairControl(component, value)
 // FILTER
 const var Filter = Synth.getEffect("Parametriq EQ1");
 const var panel_filterButtons = Content.getComponent("panel_filterButtons");
-
 
 // BYPASS
 Content.getComponent("button_toggle_filter").setControlCallback(onbutton_toggle_filterControl);
@@ -418,9 +427,12 @@ inline function onknob_filter_freqControl(component, value)
 {
 	Filter.setAttribute(STATE.currentBandIndex + 1 , value);
 	updateParameterWithLabel('FREQUENCY', value, 'Hz');
-	STATE.filterOpen = true;
-	displayShowMain('filter');
-	updateFreezeParameter(false);
+	
+	if (STATE.filterOnDrag == 1) {
+		STATE.filterOpen = true;
+		displayShowMain('filter');
+		updateFreezeParameter(false);
+	}
 };
 
 const var knob_filter_q = Content.getComponent("knob_filter_q");
@@ -430,9 +442,11 @@ inline function onknob_filter_qControl(component, value)
 	
 	Filter.setAttribute(STATE.currentBandIndex + 2, value);
 	updateParameterWithLabel('Q', value, '');
-	STATE.filterOpen = true;
-	displayShowMain('filter');
-	updateFreezeParameter(false);
+	if (STATE.filterOnDrag == 1) {
+		STATE.filterOpen = true;
+		displayShowMain('filter');
+		updateFreezeParameter(false);
+	}
 }
 
 const var knob_filter_gain = Content.getComponent("knob_filter_gain");
@@ -441,9 +455,11 @@ inline function onknob_filter_gainControl(component, value)
 {
 	Filter.setAttribute(STATE.currentBandIndex, value);
 	updateParameterWithDb('GAIN', value);
-	STATE.filterOpen = true;
-	displayShowMain('filter');
-	updateFreezeParameter(false);
+	if (STATE.filterOnDrag == 1) {
+		STATE.filterOpen = true;
+		displayShowMain('filter');
+		updateFreezeParameter(false);
+	}
 };
 
 const var button_showFilter = Content.getComponent("button_showFilter");
@@ -460,7 +476,6 @@ inline function onbutton_showFilterControl(component, value)
 	}
 };
 
-
 Content.getComponent("button_disableBand").setControlCallback(onbutton_disableBandControl);
 inline function onbutton_disableBandControl(component, value)
 {	
@@ -469,7 +484,6 @@ inline function onbutton_disableBandControl(component, value)
 };
 
 // Display Filter Knobs
-
 const filterButtons = [
 	Content.getComponent("button_lowPass"),
 	Content.getComponent("button_HighPass"),
@@ -489,7 +503,6 @@ inline function onbutton_lowPassControl(component, value)
 	}
 };
 
-
 filterButtons[1].setControlCallback(onbutton_HighPassControl);
 inline function onbutton_HighPassControl(component, value)
 {
@@ -500,8 +513,6 @@ inline function onbutton_HighPassControl(component, value)
 		filterTypeRadio(idx);
 	}
 };
-
-
 
 filterButtons[2].setControlCallback(onbutton_lowShelfControl);
 inline function onbutton_lowShelfControl(component, value)
@@ -515,8 +526,6 @@ inline function onbutton_lowShelfControl(component, value)
 	}
 };
 
-
-
 filterButtons[3].setControlCallback(onbutton_highShelfControl);
 inline function onbutton_highShelfControl(component, value)
 {
@@ -526,8 +535,6 @@ inline function onbutton_highShelfControl(component, value)
 		filterTypeRadio(idx);
 	}
 };
-
-
 
 filterButtons[4].setControlCallback(onbutton_bandPassControl);
 inline function onbutton_bandPassControl(component, value)
@@ -539,11 +546,8 @@ inline function onbutton_bandPassControl(component, value)
 	}
 };
 
-
-
 // MASTER
 const var Gain = Synth.getEffect("Simple Gain4");
-
 Content.getComponent("knob_io_in").setControlCallback(onknob_io_inControl);
 inline function onknob_io_inControl(component, value)
 {
@@ -551,7 +555,6 @@ inline function onknob_io_inControl(component, value)
 	Gain.setAttribute('Gain', value);
 	updateParameterWithDb('Input Gain', Math.floor(value * 100) / 100);
 };
-
 
 const var DryGain = Synth.getEffect("DryGain");
 const var WetGain = Synth.getEffect("WetGain");

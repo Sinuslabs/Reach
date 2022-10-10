@@ -1,51 +1,46 @@
 const settingsDir = FileSystem.getFolder(FileSystem.UserPresets).getParentDirectory();
 const settingsFile = settingsDir.getChildFile('settings.json');
 
-
-
-const DEFAULT_SETTINGS = {
-	'zoom': 0.75,
-	'animationEnabled': 1,
-	'filterOnDrag': 1,
-}
-
 // saves the settings from the general page
 function saveSettings() {
+	
+	Console.print('SAVE ' + Settings.getZoomLevel());
+	
+	Console.print('ANIMATIONS BUTTON STATE: ' + STATE.enableAnimations);
+	Console.print('Filter on drag BUTTON STATE: ' + STATE.filterOnDrag);
+	
+	
 	settingsFile.writeObject({
 		'zoom': Settings.getZoomLevel(),
-		'animationEnabled': !STATE.enableAnimations,
-		'filterOnDrag': !STATE.filterOnDrag
+		'animationEnabled': STATE.enableAnimations,
+		'filterOnDrag': STATE.filterOnDrag
 	});
-	
-	Console.print('save settings');
 }
 
 // reads the settings file
 function loadSettings() {
 	var savedSettings = settingsFile.loadAsObject();
+	var zoomSaved = Engine.doubleToString(savedSettings['zoom'], 1);
 	var animationEnabledSaved = savedSettings['animationEnabled'];
 	var filterOnDragSaved = savedSettings['filterOnDrag'];
 	
-	Settings.setZoomLevel(savedSettings['zoom']);
+	// zoom level
+	Settings.setZoomLevel(zoomSaved);
+	var zoomFactorsIndex = zoomFactors.indexOf(zoomSaved, 0, 0);
+	comboBox_zoom.setValue(zoomFactorsIndex + 1);
 	
-	button_animationToggle.setValue(animationEnabledSaved);
+	// animation toggle
+	// Toggle buttons are using reversed value to display on by default
+	button_animationToggle.setValue(!animationEnabledSaved);
+	// STATE is using normal values tho
 	STATE.enableAnimations = animationEnabledSaved;
 	
-	button_filterOnDrag.setValue(filterOnDragSaved);
+	// filter on drag
+	// Toggle buttons are using reversed value to display on by default
+	button_filterOnDrag.setValue(!filterOnDragSaved);
+	// STATE is using normal values tho
 	STATE.filterOnDrag = filterOnDragSaved;
-	
-	Console.print('LOADING SETTINGS');
-	Console.print(trace(savedSettings));
-}
-
-// initializes new settings
-function initSettings() {
-	Console.print('WRITING SETTINGS FILE');
-
-	settingsFile.writeObject(DEFAULT_SETTINGS);
 }
 
 // checks if the settings file exist
-function settingsExist() {
- return settingsFile.isFile();
-}
+function settingsExist() { return settingsFile.isFile();}
