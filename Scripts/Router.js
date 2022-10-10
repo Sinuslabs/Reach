@@ -62,12 +62,13 @@ function displayShow(route) {
 
 function displayShowMain(route) {
 	if (route == 'default') {
-	 route = 'waveform';
-   	STATE.filterOpen = false;
-	button_showFilter.setValue(0);
-	
-	logoButton.setValue(0);
+	 	route = 'waveform';
+	   	STATE.filterOpen = false;
+		button_showFilter.setValue(0);
+		logoButton.setValue(0);
 	};
+	
+	if (STATE.presetBrowserOpen) return;
 	if (route == 'filter') {
 		disableStates();	
 		STATE.filterOpen = true;
@@ -77,9 +78,7 @@ function displayShowMain(route) {
 		STATE.filterOpen = false;
 		panel_filterButtons.set('visible', false);
 	}
-
 	
-	if (STATE.presetBrowserOpen) return;
 	displayDisableAll();
 	updateFreezeParameter(button_freeze.getValue());
 	displayMain.set('visible', true);

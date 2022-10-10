@@ -73,6 +73,7 @@ comboBox_zoom.setControlCallback(onComboBox_zoomControl);
 inline function onComboBox_zoomControl(component, value)
 {
 	Settings.setZoomLevel(zoomFactors[value - 1]);
+	
 	saveSettings();
 };
 
@@ -157,21 +158,13 @@ inline function onbutton_presetBrowserControl(component, value)
 
 const var presetBrowserWatcher = Engine.createBroadcaster({"component": undefined, "event": undefined});
 presetBrowserWatcher.attachToComponentMouseEvents("FloatingTile2", "All Callbacks");
-
-const var PresetBrowserStateTimer = Engine.createTimerObject();
-PresetBrowserStateTimer.setTimerCallback(function() {
-		Console.print('timer finished');
-		presetBrowserButton.setValue(false);
-		STATE.presetBrowserOpen = false;
-		showMain();
-		PresetBrowserStateTimer.stopTimer();
-});
-
 presetBrowserWatcher.addListener("RefreshFunction", function(component, event)
 {
     if(event.doubleClick) {
-   		PresetBrowserStateTimer.startTimer(250);
-	}
+		STATE.presetBrowserOpen = false;
+		presetBrowserButton.setValue(false);
+		showMain();
+    }
 });
 
 Content.getComponent("Button1").setControlCallback(onButton1Control);
@@ -414,9 +407,7 @@ const var panel_filter = Content.getComponent("panel_filter");
 inline function onbutton_toggle_filterControl(component, value)
 {
 	Filter.setBypassed(!value);
-	panel_filter.set('enabled', value);
-	
-	if (STATE.presetBrowserOpen) return;
+	button_showFilter.setValue(value);
 	
 	if (value) {
 		STATE.filterOpen = true;
@@ -427,8 +418,7 @@ inline function onbutton_toggle_filterControl(component, value)
 		displayShowMain('default');
 	}
 	
-	button_showFilter.setValue(value);
-	
+	panel_filter.set('enabled', value);
 };
 
 
