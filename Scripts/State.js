@@ -8,5 +8,6 @@ var STATE = {
 	settingsOpen: false,
 	currentBandIndex: 0,
 	currentBandFilterType: 'LOWPASS',
-	enableAnimations: true
+	enableAnimations: true,
+	filterOnDrag: true,
 };
