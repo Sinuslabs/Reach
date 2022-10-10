@@ -71,9 +71,6 @@ inline function onbutton_filterOnDragControl(component, value)
 	saveSettings();
 };
 
-
-
-
 // Activate Button
 Content.getComponent("button_activate").setControlCallback(onbutton_activateControl);
 const var label_serial_key = Content.getComponent("label_serial_key");
@@ -431,7 +428,7 @@ knob_filter_q.setControlCallback(onknob_filter_qControl);
 inline function onknob_filter_qControl(component, value)
 {
 	
-	Filter.setAttribute(STATE.currentBandIndex, value);
+	Filter.setAttribute(STATE.currentBandIndex + 2, value);
 	updateParameterWithLabel('Q', value, '');
 	STATE.filterOpen = true;
 	displayShowMain('filter');
@@ -442,7 +439,7 @@ const var knob_filter_gain = Content.getComponent("knob_filter_gain");
 knob_filter_gain.setControlCallback(onknob_filter_gainControl);
 inline function onknob_filter_gainControl(component, value)
 {
-	Filter.setAttribute(STATE.currentBandIndex + 2, value);
+	Filter.setAttribute(STATE.currentBandIndex, value);
 	updateParameterWithDb('GAIN', value);
 	STATE.filterOpen = true;
 	displayShowMain('filter');
