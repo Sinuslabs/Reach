@@ -5,6 +5,23 @@ const var icon_panel_logo = Content.getComponent("icon_panel_logo");
 const var icon_panel_heart = Content.getComponent("icon_panel_heart");
 const var icon_panel_fullLogo = Content.getComponent('icon_panel_fullLogo');
 
+// Noise Panels
+const var noise_panels = Content.getAllComponents('_noise');
+
+// Background Noise
+for (var i=0; i < noise_panels.length; i++) {
+	noise_panels[i].setPaintRoutine(function(g) {
+		var a = [0, 0, this.getWidth(), this.getHeight()];
+		g.addNoise({
+			alpha: 0.03,
+			monochromatic: false,
+			scaleFactor: 1.5,
+			area: a
+		});
+	});
+}
+
+// custom Icons
 icon_panel_heart.setPaintRoutine(function(g) {
 	g.setColour('0xFF7A00');
 	g.fillPath(Paths.icons['heart'], [0, 0, 25, 25]);
@@ -24,6 +41,8 @@ icon_panel_freeze2.setPaintRoutine(function(g) {
 	g.setColour('0xD4D4D4');
 	g.fillPath(Paths.icons['freeze'], [0, 0, 30, 30]);
 });
+
+
 
 // Buttons
 const laf = Engine.createGlobalScriptLookAndFeel();
