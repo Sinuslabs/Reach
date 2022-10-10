@@ -5,7 +5,7 @@
     <Control type="ScriptSlider" id="header_vumeter_ch1" value="-0.11"/>
     <Control type="ScriptSlider" id="header_vumeter_ch2" value="-0.11"/>
     <Control type="ScriptButton" id="Button1" value="0.0"/>
-    <Control type="ScriptSlider" id="knob_reverb_space" value="0.6200000047683716"/>
+    <Control type="ScriptSlider" id="knob_reverb_space" value="1.0"/>
     <Control type="ScriptSlider" id="knob_reverb_damping" value="0.2099999934434891"/>
     <Control type="ScriptSlider" id="knob_reverb_stereo" value="1.0"/>
     <Control type="ScriptSlider" id="knob_reverb_drywet" value="0.5"/>
@@ -20,13 +20,11 @@
     <Control type="ScriptSlider" id="knob_io_in" value="0.0"/>
     <Control type="ScriptSlider" id="knob_io_out" value="0.6600000262260437"/>
     <Control type="ScriptButton" id="button_not_activated" value="0.0"/>
-    <Control type="ScriptButton" id="button_buy_reach" value="1.0"/>
-    <Control type="ScriptButton" id="button_activate" value="0.0"/>
     <Control type="ScriptButton" id="button_website" value="0.0"/>
     <Control type="ScriptButton" id="button_github" value="0.0"/>
     <Control type="ScriptButton" id="button_toggle_reverb" value="1.0"/>
-    <Control type="ScriptButton" id="button_toggle_degrade" value="1.0"/>
-    <Control type="ScriptButton" id="button_toggle_flair" value="1.0"/>
+    <Control type="ScriptButton" id="button_toggle_degrade" value="0.0"/>
+    <Control type="ScriptButton" id="button_toggle_flair" value="0.0"/>
     <Control type="ScriptButton" id="button_toggle_filter" value="1.0"/>
     <Control type="ScriptButton" id="button_disableBand" value="1.0"/>
     <Control type="ScriptButton" id="button_lowPass" value="0"/>
