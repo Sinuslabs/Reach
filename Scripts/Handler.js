@@ -245,7 +245,10 @@ Content.getComponent("button_x4").setControlCallback(onbutton_x4Control);
 Content.getComponent("button_x2").setControlCallback(onbutton_x2Control);
 inline function onbutton_x2Control(component, value)
 {
-	showMain();
+	
+	disableStates();
+	STATE.settingsOpen = false;
+	displayShowMain('default');
 };
 
 inline function onbutton_x1Control(component, value)
