@@ -24,6 +24,7 @@ function disableStates() {
 	STATE.presetBrowserOpen = false;
 	presetBrowserButton.setValue(0);
 	
+	STATE.settingsOpen = false;
 	logoButton.setValue(0);
 }
 

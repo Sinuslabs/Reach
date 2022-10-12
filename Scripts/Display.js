@@ -19,7 +19,6 @@ inline function showMainScreen() {
 }
 
 function showTempScreen(route) {
-	
 	if (STATE.presetBrowserOpen || !STATE.enableAnimations || STATE.filterOpen || STATE.settingsOpen) return;
 
 	if (screenTimer.isTimerRunning()) {
