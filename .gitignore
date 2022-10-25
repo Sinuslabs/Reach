@@ -2,4 +2,5 @@ Binaries/
 license.dat
 Installer/Images/
 settings.json
-Installer/GNU/*
+Installer/GNU/
+Config.js
