@@ -155,8 +155,12 @@ inline function onbutton_presetBrowserControl(component, value)
 	}
 };
 
-const var presetBrowserWatcher = Engine.createBroadcaster({"component": undefined, "event": undefined});
-presetBrowserWatcher.attachToComponentMouseEvents("FloatingTile2", "All Callbacks");
+const var presetBrowserWatcher = Engine.createBroadcaster({
+	"id": "presetBrowserOnClickStatus",
+	"args": ["component", "event"]
+});
+
+presetBrowserWatcher.attachToComponentMouseEvents("FloatingTile2", "All Callbacks", "Mouse Listener for PresetBrowser");
 
 const var PresetBrowserStateTimer = Engine.createTimerObject();
 PresetBrowserStateTimer.setTimerCallback(function() {
@@ -167,7 +171,7 @@ PresetBrowserStateTimer.setTimerCallback(function() {
 		PresetBrowserStateTimer.stopTimer();
 });
 
-presetBrowserWatcher.addListener("RefreshFunction", function(component, event)
+presetBrowserWatcher.addListener("RefreshFunction", "Delays the closing of the Preset Browser",function(component, event)
 {
     if(event.doubleClick) {
    		PresetBrowserStateTimer.startTimer(250);
