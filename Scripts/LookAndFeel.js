@@ -67,7 +67,6 @@ laf.registerFunction('drawToggleButton', function(g, obj) {
 	if (obj.text.indexOf('freeze-icon-') != -1) {
 		
 		var border = 3;
-		
 
 		if (!obj.value) {
 			g.setColour(obj.itemColour1);
@@ -188,6 +187,173 @@ laf.registerFunction('drawToggleButton', function(g, obj) {
 	}
 });
 
+// SLIDERS
+
+// GENERAL
+const DISABLED_OPACITY = 'CC';
+
+// ARC
+const ARC_THICKNESS = 3;
+const ARC_PADDING = 13;
+
+// INDICATOR
+const INDICATOR_THICKNESS = 5;
+const INDICATOR_LENGTH = 15;
+const INDICATOR_BORDER_RADIUS = 2;
+const INDICATOR_GAP = 8;
+
+// MAIN BODY
+
+const BORDER = 2;
+
+
+// SHADOW
+const SHADOW_RADIUS = 10;
+const SHADOW_OFFSET = [0, 2];
+const SHADOW_PADDING = 5;
+
+// EXTRA RING
+var RED_COLOUR = '0xFBFF0000';
+var BLUE_COLOUR = '0xFB0023FF';
+const GLOW_RING_SIZE = 3;
+const GLOW_AMOUNT = 3;
+
+laf.registerFunction("drawRotarySlider", function(g, obj){
+	
+	// Padding
+	var PADDING = 10;
+	
+	// Colours
+	var ARC_COLOUR = '0x000000';
+	var INDICATOR = '0x6b6b6b';
+	var UPPER_GRADIENT = '0xF6F6F6';
+	var LOWER_GRADIENT = '0xEAEAEA';
+	var BORDER_COLOR = '0xDFDFDF';
+	var SHADOW_COLOUR = '0x3e3234';
+	var RED_COLOUR = '0xFBFF0000';
+	var BLUE_COLOUR = '0xFB0023FF';
+	
+	// Make transparent on disabled
+	var disabled = !obj.enabled;
+	if (disabled) {
+		// Special case for the ARC Colour since its black transparency is not doing much
+		ARC_COLOUR = ARC_COLOUR.replace('0x', '0x66');
+		INDICATOR = INDICATOR.replace('0x', '0x' + DISABLED_OPACITY);
+		UPPER_GRADIENT = UPPER_GRADIENT.replace('0x', '0x' + DISABLED_OPACITY);
+		LOWER_GRADIENT = LOWER_GRADIENT.replace('0x', '0x' + DISABLED_OPACITY);
+		BORDER_COLOR = BORDER_COLOR.replace('0x', '0x' + DISABLED_OPACITY);
+		SHADOW_COLOUR = SHADOW_COLOUR.replace('0x', '0x' + DISABLED_OPACITY);
+		RED_COLOUR = RED_COLOUR.replace('0x', '0x' + DISABLED_OPACITY);
+		BLUE_COLOUR = BLUE_COLOUR.replace('0x', '0x' + DISABLED_OPACITY);
+	}
+	
+	if (obj.text == 'red' || obj.text == 'blue') {
+		PADDING = 22;
+	}
+	
+	var a = obj.area;
+	var ka = [PADDING, PADDING, a[2] - PADDING * 2, a[3] - PADDING * 2];
+	var sa = [
+		PADDING + SHADOW_PADDING,
+		PADDING + SHADOW_PADDING,
+		a[2] - (PADDING + SHADOW_PADDING) * 2,
+		a[3] - (PADDING + SHADOW_PADDING) * 2
+	];
+	
+	if (obj.text == 'red') {
+		g.setColour(RED_COLOUR);
+		var ra = [
+			PADDING - GLOW_RING_SIZE,
+			PADDING - GLOW_RING_SIZE,
+			a[2] - (PADDING - GLOW_RING_SIZE) * 2,
+			a[3] - (PADDING - GLOW_RING_SIZE) * 2
+		];
+		g.fillEllipse(ra);
+		g.addDropShadowFromAlpha(RED_COLOUR, GLOW_AMOUNT);
+	}
+	
+	if (obj.text == 'blue') {
+		g.setColour(BLUE_COLOUR);
+		var ra = [
+			PADDING - GLOW_RING_SIZE,
+			PADDING - GLOW_RING_SIZE,
+			a[2] - (PADDING - GLOW_RING_SIZE) * 2,
+			a[3] - (PADDING - GLOW_RING_SIZE) * 2
+		];
+		g.fillEllipse(ra);
+		g.addDropShadowFromAlpha(BLUE_COLOUR, GLOW_AMOUNT);
+	}
+	
+	// SHADOW PATH
+	var shadowPath = Content.createPath();
+	shadowPath.addArc([0.0, 0.0, 1.0, 1.0], 0, Math.PI * 2);
+	if (!disabled) {
+		g.drawDropShadowFromPath(
+			shadowPath,
+			sa,
+			SHADOW_COLOUR,
+			SHADOW_RADIUS, SHADOW_OFFSET
+		);
+	}
+	
+	g.setColour(BORDER_COLOR);
+	g.fillEllipse(ka);
+	g.setGradientFill([
+		UPPER_GRADIENT, 0.0, 0.0,
+		LOWER_GRADIENT, 0.5, 100.0]
+	);
+	
+	g.fillEllipse([
+		ka[0] + BORDER,
+		ka[1] + BORDER,
+		ka[2] - BORDER * 2,
+		ka[3] - BORDER * 2
+	]);
+	
+	var arcPath = Content.createPath();
+	
+	var start = 2.5;
+	var end = start * 2 * obj.valueNormalized - start;
+	
+	var arcThickness = ARC_THICKNESS / 100;
+	var arcWidth = (1.0 - 2.0 * arcThickness) + arcThickness;
+	var stableSize = a[2];
+	
+	arcPath.addArc(
+		[arcThickness / 2, arcThickness / 2,arcWidth , arcWidth],
+		-start,
+		end
+	 );
+	
+	var pathArea = arcPath.getBounds(a[2] - ARC_PADDING);
+	pathArea = [
+		pathArea[0] + ARC_PADDING / 2,
+		pathArea[1] + ARC_PADDING / 2,
+		pathArea[2],
+		pathArea[3]
+	];
+	
+	g.setColour(ARC_COLOUR);	
+	
+	if (obj.text == 'red') {
+		g.setColour(RED_COLOUR);
+	}
+	if (obj.text == 'blue') {
+		g.setColour(BLUE_COLOUR);
+	}
+	
+	g.drawPath(arcPath, pathArea, stableSize * arcThickness );
+	
+	g.rotate(end, [a[2] / 2, a[3] / 2]);
+	g.setColour(INDICATOR);
+	g.fillRoundedRectangle([
+		a[2] / 2 - INDICATOR_THICKNESS / 2,
+		PADDING + INDICATOR_GAP,
+		(a[2] / 100) * INDICATOR_THICKNESS,
+	 	(a[2] / 100) * INDICATOR_LENGTH],
+	 	INDICATOR_BORDER_RADIUS
+	);
+});
 
 // override preset browser search bar to hide it
 laf.registerFunction("drawPresetBrowserSearchBar", function(g, obj){});
