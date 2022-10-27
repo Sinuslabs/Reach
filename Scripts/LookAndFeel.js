@@ -182,8 +182,6 @@ laf.registerFunction('drawToggleButton', function(g, obj) {
 			g.fillRect([border, border, a[2] / 2 - border, a[3] - border * 2]);
 			g.drawAlignedText('OFF', [a[2] / 2, 0, a[2] / 2, a[3]], 'centred');
 		}
-		
-
 	}
 });
 
@@ -206,15 +204,12 @@ const INDICATOR_GAP = 8;
 
 const BORDER = 2;
 
-
 // SHADOW
 const SHADOW_RADIUS = 10;
 const SHADOW_OFFSET = [0, 2];
 const SHADOW_PADDING = 5;
 
 // EXTRA RING
-var RED_COLOUR = '0xFBFF0000';
-var BLUE_COLOUR = '0xFB0023FF';
 const GLOW_RING_SIZE = 3;
 const GLOW_AMOUNT = 3;
 
@@ -224,24 +219,24 @@ laf.registerFunction("drawRotarySlider", function(g, obj){
 	var PADDING = 10;
 	
 	// Colours
-	var ARC_COLOUR = '0x000000';
-	var INDICATOR = '0x6b6b6b';
-	var UPPER_GRADIENT = '0xF6F6F6';
-	var LOWER_GRADIENT = '0xEAEAEA';
-	var BORDER_COLOR = '0xDFDFDF';
-	var SHADOW_COLOUR = '0x3e3234';
-	var RED_COLOUR = '0xFBFF0000';
-	var BLUE_COLOUR = '0xFB0023FF';
+	var ARC_COLOUR = THEME.SLIDER.ARC_COLOUR;
+	var INDICATOR_COLOUR = THEME.SLIDER.INDICATOR_COLOUR;
+	var UPPER_GRADIENT = THEME.SLIDER.UPPER_GRADIENT_COLOUR;
+	var LOWER_GRADIENT = THEME.SLIDER.LOWER_GRADIENT_COLOUR;
+	var BORDER_COLOUR = THEME.SLIDER.BORDER_COLOUR;
+	var SHADOW_COLOUR = THEME.SLIDER.SHADOW_COLOUR;
+	var RED_COLOUR = THEME.SLIDER.RED_COLOUR;
+	var BLUE_COLOUR = THEME.SLIDER.BLUE_COLOUR;
 	
 	// Make transparent on disabled
 	var disabled = !obj.enabled;
 	if (disabled) {
 		// Special case for the ARC Colour since its black transparency is not doing much
 		ARC_COLOUR = ARC_COLOUR.replace('0x', '0x66');
-		INDICATOR = INDICATOR.replace('0x', '0x' + DISABLED_OPACITY);
+		INDICATOR_COLOUR = INDICATOR_COLOUR.replace('0x', '0x' + DISABLED_OPACITY);
 		UPPER_GRADIENT = UPPER_GRADIENT.replace('0x', '0x' + DISABLED_OPACITY);
 		LOWER_GRADIENT = LOWER_GRADIENT.replace('0x', '0x' + DISABLED_OPACITY);
-		BORDER_COLOR = BORDER_COLOR.replace('0x', '0x' + DISABLED_OPACITY);
+		BORDER_COLOUR = BORDER_COLOUR.replace('0x', '0x' + DISABLED_OPACITY);
 		SHADOW_COLOUR = SHADOW_COLOUR.replace('0x', '0x' + DISABLED_OPACITY);
 		RED_COLOUR = RED_COLOUR.replace('0x', '0x' + DISABLED_OPACITY);
 		BLUE_COLOUR = BLUE_COLOUR.replace('0x', '0x' + DISABLED_OPACITY);
@@ -296,7 +291,7 @@ laf.registerFunction("drawRotarySlider", function(g, obj){
 		);
 	}
 	
-	g.setColour(BORDER_COLOR);
+	g.setColour(BORDER_COLOUR);
 	g.fillEllipse(ka);
 	g.setGradientFill([
 		UPPER_GRADIENT, 0.0, 0.0,
@@ -345,7 +340,7 @@ laf.registerFunction("drawRotarySlider", function(g, obj){
 	g.drawPath(arcPath, pathArea, stableSize * arcThickness );
 	
 	g.rotate(end, [a[2] / 2, a[3] / 2]);
-	g.setColour(INDICATOR);
+	g.setColour(INDICATOR_COLOUR);
 	g.fillRoundedRectangle([
 		a[2] / 2 - INDICATOR_THICKNESS / 2,
 		PADDING + INDICATOR_GAP,
@@ -354,6 +349,47 @@ laf.registerFunction("drawRotarySlider", function(g, obj){
 	 	INDICATOR_BORDER_RADIUS
 	);
 });
+
+// Themeable Panels
+const var themeablePanels = Content.getAllComponents('themeablePanel');
+const PANEL_BORDER = 2;
+const PANEL_BORDER_RADIUS = 5;
+
+// Main Panels
+function themePanels() {
+	for (panel in themeablePanels) {
+		panel.setPaintRoutine(function(g)
+		{
+			var a = [0, 0, this.getWidth(), this.getHeight()];
+			g.setColour(THEME.PANEL.BORDER_COLOUR);
+			g.fillRoundedRectangle(a, PANEL_BORDER_RADIUS);
+			
+			g.setGradientFill([
+				THEME.PANEL.UPPER_GRADIENT_COLOUR, 0.0, 0.0,
+				THEME.PANEL.LOWER_GRADIENT_COLOUR, 0.5, 100.0]
+			);
+			g.fillRoundedRectangle([
+				a[0] + PANEL_BORDER,
+				a[1] + PANEL_BORDER,
+				a[2] - PANEL_BORDER * 2,
+				a[3] - PANEL_BORDER * 2
+			], PANEL_BORDER_RADIUS);
+		});
+	}
+}
+
+function themeMainPanel() {
+	panel_background.setPaintRoutine(function(g) {
+		var a = [0, 0, this.getWidth(), this.getHeight()];
+		g.setGradientFill([
+			THEME.PANEL.MAIN_UPPER_GRADIENT_COLOUR, 0.0, 0.0,
+			THEME.PANEL.MAIN_LOWER_GRADIENT_COLOUR, 0.5, 100.0]
+		);
+		g.fillRoundedRectangle(a, PANEL_BORDER_RADIUS);
+	});
+}
+themeMainPanel();
+themePanels();
 
 // override preset browser search bar to hide it
 laf.registerFunction("drawPresetBrowserSearchBar", function(g, obj){});
