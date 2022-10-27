@@ -124,3 +124,11 @@ function updateFilterLabel() {
 	var type = STATE.currentBandFilterType;
 	label_bandDisplay.set('text', 'BAND ' + Engine.doubleToString(band / 5, 0) + ' | ' + type);
 }
+
+function repaintAllPanels() {
+	panel_background.repaint();
+
+	for (panel in themeablePanels) {
+		panel.repaint();
+	}
+}

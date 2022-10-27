@@ -76,6 +76,23 @@ inline function onComboBox_zoomControl(component, value)
 	saveSettings();
 };
 
+// Theme
+Content.getComponent("ComboBox_theme").setControlCallback(onComboBox1Control);
+inline function onComboBox1Control(component, value)
+{
+	Console.print(value);
+
+	if (value == 1.0) {
+		setTheme('Light');
+	}
+	if (value == 2.0) {
+		setTheme('Dark');
+	}
+};
+
+
+
+
 // Animations
 const var button_animationToggle = Content.getComponent("button_animationToggle");
 button_animationToggle.setControlCallback(onbutton_animationToggleControl);
@@ -204,6 +221,8 @@ inline function onbutton_preset_rightArrowControl(component, value)
 
 // SHORTCUT HANDLER
 const var panel_background = Content.getComponent("panel_background");
+
+
 panel_background.setKeyPressCallback(onBackgroundKeypress);
 inline function onBackgroundKeypress(key) {
 	
@@ -265,7 +284,7 @@ const var Reverb = Synth.getEffect("Simple Reverb1");
 
 // BYPASS
 Content.getComponent("button_toggle_reverb").setControlCallback(onbutton_toggle_reverbControl);
-const var panel_reverb = Content.getComponent("panel_reverb");
+const var panel_reverb = Content.getComponent("themeablePanel_reverb");
 inline function onbutton_toggle_reverbControl(component, value)
 {
 	Reverb.setBypassed(!value);
@@ -332,7 +351,7 @@ const var Degrade = Synth.getEffect("Degrade1");
 const var SimpleGain3 = Synth.getEffect("Simple Gain3");
 // BYPASS
 Content.getComponent("button_toggle_degrade").setControlCallback(onbutton_toggle_degradeControl);
-const var panel_degrade = Content.getComponent("panel_degrade");
+const var panel_degrade = Content.getComponent("themeablePanel_degrade");
 
 inline function onbutton_toggle_degradeControl(component, value)
 {
@@ -388,7 +407,7 @@ const var Flair = Synth.getEffect("Saturator1");
 
 // FLAIR BYPASS
 Content.getComponent("button_toggle_flair").setControlCallback(onbutton_toggle_flairControl);
-const var panel_flair = Content.getComponent("panel_flair");
+const var panel_flair = Content.getComponent("themeablePanel_flair");
 
 inline function onbutton_toggle_flairControl(component, value)
 {
@@ -416,7 +435,7 @@ const var panel_filterButtons = Content.getComponent("panel_filterButtons");
 
 // BYPASS
 Content.getComponent("button_toggle_filter").setControlCallback(onbutton_toggle_filterControl);
-const var panel_filter = Content.getComponent("panel_filter");
+const var panel_filter = Content.getComponent("themeablePanel_filter");
 
 inline function onbutton_toggle_filterControl(component, value)
 {

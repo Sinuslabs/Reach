@@ -10,4 +10,5 @@ var STATE = {
 	currentBandFilterType: 'LOWPASS',
 	enableAnimations: true,
 	filterOnDrag: true,
+	theme: 'Light',
 };

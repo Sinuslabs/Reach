@@ -4,22 +4,18 @@ const settingsFile = settingsDir.getChildFile('settings.json');
 // saves the settings from the general page
 function saveSettings() {
 	
-	Console.print('SAVE ' + Settings.getZoomLevel());
-	
-	Console.print('ANIMATIONS BUTTON STATE: ' + STATE.enableAnimations);
-	Console.print('Filter on drag BUTTON STATE: ' + STATE.filterOnDrag);
-	
-	
 	settingsFile.writeObject({
 		'zoom': Settings.getZoomLevel(),
 		'animationEnabled': STATE.enableAnimations,
-		'filterOnDrag': STATE.filterOnDrag
+		'filterOnDrag': STATE.filterOnDrag,
+		'theme': STATE.theme
 	});
 }
 
 // reads the settings file
 function loadSettings() {
 	var savedSettings = settingsFile.loadAsObject();
+	
 	var zoomSaved = Engine.doubleToString(savedSettings['zoom'], 1);
 	var animationEnabledSaved = savedSettings['animationEnabled'];
 	var filterOnDragSaved = savedSettings['filterOnDrag'];
