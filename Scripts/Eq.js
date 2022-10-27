@@ -1,9 +1,12 @@
-const var eqWatcher = Engine.createBroadcaster({"component": undefined, "event": undefined});
+const var eqWatcher = Engine.createBroadcaster({
+	"id": "EQ Watcher",
+	"args": ["component", "event"]
+});
 
-eqWatcher.attachToComponentMouseEvents("tile_eq", "All Callbacks");
+eqWatcher.attachToComponentMouseEvents("tile_eq", "All Callbacks", "Mouse Listener for EQ");
 
 const var label_bandDisplay = Content.getComponent("label_bandDisplay");
-eqWatcher.addListener("RefreshFunction", function(component, event)
+eqWatcher.addListener("RefreshFunction", "updates each EQ band on Drag and sets the filter label",function(component, event)
 {
     if(event.drag || event.clicked) {
 		var movingBand = getMovingBand();

@@ -1,6 +1,6 @@
 #!/bin/bash
 
-PLUGIN_NAME="Reach.so"
+PLUGIN_NAME="Reach.vst3"
 
 echo "Please enter the location to install the plugin file."
 read plugin_path
@@ -10,6 +10,6 @@ until [ -d "$plugin_path" ]; do
     read plugin_path
 done
 
-cp -i "$PLUGIN_NAME" "$plugin_path"
+cp -r "$PLUGIN_NAME" "$plugin_path"
 
 echo "The software installation is complete. Please launch the plugin or standalone version and click Install Samples when prompted to install the instrument samples."
