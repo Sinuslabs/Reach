@@ -25,7 +25,7 @@ function getActivation(status, obj) {
 		// update panels
 		panel_non_activated.set('visible', !STATE.ACTIVATED);
 		panel_non_activated.repaint();
-		label_status_main.set('visible', !STATE.ACTIVATED);
+		button_not_activated.set('visible', !STATE.ACTIVATED);
 		label_thank_you.set('visible', STATE.ACTIVATED);
 		
 	}

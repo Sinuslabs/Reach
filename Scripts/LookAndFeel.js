@@ -26,7 +26,14 @@ icon_panel_freeze2.setPaintRoutine(function(g) {
 	g.fillPath(Paths.icons['freeze'], [0, 0, 30, 30]);
 });
 
-
+// LABELS
+const var themeableLabels = Content.getAllComponents('themeAble_label');
+function themeLabels() {
+	for (label in themeableLabels) {
+		label.setColour(3, THEME.PANEL.TEXT_COLOUR);
+	}
+}
+themeLabels();
 
 // Buttons
 const laf = Engine.createGlobalScriptLookAndFeel();
@@ -72,7 +79,7 @@ laf.registerFunction('drawToggleButton', function(g, obj) {
 		
 		if (obj.text.indexOf('outline-') != -1) {
 			obj.text = obj.text.replace('outline-');
-			g.drawPath(Paths.icons[obj.text], a, 5);
+			g.drawPath(Paths.icons[obj.text], a, 3);
 		} else {
 			g.fillPath(Paths.icons[obj.text], a);
 		}
@@ -132,8 +139,93 @@ laf.registerFunction('drawToggleButton', function(g, obj) {
 	}
 });
 
-// FILTER OUTLINE ICONS
+// Preset Browser Button
+const presetBrowserButtonLAF = Content.createLocalLookAndFeel();
+presetBrowserButtonLAF.registerFunction('drawToggleButton', function(g, obj) {
+	
+	var a = obj.area;
+	var TEXT_COLOUR = THEME.HEADER.TEXT_COLOUR;
+	var SELECTED_TEXT_COLOUR = THEME.HEADER.SELECTED_ICON_COLOUR;
+	
+	if (obj.over) {
+		TEXT_COLOUR = TEXT_COLOUR.replace('0x', '0x' + THEME.HEADER.HOVER_OPACITY);
+		SELECTED_TEXT_COLOUR = SELECTED_TEXT_COLOUR.replace('0x', '0x' + THEME.HEADER.HOVER_OPACITY);
+	}
+	
+	obj.value ?
+		g.setColour(SELECTED_TEXT_COLOUR) :
+		g.setColour(TEXT_COLOUR);
+	
+	g.setFont(THEME.FONT.MAIN, 26);
+	g.drawAlignedText(obj.text, a, 'left');
+});
+presetBrowserButton.setLocalLookAndFeel(presetBrowserButtonLAF);
 
+// HEADER BUTTONS
+const headerButtonsLAF = Content.createLocalLookAndFeel();
+headerButtonsLAF.registerFunction('drawToggleButton', function(g, obj){
+	var a = obj.area;
+
+	var SELECTED_ICON_COLOUR = THEME.HEADER.SELECTED_ICON_COLOUR;
+	var ICON_COLOUR = THEME.HEADER.ICON_COLOUR;
+	
+	if (obj.over == 1) {
+		SELECTED_ICON_COLOUR = SELECTED_ICON_COLOUR.replace('0x', '0x' + THEME.HEADER.HOVER_OPACITY);
+		ICON_COLOUR = ICON_COLOUR.replace('0x', '0x' + THEME.HEADER.HOVER_OPACITY);
+	}
+	
+	obj.value == 1 ?
+		g.setColour(SELECTED_ICON_COLOUR) :
+		g.setColour(ICON_COLOUR);
+	
+	g.fillPath(Paths.icons[obj.text], [this.getHeight / 2, this.getWidth / 2, parseInt(a[2]), parseInt(a[3])]);
+	return;
+});
+
+button_preset_rightArrow.setLocalLookAndFeel(headerButtonsLAF);
+button_preset_leftArrow.setLocalLookAndFeel(headerButtonsLAF);
+logoButton.setLocalLookAndFeel(headerButtonsLAF);
+
+// Title Button
+const headerTitleLAF = Content.createLocalLookAndFeel();
+headerTitleLAF.registerFunction('drawToggleButton', function(g, obj){
+	var a = obj.area;
+	var TEXT_COLOUR = THEME.HEADER.TEXT_COLOUR;
+	var SELECTED_TEXT_COLOUR = THEME.HEADER.SELECTED_ICON_COLOUR;
+	
+	if (obj.over) {
+		TEXT_COLOUR = TEXT_COLOUR.replace('0x', '0x' + THEME.HEADER.HOVER_OPACITY);
+		SELECTED_TEXT_COLOUR = SELECTED_TEXT_COLOUR.replace('0x', '0x' + THEME.HEADER.HOVER_OPACITY);
+	}
+	
+	obj.value ?
+		g.setColour(SELECTED_TEXT_COLOUR) :
+		g.setColour(TEXT_COLOUR);
+	
+	g.setFont(THEME.FONT.MAIN, 60);
+	g.drawAlignedText(obj.text, a, 'left');
+});
+button_title.setLocalLookAndFeel(headerTitleLAF);
+
+// NOT ACTIVATED BUTTON
+const notActivatedLAF = Content.createLocalLookAndFeel();
+notActivatedLAF.registerFunction('drawToggleButton', function(g, obj){
+	var a = obj.area;
+	var TEXT_COLOUR = THEME.DISPLAY.NOT_ACTIVATED_COLOUR;
+	
+	if (obj.over) {
+		TEXT_COLOUR = TEXT_COLOUR.replace('0x', '0x' + THEME.HEADER.HOVER_OPACITY);
+	}
+	
+	g.setColour(TEXT_COLOUR);
+	
+	g.setFont(THEME.FONT.SECONDARY, 38);
+	g.drawAlignedText(obj.text, a, 'left');
+});
+
+button_not_activated.setLocalLookAndFeel(notActivatedLAF);
+
+// FILTER OUTLINE ICONS
 const FILTER_BUTTON_PADDING = 5;
 const FILTER_BUTTON_STROKE_WIDTH = 5;
 
@@ -215,7 +307,6 @@ menuButtonLAF.registerFunction("drawToggleButton", function(g, obj) {
 for (menuButton in settingsButtons) {
 	menuButton.setLocalLookAndFeel(menuButtonLAF);
 }
-
 
 // PHYSICAL BUTTON
 // GENERAL

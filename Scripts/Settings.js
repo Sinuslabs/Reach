@@ -3,7 +3,6 @@ const settingsFile = settingsDir.getChildFile('settings.json');
 
 // saves the settings from the general page
 function saveSettings() {
-	
 	settingsFile.writeObject({
 		'zoom': Settings.getZoomLevel(),
 		'animationEnabled': STATE.enableAnimations,
@@ -15,7 +14,7 @@ function saveSettings() {
 // reads the settings file
 function loadSettings() {
 	var savedSettings = settingsFile.loadAsObject();
-	
+	var savedTheme = savedSettings['theme'];
 	var zoomSaved = Engine.doubleToString(savedSettings['zoom'], 1);
 	var animationEnabledSaved = savedSettings['animationEnabled'];
 	var filterOnDragSaved = savedSettings['filterOnDrag'];
@@ -24,6 +23,17 @@ function loadSettings() {
 	Settings.setZoomLevel(zoomSaved);
 	var zoomFactorsIndex = zoomFactors.indexOf(zoomSaved, 0, 0);
 	comboBox_zoom.setValue(zoomFactorsIndex + 1);
+	
+	//Theming
+	setTheme(savedTheme);
+	STATE.theme = savedTheme;
+	
+	if (theme == 'Light') {
+		comboBox_theme.setValue(0.0);		
+	}
+	if (theme == 'Dark') {
+		comboBox_theme.setValue(1.0);	
+	}
 	
 	// animation toggle
 	// Toggle buttons are using reversed value to display on by default
