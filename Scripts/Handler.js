@@ -77,7 +77,8 @@ inline function onComboBox_zoomControl(component, value)
 };
 
 // Theme
-Content.getComponent("ComboBox_theme").setControlCallback(onComboBox1Control);
+const var comboBox_theme = Content.getComponent("ComboBox_theme");
+comboBox_theme.setControlCallback(onComboBox1Control);
 inline function onComboBox1Control(component, value)
 {
 	Console.print(value);
@@ -130,7 +131,8 @@ inline function onbutton_buy_reachControl(component, value)
 	if (value) Engine.openWebsite('https://sinuslabs.io/product/reach');
 };
 
-Content.getComponent("button_not_activated").setControlCallback(onbutton_not_activatedControl);
+const var button_not_activated = Content.getComponent("button_not_activated");
+button_not_activated.setControlCallback(onbutton_not_activatedControl);
 inline function onbutton_not_activatedControl(component, value)
 {
 	if (value) {
@@ -145,7 +147,8 @@ panel_non_activated.set('visible', !STATE.ACTIVATED);
 panel_non_activated.repaint();
 
 // Title Button
-Content.getComponent("button_title").setControlCallback(onbutton_titleControl);
+const var button_title = Content.getComponent("button_title");
+button_title.setControlCallback(onbutton_titleControl);
 inline function onbutton_titleControl(component, value)
 {
 	if (CURRENT_ROUTE != 'about') {
@@ -158,7 +161,6 @@ inline function onbutton_titleControl(component, value)
 // Preset Browser Button
 const presetBrowserButton = Content.getComponent("button_presetBrowser")
 presetBrowserButton.setControlCallback(onbutton_presetBrowserControl);
-const var label_preset_browser = Content.getComponent("label_preset_browser");
 inline function onbutton_presetBrowserControl(component, value)
 {
 	if (value) {
@@ -201,19 +203,21 @@ inline function onButton1Control(component, value)
 	// reset band to band 1; 
 	STATE.currentBandIndex = 0;
 	if (Engine.getCurrentUserPresetName() == '') {
-		label_preset_browser.set('text', 'Blackhole');
+		presetBrowserButton.set('text', 'Blackhole');
 	} else {
-		label_preset_browser.set('text', Engine.getCurrentUserPresetName());
+		presetBrowserButton.set('text', Engine.getCurrentUserPresetName());
 	}
 };
 
-Content.getComponent("button_preset_leftArrow").setControlCallback(onbutton_preset_leftArrowControl);
+const var button_preset_leftArrow = Content.getComponent("button_preset_leftArrow");
+button_preset_leftArrow.setControlCallback(onbutton_preset_leftArrowControl);
 inline function onbutton_preset_leftArrowControl(component, value)
 {
 	Engine.loadPreviousUserPreset(false);
 };
 
-Content.getComponent("button_preset_rightArrow").setControlCallback(onbutton_preset_rightArrowControl);
+const var button_preset_rightArrow = Content.getComponent("button_preset_rightArrow");
+button_preset_rightArrow.setControlCallback(onbutton_preset_rightArrowControl);
 inline function onbutton_preset_rightArrowControl(component, value)
 {
 	Engine.loadNextUserPreset(false);
