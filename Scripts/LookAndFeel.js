@@ -5,22 +5,6 @@ const var icon_panel_logo = Content.getComponent("icon_panel_logo");
 const var icon_panel_heart = Content.getComponent("icon_panel_heart");
 const var icon_panel_fullLogo = Content.getComponent('icon_panel_fullLogo');
 
-// Noise Panels
-const var noise_panels = Content.getAllComponents('_noise');
-
-// Background Noise
-for (var i=0; i < noise_panels.length; i++) {
-	noise_panels[i].setPaintRoutine(function(g) {
-		var a = [0, 0, this.getWidth(), this.getHeight()];
-		g.addNoise({
-			alpha: 0.03,
-			monochromatic: false,
-			scaleFactor: 1.5,
-			area: a
-		});
-	});
-}
-
 // custom Icons
 icon_panel_heart.setPaintRoutine(function(g) {
 	g.setColour('0xFF7A00');
@@ -50,140 +34,272 @@ const laf = Engine.createGlobalScriptLookAndFeel();
 laf.registerFunction('drawToggleButton', function(g, obj) {	
 	var a = obj.area;
 	
-	if (obj.text.indexOf("onOff-label-") != -1) {
-		obj.text = obj.text.replace('onOff-label-');
-		obj.value == 1 ? g.setColour(obj.itemColour1) : g.setColour(obj.bgColour);
+	if (obj.text.indexOf('displayButton-') != -1) {
 		
-		if (obj.over == 1) {
-			g.setColour(obj.itemColour2);
+		obj.text = obj.text.replace('displayButton-');
+		
+		var BUTTON_BACKGROUND_COLOUR = THEME.DISPLAY.BUTTON_SELECTED_BACKGROUND_COLOUR;
+		var BUTTON_TEXT_COLOUR = THEME.DISPLAY.BUTTON_SELECTED_TEXT_COLOUR;
+		
+		if (obj.over) {
+			BUTTON_BACKGROUND_COLOUR = BUTTON_BACKGROUND_COLOUR.replace('0x', '0x' + THEME.DISPLAY.HOVER_OPACITY);
+			BUTTON_TEXT_COLOUR = BUTTON_TEXT_COLOUR.replace('0x', '0x' + THEME.DISPLAY.HOVER_OPACITY);
 		}
-		var text = obj.text.replace("onOff-label-");
-		g.fillPath(Paths.icons['onOff'], [10, 10, 20, 20]);
-		g.setFont('inter-semi', 32.0);
-		g.drawAlignedText(text, a, 'centred');
+		
+		g.setColour(BUTTON_BACKGROUND_COLOUR);
+		g.fillRect(a);
+		
+		g.setColour(BUTTON_TEXT_COLOUR);
+		g.setFont(THEME.FONT.SECONDARY, 32.0);
+		g.drawAlignedText(obj.text, a, 'centred');
 		return;
 	}
 	
-	if (obj.text.indexOf('freeze-icon-') != -1) {
+	if (obj.text.indexOf('displayIcon') != -1) {
+		obj.text = obj.text.replace('displayIcon-');
 		
-		var border = 3;
-
+		var SELECTED_ICON_COLOUR = THEME.DISPLAY.SELECTED_ICON_COLOUR;
+		var ICON_COLOUR = THEME.DISPLAY.ICON_COLOUR;
+		
+		if (obj.over) {
+			SELECTED_ICON_COLOUR = SELECTED_ICON_COLOUR.replace('0x', '0x' + THEME.DISPLAY.HOVER_OPACITY);
+			ICON_COLOUR = ICON_COLOUR.replace('0x', '0x' + THEME.DISPLAY.HOVER_OPACITY);
+		}
+		
+		obj.value == 1 ?
+			g.setColour(SELECTED_ICON_COLOUR) :
+			g.setColour(ICON_COLOUR);
+		
+		if (obj.text.indexOf('outline-') != -1) {
+			obj.text = obj.text.replace('outline-');
+			g.drawPath(Paths.icons[obj.text], a, 5);
+		} else {
+			g.fillPath(Paths.icons[obj.text], a);
+		}
+		return;
+	}
+	
+	if (obj.text.indexOf('icon') != -1) {
+		obj.text = obj.text.replace('icon-');
+		
+		var SELECTED_ICON_COLOUR = THEME.PANEL.SELECTED_ICON_COLOUR;
+		var ICON_COLOUR = THEME.PANEL.ICON_COLOUR;
+		
+		if (obj.over == 1) {
+			SELECTED_ICON_COLOUR = SELECTED_ICON_COLOUR.replace('0x', '0x' + THEME.PANEL.HOVER_OPACITY);
+			ICON_COLOUR = ICON_COLOUR.replace('0x', '0x' + THEME.PANEL.HOVER_OPACITY);
+		}
+		
+		obj.value == 1 ?
+			g.setColour(SELECTED_ICON_COLOUR) :
+			g.setColour(ICON_COLOUR);
+		
+		g.fillPath(Paths.icons[obj.text], [this.getHeight / 2, this.getWidth / 2, parseInt(a[2]), parseInt(a[3])]);
+		return;
+	}
+	
+	if (obj.text.indexOf('switch') != -1) {
+		var switchPadding = 10;
+		var switchBorder = 3;
+		
+		var SWITCH_COLOUR = THEME.DISPLAY.BUTTON_SELECTED_BACKGROUND_COLOUR;
+		
+		if (obj.over) {
+			SWITCH_COLOUR = SWITCH_COLOUR.replace('0x', '0x'+THEME.DISPLAY.HOVER_OPACITY);
+		}
+		
+		g.setColour(SWITCH_COLOUR);
+		g.drawRect(a, switchBorder);
+		g.setFont(THEME.FONT.SECONDARY, 26.0);
+		
 		if (!obj.value) {
-			g.setColour(obj.itemColour1);
-			g.fillRoundedRectangle([a[0] + border, a[1] + border + 3, a[2] - border * 2, a[3] - border * 2], 4);
-		}
-		
-		g.setColour(obj.bgColour);
-		
-		if (obj.over == 1) { g.setColour(obj.itemColour2);}
-		g.fillRoundedRectangle([a[0] + border, a[1] + border, a[2] - border * 2, a[3] - border * 2], 4);
-		
-		obj.value == 1 ? g.setColour(obj.itemColour1) : g.setColour(obj.textColour);
-		g.fillPath(Paths.icons['freeze'], [20, 20, 40, 40]);
-		return;
-	}
-	
-	if (obj.text.indexOf('button-') != -1) {
-		obj.text = obj.text.replace('button-');
-		obj.over == 1 ? g.setColour(obj.itemColour1) : g.setColour(obj.bgColour);
-		g.fillRect(a);
-		g.setColour(obj.textColour);
-		g.setFont('space', 32.0);
-		g.drawAlignedText(obj.text, a, 'centred');
-		return;
-	}
-	if (obj.text.indexOf('toggle-') != -1) {
-		
-		obj.text = obj.text.replace('toggle-');
-		obj.value == 1 ? g.setColour(obj.itemColour1) : g.setColour(obj.bgColour);
-
-		if (obj.over == 1) {
-			g.setColour(obj.itemColour1);
-		}
-		g.fillRect(a);
-		g.addNoise({
-			alpha: 0.02,
-			monochromatic: true,
-			scaleFactor: 10.0,
-			area: a,
-		});	
-		g.setColour(obj.textColour);
-		g.setFont('space', 32.0);
-		g.drawAlignedText(obj.text, a, 'centred');
-		return;
-	}
-	if (obj.text.indexOf('settings-') != -1) {
-		obj.text = obj.text.replace('settings-');
-		obj.value == 1 ? g.setColour(obj.textColour) : g.setColour(obj.bgColour);
-		if (obj.over) g.setColour(obj.itemColour1);	
-		g.fillRect(a);
-		
-		obj.value == 1 ? g.setColour(obj.bgColour) : g.setColour(obj.textColour);
-		if (obj.over) g.setColour(obj.bgColour);
-
-		g.setFont('space', 32.0);
-		g.drawAlignedText(obj.text, [a[0] + 30, a[1], a[2], a[3]], 'left');
-		return;
-	}
-	if (obj.text.indexOf('icon-outline2-') != -1) {
-		bj.value == 1 ? g.setColour(obj.bgColour) : g.setColour(obj.itemColour2);
-				if (obj.over == 1) {
-					g.setColour(obj.itemColour1);
-				}
-				var icon = obj.text.replace('icon-outline2-');
-				g.drawPath(Paths.icons[icon], [this.getHeight / 2 , this.getWidth / 2, a[2], a[3]], 2);
-	}
-	if (obj.text.indexOf('icon-outline-') != -1) {
-		obj.value == 1 ? g.setColour(obj.bgColour) : g.setColour(obj.itemColour2);
-		if (obj.over == 1) {
-			g.setColour(obj.itemColour1);
-		}
-		var icon = obj.text.replace('icon-outline-');
-		g.drawPath(Paths.icons[icon], [this.getHeight / 2 + 5, this.getWidth / 2 + 5, parseInt(a[2] - 10), parseInt(a[3] - 10)], 5);
-		return;
-	} else if (obj.text.indexOf('icon') != -1) {
-		var icon = obj.text.replace('icon-');
-		obj.value == 1 ? g.setColour(obj.bgColour) : g.setColour(obj.itemColour2);
-		if (obj.over == 1) {
-			g.setColour(obj.itemColour1);
-		}
-		g.fillPath(Paths.icons[icon], [this.getHeight / 2, this.getWidth / 2, parseInt(a[2]), parseInt(a[3])]);
-	} else if (obj.text.indexOf("label-") != -1) {
-		var text = obj.text.replace("label-");
-		obj.value == 1 ? g.setColour(obj.textColour) : g.setColour(obj.itemColour1);
-		if (obj.over == 1) {
-			g.setColour(obj.itemColour2);
-		}
-		g.setFont('inter-semi', 26);
-		g.drawAlignedText(text, a, "centred");
-		return;
-	} else if (obj.text.indexOf("text-") != -1) {
-		var text = obj.text.replace("text-");
-		obj.value == 1 ? g.setColour(obj.textColour) : g.setColour(obj.itemColour1);
-		if (obj.over == 1) {
-			g.setColour(obj.itemColour2);
-		}
-		g.drawAlignedText(text, a, 'centred');
-		return;
-	}
-	
-	if (obj.text.indexOf('animationToggle') != -1) {
-		
-		var border = 10;
-	
-		g.setColour(obj.bgColour);
-		g.drawRect(a, 3);
-		g.setFont('space', 26.0);
-		
-		if (obj.value == 0.0) {
-			g.fillRect([a[2] / 2, border, a[2] / 2 - border, a[3] - border * 2]);		
+			g.fillRect([
+				a[2] / 2,
+				switchPadding,
+				a[2] / 2 - switchPadding,
+				a[3] - switchPadding * 2
+			]);		
 			g.drawAlignedText('ON', [0, 0, a[2] / 2, a[3]], 'centred');
 		} else {	
-			g.fillRect([border, border, a[2] / 2 - border, a[3] - border * 2]);
+			g.fillRect([
+				switchPadding,
+				switchPadding,
+				a[2] / 2 - switchPadding,
+				a[3] - switchPadding * 2
+			]);
 			g.drawAlignedText('OFF', [a[2] / 2, 0, a[2] / 2, a[3]], 'centred');
 		}
 	}
 });
+
+// FILTER OUTLINE ICONS
+
+const FILTER_BUTTON_PADDING = 5;
+const FILTER_BUTTON_STROKE_WIDTH = 5;
+
+const filterButtonLAF = Content.createLocalLookAndFeel();
+filterButtonLAF.registerFunction('drawToggleButton', function(g, obj){
+	
+	var a = obj.area;
+	var SELECTED_ICON_COLOUR = THEME.DISPLAY.SELECTED_ICON_COLOUR;
+	var ICON_COLOUR = THEME.DISPLAY.ICON_COLOUR;
+	
+	if (obj.over) {
+		SELECTED_ICON_COLOUR = SELECTED_ICON_COLOUR.replace('0x', '0x' + THEME.DISPLAY.HOVER_OPACITY);
+		ICON_COLOUR = ICON_COLOUR.replace('0x', '0x' + THEME.DISPLAY.HOVER_OPACITY);
+	}
+	
+	a = [
+		FILTER_BUTTON_PADDING,
+		FILTER_BUTTON_PADDING,
+		a[2] - FILTER_BUTTON_PADDING * 2,
+		a[3] - FILTER_BUTTON_PADDING * 2
+	];
+	
+	obj.value ?
+		g.setColour(SELECTED_ICON_COLOUR) :
+		g.setColour(ICON_COLOUR);
+	
+	g.drawPath(Paths.icons[obj.text], a, FILTER_BUTTON_STROKE_WIDTH);
+});
+
+for (filterButton in filterButtons) {
+	filterButton.setLocalLookAndFeel(filterButtonLAF);
+}
+
+// SETTINGS SCREEN MENU BUTTON
+const MENU_ITEM_HOVER_OPACITY = 'CC';
+const MENU_ITEM_TEXT_ALIGN = 'left';
+const MENU_ITEM_PADDING_LEFT = 30;
+
+const menuButtonLAF = Content.createLocalLookAndFeel();
+menuButtonLAF.registerFunction("drawToggleButton", function(g, obj) {
+	var a = obj.area;
+	obj.text = obj.text.replace('settings-');
+	
+	var MENU_ITEM_BACKGROUND_COLOUR = THEME.DISPLAY.BUTTON_BACKGROUND_COLOUR;
+	var MENU_ITEM_SELECTED_BACKGROUND_COLOUR = THEME.DISPLAY.BUTTON_SELECTED_BACKGROUND_COLOUR;
+	var MENU_ITEM_TEXT_COLOUR = THEME.DISPLAY.BUTTON_TEXT_COLOUR;
+	var MENU_ITEM_SELECTED_TEXT_COLOUR = THEME.DISPLAY.BUTTON_SELECTED_TEXT_COLOUR;
+	
+	// HOVER
+	if (obj.over) {
+		MENU_ITEM_BACKGROUND_COLOUR = MENU_ITEM_BACKGROUND_COLOUR.replace('0x', '0x' + MENU_ITEM_HOVER_OPACITY);
+		MENU_ITEM_SELECTED_BACKGROUND_COLOUR = MENU_ITEM_SELECTED_BACKGROUND_COLOUR.replace('0x', '0x' + MENU_ITEM_HOVER_OPACITY);
+		MENU_ITEM_TEXT_COLOUR = MENU_ITEM_TEXT_COLOUR.replace('0x', '0x' + MENU_ITEM_HOVER_OPACITY);
+		MENU_ITEM_SELECTED_TEXT_COLOUR = MENU_ITEM_SELECTED_TEXT_COLOUR.replace('0x', '0x' + MENU_ITEM_HOVER_OPACITY);
+	}
+	
+	// SELECTED BACKGROUND
+	obj.value == 1 ?
+		g.setColour(MENU_ITEM_SELECTED_BACKGROUND_COLOUR)
+		: g.setColour(MENU_ITEM_BACKGROUND_COLOUR);
+	
+	// Button Background
+	g.fillRect(a);
+	
+	// TEXT
+	obj.value == 1 ?
+		g.setColour(MENU_ITEM_SELECTED_TEXT_COLOUR)
+		: g.setColour(MENU_ITEM_TEXT_COLOUR);
+	
+	g.setFont(THEME.FONT.SECONDARY, 32.0);
+	g.drawAlignedText(obj.text, [
+		a[0] + MENU_ITEM_PADDING_LEFT,
+		a[1],
+		a[2],
+		a[3]
+	], MENU_ITEM_TEXT_ALIGN);
+});
+
+for (menuButton in settingsButtons) {
+	menuButton.setLocalLookAndFeel(menuButtonLAF);
+}
+
+
+// PHYSICAL BUTTON
+// GENERAL
+const BUTTON_PHYSICAL_DISABLED_OPACITY = 'CC';
+const BUTTON_PHYSICAL_HOVER_OPACITY = 'F5';
+const BUTTON_PHYSICAL_BORDER = 2;
+const BUTTON_PHYSICAL_SHADOW_RADIUS = 5;
+const BUTTON_PHYSICAL_PADDING = 6;
+const BUTTON_PHYSICAL_BORDER_RADIUS = 4;
+const BUTTON_PHYSICAL_ICON_SIZE = 20;
+
+const freezeButtonLAF = Content.createLocalLookAndFeel();
+freezeButtonLAF.registerFunction("drawToggleButton", function(g, obj) {	
+
+	var a = obj.area;
+	var borderA = [
+		BUTTON_PHYSICAL_PADDING,
+		BUTTON_PHYSICAL_PADDING,
+		a[2] - BUTTON_PHYSICAL_PADDING * 2,
+		a[3] - BUTTON_PHYSICAL_PADDING * 2
+	];
+	
+	var buttonA = [
+		BUTTON_PHYSICAL_PADDING + BUTTON_PHYSICAL_BORDER,
+		BUTTON_PHYSICAL_PADDING + BUTTON_PHYSICAL_BORDER,
+		a[2] - (BUTTON_PHYSICAL_PADDING + BUTTON_PHYSICAL_BORDER) * 2,
+		a[3] - (BUTTON_PHYSICAL_PADDING + BUTTON_PHYSICAL_BORDER) * 2
+	];
+	
+	var UPPER_GRADIENT_COLOUR = THEME.BUTTON.PHYSICAL.UPPER_GRADIENT_COLOUR;
+	var LOWER_GRADIENT_COLOUR = THEME.BUTTON.PHYSICAL.LOWER_GRADIENT_COLOUR;
+	var BORDER_COLOUR = THEME.BUTTON.PHYSICAL.BORDER_COLOUR;
+	var SHADOW_COLOUR = THEME.BUTTON.PHYSICAL.SHADOW_COLOUR;
+	var ICON_COLOUR = THEME.BUTTON.PHYSICAL.ICON_COLOUR;
+	var BACKGROUND_HOVER_COLOUR = THEME.BUTTON.PHYSICAL.BACKGROUND_HOVER_COLOUR;
+	
+	// Make transparent on disabled
+	var disabled = !obj.enabled;
+	if (disabled || obj.value) {
+		UPPER_GRADIENT_COLOUR = UPPER_GRADIENT_COLOUR.replace('0x', '0x' + BUTTON_PHYSICAL_DISABLED_OPACITY);
+		LOWER_GRADIENT_COLOUR = LOWER_GRADIENT_COLOUR.replace('0x', '0x' + BUTTON_PHYSICAL_DISABLED_OPACITY);
+		BORDER_COLOUR = BORDER_COLOUR.replace('0x', '0x' + BUTTON_PHYSICAL_DISABLED_OPACITY);
+		SHADOW_COLOUR = SHADOW_COLOUR.replace('0x', '0x' + BUTTON_PHYSICAL_DISABLED_OPACITY);
+		ICON_COLOUR = ICON_COLOUR.replace('0x', '0x' + BUTTON_PHYSICAL_DISABLED_OPACITY);
+	}
+	
+	// Hover states
+	if (obj.over) {
+		UPPER_GRADIENT_COLOUR = UPPER_GRADIENT_COLOUR.replace('0x', '0x' + BUTTON_PHYSICAL_HOVER_OPACITY);
+		LOWER_GRADIENT_COLOUR = LOWER_GRADIENT_COLOUR.replace('0x', '0x' + BUTTON_PHYSICAL_HOVER_OPACITY);
+		BORDER_COLOUR = BORDER_COLOUR.replace('0x', '0x' + BUTTON_PHYSICAL_HOVER_OPACITY);
+		SHADOW_COLOUR = SHADOW_COLOUR.replace('0x', '0x' + BUTTON_PHYSICAL_HOVER_OPACITY);
+		ICON_COLOUR = ICON_COLOUR.replace('0x', '0x' + BUTTON_PHYSICAL_HOVER_OPACITY);
+	}
+	
+	g.setColour(BORDER_COLOUR);
+	g.fillRoundedRectangle(borderA, BUTTON_PHYSICAL_BORDER_RADIUS);
+	
+	if (!obj.value) {
+		g.drawDropShadow(buttonA, SHADOW_COLOUR, BUTTON_PHYSICAL_SHADOW_RADIUS);
+	}
+	
+	// Main Colour
+	g.setGradientFill([
+		UPPER_GRADIENT_COLOUR, 0.0, 0.0,
+		LOWER_GRADIENT_COLOUR, 0.5, 100.0]
+	);
+	
+	g.fillRoundedRectangle(buttonA, BUTTON_PHYSICAL_BORDER_RADIUS);
+
+	g.setColour(ICON_COLOUR);
+	
+	var iconPosition = [ 30, 30, 40, 40 ];
+	g.fillPath(Paths.icons[obj.text], iconPosition);
+	
+	g.addNoise({
+		alpha: 0.05,
+		monochromatic: false,
+		scaleFactor: 1.7,
+		area: a
+	});
+});
+
+button_freeze.setLocalLookAndFeel(freezeButtonLAF);
 
 // SLIDERS
 
@@ -247,7 +363,12 @@ laf.registerFunction("drawRotarySlider", function(g, obj){
 	}
 	
 	var a = obj.area;
-	var ka = [PADDING, PADDING, a[2] - PADDING * 2, a[3] - PADDING * 2];
+	var ka = [
+		PADDING,
+		PADDING,
+		a[2] - PADDING * 2,
+		a[3] - PADDING * 2
+	];
 	var sa = [
 		PADDING + SHADOW_PADDING,
 		PADDING + SHADOW_PADDING,
@@ -374,6 +495,13 @@ function themePanels() {
 				a[2] - PANEL_BORDER * 2,
 				a[3] - PANEL_BORDER * 2
 			], PANEL_BORDER_RADIUS);
+			
+			g.addNoise({
+				alpha: 0.05,
+				monochromatic: false,
+				scaleFactor: 1.7,
+				area: a
+			});
 		});
 	}
 }
@@ -386,6 +514,12 @@ function themeMainPanel() {
 			THEME.PANEL.MAIN_LOWER_GRADIENT_COLOUR, 0.5, 100.0]
 		);
 		g.fillRoundedRectangle(a, PANEL_BORDER_RADIUS);
+		g.addNoise({
+			alpha: 0.02,
+			monochromatic: true,
+			scaleFactor: 1.2,
+			area: a
+		});
 	});
 }
 themeMainPanel();
@@ -407,7 +541,7 @@ laf.registerFunction("drawPresetBrowserListItem", function(g, obj)
     	g.setColour(obj.textColour);	    
     }
    
-   	g.setFont('space', 32.0);
+   	g.setFont(THEME.FONT.SECONDARY, 32.0);
     g.drawAlignedText(obj.text, [5, a[1], a[2], a[3]], "left");
 });
 
@@ -428,7 +562,7 @@ laf.registerFunction("drawPopupMenuItem", function(g, obj)
         g.fillRect(obj.area);
     }
     
-    g.setFont("space", 38.0);
+    g.setFont(THEME.FONT.SECONDARY, 38.0);
     g.setColour(Colours.white);
     g.drawAlignedText(obj.text, [a[0] + h, a[1], a[2] - h, a[3]], "left");
 });
@@ -440,22 +574,14 @@ laf.registerFunction("drawComboBox", function(g, obj)
     g.setColour(obj.bgColour);
     g.fillRoundedRectangle([a[0], a[1], a[2], a[3]], 2.0);
     g.setColour(Colours.withAlpha(obj.textColour, (obj.enabled && obj.active) ? 1.0 : 0.2));
-    g.setFont("space", 36.0);
+    g.setFont(THEME.FONT.SECONDARY, 36.0);
    
     g.drawAlignedText(obj.text, [a[0] + 30, a[1], a[2]-10, a[3]], "left");
     var h = a[3];
     g.fillTriangle([a[0] + a[2] - h/3 - 10, a[1] + h/3, h/3, h/3], Math.PI);
 });
 
-laf.registerFunction("getIdealPopupMenuItemSize", function(obj)
-{		 
-	// this will set the width to 200 and height to 50
-	//return [200, 50];
-	 
-	// sets the height to 30
-	return 60;
-});
-
+laf.registerFunction("getIdealPopupMenuItemSize", function(obj) { return 60; });
 
 const localLaf = Content.createLocalLookAndFeel();
 localLaf.registerFunction("drawFilterDragHandle", function(g, obj)
@@ -469,7 +595,7 @@ localLaf.registerFunction("drawFilterDragHandle", function(g, obj)
 	g.setColour(0XFF000000);
 	g.drawEllipse(area, 2);
 	
-	g.setFont("space", 24); 
+	g.setFont(THEME.FONT.SECONDARY, 24); 
 	g.drawAlignedText(obj.index, area, "centred");
 });
 
