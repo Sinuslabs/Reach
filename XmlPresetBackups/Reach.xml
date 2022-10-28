@@ -9,14 +9,14 @@
         <Processor Type="ScriptProcessor" ID="Interface" Bypassed="0">
           <ChildProcessors/>
           <Content>
-            <Control type="ScriptSlider" id="header_vumeter_ch1" value="-0.0736958441063581"/>
-            <Control type="ScriptSlider" id="header_vumeter_ch2" value="-0.09213461623501687"/>
+            <Control type="ScriptSlider" id="header_vumeter_ch1" value="-0.11"/>
+            <Control type="ScriptSlider" id="header_vumeter_ch2" value="-0.11"/>
             <Control type="ScriptButton" id="Button1" value="0.0"/>
-            <Control type="ScriptSlider" id="knob_reverb_space" value="0.8600000143051147"/>
+            <Control type="ScriptSlider" id="knob_reverb_space" value="0.6100000143051147"/>
             <Control type="ScriptSlider" id="knob_reverb_damping" value="0.2199999988079071"/>
-            <Control type="ScriptSlider" id="knob_reverb_stereo" value="1.0"/>
+            <Control type="ScriptSlider" id="knob_reverb_stereo" value="0.9700000286102295"/>
             <Control type="ScriptSlider" id="knob_reverb_drywet" value="0.5699999928474426"/>
-            <Control type="ScriptButton" id="button_freeze" value="0.0"/>
+            <Control type="ScriptButton" id="button_freeze" value="0"/>
             <Control type="ScriptSlider" id="knob_degrade_bit" value="0.7000000476837158"/>
             <Control type="ScriptSlider" id="knob_degrade_rate" value="0.559999942779541"/>
             <Control type="ScriptSlider" id="knob_degrade_mix" value="1.0"/>
@@ -95,9 +95,9 @@
           <RoutingMatrix NumSourceChannels="4" Channel0="-1" Send0="-1" Channel1="-1"
                          Send1="-1" Channel2="2" Send2="-1" Channel3="3" Send3="-1"/>
         </Processor>
-        <Processor Type="SimpleReverb" ID="Simple Reverb1" Bypassed="0" RoomSize="0.8600000143051147"
+        <Processor Type="SimpleReverb" ID="Simple Reverb1" Bypassed="0" RoomSize="0.6100000143051147"
                    Damping="0.2199999988079071" WetLevel="0.5699999928474426" DryLevel="0.4300000071525574"
-                   Width="1.0" FreezeMode="0.0">
+                   Width="0.9700000286102295" FreezeMode="0.0">
           <ChildProcessors/>
           <RoutingMatrix NumSourceChannels="4" Channel0="-1" Send0="-1" Channel1="-1"
                          Send1="-1" Channel2="2" Send2="-1" Channel3="3" Send3="-1"/>
