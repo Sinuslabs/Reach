@@ -14,32 +14,25 @@
                  width="270.0" height="10.0" max="1.100000023841858" parentComponent="panel_header"
                  style="Horizontal" showTextBox="0" itemColour2="0" itemColour="4293125091"
                  bgColour="4284835173" enabled="0"/>
-      <Component type="ScriptLabel" id="label_title" x="30.0" y="0.0" width="210.0"
-                 height="100.0" parentComponent="panel_header" text="REACH" textColour="4286677377"
-                 fontSize="60.0" editable="0" fontName="inter-semi" alignment="left"/>
       <Component type="ScriptButton" id="button_title" x="30.0" y="20.0" width="190.0"
-                 height="60.0" text="" parentComponent="panel_header" saveInPreset="0"/>
+                 height="60.0" text=" REACH" parentComponent="panel_header" saveInPreset="0"/>
       <Component type="ScriptButton" id="button_logo" x="1810.0" y="30.0" width="40.0"
-                 height="40.0" parentComponent="panel_header" text="icon-logo"
-                 scaleFactor="2.0" bgColour="4278190080" itemColour="4283387727"
-                 saveInPreset="0"/>
+                 height="40.0" parentComponent="panel_header" text="logo" scaleFactor="2.0"
+                 bgColour="4278190080" itemColour="4283387727" saveInPreset="0"/>
       <Component type="ScriptButton" id="button_preset_leftArrow" x="250.0" y="45.0"
-                 parentComponent="panel_header" width="10.0" height="10.0" text="icon-leftArrow"
+                 parentComponent="panel_header" width="10.0" height="10.0" text="leftArrow"
                  saveInPreset="0" bgColour="4286874756" itemColour="4281545523"
-                 itemColour2="4285229931"/>
+                 itemColour2="4285229931" isMomentary="1"/>
       <Component type="ScriptButton" id="button_preset_rightArrow" x="269.0" y="45.0"
-                 parentComponent="panel_header" text="icon-rightArrow" width="10.0"
+                 parentComponent="panel_header" text="rightArrow" width="10.0"
                  height="10.0" saveInPreset="0" itemColour="4281545523" bgColour="4286874756"
-                 textColour="4285229931" itemColour2="4285229931"/>
-      <Component type="ScriptLabel" id="label_out" x="1380.0" y="37.0" parentComponent="panel_header"
-                 fontName="inter-semi" text="MAIN OUT" textColour="4284110935"
-                 fontSize="20.0" height="28.0" editable="0"/>
-      <Component type="ScriptLabel" id="label_preset_browser" x="290.0" y="30.0"
-                 width="280.0" height="40.0" text="Blackhole" textColour="4285229931"
-                 alignment="left" fontSize="26.0" fontName="inter-semi" parentComponent="panel_header"
-                 editable="0"/>
-      <Component type="ScriptButton" id="button_presetBrowser" x="290.0" y="30.0"
-                 parentComponent="panel_header" width="200.0" height="40.0" text="toggle-"
+                 textColour="4285229931" itemColour2="4285229931" isMomentary="1"/>
+      <Component type="ScriptLabel" id="themeAble_label_out" x="1380.0" y="37.0"
+                 parentComponent="panel_header" fontName="inter-semi" text="MAIN OUT"
+                 textColour="-1842205" fontSize="20.0" height="28.0" editable="0"
+                 itemColour2="0"/>
+      <Component type="ScriptButton" id="button_presetBrowser" x="300.0" y="30.0"
+                 parentComponent="panel_header" width="200.0" height="40.0" text="Blackhole"
                  textColour="272841017" itemColour2="0" itemColour="268435456"
                  bgColour="16711680" saveInPreset="0"/>
       <Component type="ScriptButton" id="Button1" x="550.0" y="40.0" parentComponent="panel_header"
@@ -49,34 +42,38 @@
                width="480.0" height="700.0" parentComponent="panel_background"
                itemColour="4292730333" itemColour2="4292927712" textColour="4289045925"
                borderRadius="4.0">
-      <Component type="ScriptLabel" id="label_reverb_space" x="80.0" y="200.0"
-                 fontName="inter-semi" fontSize="26.0" textColour="4285229931"
-                 text="SPACE" parentComponent="themeablePanel_reverb" editable="0"/>
-      <Component type="ScriptLabel" id="label_reverb_damping" x="280.0" y="200.0"
-                 fontName="inter-semi" fontSize="26.0" textColour="4285229931"
-                 text="DAMPING" parentComponent="themeablePanel_reverb" editable="0"/>
-      <Component type="ScriptLabel" id="label_reverb_stereo" x="70.0" y="380.0"
-                 fontName="inter-semi" fontSize="26.0" textColour="4285229931"
-                 text="STEREO" parentComponent="themeablePanel_reverb" editable="0"/>
-      <Component type="ScriptLabel" id="label_reverb_wet" x="190.0" y="640.0"
-                 fontName="inter-semi" fontSize="26.0" textColour="4285229931"
-                 text="WET" parentComponent="themeablePanel_reverb" editable="0"/>
-      <Component type="ScriptSlider" id="knob_reverb_space" x="80.0" y="70.0"
+      <Component type="ScriptLabel" id="themeAble_label_reverb_space" x="70.0"
+                 y="210.0" fontName="inter-semi" fontSize="26.0" textColour="-1842205"
+                 text="SPACE" parentComponent="themeablePanel_reverb" editable="0"
+                 itemColour2="0"/>
+      <Component type="ScriptLabel" id="themeAble_label_reverb_damping" x="280.0"
+                 y="210.0" fontName="inter-semi" fontSize="26.0" textColour="-1842205"
+                 text="DAMPING" parentComponent="themeablePanel_reverb" editable="0"
+                 itemColour2="0"/>
+      <Component type="ScriptLabel" id="themeAble_label_reverb_stereo" x="70.0"
+                 y="390.0" fontName="inter-semi" fontSize="26.0" textColour="-1842205"
+                 text="STEREO" parentComponent="themeablePanel_reverb" editable="0"
+                 itemColour2="0"/>
+      <Component type="ScriptLabel" id="themeAble_label_reverb_wet" x="170.0"
+                 y="640.0" fontName="inter-semi" fontSize="26.0" textColour="-1842205"
+                 text="WET" parentComponent="themeablePanel_reverb" editable="0"
+                 itemColour2="0" width="160.0" height="30.0"/>
+      <Component type="ScriptSlider" id="knob_reverb_space" x="70.0" y="70.0"
                  parentComponent="themeablePanel_reverb" width="130.0" height="130.0"
                  itemColour="3355443" itemColour2="1118481" textColour="16777215"
                  bgColour="16777215" text="" showTextBox="0" scrollWheel="0" macroControl="No MacroControl"
-                 scaleFactor="0.5" mouseSensitivity="1.299999952316284" processorId="Simple Reverb1"
+                 scaleFactor="0.5" mouseSensitivity="2.5" processorId="Simple Reverb1"
                  isPluginParameter="1" pluginParameterName="SPACE"/>
       <Component type="ScriptSlider" id="knob_reverb_damping" x="280.0" y="70.0"
                  textColour="16777215" itemColour2="1118481" itemColour="3355443"
                  bgColour="16777215" showTextBox="0" text="" width="130.0" height="130.0"
                  parentComponent="themeablePanel_reverb" macroControl="No MacroControl"
-                 scaleFactor="0.5" mouseSensitivity="1.299999952316284" isPluginParameter="1"
+                 scaleFactor="0.5" mouseSensitivity="2.5" isPluginParameter="1"
                  pluginParameterName="DAMPING"/>
       <Component type="ScriptSlider" id="knob_reverb_stereo" x="70.0" y="250.0"
                  width="130.0" height="130.0" itemColour="3355443" textColour="16777215"
                  showTextBox="0" itemColour2="1118481" text="" parentComponent="themeablePanel_reverb"
-                 macroControl="No MacroControl" scaleFactor="0.5" mouseSensitivity="1.299999952316284"
+                 macroControl="No MacroControl" scaleFactor="0.5" mouseSensitivity="2.5"
                  isPluginParameter="1" pluginParameterName="STEREO"/>
       <Component type="ScriptSlider" id="knob_reverb_drywet" x="160.0" y="450.0"
                  width="180.0" height="180.0" text="blue" showTextBox="0" textColour="16777215"
@@ -84,67 +81,73 @@
                  parentComponent="themeablePanel_reverb" macroControl="No MacroControl"
                  scaleFactor="0.6000000238418579" mouseSensitivity="4.0" isPluginParameter="1"
                  pluginParameterName="WET"/>
-      <Component type="ScriptLabel" id="label_freeze" x="295.0" y="380.0" parentComponent="themeablePanel_reverb"
-                 text="FREEZE" fontSize="26.0" fontName="inter-semi" textColour="4285229931"
-                 width="110.0" height="30.0" editable="0"/>
+      <Component type="ScriptLabel" id="themeAble_label_freeze" x="280.0" y="390.0"
+                 parentComponent="themeablePanel_reverb" text="FREEZE" fontSize="26.0"
+                 fontName="inter-semi" textColour="-1842205" width="140.0" height="30.0"
+                 editable="0" itemColour2="0"/>
       <Component type="ScriptButton" id="button_freeze" x="300.0" y="270.0" parentComponent="themeablePanel_reverb"
-                 text="freeze" bgColour="4294967295" width="100" height="100"
+                 text="freeze" bgColour="4294967295" width="100.0" height="100.0"
                  itemColour="2801795072" textColour="4285229931" itemColour2="4294309365"
                  isPluginParameter="1" pluginParameterName="FREEZE"/>
-      <Component type="ScriptLabel" id="label_panel_reverb" x="40.0" y="10.0"
-                 parentComponent="themeablePanel_reverb" text="REVERB" alignment="left"
-                 fontSize="24.0" fontName="inter-semi" textColour="4285229931"
-                 editable="0"/>
+      <Component type="ScriptLabel" id="themeAble_label_panel_reverb" x="40.0"
+                 y="10.0" parentComponent="themeablePanel_reverb" text="REVERB"
+                 alignment="left" fontSize="24.0" fontName="inter-semi" textColour="-1842205"
+                 editable="0" itemColour2="0"/>
     </Component>
-    <Component type="ScriptPanel" id="themeablePanel_degrade" x="520.0" y="550.0"
+    <Component type="ScriptPanel" id="themeablePanel_degrade" x="870.0" y="550.0"
                width="500.0" height="270.0" parentComponent="panel_background"
                itemColour="4292730333" itemColour2="4293322470" textColour="4289045925"
-               borderRadius="4.0">
-      <Component type="ScriptLabel" id="label_panel_degrade" x="40.0" y="0.0"
-                 text="DEGRADE" fontName="inter-semi" width="120.0" height="50.0"
-                 alignment="left" fontSize="24.0" textColour="4285229931" parentComponent="themeablePanel_degrade"
-                 editable="0"/>
-      <Component type="ScriptLabel" id="label_degrade_bit" x="40.0" y="200.0"
-                 fontName="inter-semi" fontSize="26.0" textColour="4285229931"
-                 text="BIT" parentComponent="themeablePanel_degrade" editable="0"/>
-      <Component type="ScriptLabel" id="label_degrade_rate" x="190.0" y="200.0"
-                 fontName="inter-semi" fontSize="26.0" textColour="4285229931"
-                 text="RATE" parentComponent="themeablePanel_degrade" editable="0"/>
-      <Component type="ScriptLabel" id="label_degrade_filter" x="350.0" y="200.0"
-                 fontName="inter-semi" fontSize="26.0" textColour="4285229931"
-                 text="LOWPASS" parentComponent="themeablePanel_degrade" editable="0"/>
+               borderRadius="4.0" enabled="0.0">
+      <Component type="ScriptLabel" id="themeAble_label_panel_degrade" x="40.0"
+                 y="0.0" text="DEGRADE" fontName="inter-semi" width="120.0" height="50.0"
+                 alignment="left" fontSize="24.0" textColour="-1842205" parentComponent="themeablePanel_degrade"
+                 editable="0" itemColour2="0"/>
+      <Component type="ScriptLabel" id="themeAble_label_degrade_bit" x="40.0"
+                 y="200.0" fontName="inter-semi" fontSize="26.0" textColour="-1842205"
+                 text="BIT" parentComponent="themeablePanel_degrade" editable="0"
+                 itemColour2="0"/>
+      <Component type="ScriptLabel" id="themeAble_label_degrade_rate" x="190.0"
+                 y="200.0" fontName="inter-semi" fontSize="26.0" textColour="-1842205"
+                 text="RATE" parentComponent="themeablePanel_degrade" editable="0"
+                 itemColour2="0"/>
+      <Component type="ScriptLabel" id="themeAble_label_degrade_filter" x="350.0"
+                 y="200.0" fontName="inter-semi" fontSize="26.0" textColour="-1842205"
+                 text="LOWPASS" parentComponent="themeablePanel_degrade" editable="0"
+                 itemColour2="0"/>
       <Component type="ScriptSlider" id="knob_degrade_bit" x="40.0" y="70.0" width="130.0"
                  height="130.0" bgColour="16777215" textColour="16777215" itemColour="3355443"
                  itemColour2="1118481" text="" parentComponent="themeablePanel_degrade"
                  macroControl="No MacroControl" scaleFactor="0.5" stepSize="0.1000000014901161"
-                 min="0.4000000059604645" mode="NormalizedPercentage" mouseSensitivity="1.299999952316284"
+                 min="0.4000000059604645" mode="NormalizedPercentage" mouseSensitivity="2.5"
                  isPluginParameter="1" pluginParameterName="BIT"/>
       <Component type="ScriptSlider" id="knob_degrade_rate" x="190.0" y="70.0"
                  text="" width="130.0" height="130.0" textColour="16777215" itemColour2="1118481"
                  itemColour="3355443" bgColour="16777215" parentComponent="themeablePanel_degrade"
                  macroControl="No MacroControl" scaleFactor="0.5" min="0.5299999713897705"
-                 max="0.6499999761581421" mouseSensitivity="1.299999952316284"
-                 isPluginParameter="1" pluginParameterName="RATE"/>
+                 max="0.6499999761581421" mouseSensitivity="2.5" isPluginParameter="1"
+                 pluginParameterName="RATE"/>
       <Component type="ScriptSlider" id="knob_degrade_mix" x="350.0" y="70.0"
                  text="" textColour="16777215" itemColour2="1118481" itemColour="3355443"
                  bgColour="16777215" width="130.0" height="130.0" parentComponent="themeablePanel_degrade"
-                 scaleFactor="0.5" mouseSensitivity="1.299999952316284" isPluginParameter="1"
+                 scaleFactor="0.5" mouseSensitivity="2.5" isPluginParameter="1"
                  pluginParameterName="LOWPASS"/>
     </Component>
-    <Component type="ScriptPanel" id="themeablePanel_flair" x="1030.0" y="550.0"
+    <Component type="ScriptPanel" id="themeablePanel_flair" x="520.0" y="550.0"
                width="340.0" height="270.0" parentComponent="panel_background"
                itemColour="4292730333" itemColour2="4293125091" textColour="4289045925"
-               borderRadius="4.0">
-      <Component type="ScriptLabel" id="label_panel_flair" x="40.0" y="10.0" text="FLAIR"
-                 alignment="left" fontName="inter-semi" fontSize="24.0" textColour="4285229931"
-                 parentComponent="themeablePanel_flair" editable="0"/>
-      <Component type="ScriptLabel" id="label_flair_flair" x="110.0" y="200.0"
-                 fontName="inter-semi" fontSize="26.0" textColour="4285229931"
-                 text="FLAIR" parentComponent="themeablePanel_flair" editable="0"/>
+               borderRadius="4.0" enabled="0.0">
+      <Component type="ScriptLabel" id="themeAble_label_panel_flair" x="40.0"
+                 y="10.0" text="FLAIR" alignment="left" fontName="inter-semi"
+                 fontSize="24.0" textColour="-1842205" parentComponent="themeablePanel_flair"
+                 editable="0" itemColour2="0"/>
+      <Component type="ScriptLabel" id="themeAble_label_flair_flair" x="110.0"
+                 y="200.0" fontName="inter-semi" fontSize="26.0" textColour="-1842205"
+                 text="FLAIR" parentComponent="themeablePanel_flair" editable="0"
+                 itemColour2="0"/>
       <Component type="ScriptSlider" id="knob_flair_flair" x="110.0" y="70.0"
                  width="130.0" height="130.0" text="" textColour="16777215" itemColour2="1118481"
                  itemColour="3355443" bgColour="16777215" showTextBox="0" parentComponent="themeablePanel_flair"
-                 macroControl="No MacroControl" scaleFactor="0.5" mouseSensitivity="1.299999952316284"
+                 macroControl="No MacroControl" scaleFactor="0.5" mouseSensitivity="2.5"
                  isPluginParameter="1" pluginParameterName="FLAIR" max="0.9800000190734863"/>
     </Component>
     <Component type="ScriptPanel" id="themeablePanel_filter" x="1380.0" y="120.0"
@@ -158,70 +161,72 @@
                  width="30.0" height="30.0" text="icon-display" parentComponent="themeablePanel_filter"
                  saveInPreset="0" textColour="4285229931" bgColour="4285229931"
                  itemColour2="4290230199"/>
-      <Component type="ScriptLabel" id="label_panel_filter" x="40.0" y="10.0"
-                 fontSize="24.0" fontName="inter-semi" alignment="left" text="FILTER"
-                 textColour="4285229931" parentComponent="themeablePanel_filter"
-                 width="120.0" height="30.0" editable="0"/>
+      <Component type="ScriptLabel" id="themeAble_label_panel_filter" x="40.0"
+                 y="10.0" fontSize="24.0" fontName="inter-semi" alignment="left"
+                 text="FILTER" textColour="-1842205" parentComponent="themeablePanel_filter"
+                 width="120.0" height="30.0" editable="0" itemColour2="0"/>
       <Component type="ScriptSlider" id="knob_filter_gain" x="190.0" y="180.0"
                  scaleFactor="0.4000000059604645" width="100.0" height="100.0"
                  min="-100.0" max="24.0" stepSize="0.1000000014901161" suffix=" dB"
                  middlePosition="0.0" parentComponent="themeablePanel_filter"
-                 mouseSensitivity="1.299999952316284" isPluginParameter="1" pluginParameterName="FILTER GAIN"
+                 mouseSensitivity="3.0" isPluginParameter="1" pluginParameterName="FILTER GAIN"
                  mode="Decibel"/>
       <Component type="ScriptSlider" id="knob_filter_freq" x="50.0" y="180.0"
                  text="" width="100.0" height="100.0" bgColour="16777215" itemColour="3355443"
                  textColour="16777215" itemColour2="1118481" parentComponent="themeablePanel_filter"
                  macroControl="No MacroControl" scaleFactor="0.4000000059604645"
                  mode="Frequency" min="20.0" max="20000.0" stepSize="1.0" suffix=" Hz"
-                 middlePosition="1500.0" mouseSensitivity="1.799999952316284"
-                 isPluginParameter="1" pluginParameterName="FREQUENCY"/>
+                 middlePosition="1500.0" mouseSensitivity="3.0" isPluginParameter="1"
+                 pluginParameterName="FREQUENCY"/>
       <Component type="ScriptSlider" id="knob_filter_q" x="330.0" y="180.0" text=""
                  bgColour="16777215" textColour="16777215" itemColour2="1118481"
                  itemColour="3355443" width="100.0" height="100.0" parentComponent="themeablePanel_filter"
-                 scaleFactor="0.4000000059604645" max="8.0" mouseSensitivity="1.299999952316284"
+                 scaleFactor="0.4000000059604645" max="8.0" mouseSensitivity="3.0"
                  isPluginParameter="1" pluginParameterName="FILTER Q"/>
-      <Component type="ScriptLabel" id="label_filter_gain" x="180.0" y="300.0"
-                 fontSize="26.0" fontName="inter-semi" textColour="4285229931"
-                 text="GAIN" parentComponent="themeablePanel_filter" editable="0"/>
-      <Component type="ScriptLabel" id="label_filter_freq" x="40.0" y="300.0"
-                 fontName="inter-semi" fontSize="26.0" textColour="4285229931"
-                 text="FREQ" parentComponent="themeablePanel_filter" editable="0"/>
-      <Component type="ScriptLabel" id="label_filter_q" x="320.0" y="300.0" fontName="inter-semi"
-                 fontSize="26.0" textColour="4285229931" text="Q" parentComponent="themeablePanel_filter"
-                 editable="0"/>
+      <Component type="ScriptLabel" id="themeAble_label_filter_gain" x="180.0"
+                 y="300.0" fontSize="26.0" fontName="inter-semi" textColour="-1842205"
+                 text="GAIN" parentComponent="themeablePanel_filter" editable="0"
+                 itemColour2="0"/>
+      <Component type="ScriptLabel" id="themeAble_label_filter_freq" x="40.0"
+                 y="300.0" fontName="inter-semi" fontSize="26.0" textColour="-1842205"
+                 text="FREQ" parentComponent="themeablePanel_filter" editable="0"
+                 itemColour2="0"/>
+      <Component type="ScriptLabel" id="themeAble_label_filter_q" x="320.0" y="300.0"
+                 fontName="inter-semi" fontSize="26.0" textColour="-1842205" text="Q"
+                 parentComponent="themeablePanel_filter" editable="0" itemColour2="0"/>
       <Component type="ScriptLabel" id="label_bandDisplay" x="80.0" y="110.0"
-                 text="BAND 0 | HIGHSHELF" fontSize="32.0" alignment="left" fontName="space"
+                 text="BAND 0 | HIGHPASS" fontSize="32.0" alignment="left" fontName="space"
                  editable="0" width="300.0" height="50.0" parentComponent="themeablePanel_filter"/>
     </Component>
     <Component type="ScriptPanel" id="themeablePanel_io" x="1380.0" y="550.0"
                width="480.0" height="270.0" itemColour="4292730333" itemColour2="4292730333"
                textColour="4289045925" parentComponent="panel_background" borderRadius="4.0">
-      <Component type="ScriptLabel" id="label_io_input" x="65.0" y="210.0" fontName="inter-semi"
-                 fontSize="26.0" textColour="4285229931" text="GAIN" parentComponent="themeablePanel_io"
-                 editable="0"/>
-      <Component type="ScriptLabel" id="label_io_output" x="280.0" y="210.0" fontName="inter-semi"
-                 fontSize="26.0" textColour="4285229931" text="MIX" parentComponent="themeablePanel_io"
-                 editable="0"/>
+      <Component type="ScriptLabel" id="themeAble_label_io_input" x="65.0" y="210.0"
+                 fontName="inter-semi" fontSize="26.0" textColour="-1842205" text="GAIN"
+                 parentComponent="themeablePanel_io" editable="0" itemColour2="0"/>
+      <Component type="ScriptLabel" id="themeAble_label_io_output" x="280.0" y="210.0"
+                 fontName="inter-semi" fontSize="26.0" textColour="-1842205" text="MIX"
+                 parentComponent="themeablePanel_io" editable="0" itemColour2="0"/>
       <Component type="ScriptSlider" id="knob_io_in" x="70.0" y="70.0" text=""
                  width="120.0" height="120.0" textColour="16777215" itemColour2="1118481"
                  itemColour="3355443" bgColour="16777215" parentComponent="themeablePanel_io"
                  scaleFactor="0.4000000059604645" mode="Decibel" min="-100.0"
                  max="30.0" stepSize="0.1000000014901161" suffix=" dB" middlePosition="0.0"
-                 mouseSensitivity="2.0" isPluginParameter="1" pluginParameterName="GAIN"/>
+                 mouseSensitivity="4.5" isPluginParameter="1" pluginParameterName="GAIN"/>
       <Component type="ScriptSlider" id="knob_io_out" x="270.0" y="50.0" width="150.0"
                  height="150.0" bgColour="16777215" itemColour="3355443" itemColour2="1118481"
                  textColour="16777215" text="red" parentComponent="themeablePanel_io"
                  numStrips="128.0" scaleFactor="0.5" suffix=" dB" middlePosition="0.5"
                  mouseSensitivity="4.0" isPluginParameter="1" pluginParameterName="MIX"/>
-      <Component type="ScriptLabel" id="label_io" x="0.0" y="0.0" parentComponent="themeablePanel_io"
-                 width="150.0" height="50.0" textColour="4285229931" fontSize="26.0"
-                 text="MASTER" editable="0" fontName="inter-semi"/>
+      <Component type="ScriptLabel" id="themeAble_label_io" x="0.0" y="0.0" parentComponent="themeablePanel_io"
+                 width="150.0" height="50.0" textColour="-1842205" fontSize="26.0"
+                 text="MASTER" editable="0" fontName="inter-semi" itemColour2="0"/>
     </Component>
     <Component type="ScriptPanel" id="panelDisplay_display" x="520.0" y="120.0"
                width="850.0" height="420.0" itemColour="4280098077" itemColour2="4278650631"
                parentComponent="panel_background">
       <Component type="ScriptPanel" id="display_main" x="0.0" y="0.0" width="850.0"
-                 height="420.0" parentComponent="panelDisplay_display" visible="0">
+                 height="420.0" parentComponent="panelDisplay_display">
         <Component type="ScriptPanel" id="display_main_reverb" x="0.0" y="0.0" parentComponent="display_main"
                    width="850.0" height="330.0" itemColour2="0" itemColour="0" bgColour="16777215"
                    visible="0">
@@ -230,7 +235,7 @@
         </Component>
         <Component type="ScriptPanel" id="display_main_waveform" x="0.0" y="0.0"
                    width="850.0" height="330.0" parentComponent="display_main" itemColour="65386"
-                   itemColour2="0" visible="0">
+                   itemColour2="0">
           <Component type="ScriptFloatingTile" id="FloatingTile1" x="50.0" y="48.0"
                      width="750.0" height="260.0" ContentType="AudioAnalyser" bgColour="16769505"
                      itemColour="4294967295" itemColour2="0" textColour="0" Data="{&#10;  &quot;ProcessorId&quot;: &quot;Analyser1&quot;,&#10;  &quot;Index&quot;: 1,&#10;  &quot;FollowWorkspace&quot;: false&#10;}"
@@ -256,17 +261,18 @@
                    visible="0">
           <Component type="ScriptFloatingTile" id="tile_eq" x="25.0" y="20.0" parentComponent="display_main_filter"
                      width="800.0" height="290.0" ContentType="DraggableFilterPanel"
-                     bgColour="16777215" itemColour="4294967295" itemColour2="4294967295"
+                     bgColour="16777215" itemColour="4294967295" itemColour2="4290495990"
                      Data="{&#10;  &quot;ProcessorId&quot;: &quot;Parametriq EQ1&quot;,&#10;  &quot;Index&quot;: -1,&#10;  &quot;FollowWorkspace&quot;: false,&#10;  &quot;AllowFilterResizing&quot;: true,&#10;  &quot;AllowDynamicSpectrumAnalyser&quot;: 0,&#10;  &quot;UseUndoManager&quot;: true&#10;}"
-                     itemColour3="3019833344" textColour="16777215"/>
+                     itemColour3="4294967295" textColour="16777215"/>
           <Component type="ScriptButton" id="button_x4" x="810.0" y="20.0" width="20.0"
-                     height="20.0" text="icon-outline2-x" itemColour="4294967295"
-                     itemColour2="4222331819" saveInPreset="0" parentComponent="display_main_filter"/>
+                     height="20.0" text="displayIcon-outline-x" itemColour="4294967295"
+                     itemColour2="4222331819" saveInPreset="0" parentComponent="display_main_filter"
+                     isMomentary="1"/>
         </Component>
       </Component>
       <Component type="ScriptPanel" id="display_main_footer" x="0.0" y="330.0"
                  width="850.0" height="90.0" parentComponent="panelDisplay_display"
-                 itemColour2="3473663" itemColour="16711680" visible="0">
+                 itemColour2="3473663" itemColour="16711680">
         <Component type="ScriptPanel" id="icon_panel_freeze2" x="780.0" y="30.0"
                    width="30.0" height="30.0" text="freeze" itemColour="4292138196"
                    parentComponent="display_main_footer" visible="0"/>
@@ -279,16 +285,13 @@
                    itemColour="4294967295" borderSize="0.0" borderRadius="0.0" parentComponent="display_main_footer"
                    visible="0"/>
         <Component type="ScriptLabel" id="label_parameter_name" x="20.0" y="20.0"
-                   text="DRY: 36 | WET: 63" fontSize="40.0" alignment="left" fontName="Space Mono"
+                   text="DRY: 33 | WET: 66" fontSize="40.0" alignment="left" fontName="Space Mono"
                    parentComponent="display_main_footer" editable="0" width="470.0"
                    height="50.0"/>
       </Component>
-      <Component type="ScriptButton" id="button_not_activated" x="10.0" y="10.0"
+      <Component type="ScriptButton" id="button_not_activated" x="20.0" y="10.0"
                  parentComponent="panelDisplay_display" width="280.0" height="60.0"
-                 isMomentary="1"/>
-      <Component type="ScriptLabel" id="label_status_main" x="20.0" y="20.0" text="NOT ACTIVATED"
-                 textColour="4294901760" fontSize="38.0" fontName="space" width="260.0"
-                 height="50.0" parentComponent="panelDisplay_display" editable="0"/>
+                 isMomentary="1" text="NOT ACTIVATED"/>
       <Component type="ScriptPanel" id="display_about" x="0.0" y="0.0" width="850.0"
                  height="420.0" parentComponent="panelDisplay_display" itemColour2="4278190080"
                  itemColour="4278190080" visible="0">
@@ -297,9 +300,9 @@
         <Component type="ScriptLabel" id="label_name1" x="150.0" y="240.0" width="300.0"
                    height="30.0" text="Oskar Schachtschneider" fontSize="28.0" fontName="space"
                    parentComponent="display_about" editable="0"/>
-        <Component type="ScriptButton" id="button_x1" x="810.0" y="20.0" text="icon-outline2-x"
+        <Component type="ScriptButton" id="button_x1" x="810.0" y="20.0" text="displayIcon-outline-x"
                    itemColour="4294967295" width="20.0" height="20.0" parentComponent="display_about"
-                   itemColour2="4222331819" saveInPreset="0"/>
+                   itemColour2="4222331819" saveInPreset="0" isMomentary="1"/>
         <Component type="ScriptPanel" id="icon_panel_logo" x="380.0" y="50.0" width="80.0"
                    height="80.0" parentComponent="display_about"/>
         <Component type="ScriptPanel" id="panel_message" x="220.0" y="130.0" width="460.0"
@@ -321,10 +324,11 @@
       </Component>
       <Component type="ScriptPanel" id="display_settings" x="0.0" y="0.0" width="850.0"
                  height="420.0" parentComponent="panelDisplay_display" itemColour2="4278190080"
-                 itemColour="3456106496">
+                 itemColour="3456106496" visible="0">
         <Component type="ScriptButton" id="button_x2" x="810.0" y="20.0" width="20.0"
-                   height="20.0" text="icon-outline2-x" itemColour="4294967295"
-                   parentComponent="display_settings" itemColour2="4222331819" saveInPreset="0"/>
+                   height="20.0" text="displayIcon-outline-x" itemColour="4294967295"
+                   parentComponent="display_settings" itemColour2="4222331819" saveInPreset="0"
+                   isMomentary="1"/>
         <Component type="ScriptPanel" id="panel_settings_content_container" x="330.0"
                    y="60.0" width="500.0" height="310.0" parentComponent="display_settings"
                    bgColour="16777215" itemColour="0" itemColour2="0" textColour="16777215">
@@ -376,7 +380,7 @@
                          width="180.0" height="40.0" editable="0" parentComponent="panel_non_activated"/>
               <Component type="ScriptLabel" id="label_serial_key" x="100.0" y="10.0" width="300.0"
                          height="40.0" fontName="space" fontSize="30.0" alignment="left"
-                         text="3A8-219-H59" parentComponent="panel_non_activated"/>
+                         text="LICENSE_CODE" parentComponent="panel_non_activated"/>
               <Component type="ScriptButton" id="button_activate" x="90.0" y="60.0" width="320.0"
                          height="40.0" text="displayButton-ACTIVATE" parentComponent="panel_non_activated"
                          itemColour="4292532954" textColour="4278190080" isMomentary="1"
@@ -449,9 +453,9 @@
                    Font="space" FontSize="32.0" parentComponent="display_presetBrowser"
                    itemColour3="4278190080"/>
         <Component type="ScriptButton" id="button_x3" x="810.0" y="20.0" width="20.0"
-                   height="20.0" text="icon-outline2-x" itemColour="4294967295"
+                   height="20.0" text="displayIcon-outline-x" itemColour="4294967295"
                    parentComponent="display_presetBrowser" itemColour2="4222331819"
-                   saveInPreset="0"/>
+                   saveInPreset="0" isMomentary="1"/>
       </Component>
     </Component>
   </Component>
@@ -459,11 +463,11 @@
              width="20.0" height="20.0" text="icon-onOff" itemColour="4287532686"
              textColour="4285229931" itemColour2="4288914339" bgColour="4285229931"
              isPluginParameter="1" pluginParameterName="REVERB BYPASS"/>
-  <Component type="ScriptButton" id="button_toggle_degrade" x="535.0" y="565.0"
+  <Component type="ScriptButton" id="button_toggle_degrade" x="885.0" y="565.0"
              width="20.0" height="20.0" text="icon-onOff" textColour="4289547854"
              itemColour2="4288914339" itemColour="4287532686" bgColour="4285229931"
              isPluginParameter="1" pluginParameterName="DEGRADE BYPASS"/>
-  <Component type="ScriptButton" id="button_toggle_flair" x="1045.0" y="565.0"
+  <Component type="ScriptButton" id="button_toggle_flair" x="535.0" y="565.0"
              width="20.0" height="20.0" text="icon-onOff" textColour="4285229931"
              itemColour2="4288914339" itemColour="4287532686" bgColour="4285229931"
              isPluginParameter="1" pluginParameterName="FLAIR BYPASS"/>
@@ -472,28 +476,27 @@
              itemColour2="4288914339" itemColour="4287532686" bgColour="4285229931"
              isPluginParameter="1" pluginParameterName="FILTER BYPASS"/>
   <Component type="ScriptButton" id="button_disableBand" x="1760.0" y="245.0"
-             text="icon-onOff" itemColour2="4221871268" bgColour="4294967295"
+             text="displayIcon-onOff" itemColour2="4221871268" bgColour="4294967295"
              itemColour="4292335575" width="15.0" height="15.0"/>
   <Component type="ScriptPanel" id="panel_filterButtons" x="1040.0" y="450.0"
              width="330.0" height="90.0" textColour="16777215" itemColour2="0"
              itemColour="0" bgColour="16777215" visible="0">
     <Component type="ScriptButton" id="button_lowPass" x="30.0" y="30.0" width="40.0"
-               height="30.0" text="icon-outline-lowPass" bgColour="4294967295"
-               itemColour="4292269782" itemColour2="4289374890" parentComponent="panel_filterButtons"
+               height="30.0" text="lowPass" bgColour="4294967295" itemColour="4292269782"
+               itemColour2="4289374890" parentComponent="panel_filterButtons"
                textColour="4283367679"/>
     <Component type="ScriptButton" id="button_HighPass" x="90.0" y="30.0" width="40.0"
-               height="30.0" text="icon-outline-highPass" bgColour="4294967295"
-               itemColour="4292269782" parentComponent="panel_filterButtons"
-               itemColour2="4289374890" textColour="4283367679"/>
+               height="30.0" text="highPass" bgColour="4294967295" itemColour="4292269782"
+               parentComponent="panel_filterButtons" itemColour2="4289374890"
+               textColour="4283367679"/>
     <Component type="ScriptButton" id="button_lowShelf" x="140.0" y="30.0" width="45.0"
-               height="27.0" text="icon-outline-lowShelf" itemColour="4292269782"
-               itemColour2="4289374890" parentComponent="panel_filterButtons"
-               bgColour="4294967295" textColour="4283367679"/>
+               height="27.0" text="lowShelf" itemColour="4292269782" itemColour2="4289374890"
+               parentComponent="panel_filterButtons" bgColour="4294967295" textColour="4283367679"/>
     <Component type="ScriptButton" id="button_highShelf" x="200.0" y="30.0"
-               text="icon-outline-highShelf" itemColour="4292269782" width="45.0"
-               height="27.0" parentComponent="panel_filterButtons" bgColour="4294967295"
-               itemColour2="4289374890" textColour="4283367679"/>
-    <Component type="ScriptButton" id="button_bandPass" x="260.0" y="27.0" text="icon-outline-bandPass"
+               text="highShelf" itemColour="4292269782" width="45.0" height="27.0"
+               parentComponent="panel_filterButtons" bgColour="4294967295" itemColour2="4289374890"
+               textColour="4283367679"/>
+    <Component type="ScriptButton" id="button_bandPass" x="260.0" y="27.0" text="bandPass"
                itemColour="4292269782" width="40.0" height="30.0" parentComponent="panel_filterButtons"
                bgColour="4294967295" itemColour2="4289374890" textColour="4283367679"/>
   </Component>
