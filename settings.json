@@ -1,5 +1,6 @@
 {
   "zoom": 0.6000000238418579,
-  "animationEnabled": true,
-  "filterOnDrag": true
+  "animationEnabled": 1,
+  "filterOnDrag": 1,
+  "theme": "Dark"
 }

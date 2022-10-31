@@ -13,25 +13,25 @@
             <Control type="ScriptSlider" id="header_vumeter_ch2" value="-0.11"/>
             <Control type="ScriptButton" id="Button1" value="0.0"/>
             <Control type="ScriptSlider" id="knob_reverb_space" value="1.0"/>
-            <Control type="ScriptSlider" id="knob_reverb_damping" value="0.2099999934434891"/>
+            <Control type="ScriptSlider" id="knob_reverb_damping" value="1.0"/>
             <Control type="ScriptSlider" id="knob_reverb_stereo" value="1.0"/>
-            <Control type="ScriptSlider" id="knob_reverb_drywet" value="0.5"/>
+            <Control type="ScriptSlider" id="knob_reverb_drywet" value="0.7799999713897705"/>
             <Control type="ScriptButton" id="button_freeze" value="0"/>
             <Control type="ScriptSlider" id="knob_degrade_bit" value="0.7000000476837158"/>
-            <Control type="ScriptSlider" id="knob_degrade_rate" value="0.559999942779541"/>
+            <Control type="ScriptSlider" id="knob_degrade_rate" value="0.5299999713897705"/>
             <Control type="ScriptSlider" id="knob_degrade_mix" value="1.0"/>
             <Control type="ScriptSlider" id="knob_flair_flair" value="0.2199999988079071"/>
-            <Control type="ScriptSlider" id="knob_filter_gain" value="-11.55000019073486"/>
-            <Control type="ScriptSlider" id="knob_filter_freq" value="255.8699951171875"/>
-            <Control type="ScriptSlider" id="knob_filter_q" value="0.300000011920929"/>
+            <Control type="ScriptSlider" id="knob_filter_gain" value="-12.64000034332275"/>
+            <Control type="ScriptSlider" id="knob_filter_freq" value="331.7900085449219"/>
+            <Control type="ScriptSlider" id="knob_filter_q" value="1.230000019073486"/>
             <Control type="ScriptSlider" id="knob_io_in" value="0.0"/>
-            <Control type="ScriptSlider" id="knob_io_out" value="0.6600000262260437"/>
+            <Control type="ScriptSlider" id="knob_io_out" value="0.8500000238418579"/>
             <Control type="ScriptButton" id="button_not_activated" value="0.0"/>
             <Control type="ScriptButton" id="button_website" value="0.0"/>
             <Control type="ScriptButton" id="button_github" value="0.0"/>
             <Control type="ScriptButton" id="button_toggle_reverb" value="1.0"/>
             <Control type="ScriptButton" id="button_toggle_degrade" value="0.0"/>
-            <Control type="ScriptButton" id="button_toggle_flair" value="0.0"/>
+            <Control type="ScriptButton" id="button_toggle_flair" value="1.0"/>
             <Control type="ScriptButton" id="button_toggle_filter" value="1.0"/>
             <Control type="ScriptButton" id="button_disableBand" value="1.0"/>
             <Control type="ScriptButton" id="button_lowPass" value="0"/>
@@ -57,7 +57,7 @@
           <RoutingMatrix NumSourceChannels="4" Channel0="0" Send0="2" Channel1="1" Send1="3"
                          Channel2="-1" Send2="-1" Channel3="-1" Send3="-1"/>
         </Processor>
-        <Processor Type="SimpleGain" ID="DryGain" Bypassed="0" Gain="-9.37042236328125"
+        <Processor Type="SimpleGain" ID="DryGain" Bypassed="0" Gain="-16.47817611694336"
                    Delay="0.0" Width="100.0" Balance="0.0" InvertPolarity="0.0">
           <ChildProcessors>
             <Processor Type="ModulatorChain" ID="Gain Modulation" Bypassed="0" Intensity="1.0">
@@ -76,7 +76,7 @@
           <RoutingMatrix NumSourceChannels="4" Channel0="0" Send0="-1" Channel1="1" Send1="-1"
                          Channel2="-1" Send2="-1" Channel3="-1" Send3="-1"/>
         </Processor>
-        <Processor Type="SimpleGain" ID="WetGain" Bypassed="0" Gain="-3.609120845794678"
+        <Processor Type="SimpleGain" ID="WetGain" Bypassed="0" Gain="-1.411621332168579"
                    Delay="0.0" Width="100.0" Balance="0.0" InvertPolarity="0.0">
           <ChildProcessors>
             <Processor Type="ModulatorChain" ID="Gain Modulation" Bypassed="0" Intensity="1.0">
@@ -96,14 +96,14 @@
                          Send1="-1" Channel2="2" Send2="-1" Channel3="3" Send3="-1"/>
         </Processor>
         <Processor Type="SimpleReverb" ID="Simple Reverb1" Bypassed="0" RoomSize="1.0"
-                   Damping="0.2099999934434891" WetLevel="0.5" DryLevel="0.5" Width="1.0"
-                   FreezeMode="0.0">
+                   Damping="1.0" WetLevel="0.7799999713897705" DryLevel="0.2200000286102295"
+                   Width="1.0" FreezeMode="0.0">
           <ChildProcessors/>
           <RoutingMatrix NumSourceChannels="4" Channel0="-1" Send0="-1" Channel1="-1"
                          Send1="-1" Channel2="2" Send2="-1" Channel3="3" Send3="-1"/>
         </Processor>
         <Processor Type="Degrade" ID="Degrade1" Bypassed="1" Headroom="1.0" Quant="0.7000000476837158"
-                   Rate="0.559999942779541" PostFilt="1.0" Non-Lin="0.5" Output="1.0">
+                   Rate="0.5299999713897705" PostFilt="1.0" Non-Lin="0.5" Output="1.0">
           <ChildProcessors>
             <Processor Type="ModulatorChain" ID="FX Modulation" Bypassed="0" Intensity="1.0">
               <ChildProcessors/>
@@ -131,7 +131,7 @@
           <RoutingMatrix NumSourceChannels="4" Channel0="-1" Send0="-1" Channel1="-1"
                          Send1="-1" Channel2="2" Send2="-1" Channel3="3" Send3="-1"/>
         </Processor>
-        <Processor Type="Saturator" ID="Saturator1" Bypassed="1" Saturation="0.8500000238418579"
+        <Processor Type="Saturator" ID="Saturator1" Bypassed="0" Saturation="0.8500000238418579"
                    WetAmount="0.2199999988079071" PreGain="0.0" PostGain="-12.10000038146973">
           <ChildProcessors>
             <Processor Type="ModulatorChain" ID="Saturation Modulation" Bypassed="0"
@@ -143,7 +143,7 @@
                          Send1="-1" Channel2="2" Send2="-1" Channel3="3" Send3="-1"/>
         </Processor>
         <Processor Type="CurveEq" ID="Parametriq EQ1" Bypassed="0" NumFilters="1"
-                   Band0="-11.55000114440918" Band1="255.8699951171875" Band2="0.300000011920929"
+                   Band0="-12.64000034332275" Band1="331.7900085449219" Band2="1.230000019073486"
                    Band3="1.0" Band4="1.0" FFTEnabled="1">
           <ChildProcessors/>
           <RoutingMatrix NumSourceChannels="4" Channel0="-1" Send0="-1" Channel1="-1"

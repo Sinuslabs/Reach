@@ -31,14 +31,14 @@ if (settingsExist()) {
 }
 
 // Activation Label
-const var label_status_main = Content.getComponent("label_status_main");
+//const var button_not_activated = Content.getComponent("button_not_activated");
 const var label_status_account = Content.getComponent("label_status_account");
 const var label_thank_you = Content.getComponent("label_thank_you");
 
 // Check License
 getActivationStatus();
 label_not_found.set('visible', false);
-label_status_main.set('visible', !STATE.ACTIVATED);
+button_not_activated.set('visible', !STATE.ACTIVATED);
 label_thank_you.set('visible', STATE.ACTIVATED);
 
 // Main Screen
