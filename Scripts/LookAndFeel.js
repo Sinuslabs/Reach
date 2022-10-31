@@ -619,6 +619,56 @@ themePanels();
 // override preset browser search bar to hide it
 laf.registerFunction("drawPresetBrowserSearchBar", function(g, obj){});
 
+laf.registerFunction("drawDialogButton", function(g, obj){
+	
+	var SIZE = 26;
+	var PADDING = 5;
+	var a = obj.area;
+	var pa = [
+		a[0] + PADDING,
+		a[1] + PADDING,
+		SIZE - PADDING,
+		SIZE - PADDING
+	];
+	var ICON_COLOUR = THEME.DISPLAY.ICON_COLOUR;
+	
+	if (obj.over) {
+		ICON_COLOUR = ICON_COLOUR.replace('0x', '0x' + THEME.DISPLAY.HOVER_OPACITY);
+	}
+	
+	g.setColour(ICON_COLOUR);
+	
+	if (obj.text == 'Add') {
+		g.drawPath(Paths.icons['add'], pa, 4);
+		return;
+	}
+	
+	if (obj.text == 'Rename') {
+		g.fillPath(Paths.icons['edit'], pa);
+		return;
+	}
+	
+	if (obj.text == 'Delete') {
+		g.drawPath(Paths.icons['delete'], pa, 3);
+		return;
+	}
+	
+	if (obj.text == 'Save Preset') {
+		g.drawPath(Paths.icons['save'], pa, 3);
+		g.drawAlignedText('SAVE', a, 'centred');
+		return;
+	}
+	Console.print(obj.text);
+	if (obj.text == 'More') {
+		Console.print('drawIcon');
+		g.drawAlignedText('MENU', a, 'centred');
+		g.fillPath(Paths.icons['menu'], a);
+	}
+	
+	g.drawAlignedText(obj.text, a, 'centred');
+	
+});
+
 laf.registerFunction("drawPresetBrowserListItem", function(g, obj)
 {
 	var a = obj.area;
@@ -635,6 +685,7 @@ laf.registerFunction("drawPresetBrowserListItem", function(g, obj)
    	g.setFont(THEME.FONT.SECONDARY, 32.0);
     g.drawAlignedText(obj.text, [5, a[1], a[2], a[3]], "left");
 });
+
 
 laf.registerFunction("drawPopupMenuItem", function(g, obj)
 {
