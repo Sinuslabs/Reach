@@ -36,7 +36,9 @@ function themeLabels() {
 themeLabels();
 
 // Buttons
-const laf = Engine.createGlobalScriptLookAndFeel();
+//const laf = Engine.createGlobalScriptLookAndFeel();
+
+const laf = Content.createLocalLookAndFeel();
 
 laf.registerFunction('drawToggleButton', function(g, obj) {	
 	var a = obj.area;
@@ -647,8 +649,7 @@ laf.registerFunction("drawDialogButton", function(g, obj){
 			a[1] + PADDING,
 			WIDTH,
 			15
-		];
-		
+		];	
 	
 		g.drawPath(Paths.icons['menu'], menuA, 3);
 		return;
@@ -706,7 +707,9 @@ laf.registerFunction("drawPresetBrowserListItem", function(g, obj)
 });
 
 
-laf.registerFunction("drawPopupMenuItem", function(g, obj)
+const popMenuLaf = Content.createLocalLookAndFeel();
+
+popMenuLaf.registerFunction("drawPopupMenuItem", function(g, obj)
 {
     var a = obj.area;
     var h = a[3];
@@ -728,7 +731,9 @@ laf.registerFunction("drawPopupMenuItem", function(g, obj)
     g.drawAlignedText(obj.text, [a[0] + h, a[1], a[2] - h, a[3]], "left");
 });
 
-laf.registerFunction("drawComboBox", function(g, obj)
+
+
+popMenuLaf.registerFunction("drawComboBox", function(g, obj)
 {
     var a = obj.area;
 
@@ -742,7 +747,10 @@ laf.registerFunction("drawComboBox", function(g, obj)
     g.fillTriangle([a[0] + a[2] - h/3 - 10, a[1] + h/3, h/3, h/3], Math.PI);
 });
 
-laf.registerFunction("getIdealPopupMenuItemSize", function(obj) { return 60; });
+popMenuLaf.registerFunction("getIdealPopupMenuItemSize", function(obj) { return 60; });
+
+comboBox_zoom.setLocalLookAndFeel(popMenuLaf);
+comboBox_theme.setLocalLookAndFeel(popMenuLaf);
 
 const localLaf = Content.createLocalLookAndFeel();
 localLaf.registerFunction("drawFilterDragHandle", function(g, obj)
