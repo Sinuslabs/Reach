@@ -32,7 +32,7 @@
                  textColour="-1842205" fontSize="20.0" height="28.0" editable="0"
                  itemColour2="0"/>
       <Component type="ScriptButton" id="button_presetBrowser" x="300.0" y="30.0"
-                 parentComponent="panel_header" width="200.0" height="40.0" text="Deviant Tones"
+                 parentComponent="panel_header" width="200.0" height="40.0" text="Blackhole"
                  textColour="272841017" itemColour2="0" itemColour="268435456"
                  bgColour="16711680" saveInPreset="0"/>
       <Component type="ScriptButton" id="Button1" x="550.0" y="40.0" parentComponent="panel_header"
@@ -135,7 +135,7 @@
     <Component type="ScriptPanel" id="themeablePanel_flair" x="520.0" y="550.0"
                width="340.0" height="270.0" parentComponent="panel_background"
                itemColour="4292730333" itemColour2="4293125091" textColour="4289045925"
-               borderRadius="4.0">
+               borderRadius="4.0" enabled="0.0">
       <Component type="ScriptLabel" id="themeAble_label_panel_flair" x="40.0"
                  y="10.0" text="FLAIR" alignment="left" fontName="inter-semi"
                  fontSize="24.0" textColour="-1842205" parentComponent="themeablePanel_flair"
@@ -285,7 +285,7 @@
                    itemColour="4294967295" borderSize="0.0" borderRadius="0.0" parentComponent="display_main_footer"
                    visible="0"/>
         <Component type="ScriptLabel" id="label_parameter_name" x="20.0" y="20.0"
-                   text="DRY: 14 | WET: 85" fontSize="40.0" alignment="left" fontName="Space Mono"
+                   text="DRY: 33 | WET: 66" fontSize="40.0" alignment="left" fontName="Space Mono"
                    parentComponent="display_main_footer" editable="0" width="470.0"
                    height="50.0"/>
       </Component>
@@ -449,10 +449,10 @@
                  itemColour="4278779904" itemColour2="4278190080">
         <Component type="ScriptFloatingTile" id="FloatingTile2" x="10.0" y="10.0"
                    width="830.0" height="400.0" ContentType="PresetBrowser" bgColour="4143972352"
-                   itemColour="4294967295" itemColour2="0" Data="{&#10;  &quot;ShowSaveButton&quot;: true,&#10;  &quot;ShowExpansionsAsColumn&quot;: false,&#10;  &quot;ShowFolderButton&quot;: false,&#10;  &quot;ShowNotes&quot;: false,&#10;  &quot;ShowEditButtons&quot;: true,&#10;  &quot;EditButtonOffset&quot;: 2,&#10;  &quot;ShowAddButton&quot;: true,&#10;  &quot;ShowRenameButton&quot;: true,&#10;  &quot;ShowDeleteButton&quot;: true,&#10;  &quot;ShowFavoriteIcon&quot;: false,&#10;  &quot;ButtonsInsideBorder&quot;: false,&#10;  &quot;NumColumns&quot;: 2,&#10;  &quot;ColumnWidthRatio&quot;: [&#10;    0.3333333333333333,&#10;    0.6333333333333333&#10;  ],&#10;  &quot;ListAreaOffset&quot;: [&#10;    0,&#10;    0,&#10;    0,&#10;    0&#10;  ],&#10;  &quot;ColumnRowPadding&quot;: [&#10;    0,&#10;    0,&#10;    0,&#10;    0&#10;  ],&#10;  &quot;SearchBarBounds&quot;: [&#10;    0,&#10;    0,&#10;    0,&#10;    0&#10;  ],&#10;  &quot;MoreButtonBounds&quot;: [],&#10;  &quot;SaveButtonBounds&quot;: [&#10;    600,&#10;    -5,&#10;    200,&#10;    50&#10;  ],&#10;  &quot;FavoriteButtonBounds&quot;: []&#10;}"
+                   itemColour="4294967295" itemColour2="0" Data="{&#10;  &quot;ShowSaveButton&quot;: true,&#10;  &quot;ShowExpansionsAsColumn&quot;: false,&#10;  &quot;ShowFolderButton&quot;: true,&#10;  &quot;ShowNotes&quot;: false,&#10;  &quot;ShowEditButtons&quot;: true,&#10;  &quot;EditButtonOffset&quot;: 2,&#10;  &quot;ShowAddButton&quot;: true,&#10;  &quot;ShowRenameButton&quot;: true,&#10;  &quot;ShowDeleteButton&quot;: true,&#10;  &quot;ShowFavoriteIcon&quot;: false,&#10;  &quot;ButtonsInsideBorder&quot;: false,&#10;  &quot;NumColumns&quot;: 2,&#10;  &quot;ColumnWidthRatio&quot;: [&#10;    0.3333333333333333,&#10;    0.6333333333333333&#10;  ],&#10;  &quot;ListAreaOffset&quot;: [&#10;    0,&#10;    0,&#10;    0,&#10;    0&#10;  ],&#10;  &quot;ColumnRowPadding&quot;: [&#10;    10,&#10;    10,&#10;    10,&#10;    10&#10;  ],&#10;  &quot;SearchBarBounds&quot;: [&#10;    0,&#10;    0,&#10;    0,&#10;    0&#10;  ],&#10;  &quot;MoreButtonBounds&quot;: [&#10;    15,&#10;    20,&#10;    200,&#10;    50&#10;  ],&#10;  &quot;SaveButtonBounds&quot;: [&#10;    650,&#10;    0,&#10;    150,&#10;    50&#10;  ],&#10;  &quot;FavoriteButtonBounds&quot;: []&#10;}"
                    Font="space" FontSize="32.0" parentComponent="display_presetBrowser"
                    itemColour3="4278190080"/>
-        <Component type="ScriptButton" id="button_x3" x="810.0" y="20.0" width="20.0"
+        <Component type="ScriptButton" id="button_x3" x="805.0" y="25.0" width="20.0"
                    height="20.0" text="displayIcon-outline-x" itemColour="4294967295"
                    parentComponent="display_presetBrowser" itemColour2="4222331819"
                    saveInPreset="0" isMomentary="1"/>
