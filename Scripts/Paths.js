@@ -114,7 +114,8 @@ namespace Paths
 		icons.save = Content.createPath();
 		icons.save.loadFromData(svgData);
 		
-		svgData = [110,109,0,0,128,64,0,0,64,65,108,0,0,160,65,0,0,64,65,101,0,0];
+		// Menu Icon
+		svgData = [110,109,0,0,128,63,0,0,224,64,108,0,0,136,65,0,0,224,64,109,0,0,128,63,0,0,128,63,108,0,0,136,65,0,0,128,63,109,0,0,128,63,0,0,80,65,108,0,0,136,65,0,0,80,65,101,0,0];
 		icons.menu = Content.createPath();
 		icons.menu.loadFromData(svgData);
 }

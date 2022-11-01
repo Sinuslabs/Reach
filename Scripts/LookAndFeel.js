@@ -621,16 +621,19 @@ laf.registerFunction("drawPresetBrowserSearchBar", function(g, obj){});
 
 laf.registerFunction("drawDialogButton", function(g, obj){
 	
-	var SIZE = 26;
-	var PADDING = 5;
+	var WIDTH = 20;
+	var PADDING = 2;
 	var a = obj.area;
 	var pa = [
-		a[0] + PADDING,
-		a[1] + PADDING,
-		SIZE - PADDING,
-		SIZE - PADDING
+		(a[2] / 2 - WIDTH / 2) + PADDING,
+		(a[3] / 2 - WIDTH / 2) ,
+		WIDTH,
+		a[3] - PADDING * 2
 	];
+	
+
 	var ICON_COLOUR = THEME.DISPLAY.ICON_COLOUR;
+	
 	
 	if (obj.over) {
 		ICON_COLOUR = ICON_COLOUR.replace('0x', '0x' + THEME.DISPLAY.HOVER_OPACITY);
@@ -638,8 +641,21 @@ laf.registerFunction("drawDialogButton", function(g, obj){
 	
 	g.setColour(ICON_COLOUR);
 	
+	if (obj.text == 'More') {
+		var menuA = [
+			a[0] + PADDING,
+			a[1] + PADDING,
+			WIDTH,
+			15
+		];
+		
+	
+		g.drawPath(Paths.icons['menu'], menuA, 3);
+		return;
+	}
+	
 	if (obj.text == 'Add') {
-		g.drawPath(Paths.icons['add'], pa, 4);
+		g.drawPath(Paths.icons['add'], pa, 3);
 		return;
 	}
 	
@@ -649,21 +665,24 @@ laf.registerFunction("drawDialogButton", function(g, obj){
 	}
 	
 	if (obj.text == 'Delete') {
-		g.drawPath(Paths.icons['delete'], pa, 3);
+		g.drawPath(Paths.icons['delete'], pa, 2);
 		return;
 	}
 	
 	if (obj.text == 'Save Preset') {
-		g.drawPath(Paths.icons['save'], pa, 3);
+		var sa = [
+			pa[2] / 2 - width / 2,
+			pa[1],
+			WIDTH,
+			WIDTH
+		];
+	
+		g.drawPath(Paths.icons['save'], sa, 2);
+		g.setFont(THEME.FONT.SECONDARY, 32.0);
 		g.drawAlignedText('SAVE', a, 'centred');
 		return;
 	}
-	Console.print(obj.text);
-	if (obj.text == 'More') {
-		Console.print('drawIcon');
-		g.drawAlignedText('MENU', a, 'centred');
-		g.fillPath(Paths.icons['menu'], a);
-	}
+
 	
 	g.drawAlignedText(obj.text, a, 'centred');
 	
