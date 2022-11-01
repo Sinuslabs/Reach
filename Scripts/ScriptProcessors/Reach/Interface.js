@@ -1,5 +1,6 @@
 include("Paths.js");
 include("Handler.js");
+include("Reverb.js");
 include("Settings.js");
 include("State.js");
 include("Config.js");
@@ -14,7 +15,6 @@ include("FlairAnimation.js");
 include("VuMeter.js");
 include("Eq.js");
 include("Theme.js");
-
 
 Content.makeFrontInterface(1900, 860);
 
