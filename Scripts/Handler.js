@@ -81,13 +81,11 @@ const var comboBox_theme = Content.getComponent("ComboBox_theme");
 comboBox_theme.setControlCallback(onComboBox1Control);
 inline function onComboBox1Control(component, value)
 {
-	Console.print(value);
-
 	if (value == 1.0) {
-		setTheme('Light');
+		Theme.setTheme('Light');
 	}
 	if (value == 2.0) {
-		setTheme('Dark');
+		Theme.setTheme('Dark');	
 	}
 };
 
@@ -183,7 +181,6 @@ presetBrowserWatcher.attachToComponentMouseEvents("FloatingTile2", "All Callback
 
 const var PresetBrowserStateTimer = Engine.createTimerObject();
 PresetBrowserStateTimer.setTimerCallback(function() {
-		Console.print('timer finished');
 		presetBrowserButton.setValue(false);
 		STATE.presetBrowserOpen = false;
 		showMain();
