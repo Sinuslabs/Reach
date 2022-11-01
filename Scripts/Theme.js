@@ -26,14 +26,12 @@ const LIGHT_THEME = {
 		TEXT_COLOUR: 4285229931
 	},					
 	BUTTON: {
-		PHYSICAL: {
 			UPPER_GRADIENT_COLOUR: '0xF6F6F6',
 			LOWER_GRADIENT_COLOUR: '0xEAEAEA',
 			BACKGROUND_HOVER_COLOUR: '0xF5F5F5',
 			BORDER_COLOUR: '0xA5A5A5',
 			SHADOW_COLOUR: '0x3e3234',
 			ICON_COLOUR: '0x6b6b6b',
-		}
 	},
 	DISPLAY: {
 		BUTTON_BACKGROUND_COLOUR: '0x000000',
@@ -83,14 +81,12 @@ const DARK_THEME = {
 		TEXT_COLOUR: 4293125091
 	},
 	BUTTON: {
-		PHYSICAL: {
 			UPPER_GRADIENT_COLOUR: '0x2D2D2D',
 			LOWER_GRADIENT_COLOUR: '0x181818',
 			BACKGROUND_HOVER_COLOUR: '0x282828',
 			BORDER_COLOUR: '0x333333',
 			SHADOW_COLOUR: '0x3e3234',
 			ICON_COLOUR: '0x969696',
-		}
 	},
 	DISPLAY: {
 		BUTTON_BACKGROUND_COLOUR: '0x000000',
@@ -112,20 +108,156 @@ const DARK_THEME = {
 	}
 };
 
-var THEME = LIGHT_THEME;
+namespace Theme {
+	reg name = '';
 
-function setTheme(theme) {
-	if(theme == 'Light') {
-		THEME = LIGHT_THEME;
-		STATE.theme = 'Light';
-	}
-	if (theme == 'Dark') {
-		THEME = DARK_THEME;
-		STATE.theme = 'Dark';
-	}
+	reg defaultTheme = LIGHT_THEME;
+	reg theme = {};
 	
-	repaintAllPanels();
-	themeLabels();
+	inline function setTheme(themeName) {
+		if(themeName == 'Light') {
+			theme = LIGHT_THEME;
+			STATE.theme = 'Light';
+		}
+		if (themeName == 'Dark') {
+			theme = DARK_THEME;
+			STATE.theme = 'Dark';
+		}
+		
+		name = theme.name;
+		
+		Fonts.load(theme['FONT']);
+		PanelTheme.load(theme['PANEL']);
+		HeaderTheme.load(theme['HEADER']);
+		SliderTheme.load(theme['SLIDER']);
+		ButtonTheme.load(theme['BUTTON']);
+		DisplayTheme.load(theme['DISPLAY']);
+		
+		repaintAllPanels();
+		themeLabels();
+		
+		saveSettings();
+	}
+}
+
+namespace Fonts {
+	reg mainFont = '';
+	reg secondaryFont = '';
 	
-	saveSettings();
+	inline function load(theme) {
+		mainFont = theme['MAIN'];
+		secondaryFont = theme['SECONDARY'];
+	}
+}
+
+namespace SliderTheme {
+	
+	reg arcColour = '';
+	reg indicatorColour = '';
+	reg upperGradientColour = '';
+	reg lowerGradientColour = '';
+	reg borderColour = '';
+	reg shadowColour = '';
+	reg redColour = '';
+	reg blueColour = '';
+	
+	inline function load(theme) {
+		arcColour = theme['ARC_COLOUR'];
+		indicatorColour = theme['INDICATOR_COLOUR'];
+		upperGradientColour = theme['UPPER_GRADIENT_COLOUR'];
+		lowerGradientColour = theme['LOWER_GRADIENT_COLOUR'];
+		borderColour = theme['BORDER_COLOUR'];
+		shadowColour = theme['SHADOW_COLOUR'];
+		redColour = theme['RED_COLOUR'];
+		blueColour = theme['BLUE_COLOUR'];
+	} 
+}
+
+namespace PanelTheme {
+	reg upperGradientColour = '';
+	reg lowerGradientColour = '';
+	reg mainUpperGradientColour = '';
+	reg mainLowerGradientColour = '';
+	reg borderColour = '';
+	reg selectedIconColour = '';
+	reg iconColour = '';
+	reg hoverOpacity = '';
+	reg textColour = 0;
+	
+	inline function load(theme) {
+		upperGradientColour = theme['UPPER_GRADIENT_COLOUR'];
+		lowerGradientColour = theme['LOWER_GRADIENT_COLOUR'];
+		mainUpperGradientColour = theme['MAIN_UPPER_GRADIENT_COLOUR'];
+		mainLowerGradientColour = theme['MAIN_LOWER_GRADIENT_COLOUR'];
+		borderColour = theme['BORDER_COLOUR'];
+		selectedIconColour = theme['SELECTED_ICON_COLOUR'];
+		iconColour = theme['ICON_COLOUR'];
+		hoverOpacity = theme['HOVER_OPACITY'];
+		textColour = theme['TEXT_COLOUR'];
+	}
+}
+
+namespace ButtonTheme {
+	reg upperGradientColour = '';
+	reg lowerGradientColour = '';
+	reg backgroundHoverColour = '';
+	reg borderColour = '';
+	reg shadowColour = '';
+	reg iconColour = '';
+	
+	inline function load(theme) {
+		upperGradientColour = theme['UPPER_GRADIENT_COLOUR'];
+		lowerGradientColour = theme['LOWER_GRADIENT_COLOUR'];
+		backgroundHoverColour = theme['BACKGROUND_HOVER_COLOUR'];
+		borderColour = theme['BORDER_COLOUR'];
+		shadowColour = theme['SHADOW_COLOUR'];
+		iconColour = theme['ICON_COLOUR'];
+	}
+}
+
+namespace HeaderTheme {
+
+	reg selectedIconColour = '';
+	reg iconColour = '';
+	reg selectedTextColour = '';
+	reg textColour = '';
+	reg hoverOpacity = '';
+	
+	inline function load(theme) {
+		
+		Console.print(theme['SELECTED_TEXT_COLOUR']);
+		Console.print(Theme.name);
+		
+		selectedIconColour = theme['SELECTED_ICON_COLOUR'];
+		iconColour = theme['ICON_COLOUR'];
+		selectedTextColour = theme['SELECTED_TEXT_COLOUR'];
+		textColour = theme['TEXT_COLOUR'];
+		hoverOpacity = theme['HOVER_OPACITY'];
+	}
+}
+
+namespace DisplayTheme {
+	
+	reg name = '';
+	reg buttonSelectedBackgroundColour = '';
+	reg buttonBackgroundColour = '';
+	reg buttonTextColour = '';
+	reg buttonSelectedTextColour = '';
+	reg textColour = '';
+	reg hoverOpacity = '';
+	reg selectedIconColour = '';
+	reg iconColour = '';
+	reg notActivatedColour = '';
+	
+	inline function load(theme) {
+		buttonSelectedBackgroundColour = theme['BUTTON_SELECTED_BACKGROUND_COLOUR'];
+		buttonBackgroundColour = theme['BUTTON_BACKGROUND_COLOUR'];
+		buttonTextColour = theme['BUTTON_TEXT_COLOUR'];
+		buttonSelectedTextColour = theme['BUTTON_SELECTED_TEXT_COLOUR'];
+		textColour = theme['TEXT_COLOUR'];
+		hoverOpacity = theme['HOVER_OPACITY'];
+		selectedIconColour = theme['SELECTED_ICON_COLOUR'];
+		iconColour = theme['ICON_COLOUR'];
+		notActivatedColour = theme['NOT_ACTIVATED_COLOUR'];
+	}
 }
