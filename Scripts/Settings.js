@@ -25,14 +25,14 @@ function loadSettings() {
 	comboBox_zoom.setValue(zoomFactorsIndex + 1);
 	
 	//Theming
-	setTheme(savedTheme);
+	Theme.setTheme(savedTheme);
 	STATE.theme = savedTheme;
 	
 	if (theme == 'Light') {
-		comboBox_theme.setValue(0.0);		
+		comboBox_theme.setValue(1.0);		
 	}
 	if (theme == 'Dark') {
-		comboBox_theme.setValue(1.0);	
+		comboBox_theme.setValue(2.0);	
 	}
 	
 	// animation toggle
