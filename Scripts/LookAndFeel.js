@@ -225,40 +225,6 @@ notActivatedLAF.registerFunction('drawToggleButton', function(g, obj){
 
 button_not_activated.setLocalLookAndFeel(notActivatedLAF);
 
-// FILTER OUTLINE ICONS
-const FILTER_BUTTON_PADDING = 5;
-const FILTER_BUTTON_STROKE_WIDTH = 5;
-
-const filterButtonLAF = Content.createLocalLookAndFeel();
-filterButtonLAF.registerFunction('drawToggleButton', function(g, obj){
-	
-	var a = obj.area;
-	var SELECTED_ICON_COLOUR = DisplayTheme.selectedIconColour;
-	var ICON_COLOUR = DisplayTheme.iconColour;
-	
-	if (obj.over) {
-		SELECTED_ICON_COLOUR = SELECTED_ICON_COLOUR.replace('0x', '0x' + DisplayTheme.hoverOpacity);
-		ICON_COLOUR = ICON_COLOUR.replace('0x', '0x' + DisplayTheme.hoverOpacity);
-	}
-	
-	a = [
-		FILTER_BUTTON_PADDING,
-		FILTER_BUTTON_PADDING,
-		a[2] - FILTER_BUTTON_PADDING * 2,
-		a[3] - FILTER_BUTTON_PADDING * 2
-	];
-	
-	obj.value ?
-		g.setColour(SELECTED_ICON_COLOUR) :
-		g.setColour(ICON_COLOUR);
-	
-	g.drawPath(Paths.icons[obj.text], a, FILTER_BUTTON_STROKE_WIDTH);
-});
-
-for (filterButton in filterButtons) {
-	filterButton.setLocalLookAndFeel(filterButtonLAF);
-}
-
 // SETTINGS SCREEN MENU BUTTON
 const MENU_ITEM_HOVER_OPACITY = 'CC';
 const MENU_ITEM_TEXT_ALIGN = 'left';
@@ -390,7 +356,7 @@ freezeButtonLAF.registerFunction("drawToggleButton", function(g, obj) {
 	});
 });
 
-button_freeze.setLocalLookAndFeel(freezeButtonLAF);
+Reverb.button_freeze.setLocalLookAndFeel(freezeButtonLAF);
 
 // SLIDERS
 

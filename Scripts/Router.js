@@ -19,7 +19,7 @@ function showMain() {
 
 function disableStates() {
 	STATE.filterOpen = false;
-	button_showFilter.setValue(0);
+	Filter.button_showFilter.setValue(0);
 	
 	STATE.presetBrowserOpen = false;
 	presetBrowserButton.setValue(0);
@@ -44,7 +44,7 @@ function displayShow(route) {
 	//disable filter panel
 	panel_filterButtons.set('visible', false);
 	
-	updateFreezeParameter(button_freeze.getValue());
+	updateFreezeParameter(Reverb.button_freeze.getValue());
 	
 	for (display in displayRoutes) {
 		var displayName = display.get('text').replace('display_');
@@ -65,7 +65,7 @@ function displayShowMain(route) {
 	if (route == 'default') {
 	 	route = 'waveform';
 	   	STATE.filterOpen = false;
-		button_showFilter.setValue(0);
+		Filter.button_showFilter.setValue(0);
 		logoButton.setValue(0);
 	};
 	
@@ -73,15 +73,15 @@ function displayShowMain(route) {
 	if (route == 'filter') {
 		disableStates();	
 		STATE.filterOpen = true;
-		button_showFilter.setValue(1);
-		panel_filterButtons.set('visible', true);
+		Filter.button_showFilter.setValue(1);
+		Filter.panel_filterButtons.set('visible', true);
 	} else {
 		STATE.filterOpen = false;
-		panel_filterButtons.set('visible', false);
+		Filter.panel_filterButtons.set('visible', false);
 	}
 	
 	displayDisableAll();
-	updateFreezeParameter(button_freeze.getValue());
+	updateFreezeParameter(Reverb.button_freeze.getValue());
 	displayMain.set('visible', true);
 	for (mainDisplay in mainDisplayRoutes) {
 		var mainDisplayName = mainDisplay.get('text').replace('display_main_');

@@ -5,7 +5,6 @@ const var eqWatcher = Engine.createBroadcaster({
 
 eqWatcher.attachToComponentMouseEvents("tile_eq", "All Callbacks", "Mouse Listener for EQ");
 
-const var label_bandDisplay = Content.getComponent("label_bandDisplay");
 eqWatcher.addListener("RefreshFunction", "updates each EQ band on Drag and sets the filter label",function(component, event)
 {
     if(event.drag || event.clicked) {
@@ -22,9 +21,9 @@ eqWatcher.addListener("RefreshFunction", "updates each EQ band on Drag and sets 
 			
 			customParameter(parameter);
 			
-			knob_filter_freq.setValue(frequency);
-			knob_filter_gain.setValue(gain);
-			knob_filter_q.setValue(q);
+			Filter.knob_filter_freq.setValue(frequency);
+			Filter.knob_filter_gain.setValue(gain);
+			Filter.knob_filter_q.setValue(q);
 		}
     }
 });
@@ -43,7 +42,7 @@ function getMovingBand() {
 			
 			STATE.currentBandIndex = currentBand.index;
 			// Get the filter type for the currently used band
-			STATE.currentBandFilterType = bandTypeToLabel(parseInt(Filter.getAttribute(currentBand.index + 4)));
+			STATE.currentBandFilterType = bandTypeToLabel(parseInt(Filter.EQ.getAttribute(currentBand.index + 4)));
 			
 			return {
 				name: 'Band ' + i,
@@ -57,18 +56,20 @@ function getMovingBand() {
 }
 
 function getCurrentBand(bandIndex) {
-	var index = bandIndex * Filter.BandOffset + Filter.BandGain;
+	reg eqIndex = bandIndex * Filter.EQ.BandOffset + Filter.EQ.BandGain;
 	return {
-		gain: Math.floor(Filter.getAttribute(index) * 100 ) / 100,
-		frequency: Math.floor(Filter.getAttribute(index + 1) * 100) / 100,
-		q: Math.floor(Filter.getAttribute(index + 2) * 100 ) / 100,
-		index: index
+		gain: Math.floor(Filter.EQ.getAttribute(eqIndex) * 100 ) / 100,
+		frequency: Math.floor(Filter.EQ.getAttribute(eqIndex + 1) * 100) / 100,
+		q: Math.floor(Filter.EQ.getAttribute(eqIndex + 2) * 100 ) / 100,
+		index: eqIndex
 	};
 }
 
-function getParameterFromBand(frequency, gain, q) { return Engine.doubleToString(STATE.currentBandIndex / 5, 0) + ' | ' + Math.round(parseInt(frequency)) + 'Hz | ' +  Engine.doubleToString(gain, 1) + 'dB | ' + Engine.doubleToString(q, 2) + ' Q';   }
+function getParameterFromBand(frequency, gain, q) {
+ return Engine.doubleToString(STATE.currentBandIndex / 5, 0) + ' | ' + Math.round(parseInt(frequency)) + 'Hz | ' +  Engine.doubleToString(gain, 1) + 'dB | ' + Engine.doubleToString(q, 2) + ' Q';
+}
 
-var lastBands = [
+reg lastBands = [
 	{
 		gain: 0,
 		frequency: 0,

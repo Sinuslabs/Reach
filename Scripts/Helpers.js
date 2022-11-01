@@ -122,7 +122,7 @@ function bandTypeToLabel(type) {
 function updateFilterLabel() {
 	var band = STATE.currentBandIndex;
 	var type = STATE.currentBandFilterType;
-	label_bandDisplay.set('text', 'BAND ' + Engine.doubleToString(band / 5, 0) + ' | ' + type);
+	Filter.label_bandDisplay.set('text', 'BAND ' + Engine.doubleToString(band / 5, 0) + ' | ' + type);
 }
 
 function repaintAllPanels() {
