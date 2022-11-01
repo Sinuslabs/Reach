@@ -37,6 +37,10 @@ const var label_thank_you = Content.getComponent("label_thank_you");
 
 // Check License
 getActivationStatus();
+
+// DEBUG
+STATE.ACTIVATED = true;
+
 label_not_found.set('visible', false);
 button_not_activated.set('visible', !STATE.ACTIVATED);
 label_thank_you.set('visible', STATE.ACTIVATED);

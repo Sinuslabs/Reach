@@ -291,7 +291,7 @@ Content.getComponent("button_toggle_reverb").setControlCallback(onbutton_toggle_
 const var panel_reverb = Content.getComponent("themeablePanel_reverb");
 inline function onbutton_toggle_reverbControl(component, value)
 {
-	Reverb.setBypassed(!value);
+	//Reverb.setBypassed(!value);
 	panel_reverb.set('enabled', value);
 	
 	button_freeze.setValue(!value);
@@ -301,7 +301,7 @@ inline function onbutton_toggle_reverbControl(component, value)
 Content.getComponent("knob_reverb_space").setControlCallback(onknob_reverb_spaceControl);
 inline function onknob_reverb_spaceControl(component, value)
 {
-	Reverb.setAttribute(Reverb.RoomSize, value);
+	//Reverb.setAttribute(Reverb.RoomSize, value);
 	updateParameterWithLabel('SPACE', value, '%');
 	showTempScreen('reverb');
 	
@@ -312,7 +312,7 @@ inline function onknob_reverb_spaceControl(component, value)
 Content.getComponent("knob_reverb_damping").setControlCallback(onknob_reverb_dampingControl);
 inline function onknob_reverb_dampingControl(component, value)
 {
-	Reverb.setAttribute(Reverb.Damping, value);
+	//Reverb.setAttribute(Reverb.Damping, value);
 	updateParameterWithLabel('DAMPING', value, '%');
 	showTempScreen('reverb');
 	
@@ -323,7 +323,7 @@ inline function onknob_reverb_dampingControl(component, value)
 Content.getComponent("knob_reverb_stereo").setControlCallback(onknob_reverb_stereoControl);
 inline function onknob_reverb_stereoControl(component, value)
 {
-	Reverb.setAttribute(Reverb.Width, value);
+	//Reverb.setAttribute(Reverb.Width, value);
 	updateParameterWithLabel('STEREO', value, '%');
 	showTempScreen('reverb');
 	
@@ -342,7 +342,7 @@ inline function onbutton_freezeControl(component, value)
 Content.getComponent("knob_reverb_drywet").setControlCallback(onknob_reverb_drywetControl);
 inline function onknob_reverb_drywetControl(component, value)
 {
-	Reverb.setAttribute(Reverb.WetLevel, value);
+	//Reverb.setAttribute(Reverb.WetLevel, value);
 	updateParameterWithLabel('REVERB WET', value, '%');
 	showTempScreen('reverb');
 	
@@ -351,24 +351,14 @@ inline function onknob_reverb_drywetControl(component, value)
 };
 
 // DEGRADE
-const var Degrade = Synth.getEffect("Degrade1");
-const var SimpleGain3 = Synth.getEffect("Simple Gain3");
+//const var Degrade = Synth.getEffect("Degrade1");
 // BYPASS
 Content.getComponent("button_toggle_degrade").setControlCallback(onbutton_toggle_degradeControl);
-const var panel_degrade = Content.getComponent("themeablePanel_degrade");
-
-inline function onbutton_toggle_degradeControl(component, value)
-{
-	Degrade.setBypassed(!value);
-	SimpleGain3.setBypassed(!value);
-	panel_degrade.set('enabled', value);
-};
-
 Content.getComponent("knob_degrade_bit").setControlCallback(onknob_degrade_bitControl);
 
 inline function onknob_degrade_bitControl(component, value)
 {
-	Degrade.setAttribute(Degrade.Quant, value);
+	//Degrade.setAttribute(Degrade.Quant, value);
 	updateParameterWithBit('CRUSH', value);
 	showTempScreen('degrade');
 
@@ -384,7 +374,7 @@ const rateRange = rateMax - rateMin;
 
 inline function onknob_degrade_rateControl(component, value)
 {
-	Degrade.setAttribute(Degrade.Rate, value);
+	//Degrade.setAttribute(Degrade.Rate, value);
 
 	updateParameterWithFixedSampleRate('SAMPLE RATE', value);
 	showTempScreen('degrade');
@@ -398,7 +388,7 @@ inline function onknob_degrade_rateControl(component, value)
 Content.getComponent("knob_degrade_mix").setControlCallback(onknob_degrade_mixControl);
 inline function onknob_degrade_mixControl(component, value)
 {
-	Degrade.setAttribute(Degrade.PostFilt, value);
+	//Degrade.setAttribute(Degrade.PostFilt, value);
 	updateParameterWithLabel('POST FILTER', value, '%');
 	showTempScreen('degrade');
 	
@@ -407,22 +397,14 @@ inline function onknob_degrade_mixControl(component, value)
 };
 
 // FLAIR
-const var Flair = Synth.getEffect("Saturator1");
 
 // FLAIR BYPASS
 Content.getComponent("button_toggle_flair").setControlCallback(onbutton_toggle_flairControl);
-const var panel_flair = Content.getComponent("themeablePanel_flair");
-
-inline function onbutton_toggle_flairControl(component, value)
-{
-	Flair.setBypassed(!value);
-	panel_flair.set('enabled', value);
-};
 
 Content.getComponent("knob_flair_flair").setControlCallback(onknob_flair_flairControl);
 inline function onknob_flair_flairControl(component, value)
 {
-	Flair.setAttribute(Flair.WetAmount, value);
+	//Flair.setAttribute(Flair.WetAmount, value);
 	updateParameterWithLabel('FLAIR', value, '%');
 	showTempScreen('flair');
 	
