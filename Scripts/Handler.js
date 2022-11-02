@@ -6,9 +6,9 @@ inline function onbutton_logoControl(component, value) {
 	if (value) {
 		settingsButtonsRadio(0);
 		displayShowSettings('general');
-		STATE.settingsOpen = true;
+		Globals.settingsOpen = true;
 	} else {
-		STATE.settingsOpen = false;
+		Globals.settingsOpen = false;
 		displayShowMain('default');
 	}
 };
@@ -93,7 +93,7 @@ const var button_animationToggle = Content.getComponent("button_animationToggle"
 button_animationToggle.setControlCallback(onbutton_animationToggleControl);
 inline function onbutton_animationToggleControl(component, value)
 {
-	STATE.enableAnimations = !value;
+	UserSettings.enableAnimations = !value;
 	UserSettings.saveSettings();
 };
 
@@ -102,7 +102,7 @@ const var button_filterOnDrag = Content.getComponent("button_filterOnDrag");
 button_filterOnDrag.setControlCallback(onbutton_filterOnDragControl);
 inline function onbutton_filterOnDragControl(component, value)
 {
-	STATE.filterOnDrag = !value;
+	UserSettings.filterOnDrag = !value;
 	UserSettings.saveSettings();
 };
 
@@ -131,13 +131,13 @@ inline function onbutton_not_activatedControl(component, value)
 {
 	if (value) {
 		displayShowSettings('activate');
-		STATE.settingsOpen = true;
+		Globals.settingsOpen = true;
 	}
 };
 
 // Account License Panel
 const var panel_non_activated = Content.getComponent("panel_non_activated");
-panel_non_activated.set('visible', !STATE.ACTIVATED);
+panel_non_activated.set('visible', !Globals.activated);
 panel_non_activated.repaint();
 
 // Title Button
@@ -158,12 +158,12 @@ presetBrowserButton.setControlCallback(onbutton_presetBrowserControl);
 inline function onbutton_presetBrowserControl(component, value)
 {
 	if (value) {
-		STATE.presetBrowserOpen = true;
-		STATE.filterOpen = false;
-		button_showFilter.setValue(0);
+		Globals.presetBrowserOpen = true;
+		Globals.filterOpen = false;
+		Filter.button_showFilter.setValue(0);
 		displayShow('presetBrowser');
 	} else {
-		STATE.presetBrowserOpen = false;
+		Globals.presetBrowserOpen = false;
 		displayShowMain('default');
 	}
 };
@@ -178,7 +178,7 @@ presetBrowserWatcher.attachToComponentMouseEvents("FloatingTile2", "All Callback
 const var PresetBrowserStateTimer = Engine.createTimerObject();
 PresetBrowserStateTimer.setTimerCallback(function() {
 		presetBrowserButton.setValue(false);
-		STATE.presetBrowserOpen = false;
+		Globals.presetBrowserOpen = false;
 		showMain();
 		PresetBrowserStateTimer.stopTimer();
 });
@@ -194,7 +194,7 @@ Content.getComponent("Button1").setControlCallback(onButton1Control);
 inline function onButton1Control(component, value)
 {
 	// reset band to band 1; 
-	STATE.currentBandIndex = 0;
+	Globals.currentBandIndex = 0;
 	if (Engine.getCurrentUserPresetName() == '') {
 		presetBrowserButton.set('text', 'Blackhole');
 	} else {
@@ -249,7 +249,7 @@ Content.getComponent("button_x3").setControlCallback(onbutton_closePreset_Contro
 inline function onbutton_closePreset_Control(component, value)
 {
 	
-	STATE.presetBrowserOpen = false;
+	Globals.presetBrowserOpen = false;
 	presetBrowserButton.setValue(false);
 	showMain();
 };
@@ -266,7 +266,7 @@ inline function onbutton_x2Control(component, value)
 {
 	
 	disableStates();
-	STATE.settingsOpen = false;
+	Globals.settingsOpen = false;
 	displayShowMain('default');
 };
 

@@ -151,9 +151,9 @@ namespace Filter {
 				Bands.lastFrequencies[i] = currentBand.frequency;
 				Bands.lastQs[i] = currentBand.q;
 				
-				STATE.currentBandIndex = currentBand.index;
+				Globals.currentBandIndex = currentBand.index;
 				// Get the filter type for the currently used band
-				STATE.currentBandFilterType = bandTypeToLabel(parseInt(Filter.EQ.getAttribute(currentBand.index + 4)));
+				Globals.currentBandFilterType = bandTypeToLabel(parseInt(Filter.EQ.getAttribute(currentBand.index + 4)));
 				
 				return {
 					name: 'Band ' + i,
@@ -177,7 +177,7 @@ namespace Filter {
 	}
 	
 	inline function getParameterFromBand(frequency, gain, q) {
-	 return Engine.doubleToString(STATE.currentBandIndex / 5, 0) + ' | ' + Math.round(parseInt(frequency)) + 'Hz | ' +  Engine.doubleToString(gain, 1) + 'dB | ' + Engine.doubleToString(q, 2) + ' Q';
+	 return Engine.doubleToString(Globals.currentBandIndex / 5, 0) + ' | ' + Math.round(parseInt(frequency)) + 'Hz | ' +  Engine.doubleToString(gain, 1) + 'dB | ' + Engine.doubleToString(q, 2) + ' Q';
 	}
 	
 	// BYPASS
@@ -186,14 +186,14 @@ namespace Filter {
 		EQ.setBypassed(!value);
 		panel_filter.set('enabled', value);
 		
-		if (STATE.presetBrowserOpen) return;
+		if (Globals.presetBrowserOpen) return;
 		
 		if (value) {
-			STATE.filterOpen = true;
+			Globals.filterOpen = true;
 			displayShowMain('filter');
 			updateFreezeParameter(false);
 		} else {
-			STATE.filterOpen = false;
+			Globals.filterOpen = false;
 			displayShowMain('default');
 		}
 		
@@ -204,11 +204,11 @@ namespace Filter {
 	
 	inline function onknob_filter_freqControl(component, value)
 	{
-		EQ.setAttribute(STATE.currentBandIndex + 1 , value);
+		EQ.setAttribute(Globals.currentBandIndex + 1 , value);
 		updateParameterWithLabel('FREQUENCY', value, 'Hz');
 		
-		if (STATE.filterOnDrag == 1) {
-			STATE.filterOpen = true;
+		if (UserSettings.filterOnDrag == 1) {
+			Globals.filterOpen = true;
 			displayShowMain('filter');
 			updateFreezeParameter(false);
 		}
@@ -218,10 +218,10 @@ namespace Filter {
 	inline function onknob_filter_qControl(component, value)
 	{
 		
-		EQ.setAttribute(STATE.currentBandIndex + 2, value);
+		EQ.setAttribute(Globals.currentBandIndex + 2, value);
 		updateParameterWithLabel('Q', value, '');
-		if (STATE.filterOnDrag == 1) {
-			STATE.filterOpen = true;
+		if (UserSettings.filterOnDrag == 1) {
+			Globals.filterOpen = true;
 			displayShowMain('filter');
 			updateFreezeParameter(false);
 		}
@@ -230,10 +230,10 @@ namespace Filter {
 
 	inline function onknob_filter_gainControl(component, value)
 	{
-		EQ.setAttribute(STATE.currentBandIndex, value);
+		EQ.setAttribute(Globals.currentBandIndex, value);
 		updateParameterWithDb('GAIN', value);
-		if (STATE.filterOnDrag == 1) {
-			STATE.filterOpen = true;
+		if (UserSettings.filterOnDrag == 1) {
+			Globals.filterOpen = true;
 			displayShowMain('filter');
 			updateFreezeParameter(false);
 		}
@@ -243,18 +243,18 @@ namespace Filter {
 	inline function onbutton_showFilterControl(component, value)
 	{
 		if (value) {
-			STATE.filterOpen = true;
+			Globals.filterOpen = true;
 			displayShowMain('filter');
 			updateFreezeParameter(false);
 		} else {
-			STATE.filterOpen = false;
+			Globals.filterOpen = false;
 			displayShowMain('default');
 		}
 	};
 	
 	inline function onbutton_disableBandControl(component, value)
 	{	
-		EQ.setAttribute(STATE.currentBandIndex + 3, value);
+		EQ.setAttribute(Globals.currentBandIndex + 3, value);
 		label_bandDisplay.set('enabled', value);
 	};
 	
@@ -263,7 +263,7 @@ namespace Filter {
 		
 		if (value) {
 				local idx = 0;
-				EQ.setAttribute(STATE.currentBandIndex + 4, idx);
+				EQ.setAttribute(Globals.currentBandIndex + 4, idx);
 				filterTypeRadio(idx);
 		}
 	};
@@ -273,7 +273,7 @@ namespace Filter {
 		
 		if (value) {
 			local idx = 1;
-			EQ.setAttribute(STATE.currentBandIndex + 4, idx);
+			EQ.setAttribute(Globals.currentBandIndex + 4, idx);
 			filterTypeRadio(idx);
 		}
 	};
@@ -283,7 +283,7 @@ namespace Filter {
 		
 		if (value) {
 			local idx = 2;
-			EQ.setAttribute(STATE.currentBandIndex + 4, idx);
+			EQ.setAttribute(Globals.currentBandIndex + 4, idx);
 			filterTypeRadio(idx);
 		
 		}
@@ -293,7 +293,7 @@ namespace Filter {
 	{
 		if (value) {
 			local idx = 3;
-			EQ.setAttribute(STATE.currentBandIndex + 4, idx);
+			EQ.setAttribute(Globals.currentBandIndex + 4, idx);
 			filterTypeRadio(idx);
 		}
 	};
@@ -302,7 +302,7 @@ namespace Filter {
 	{
 		local idx = 4;
 		if (value) {
-			EQ.setAttribute(STATE.currentBandIndex + 4, idx);
+			EQ.setAttribute(Globals.currentBandIndex + 4, idx);
 			filterTypeRadio(idx);
 		}
 	};

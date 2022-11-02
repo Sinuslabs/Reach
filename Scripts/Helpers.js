@@ -4,20 +4,20 @@ function updateParameterWithLabel(parameter, value, label) {
 		value = value * 100;
 	}
 	
-	STATE.parameter = parameter + ' | ' + Math.round(parseInt(value)) + label;
+	Globals.displayParameter = parameter + ' | ' + Math.round(parseInt(value)) + label;
 	updateDisplay();
 }
 
 
 // each caller needs to handle conversion (used for filter multi value update);
 function customParameter(parameter) {
-	STATE.parameter = parameter;
+	Globals.displayParameter = parameter;
 	updateDisplay();
 }
 
 function updateParameterWithDb(parameter, value) {
 	
-	STATE.parameter = parameter + ' | ' + Engine.doubleToString(value, 1) + 'dB';
+	Globals.displayParameter = parameter + ' | ' + Engine.doubleToString(value, 1) + 'dB';
 	updateDisplay();
 }
 
@@ -33,7 +33,7 @@ function updateParameterWithBit(parameter, value) {
 		16,
 	];
 
-	STATE.parameter = parameter + ' | ' + bitMapping[index] + ' BIT';
+	Globals.displayParameter = parameter + ' | ' + bitMapping[index] + ' BIT';
 	updateDisplay();
 }
 
@@ -61,22 +61,22 @@ function updateParameterWithFixedSampleRate(parameter, value) {
 		3150,
 	];
 	
-	STATE.parameter = parameter + ' | ' + sampleRates[index] + 'Hz';
+	Globals.displayParameter = parameter + ' | ' + sampleRates[index] + 'Hz';
 	updateDisplay();
 }
 
 function updateFreezeParameter(value) {
 	if (value == 1.0) {
-		STATE.freezeMode = true;
+		Globals.freezeMode = true;
 	} else {
-		STATE.freezeMode = false;
+		Globals.freezeMode = false;
 	}
 	
-	if (STATE.filterOpen) {
-		STATE.freezeMode = false;
+	if (Globals.filterOpen) {
+		Globals.freezeMode = false;
 	}
 	
-	icon_panel_freeze2.set('visible', STATE.freezeMode);
+	icon_panel_freeze2.set('visible', Globals.freezeMode);
 	updateDisplay();
 }
 
@@ -99,7 +99,7 @@ function filterTypeRadio(active) {
 		Filter.filterButtons[i].setValue(0);
 	}
 	Filter.filterButtons[active].setValue(1);
-	STATE.currentBandFilterType = bandTypeToLabel(active);
+	Globals.currentBandFilterType = bandTypeToLabel(active);
 
 	updateFilterLabel();
 }
@@ -120,8 +120,8 @@ inline function bandTypeToLabel(type) {
 }
 
 function updateFilterLabel() {
-	var band = STATE.currentBandIndex;
-	var type = STATE.currentBandFilterType;
+	var band = Globals.currentBandIndex;
+	var type = Globals.currentBandFilterType;
 	Filter.label_bandDisplay.set('text', 'BAND ' + Engine.doubleToString(band / 5, 0) + ' | ' + type);
 }
 
