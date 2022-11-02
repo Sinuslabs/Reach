@@ -1,10 +1,9 @@
-function updateParameterWithLabel(parameter, value, label) {
+function updateParameterWithLabel(parameterName, value, label) {
 	
 	if (label != 'Hz') {
 		value = value * 100;
 	}
-	
-	Globals.displayParameter = parameter + ' | ' + Math.round(parseInt(value)) + label;
+	Globals.displayParameter = parameterName + ' | ' + Math.round(parseInt(value)) + label;
 	updateDisplay();
 }
 

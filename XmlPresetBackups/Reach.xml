@@ -12,18 +12,18 @@
             <Control type="ScriptSlider" id="header_vumeter_ch1" value="-0.11"/>
             <Control type="ScriptSlider" id="header_vumeter_ch2" value="-0.11"/>
             <Control type="ScriptButton" id="Button1" value="0.0"/>
-            <Control type="ScriptSlider" id="knob_reverb_space" value="0.7300000190734863"/>
-            <Control type="ScriptSlider" id="knob_reverb_diffusion" value="0.5199999809265137"/>
-            <Control type="ScriptSlider" id="knob_reverb_damping" value="0.75"/>
-            <Control type="ScriptSlider" id="knob_reverb_time" value="0.4199999868869781"/>
+            <Control type="ScriptSlider" id="knob_reverb_space" value="0.6399999856948853"/>
+            <Control type="ScriptSlider" id="knob_reverb_diffusion" value="1.0"/>
+            <Control type="ScriptSlider" id="knob_reverb_damping" value="0.4000000059604645"/>
+            <Control type="ScriptSlider" id="knob_reverb_time" value="3.869999885559082"/>
             <Control type="ScriptButton" id="button_freeze" value="0.0"/>
-            <Control type="ScriptSlider" id="knob_effects_flair" value="0.6000000238418579"/>
-            <Control type="ScriptSlider" id="knob_degrade_mix" value="0.4300000071525574"/>
-            <Control type="ScriptSlider" id="knob_filter_gain" value="0.0"/>
-            <Control type="ScriptSlider" id="knob_filter_freq" value="0.0"/>
-            <Control type="ScriptSlider" id="knob_filter_q" value="0.0"/>
-            <Control type="ScriptSlider" id="knob_io_in" value="8.100001335144043"/>
-            <Control type="ScriptSlider" id="knob_io_out" value="0.2199999988079071"/>
+            <Control type="ScriptSlider" id="knob_effects_flair" value="0.0"/>
+            <Control type="ScriptSlider" id="knob_degrade_mix" value="0.0"/>
+            <Control type="ScriptSlider" id="knob_filter_gain" value="11.18000030517578"/>
+            <Control type="ScriptSlider" id="knob_filter_freq" value="1886.849975585938"/>
+            <Control type="ScriptSlider" id="knob_filter_q" value="2.440000057220459"/>
+            <Control type="ScriptSlider" id="knob_io_in" value="0.0"/>
+            <Control type="ScriptSlider" id="knob_io_out" value="1.0"/>
             <Control type="ScriptButton" id="button_not_activated" value="0.0"/>
             <Control type="ScriptButton" id="button_website" value="0.0"/>
             <Control type="ScriptButton" id="button_github" value="0.0"/>
@@ -31,11 +31,11 @@
             <Control type="ScriptButton" id="button_disableBand" value="1.0"/>
             <Control type="ScriptButton" id="button_lowPass" value="0"/>
             <Control type="ScriptButton" id="button_HighPass" value="0"/>
-            <Control type="ScriptButton" id="button_lowShelf" value="1"/>
-            <Control type="ScriptButton" id="button_highShelf" value="0.0"/>
-            <Control type="ScriptButton" id="button_bandPass" value="0.0"/>
+            <Control type="ScriptButton" id="button_lowShelf" value="0"/>
+            <Control type="ScriptButton" id="button_highShelf" value="0"/>
+            <Control type="ScriptButton" id="button_bandPass" value="1"/>
             <Control type="ScriptSlider" id="knob_modulation_depth" value="0.0"/>
-            <Control type="ScriptSlider" id="knob_modulation_frequency" value="0.09000000357627869"/>
+            <Control type="ScriptSlider" id="knob_modulation_frequency" value="0.0"/>
           </Content>
           <UIData Source="ReachUIData"/>
         </Processor>
@@ -54,8 +54,8 @@
           <RoutingMatrix NumSourceChannels="4" Channel0="0" Send0="2" Channel1="1" Send1="3"
                          Channel2="-1" Send2="-1" Channel3="-1" Send3="-1"/>
         </Processor>
-        <Processor Type="SimpleGain" ID="DryGain" Bypassed="0" Gain="-2.158108234405518"
-                   Delay="0.0" Width="100.0" Balance="0.0" InvertPolarity="0.0">
+        <Processor Type="SimpleGain" ID="DryGain" Bypassed="0" Gain="-100.0" Delay="0.0"
+                   Width="100.0" Balance="0.0" InvertPolarity="0.0">
           <ChildProcessors>
             <Processor Type="ModulatorChain" ID="Gain Modulation" Bypassed="0" Intensity="1.0">
               <ChildProcessors/>
@@ -73,8 +73,42 @@
           <RoutingMatrix NumSourceChannels="4" Channel0="0" Send0="-1" Channel1="1" Send1="-1"
                          Channel2="-1" Send2="-1" Channel3="-1" Send3="-1"/>
         </Processor>
-        <Processor Type="SimpleGain" ID="WetGain" Bypassed="0" Gain="-13.15154647827148"
-                   Delay="0.0" Width="100.0" Balance="0.0" InvertPolarity="0.0">
+        <Processor Type="Hardcoded Master FX" ID="FaustReverb" Bypassed="0" Network="FaustReverb"
+                   Damping="0.4000000059604645" Diffusion="1.0" HF Gain="1.0" LF Gain="1.0"
+                   Mod Depth="0.0" Mod Frequency="0.0" ReverbTime="3.869999885559082"
+                   Size="0.6399999856948853">
+          <ChildProcessors/>
+          <RoutingMatrix NumSourceChannels="4" Channel0="-1" Send0="-1" Channel1="-1"
+                         Send1="-1" Channel2="2" Send2="-1" Channel3="3" Send3="-1"/>
+        </Processor>
+        <Processor Type="SimpleReverb" ID="Freeverb" Bypassed="0" RoomSize="0.3224999904632568"
+                   Damping="0.4000000059604645" WetLevel="0.5" DryLevel="0.5" Width="1.0"
+                   FreezeMode="0.0">
+          <ChildProcessors/>
+          <RoutingMatrix NumSourceChannels="4" Channel0="-1" Send0="-1" Channel1="-1"
+                         Send1="-1" Channel2="2" Send2="-1" Channel3="3" Send3="-1"/>
+        </Processor>
+        <Processor Type="Hardcoded Master FX" ID="Flair" Bypassed="0" Network="Flair"
+                   Mix="0.0" Depth="0.5759999752044678">
+          <ChildProcessors/>
+          <RoutingMatrix NumSourceChannels="4" Channel0="-1" Send0="-1" Channel1="-1"
+                         Send1="-1" Channel2="2" Send2="-1" Channel3="3" Send3="-1"/>
+        </Processor>
+        <Processor Type="Hardcoded Master FX" ID="Degrade" Bypassed="0" Network="Degrade"
+                   Mix="0.0">
+          <ChildProcessors/>
+          <RoutingMatrix NumSourceChannels="4" Channel0="-1" Send0="-1" Channel1="-1"
+                         Send1="-1" Channel2="2" Send2="-1" Channel3="3" Send3="-1"/>
+        </Processor>
+        <Processor Type="CurveEq" ID="Parametriq EQ1" Bypassed="0" NumFilters="1"
+                   Band0="11.18000030517578" Band1="1886.849975585938" Band2="2.440000057220459"
+                   Band3="1.0" Band4="4.0" FFTEnabled="1">
+          <ChildProcessors/>
+          <RoutingMatrix NumSourceChannels="4" Channel0="-1" Send0="-1" Channel1="-1"
+                         Send1="-1" Channel2="2" Send2="-1" Channel3="3" Send3="-1"/>
+        </Processor>
+        <Processor Type="SimpleGain" ID="WetGain" Bypassed="0" Gain="0.0" Delay="0.0"
+                   Width="100.0" Balance="0.0" InvertPolarity="0.0">
           <ChildProcessors>
             <Processor Type="ModulatorChain" ID="Gain Modulation" Bypassed="0" Intensity="1.0">
               <ChildProcessors/>
@@ -92,52 +126,13 @@
           <RoutingMatrix NumSourceChannels="4" Channel0="-1" Send0="-1" Channel1="-1"
                          Send1="-1" Channel2="2" Send2="-1" Channel3="3" Send3="-1"/>
         </Processor>
-        <Processor Type="Hardcoded Master FX" ID="FaustReverb" Bypassed="0" Network="FaustReverb"
-                   Damping="0.3599999845027924" Diffusion="0.7070000171661377" HF Gain="1.0"
-                   LF Gain="1.0" Mod Depth="0.1000000014901161" Mod Frequency="0.1000000014901161"
-                   ReverbTime="12.0" Size="5.0">
-          <ChildProcessors/>
-          <RoutingMatrix NumSourceChannels="4" Channel0="-1" Send0="-1" Channel1="-1"
-                         Send1="-1" Channel2="2" Send2="-1" Channel3="3" Send3="-1"/>
-        </Processor>
-        <Processor Type="SimpleReverb" ID="Freeverb" Bypassed="0" RoomSize="0.7699999809265137"
-                   Damping="0.0" WetLevel="1.0" DryLevel="0.0" Width="0.6399999856948853"
-                   FreezeMode="0.0">
-          <ChildProcessors/>
-          <RoutingMatrix NumSourceChannels="4" Channel0="-1" Send0="-1" Channel1="-1"
-                         Send1="-1" Channel2="2" Send2="-1" Channel3="3" Send3="-1"/>
-        </Processor>
-        <Processor Type="Hardcoded Master FX" ID="Flair" Bypassed="0" Network="Flair"
-                   Mix="1.0" Depth="1.0">
-          <ChildProcessors/>
-          <RoutingMatrix NumSourceChannels="4" Channel0="-1" Send0="-1" Channel1="-1"
-                         Send1="-1" Channel2="2" Send2="-1" Channel3="3" Send3="-1"/>
-        </Processor>
-        <Processor Type="ScriptFX" ID="Degrade" Bypassed="0">
-          <ChildProcessors/>
-          <RoutingMatrix NumSourceChannels="4" Channel0="-1" Send0="-1" Channel1="-1"
-                         Send1="-1" Channel2="2" Send2="-1" Channel3="3" Send3="-1"/>
-          <Content/>
-          <Networks>
-            <Network ID="Degrade" Version="0.0.0" AllowCompilation="1"/>
-          </Networks>
-          <UIData>
-            <ContentProperties DeviceType="Desktop"/>
-          </UIData>
-        </Processor>
-        <Processor Type="CurveEq" ID="Parametriq EQ1" Bypassed="0" NumFilters="0"
-                   FFTEnabled="1">
-          <ChildProcessors/>
-          <RoutingMatrix NumSourceChannels="4" Channel0="-1" Send0="-1" Channel1="-1"
-                         Send1="-1" Channel2="2" Send2="-1" Channel3="3" Send3="-1"/>
-        </Processor>
         <Processor Type="RouteFX" ID="Routing Matrix2" Bypassed="0">
           <ChildProcessors/>
           <RoutingMatrix NumSourceChannels="4" Channel0="0" Send0="-1" Channel1="1" Send1="-1"
                          Channel2="-1" Send2="0" Channel3="-1" Send3="1"/>
         </Processor>
-        <Processor Type="SimpleGain" ID="Simple Gain4" Bypassed="0" Gain="8.100000381469727"
-                   Delay="0.0" Width="100.0" Balance="0.0" InvertPolarity="0.0">
+        <Processor Type="SimpleGain" ID="Simple Gain4" Bypassed="0" Gain="0.0" Delay="0.0"
+                   Width="100.0" Balance="0.0" InvertPolarity="0.0">
           <ChildProcessors>
             <Processor Type="ModulatorChain" ID="Gain Modulation" Bypassed="0" Intensity="1.0">
               <ChildProcessors/>
@@ -161,7 +156,7 @@
           <RoutingMatrix NumSourceChannels="4" Channel0="0" Send0="-1" Channel1="1" Send1="-1"
                          Channel2="-1" Send2="2" Channel3="-1" Send3="3"/>
         </Processor>
-        <Processor Type="SimpleGain" ID="Simple Gain5" Bypassed="0" Gain="-11.47000312805176"
+        <Processor Type="SimpleGain" ID="Simple Gain5" Bypassed="1" Gain="-4.389999866485596"
                    Delay="0.0" Width="100.0" Balance="0.0" InvertPolarity="0.0">
           <ChildProcessors>
             <Processor Type="ModulatorChain" ID="Gain Modulation" Bypassed="0" Intensity="1.0">
@@ -182,10 +177,12 @@
         </Processor>
       </ChildProcessors>
     </Processor>
-    <Processor Type="SineSynth" ID="Sine Wave Generator1" Bypassed="0" Gain="0.25"
+    <Processor Type="WaveSynth" ID="Waveform Generator1" Bypassed="0" Gain="0.25"
                Balance="0.0" VoiceLimit="256.0" KillFadeTime="20.0" IconColour="0"
-               OctaveTranspose="0.0" SemiTones="0.0" UseFreqRatio="0.0" CoarseFreqRatio="1.0"
-               FineFreqRatio="0.0" SaturationAmount="0.0">
+               OctaveTranspose1="0.0" OctaveTranspose2="0.0" Detune1="0.0" Detune2="0.0"
+               WaveForm1="3.0" WaveForm2="3.0" Pan1="0.0" Pan2="0.0" Mix="0.5"
+               EnableSecondOscillator="1.0" PulseWidth1="0.5" PulseWidth2="0.5"
+               HardSync="0.0">
       <ChildProcessors>
         <Processor Type="MidiProcessorChain" ID="Midi Processor" Bypassed="0">
           <ChildProcessors/>
@@ -193,7 +190,7 @@
         <Processor Type="ModulatorChain" ID="GainModulation" Bypassed="0" Intensity="1.0">
           <ChildProcessors>
             <Processor Type="SimpleEnvelope" ID="DefaultEnvelope1" Bypassed="0" Monophonic="0.0"
-                       Retrigger="1.0" Intensity="1.0" Attack="5.0" Release="10.0" LinearMode="1.0">
+                       Retrigger="1.0" Intensity="1.0" Attack="5.0" Release="52.0" LinearMode="1.0">
               <ChildProcessors>
                 <Processor Type="ModulatorChain" ID="Attack Time Modulation" Bypassed="0"
                            Intensity="1.0">
@@ -207,6 +204,13 @@
           <ChildProcessors/>
         </Processor>
         <Processor Type="EffectChain" ID="FX" Bypassed="0">
+          <ChildProcessors/>
+        </Processor>
+        <Processor Type="ModulatorChain" ID="Mix Modulation" Bypassed="0" Intensity="1.0">
+          <ChildProcessors/>
+        </Processor>
+        <Processor Type="ModulatorChain" ID="Osc2 Pitch Modulation" Bypassed="0"
+                   Intensity="0.0">
           <ChildProcessors/>
         </Processor>
       </ChildProcessors>
