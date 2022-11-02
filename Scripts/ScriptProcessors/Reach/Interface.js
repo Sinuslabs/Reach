@@ -51,7 +51,6 @@ const var label_thank_you = Content.getComponent("label_thank_you");
 // Check License
 getActivationStatus();
 
-// DEBUG
 label_not_found.set('visible', false);
 button_not_activated.set('visible', !Globals.activated);
 label_thank_you.set('visible', Globals.activated);
@@ -91,7 +90,7 @@ const var TimeoutCounter = 10000;
 	    }
 	});
 	
-	if (!STATE.ACTIVATED) {
+	if (!Globals.activated) {
 		GainReduction.setBypassed(false);
 		GainReductionTimer.startTimer(1000);		
 	} else {

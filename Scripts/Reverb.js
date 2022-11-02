@@ -20,11 +20,12 @@ namespace Reverb {
 		
 		FaustVerb.setAttribute(FaustVerb.Size, value);
 		FreeVerb.setAttribute(FreeVerb.RoomSize, value);
+		
 		updateParameterWithLabel('SPACE', value, '%');
 		showTempScreen('reverb');
 		
-		ReverbAnimationPanel.setValue(component.get("max") + 1 - (value * -1) * 7);
-		ReverbAnimationPanel.repaint();
+		ReverbAnimation.setRings(value);
+		ReverbAnimation.AnimationPanel.repaintImmediately();
 	};
 	
 
@@ -32,22 +33,24 @@ namespace Reverb {
 		
 		FaustVerb.setAttribute(FaustVerb.Diffusion, value);
 		FreeVerb.setAttribute(FreeVerb.Width, value);
+		
 		updateParameterWithLabel('DIFFUSION', value, '%');
 		showTempScreen('reverb');
 		
-		AN_STATE.limit = value * 14;
-		ReverbAnimationPanel.repaint();
+		ReverbAnimation.setoutterThickness(value);
+		ReverbAnimation.AnimationPanel.repaintImmediately();
 	};
 	
 	inline function dampingControl(component, value) {
 	
 		FaustVerb.setAttribute(FaustVerb.Damping, value);
 		FreeVerb.setAttribute(FreeVerb.Damping, value);
+		
 		updateParameterWithLabel('DAMPING', value, '%');
 		showTempScreen('reverb');
 		
-		AN_STATE.outterThickness = (value + 0.2) * 10 ;
-		ReverbAnimationPanel.repaint();
+		ReverbAnimation.setRectThickness(value);
+		ReverbAnimation.AnimationPanel.repaintImmediately();
 	};
 	
 	
@@ -64,6 +67,10 @@ namespace Reverb {
 		FreeVerb.setAttribute(FreeVerb.RoomSize, component.getValueNormalized());
 		updateParameterWithLabel('TIME', value, 's');
 		showTempScreen('reverb');
+		
+		
+		ReverbAnimation.setZoom(component.getValueNormalized());
+		ReverbAnimation.AnimationPanel.repaintImmediately();
 	};
 	
 	
@@ -72,6 +79,9 @@ namespace Reverb {
 		
 		updateParameterWithLabel('MOD DEPTH', value, '%');
 		showTempScreen('reverb');
+		
+		ReverbAnimation.setAmplitude(value);
+		ReverbAnimation.AnimationPanel.repaintImmediately();
 	};
 	
 	
@@ -80,6 +90,9 @@ namespace Reverb {
 		
 		updateParameterWithLabel('MOD FREQUENCY', value, 'hz');
 		showTempScreen('reverb');
+		
+		ReverbAnimation.setSpeed(component.getValueNormalized());
+		ReverbAnimation.AnimationPanel.repaintImmediately();
 	};
 	
 	

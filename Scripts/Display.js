@@ -12,17 +12,23 @@ screenTimer.setTimerCallback(showMainScreen);
 inline function showMainScreen() {
 	if (Globals.presetBrowserOpen || !UserSettings.enableAnimations || Globals.filterOpen || Globals.settingsOpen) return;
 
+	// stop animation timers
+	ReverbAnimation.stopTimer();
+	
 	displayShowMain('default');	
 	screenTimer.stopTimer();
 }
 
 function showTempScreen(route) {
 	if (Globals.presetBrowserOpen || !UserSettings.enableAnimations || Globals.filterOpen || Globals.settingsOpen) return;
-
-	if (screenTimer.isTimerRunning()) {
+	
+	if (screenTimer.isTimerRunning()) {	
 		screenTimer.resetCounter();
 	}
 	
+	// Wiggle Animations
+	ReverbAnimation.startTimer();
+		
 	screenTimer.startTimer(1500);
 	displayShowMain(route);
 }
