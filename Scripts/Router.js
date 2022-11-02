@@ -18,13 +18,13 @@ function showMain() {
 }
 
 function disableStates() {
-	STATE.filterOpen = false;
+	Globals.filterOpen = false;
 	Filter.button_showFilter.setValue(0);
 	
-	STATE.presetBrowserOpen = false;
+	Globals.presetBrowserOpen = false;
 	presetBrowserButton.setValue(0);
 	
-	STATE.settingsOpen = false;
+	Globals.settingsOpen = false;
 	logoButton.setValue(0);
 }
 
@@ -37,7 +37,7 @@ function displayShow(route) {
 	
 	if (route == 'settings') {
 		disableStates();	
-		STATE.settingsOpen = true;
+		Globals.settingsOpen = true;
 		logoButton.setValue(1);
 	}
 	
@@ -64,19 +64,19 @@ function displayShow(route) {
 function displayShowMain(route) {
 	if (route == 'default') {
 	 	route = 'waveform';
-	   	STATE.filterOpen = false;
+	   	Globals.filterOpen = false;
 		Filter.button_showFilter.setValue(0);
 		logoButton.setValue(0);
 	};
 	
-	if (STATE.presetBrowserOpen) return;
+	if (Globals.presetBrowserOpen) return;
 	if (route == 'filter') {
 		disableStates();	
-		STATE.filterOpen = true;
+		Globals.filterOpen = true;
 		Filter.button_showFilter.setValue(1);
 		Filter.panel_filterButtons.set('visible', true);
 	} else {
-		STATE.filterOpen = false;
+		Globals.filterOpen = false;
 		Filter.panel_filterButtons.set('visible', false);
 	}
 	

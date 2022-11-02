@@ -9,34 +9,33 @@
         <Processor Type="ScriptProcessor" ID="Interface" Bypassed="0">
           <ChildProcessors/>
           <Content>
-            <Control type="ScriptSlider" id="header_vumeter_ch1" value="-0.1099999994039536"/>
-            <Control type="ScriptSlider" id="header_vumeter_ch2" value="-0.1099999994039536"/>
+            <Control type="ScriptSlider" id="header_vumeter_ch1" value="-0.11"/>
+            <Control type="ScriptSlider" id="header_vumeter_ch2" value="-0.11"/>
             <Control type="ScriptButton" id="Button1" value="0.0"/>
-            <Control type="ScriptSlider" id="knob_reverb_space" value="0.5699999928474426"/>
-            <Control type="ScriptSlider" id="knob_reverb_diffusion" value="0.0"/>
-            <Control type="ScriptSlider" id="knob_reverb_damping" value="0.0"/>
-            <Control type="ScriptSlider" id="knob_reverb_time" value="0.0"/>
+            <Control type="ScriptSlider" id="knob_reverb_space" value="0.7300000190734863"/>
+            <Control type="ScriptSlider" id="knob_reverb_diffusion" value="0.5199999809265137"/>
+            <Control type="ScriptSlider" id="knob_reverb_damping" value="0.75"/>
+            <Control type="ScriptSlider" id="knob_reverb_time" value="0.4199999868869781"/>
             <Control type="ScriptButton" id="button_freeze" value="0.0"/>
-            <Control type="ScriptSlider" id="knob_effects_flair" value="0.0"/>
-            <Control type="ScriptSlider" id="knob_degrade_mix" value="0.0"/>
+            <Control type="ScriptSlider" id="knob_effects_flair" value="0.6000000238418579"/>
+            <Control type="ScriptSlider" id="knob_degrade_mix" value="0.4300000071525574"/>
             <Control type="ScriptSlider" id="knob_filter_gain" value="0.0"/>
             <Control type="ScriptSlider" id="knob_filter_freq" value="0.0"/>
             <Control type="ScriptSlider" id="knob_filter_q" value="0.0"/>
-            <Control type="ScriptSlider" id="knob_io_in" value="0.0"/>
+            <Control type="ScriptSlider" id="knob_io_in" value="8.100001335144043"/>
             <Control type="ScriptSlider" id="knob_io_out" value="0.2199999988079071"/>
             <Control type="ScriptButton" id="button_not_activated" value="0.0"/>
             <Control type="ScriptButton" id="button_website" value="0.0"/>
             <Control type="ScriptButton" id="button_github" value="0.0"/>
-            <Control type="ScriptButton" id="button_toggle_reverb" value="1.0"/>
             <Control type="ScriptButton" id="button_toggle_filter" value="1.0"/>
-            <Control type="ScriptButton" id="button_disableBand" value="0.0"/>
-            <Control type="ScriptButton" id="button_lowPass" value="0.0"/>
-            <Control type="ScriptButton" id="button_HighPass" value="0.0"/>
-            <Control type="ScriptButton" id="button_lowShelf" value="0.0"/>
+            <Control type="ScriptButton" id="button_disableBand" value="1.0"/>
+            <Control type="ScriptButton" id="button_lowPass" value="0"/>
+            <Control type="ScriptButton" id="button_HighPass" value="0"/>
+            <Control type="ScriptButton" id="button_lowShelf" value="1"/>
             <Control type="ScriptButton" id="button_highShelf" value="0.0"/>
             <Control type="ScriptButton" id="button_bandPass" value="0.0"/>
             <Control type="ScriptSlider" id="knob_modulation_depth" value="0.0"/>
-            <Control type="ScriptSlider" id="knob_modulation_frequency" value="0.0"/>
+            <Control type="ScriptSlider" id="knob_modulation_frequency" value="0.09000000357627869"/>
           </Content>
           <UIData Source="ReachUIData"/>
         </Processor>
@@ -126,9 +125,8 @@
             <ContentProperties DeviceType="Desktop"/>
           </UIData>
         </Processor>
-        <Processor Type="CurveEq" ID="Parametriq EQ1" Bypassed="0" NumFilters="1"
-                   Band0="0.0" Band1="20.0" Band2="0.300000011920929" Band3="0.0"
-                   Band4="1.0" FFTEnabled="1">
+        <Processor Type="CurveEq" ID="Parametriq EQ1" Bypassed="0" NumFilters="0"
+                   FFTEnabled="1">
           <ChildProcessors/>
           <RoutingMatrix NumSourceChannels="4" Channel0="-1" Send0="-1" Channel1="-1"
                          Send1="-1" Channel2="2" Send2="-1" Channel3="3" Send3="-1"/>
@@ -138,8 +136,8 @@
           <RoutingMatrix NumSourceChannels="4" Channel0="0" Send0="-1" Channel1="1" Send1="-1"
                          Channel2="-1" Send2="0" Channel3="-1" Send3="1"/>
         </Processor>
-        <Processor Type="SimpleGain" ID="Simple Gain4" Bypassed="0" Gain="0.0" Delay="0.0"
-                   Width="100.0" Balance="0.0" InvertPolarity="0.0">
+        <Processor Type="SimpleGain" ID="Simple Gain4" Bypassed="0" Gain="8.100000381469727"
+                   Delay="0.0" Width="100.0" Balance="0.0" InvertPolarity="0.0">
           <ChildProcessors>
             <Processor Type="ModulatorChain" ID="Gain Modulation" Bypassed="0" Intensity="1.0">
               <ChildProcessors/>
@@ -163,7 +161,7 @@
           <RoutingMatrix NumSourceChannels="4" Channel0="0" Send0="-1" Channel1="1" Send1="-1"
                          Channel2="-1" Send2="2" Channel3="-1" Send3="3"/>
         </Processor>
-        <Processor Type="SimpleGain" ID="Simple Gain5" Bypassed="1" Gain="-11.47000312805176"
+        <Processor Type="SimpleGain" ID="Simple Gain5" Bypassed="0" Gain="-11.47000312805176"
                    Delay="0.0" Width="100.0" Balance="0.0" InvertPolarity="0.0">
           <ChildProcessors>
             <Processor Type="ModulatorChain" ID="Gain Modulation" Bypassed="0" Intensity="1.0">

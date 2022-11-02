@@ -117,11 +117,11 @@ namespace Theme {
 	inline function setTheme(themeName) {
 		if(themeName == 'Light') {
 			theme = LIGHT_THEME;
-			STATE.theme = 'Light';
+			UserSettings.theme = 'Light';
 		}
 		if (themeName == 'Dark') {
 			theme = DARK_THEME;
-			STATE.theme = 'Dark';
+			UserSettings.theme = 'Dark';
 		}
 		
 		name = theme.name;
