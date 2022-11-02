@@ -2,7 +2,6 @@ namespace Filter {
 	// FILTER
 	const var EQ = Synth.getEffect("Parametriq EQ1");
 	
-	
 	const var EQPanel = Content.getComponent("tile_eq");
 	EQPanel.setLocalLookAndFeel(localLaf);
 	
@@ -98,6 +97,89 @@ namespace Filter {
 		filterButton.setLocalLookAndFeel(filterButtonLAF);
 	}
 	
+	// LOGIC
+	
+	// Broadcast
+	const var eqWatcher = Engine.createBroadcaster({
+		"id": "EQ Watcher",
+		"args": ["component", "event"]
+	});
+	
+	eqWatcher.attachToComponentMouseEvents("tile_eq", "All Callbacks", "Mouse Listener for EQ");
+	
+	eqWatcher.addListener("RefreshFunction", "updates each EQ band on Drag and sets the filter label", updateFilterModule);
+	
+	inline function updateFilterModule(component, event) {
+		if(event.drag || event.clicked) {
+		
+			local movingBand = getMovingBand();
+			if (movingBand) {
+				
+				updateFilterLabel();
+				
+				local frequency = movingBand.frequency;
+				local gain = movingBand.gain;
+				local q = movingBand.q;
+				
+				local parameter = getParameterFromBand(frequency, gain, q);
+				
+				customParameter(parameter);
+				
+				Filter.knob_filter_freq.setValue(frequency);
+				Filter.knob_filter_gain.setValue(gain);
+				Filter.knob_filter_q.setValue(q);
+			}
+		}
+	}
+	
+	
+	inline function getMovingBand() {
+	
+		for (i = 0; i < 6; i++) {
+		
+			local lastGain = Bands.lastGains[i];
+			local lastFrequency = Bands.lastFrequencies[i];
+			local lastQ = Bands.lastQs[i];
+			
+			// get the index for each handle and extract data
+			local currentBand = getCurrentBand(i);
+			// if one of the parameters has changed compared to the last time update that Band
+			if (lastGain != currentBand.gain || lastFrequency != currentBand.frequency || lastQ != currentBand.q){
+				// add to the lastBands buffer for next comparison
+				
+				Bands.lastGains[i] = currentBand.gain;
+				Bands.lastFrequencies[i] = currentBand.frequency;
+				Bands.lastQs[i] = currentBand.q;
+				
+				STATE.currentBandIndex = currentBand.index;
+				// Get the filter type for the currently used band
+				STATE.currentBandFilterType = bandTypeToLabel(parseInt(Filter.EQ.getAttribute(currentBand.index + 4)));
+				
+				return {
+					name: 'Band ' + i,
+					frequency: currentBand.frequency,
+					gain: currentBand.gain,
+					q: currentBand.q,
+					type: bandTypeToLabel(parseInt(currentBand.type))
+				}
+			}
+		}
+	}
+	
+	inline function getCurrentBand(bandIndex) {
+		local eqIndex = bandIndex * Filter.EQ.BandOffset + Filter.EQ.BandGain;
+		return {
+			gain: Math.floor(Filter.EQ.getAttribute(eqIndex) * 100 ) / 100,
+			frequency: Math.floor(Filter.EQ.getAttribute(eqIndex + 1) * 100) / 100,
+			q: Math.floor(Filter.EQ.getAttribute(eqIndex + 2) * 100 ) / 100,
+			index: eqIndex
+		};
+	}
+	
+	inline function getParameterFromBand(frequency, gain, q) {
+	 return Engine.doubleToString(STATE.currentBandIndex / 5, 0) + ' | ' + Math.round(parseInt(frequency)) + 'Hz | ' +  Engine.doubleToString(gain, 1) + 'dB | ' + Engine.doubleToString(q, 2) + ' Q';
+	}
+	
 	// BYPASS
 	inline function onbutton_toggle_filterControl(component, value)
 	{
@@ -176,8 +258,6 @@ namespace Filter {
 		label_bandDisplay.set('enabled', value);
 	};
 	
-
-	
 	inline function onbutton_lowPassControl(component, value)
 	{
 		
@@ -226,4 +306,11 @@ namespace Filter {
 			filterTypeRadio(idx);
 		}
 	};
+}
+
+namespace Bands {
+	const var lastGains = [];
+	const var lastFrequencies = [];
+	const var lastQs = [];
+	const var lastTypes = [];
 }

@@ -1,6 +1,5 @@
 namespace Effects {
 	
-	
 	Content.getComponent("knob_degrade_mix").setControlCallback(onknob_degrade_mixControl);
 	Content.getComponent("knob_effects_flair").setControlCallback(onknob_flair_flairControl);
 

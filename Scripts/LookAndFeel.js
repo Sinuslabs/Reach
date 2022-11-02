@@ -46,7 +46,7 @@ laf.registerFunction('drawToggleButton', function(g, obj) {
 		obj.text = obj.text.replace('displayButton-');
 		
 		var BUTTON_BACKGROUND_COLOUR = DisplayTheme.buttonSelectedBackgroundColour;
-		var BUTTON_TEXT_COLOUR = DisplayTheme.buttonTextColour;
+		var BUTTON_TEXT_COLOUR = DisplayTheme.buttonSelectedTextColour;
 		
 		if (obj.over) {
 			BUTTON_BACKGROUND_COLOUR = BUTTON_BACKGROUND_COLOUR.replace('0x', '0x' + DisplayTheme.hoverOpacity);
