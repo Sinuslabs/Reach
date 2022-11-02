@@ -223,11 +223,7 @@ namespace HeaderTheme {
 	reg textColour = '';
 	reg hoverOpacity = '';
 	
-	inline function load(theme) {
-		
-		Console.print(theme['SELECTED_TEXT_COLOUR']);
-		Console.print(Theme.name);
-		
+	inline function load(theme) {		
 		selectedIconColour = theme['SELECTED_ICON_COLOUR'];
 		iconColour = theme['ICON_COLOUR'];
 		selectedTextColour = theme['SELECTED_TEXT_COLOUR'];
