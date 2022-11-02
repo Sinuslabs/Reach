@@ -13,7 +13,7 @@
 
 // Include compiled network files ------------------
 
-#include "Degrade_networkdata.h"
+#include "Degrade.h"
 #include "Flair.h"
 #include "NoiseGen_networkdata.h"
 #include "Reverb.h"

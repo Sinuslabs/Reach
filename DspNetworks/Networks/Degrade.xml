@@ -46,6 +46,24 @@
           </Node>
           <Node ID="wet_path" FactoryPath="container.chain" Bypassed="0">
             <Nodes>
+              <Node ID="allpass" FactoryPath="filters.allpass" Bypassed="0">
+                <ComplexData>
+                  <Filters>
+                    <Filter Index="-1" EmbeddedData=""/>
+                  </Filters>
+                </ComplexData>
+                <Parameters>
+                  <Parameter MinValue="20.0" MaxValue="20000.0" SkewFactor="0.2299045622348785"
+                             ID="Frequency" Value="1000.0"/>
+                  <Parameter MinValue="0.300000011920929" MaxValue="9.899999618530273" SkewFactor="0.2647178173065186"
+                             ID="Q" Value="1.0"/>
+                  <Parameter MinValue="-18.0" MaxValue="18.0" ID="Gain" Value="0.0"/>
+                  <Parameter MinValue="0.0" MaxValue="1.0" SkewFactor="0.3010300099849701"
+                             ID="Smoothing" Value="0.009999999776482582"/>
+                  <Parameter MinValue="0.0" MaxValue="1.0" ID="Mode" Value="0.0"/>
+                  <Parameter MinValue="0.0" MaxValue="1.0" StepSize="1.0" ID="Enabled" Value="1.0"/>
+                </Parameters>
+              </Node>
               <Node ID="sampleandhold" FactoryPath="fx.sampleandhold" Bypassed="0">
                 <Parameters>
                   <Parameter MinValue="32.0" MaxValue="64.0" StepSize="1.0" ID="Counter" Automated="1"/>
@@ -77,7 +95,7 @@
       </Node>
     </Nodes>
     <Parameters>
-      <Parameter ID="Mix" MinValue="0.0" MaxValue="1.0" Value="0.128">
+      <Parameter ID="Mix" MinValue="0.0" MaxValue="1.0" Value="0.2933333129882812">
         <Connections>
           <Connection NodeId="dry_wet1" ParameterId="DryWet"/>
         </Connections>

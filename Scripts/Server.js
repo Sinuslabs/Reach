@@ -16,24 +16,24 @@ function getActivation(status, obj) {
 		var machineId = FileSystem.getSystemId();
 		var appDateDir = FileSystem.getFolder(FileSystem.UserPresets).getParentDirectory();
 		appDateDir.getChildFile("license.dat").writeEncryptedObject(data, machineId);
-		STATE.ACTIVATED = true;
+		Globals.activated = true;
 		
 		// Disable gain reduction
 		GainReduction.setBypassed(true);
 		GainReductionTimer.stopTimer();
 				
 		// update panels
-		panel_non_activated.set('visible', !STATE.ACTIVATED);
+		panel_non_activated.set('visible', !Globals.activated);
 		panel_non_activated.repaint();
-		button_not_activated.set('visible', !STATE.ACTIVATED);
-		label_thank_you.set('visible', STATE.ACTIVATED);
+		button_not_activated.set('visible', !Globals.activated);
+		label_thank_you.set('visible', Globals.activated);
 		
 	}
 };
 
 function getActivationStatus() {
 	var license = getLocalLicense();
-	if (license) STATE.ACTIVATED = true;
+	if (license) Globals.activated = true;
 }
 
 function activateLicense(KEY) {
