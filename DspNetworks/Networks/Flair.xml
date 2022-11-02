@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<Network ID="Flair" Version="0.0.0" AllowCompilation="1">
+  <Node FactoryPath="container.chain" ID="Flair" Bypassed="0" ShowParameters="1">
+    <Nodes>
+      <Node ID="jchorus1" FactoryPath="jdsp.jchorus" Bypassed="0">
+        <Parameters>
+          <Parameter MinValue="0.0" MaxValue="100.0" ID="CentreDelay" Value="57.40000000000001"/>
+          <Parameter MinValue="0.0" MaxValue="1.0" ID="Depth" Automated="1"/>
+          <Parameter MinValue="-1.0" MaxValue="1.0" ID="Feedback" Value="0.14933349609375"/>
+          <Parameter MinValue="0.0" MaxValue="100.0" SkewFactor="0.3010300099849701"
+                     ID="Rate" Value="0.1389129352129284"/>
+          <Parameter MinValue="0.0" MaxValue="1.0" ID="Mix" Automated="1"/>
+        </Parameters>
+      </Node>
+      <Node ID="jchorus" FactoryPath="jdsp.jchorus" Bypassed="0">
+        <Parameters>
+          <Parameter MinValue="0.0" MaxValue="100.0" ID="CentreDelay" Value="7.0"/>
+          <Parameter MinValue="0.0" MaxValue="1.0" ID="Depth" Automated="1"/>
+          <Parameter MinValue="-1.0" MaxValue="1.0" ID="Feedback" Value="0.4373339843749999"/>
+          <Parameter MinValue="0.0" MaxValue="100.0" SkewFactor="0.3010300099849701"
+                     ID="Rate" Value="1.0"/>
+          <Parameter MinValue="0.0" MaxValue="1.0" ID="Mix" Automated="1"/>
+        </Parameters>
+      </Node>
+    </Nodes>
+    <Parameters>
+      <Parameter ID="Mix" MinValue="0.0" MaxValue="1.0" Value="0.0">
+        <Connections>
+          <Connection NodeId="jchorus1" ParameterId="Mix"/>
+          <Connection NodeId="jchorus" ParameterId="Mix"/>
+        </Connections>
+      </Parameter>
+      <Parameter ID="Depth" MinValue="0.0" MaxValue="1.0" Value="0.1519998779296875">
+        <Connections>
+          <Connection NodeId="jchorus" ParameterId="Depth"/>
+          <Connection NodeId="jchorus1" ParameterId="Depth"/>
+        </Connections>
+      </Parameter>
+    </Parameters>
+  </Node>
+</Network>
