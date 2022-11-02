@@ -1,5 +1,4 @@
 // Logo Click
-
 const var logoButton = Content.getComponent('button_logo');
 
 logoButton.setControlCallback(onbutton_logoControl);
@@ -73,7 +72,7 @@ comboBox_zoom.setControlCallback(onComboBox_zoomControl);
 inline function onComboBox_zoomControl(component, value)
 {
 	Settings.setZoomLevel(zoomFactors[value - 1]);
-	saveSettings();
+	UserSettings.saveSettings();
 };
 
 // Theme
@@ -95,7 +94,7 @@ button_animationToggle.setControlCallback(onbutton_animationToggleControl);
 inline function onbutton_animationToggleControl(component, value)
 {
 	STATE.enableAnimations = !value;
-	saveSettings();
+	UserSettings.saveSettings();
 };
 
 // Filter on Drag
@@ -104,7 +103,7 @@ button_filterOnDrag.setControlCallback(onbutton_filterOnDragControl);
 inline function onbutton_filterOnDragControl(component, value)
 {
 	STATE.filterOnDrag = !value;
-	saveSettings();
+	UserSettings.saveSettings();
 };
 
 // Activate Button
@@ -274,36 +273,6 @@ inline function onbutton_x2Control(component, value)
 inline function onbutton_x1Control(component, value)
 {
 	showMain();
-};
-
-// DEGRADE
-Content.getComponent("knob_degrade_mix").setControlCallback(onknob_degrade_mixControl);
-inline function onknob_degrade_mixControl(component, value)
-{
-	//Degrade.setAttribute(Degrade.PostFilt, value);
-	updateParameterWithLabel('DEGRADE', value, '%');
-	showTempScreen('degrade');
-	
-	
-	DegradeAnimationPanel.setValue(component.get("max") + 1 - value * 20);
-	
-	DEGRADE_STATE.corner = 80 + (value * -80);
-	DegradeAnimationPanel.repaint();
-};
-
-// FLAIR
-Content.getComponent("knob_effects_flair").setControlCallback(onknob_flair_flairControl);
-inline function onknob_flair_flairControl(component, value)
-{
-	//Flair.setAttribute(Flair.WetAmount, value);
-	updateParameterWithLabel('FLAIR', value, '%');
-	showTempScreen('flair');
-	
-	local initialPosX = 300;
-	local move = value * 50;
-	
-	Flair1AnimationPanel.set('x', initialPosX + move);
-	Flair2AnimationPanel.set('x', initialPosX - move);
 };
 
 // MASTER

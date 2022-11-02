@@ -42,7 +42,7 @@ function displayShow(route) {
 	}
 	
 	//disable filter panel
-	panel_filterButtons.set('visible', false);
+	Filter.panel_filterButtons.set('visible', false);
 	
 	updateFreezeParameter(Reverb.button_freeze.getValue());
 	

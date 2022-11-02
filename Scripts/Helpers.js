@@ -95,10 +95,10 @@ function getBoolean(value) {
 }
 
 function filterTypeRadio(active) {
-	for (var i=0; i<filterButtons.length; i++) {
-		filterButtons[i].setValue(0);
+	for (var i=0; i< Filter.filterButtons.length; i++) {
+		Filter.filterButtons[i].setValue(0);
 	}
-	filterButtons[active].setValue(1);
+	Filter.filterButtons[active].setValue(1);
 	STATE.currentBandFilterType = bandTypeToLabel(active);
 
 	updateFilterLabel();
@@ -111,7 +111,7 @@ function settingsButtonsRadio(idx) {
 	settingsButtons[idx].setValue(1);
 }
 
-function bandTypeToLabel(type) {
+inline function bandTypeToLabel(type) {
 	if (type == 0 ) return 'LOWPASS';
 	if (type == 1 ) return 'HIGHPASS';
 	if (type == 2 ) return 'LOWSHELF';
