@@ -16,9 +16,9 @@ struct Factory: public scriptnode::dll::StaticLibraryHostFactory
 		// Node registrations -------------------------------------------------------------------
 		
 		registerPolyNode<project::FaustReverb<1>, project::FaustReverb<NUM_POLYPHONIC_VOICES>>();
+		registerPolyNode<project::Degrade<1>, wrap::illegal_poly<project::Degrade<1>>>();
 		registerNode<project::Flair>();
 		registerPolyNode<project::Reverb<1>, wrap::illegal_poly<project::Reverb<1>>>();
-		registerDataNode<project::Degrade_networkdata>();
 		registerDataNode<project::NoiseGen_networkdata>();
 	}
 };
