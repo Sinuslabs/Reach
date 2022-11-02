@@ -17,9 +17,10 @@ namespace Reverb {
 	
 	Reverb.button_freeze.setControlCallback(freezeControl);
 	
-	inline function spaceControl(component, value)
-	{
-		//Reverb.setAttribute(Reverb.RoomSize, value);
+	inline function spaceControl(component, value) {
+		
+		FaustVerb.setAttribute(FaustVerb.Size, value);
+		FreeVerb.setAttribute(Reverb.RoomSize, value);
 		updateParameterWithLabel('SPACE', value, '%');
 		showTempScreen('reverb');
 		
@@ -28,8 +29,9 @@ namespace Reverb {
 	};
 	
 
-	inline function diffusionControl(component, value)
-	{
+	inline function diffusionControl(component, value) {
+		
+		FaustVerb.setAttribute(FaustVerb.Diffusion, value);
 		//Reverb.setAttribute(Reverb.Width, value);
 		updateParameterWithLabel('DIFFUSION', value, '%');
 		showTempScreen('reverb');
@@ -38,8 +40,9 @@ namespace Reverb {
 		ReverbAnimationPanel.repaint();
 	};
 	
-	inline function dampingControl(component, value)
-	{
+	inline function dampingControl(component, value) {
+	
+		FaustVerb.setAttribute(FaustVerb.Damping, value);
 		//Reverb.setAttribute(Reverb.Damping, value);
 		updateParameterWithLabel('DAMPING', value, '%');
 		showTempScreen('reverb');
@@ -49,27 +52,34 @@ namespace Reverb {
 	};
 	
 	
-	inline function freezeControl(component, value)
-	{
+	inline function freezeControl(component, value) {
+	
 		//Reverb.setAttribute(Reverb.FreezeMode, value);
 		updateFreezeParameter(value);
 	};
 	
 	
-	inline function timeControl(component, value)
-	{
+	inline function timeControl(component, value) {
+		
+		FaustVerb.setAttribute(FaustVerb.ReverbTime, value);
+		updateParameterWithLabel('TIME', value, 's');
+		showTempScreen('reverb');
 	};
 	
 	
-	inline function depthControl(component, value)
-	{
-		//Add your custom logic here...
+	inline function depthControl(component, value) {
+		FaustVerb.setAttribute(4, value);
+		
+		updateParameterWithLabel('MOD DEPTH', value, '%');
+		showTempScreen('reverb');
 	};
 	
 	
-	inline function frequencyControl(component, value)
-	{
-		//Add your custom logic here...
+	inline function frequencyControl(component, value) {
+		FaustVerb.setAttribute(5, value);
+		
+		updateParameterWithLabel('MOD FREQUENCY', value, 'hz');
+		showTempScreen('reverb');
 	};
 	
 	
