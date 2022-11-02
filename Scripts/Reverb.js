@@ -14,13 +14,12 @@ namespace Reverb {
 	Content.getComponent("knob_modulation_depth").setControlCallback(depthControl);
 	Content.getComponent("knob_modulation_frequency").setControlCallback(frequencyControl);
 	
-	
-	Reverb.button_freeze.setControlCallback(freezeControl);
+	button_freeze.setControlCallback(freezeControl);
 	
 	inline function spaceControl(component, value) {
 		
 		FaustVerb.setAttribute(FaustVerb.Size, value);
-		FreeVerb.setAttribute(Reverb.RoomSize, value);
+		FreeVerb.setAttribute(FreeVerb.RoomSize, value);
 		updateParameterWithLabel('SPACE', value, '%');
 		showTempScreen('reverb');
 		
@@ -32,7 +31,7 @@ namespace Reverb {
 	inline function diffusionControl(component, value) {
 		
 		FaustVerb.setAttribute(FaustVerb.Diffusion, value);
-		//Reverb.setAttribute(Reverb.Width, value);
+		FreeVerb.setAttribute(FreeVerb.Width, value);
 		updateParameterWithLabel('DIFFUSION', value, '%');
 		showTempScreen('reverb');
 		
@@ -43,7 +42,7 @@ namespace Reverb {
 	inline function dampingControl(component, value) {
 	
 		FaustVerb.setAttribute(FaustVerb.Damping, value);
-		//Reverb.setAttribute(Reverb.Damping, value);
+		FreeVerb.setAttribute(FreeVerb.Damping, value);
 		updateParameterWithLabel('DAMPING', value, '%');
 		showTempScreen('reverb');
 		
@@ -54,7 +53,7 @@ namespace Reverb {
 	
 	inline function freezeControl(component, value) {
 	
-		//Reverb.setAttribute(Reverb.FreezeMode, value);
+		FreeVerb.setAttribute(FreeVerb.FreezeMode, value);
 		updateFreezeParameter(value);
 	};
 	
@@ -62,6 +61,7 @@ namespace Reverb {
 	inline function timeControl(component, value) {
 		
 		FaustVerb.setAttribute(FaustVerb.ReverbTime, value);
+		FreeVerb.setAttribute(FreeVerb.RoomSize, component.getValueNormalized());
 		updateParameterWithLabel('TIME', value, 's');
 		showTempScreen('reverb');
 	};
