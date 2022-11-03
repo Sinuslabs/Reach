@@ -7,7 +7,7 @@ namespace ReverbAnimation {
 	reg rotor = 0;
 	
 	// Animation Tweaks & Settings
-	const PADDING = 10;
+	const PADDING = 20;
 	
 	// Wiggle timer refresh speed
 	// lower is faster	
@@ -71,7 +71,7 @@ namespace ReverbAnimation {
 		];
 		
 		local pa = [
-			a[0] + PADDING,
+			a[0] + PADDING + swing * 10,
 			a[1] + PADDING,
 			a[2] - PADDING * 2,
 			a[3] - PADDING * 2

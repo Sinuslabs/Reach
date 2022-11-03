@@ -13,10 +13,9 @@ namespace Effects {
 		updateParameterWithLabel('DEGRADE', value, '%');
 		showTempScreen('degrade');
 		
-		DegradeAnimationPanel.setValue(component.get("max") + 1 - value * 20);
-		
-		DEGRADE_STATE.corner = 80 + (value * -80);
-		DegradeAnimationPanel.repaintImmediately();
+		DegradeAnimation.setZoom(value);
+		DegradeAnimation.setBorderRadius(value);		
+		DegradeAnimation.AnimationPanel.repaintImmediately();
 	};
 	
 	// FLAIR
@@ -25,11 +24,10 @@ namespace Effects {
 		Flair.setAttribute(Flair.Mix, value);
 		updateParameterWithLabel('FLAIR', value, '%');
 		showTempScreen('flair');
-		
-		local initialPosX = 300;
-		local move = value * 50;
-		
-		Flair1AnimationPanel.set('x', initialPosX + move);
-		Flair2AnimationPanel.set('x', initialPosX - move);
+
+		FlairAnimation.setShift(value);
+		FlairAnimation.setAmplitude(value);
+		FlairAnimation.AnimationPanel.repaintImmediately();
+		//Flair1AnimationPanel.set('x', initialPosX + move);
 	};
 }
