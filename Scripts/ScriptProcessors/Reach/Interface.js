@@ -63,7 +63,6 @@ MainDisplayTimer.startTimer(30);
 inline function showMain() {
 
 	displayShowMain('default');
-	
 	panel_non_activated.set('visible', !Globals.activated);
 	panel_non_activated.repaint();
 	
@@ -89,7 +88,6 @@ const var TimeoutCounter = 10000;
 	        GainReduction.setBypassed(true);
 	    }
 	});
-	
 	if (!Globals.activated) {
 		GainReduction.setBypassed(false);
 		GainReductionTimer.startTimer(1000);		
