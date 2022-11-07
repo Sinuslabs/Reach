@@ -1,34 +1,170 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<Network ID="Reverb" AllowCompilation="1" Version="0.0.0">
+<Network ID="Reverb" Version="0.0.0" AllowCompilation="1">
   <Node FactoryPath="container.chain" ID="Reverb" Bypassed="0" ShowParameters="1">
     <Nodes>
-      <Node ID="faust" FactoryPath="core.faust" Bypassed="0">
-        <Properties>
-          <Property ID="ClassId" Value="FaustReverb"/>
-          <Property ID="NumParameters" Value="0"/>
-        </Properties>
+      <Node ID="dry_wet2" FactoryPath="container.split" ShowParameters="1"
+            NodeColour="4285503847" Bypassed="0">
+        <Nodes>
+          <Node ID="dry_path1" FactoryPath="container.chain" Bypassed="0">
+            <Nodes>
+              <Node ID="dry_wet_mixer1" FactoryPath="control.xfader" Bypassed="0"
+                    NodeColour="4285503847" Folded="1">
+                <Properties>
+                  <Property ID="NumParameters" Value="2"/>
+                  <Property ID="Mode" Value="Linear"/>
+                </Properties>
+                <SwitchTargets>
+                  <SwitchTarget>
+                    <Connections>
+                      <Connection NodeId="dry_gain1" ParameterId="Gain"/>
+                    </Connections>
+                  </SwitchTarget>
+                  <SwitchTarget>
+                    <Connections>
+                      <Connection NodeId="wet_gain1" ParameterId="Gain"/>
+                    </Connections>
+                  </SwitchTarget>
+                </SwitchTargets>
+                <Parameters>
+                  <Parameter MinValue="0.0" MaxValue="1.0" ID="Value" Automated="1"/>
+                </Parameters>
+              </Node>
+              <Node ID="dry_gain1" FactoryPath="core.gain" Bypassed="0" NodeColour="4285503847"
+                    Folded="1">
+                <Parameters>
+                  <Parameter MinValue="-100.0" MaxValue="0.0" StepSize="0.1000000014901161"
+                             SkewFactor="5.422270774841309" ID="Gain" Automated="1"/>
+                  <Parameter MinValue="0.0" MaxValue="1000.0" StepSize="0.1000000014901161"
+                             SkewFactor="0.3010300099849701" ID="Smoothing" Value="20.0"/>
+                  <Parameter MinValue="-100.0" MaxValue="0.0" StepSize="0.1000000014901161"
+                             SkewFactor="5.422270774841309" ID="ResetValue" Value="0.0"/>
+                </Parameters>
+              </Node>
+            </Nodes>
+            <Parameters/>
+          </Node>
+          <Node ID="wet_path1" FactoryPath="container.chain" Bypassed="0">
+            <Nodes>
+              <Node ID="faust" FactoryPath="core.faust" Bypassed="0">
+                <Properties>
+                  <Property ID="ClassId" Value="FaustReverb"/>
+                  <Property ID="NumParameters" Value="0"/>
+                </Properties>
+                <Parameters>
+                  <Parameter MinValue="0.0" MaxValue="0.9999999776482582" StepSize="0.009999999776482582"
+                             ID="Damping" Automated="1"/>
+                  <Parameter MinValue="0.0" MaxValue="0.9999999776482582" StepSize="0.009999999776482582"
+                             ID="Diffusion" Automated="1"/>
+                  <Parameter MinValue="0.0" MaxValue="0.9999999776482582" StepSize="0.009999999776482582"
+                             ID="HF Gain" Automated="1"/>
+                  <Parameter MinValue="1000.0" MaxValue="10000.0" StepSize="1.0" ID="High Crossover"
+                             Automated="1"/>
+                  <Parameter MinValue="0.0" MaxValue="0.9999999776482582" StepSize="0.009999999776482582"
+                             ID="LF Gain" Automated="1"/>
+                  <Parameter MinValue="100.0" MaxValue="6000.0" StepSize="1.0" ID="Low Crossover"
+                             Automated="1"/>
+                  <Parameter MinValue="0.0" MaxValue="0.9999999776482582" StepSize="0.009999999776482582"
+                             ID="MID Gain" Automated="1"/>
+                  <Parameter MinValue="0.0" MaxValue="0.9999999776482582" StepSize="0.009999999776482582"
+                             ID="Mod Depth" Automated="1"/>
+                  <Parameter MinValue="0.0" MaxValue="9.999999776482582" StepSize="0.009999999776482582"
+                             ID="Mod Frequency" Automated="1"/>
+                  <Parameter MinValue="0.1000000014901161" MaxValue="60.0" StepSize="0.1000000014901161"
+                             ID="ReverbTime" Automated="1"/>
+                  <Parameter MinValue="0.4999999888241291" MaxValue="4.999999888241291" StepSize="0.009999999776482582"
+                             ID="Size" Automated="1"/>
+                </Parameters>
+                <SwitchTargets/>
+              </Node>
+              <Node ID="wet_gain1" FactoryPath="core.gain" Bypassed="0" NodeColour="4285503847"
+                    Folded="1">
+                <Parameters>
+                  <Parameter MinValue="-100.0" MaxValue="0.0" StepSize="0.1000000014901161"
+                             SkewFactor="5.422270774841309" ID="Gain" Automated="1"/>
+                  <Parameter MinValue="0.0" MaxValue="1000.0" StepSize="0.1000000014901161"
+                             SkewFactor="0.3010300099849701" ID="Smoothing" Value="20.0"/>
+                  <Parameter MinValue="-100.0" MaxValue="0.0" StepSize="0.1000000014901161"
+                             SkewFactor="5.422270774841309" ID="ResetValue" Value="0.0"/>
+                </Parameters>
+              </Node>
+            </Nodes>
+            <Parameters/>
+          </Node>
+        </Nodes>
         <Parameters>
-          <Parameter MinValue="0.0" MaxValue="1.0" StepSize="0.009999999776482582"
-                     ID="Damping"/>
-          <Parameter MinValue="0.0" MaxValue="1.0" StepSize="0.009999999776482582"
-                     ID="Diffusion"/>
-          <Parameter MinValue="0.0" MaxValue="1.0" StepSize="0.009999999776482582"
-                     ID="HF Gain" Value="1.0"/>
-          <Parameter MinValue="0.0" MaxValue="1.0" StepSize="0.009999999776482582"
-                     ID="LF Gain" Value="1.0"/>
-          <Parameter MinValue="0.0" MaxValue="1.0" StepSize="0.009999999776482582"
-                     ID="Mod Depth"/>
-          <Parameter MinValue="0.0" MaxValue="10.0" StepSize="0.009999999776482582"
-                     ID="Mod Frequency"/>
-          <Parameter MinValue="0.1000000014901161" MaxValue="12.0" StepSize="0.1000000014901161"
-                     ID="ReverbTime"/>
-          <Parameter MinValue="0.5" MaxValue="5.0" StepSize="0.009999999776482582"
-                     ID="Size"/>
+          <Parameter MinValue="0.0" MaxValue="1.0" ID="DryWet" Automated="1">
+            <Connections>
+              <Connection NodeId="dry_wet_mixer1" ParameterId="Value"/>
+            </Connections>
+          </Parameter>
         </Parameters>
-        <SwitchTargets/>
       </Node>
     </Nodes>
-    <Parameters/>
+    <Parameters>
+      <Parameter ID="Reverb" MinValue="0.0" MaxValue="1.0" Value="1.0">
+        <Connections/>
+      </Parameter>
+      <Parameter ID="Damping" MinValue="0.0" MaxValue="1.0" Value="1.0">
+        <Connections>
+          <Connection NodeId="faust" ParameterId="Damping"/>
+        </Connections>
+      </Parameter>
+      <Parameter ID="Diffusion" MinValue="0.0" MaxValue="1.0" Value="1.0">
+        <Connections>
+          <Connection NodeId="faust" ParameterId="Diffusion"/>
+        </Connections>
+      </Parameter>
+      <Parameter ID="HF Gain" MinValue="0.0" MaxValue="1.0" Value="1.0">
+        <Connections>
+          <Connection NodeId="faust" ParameterId="HF Gain"/>
+        </Connections>
+      </Parameter>
+      <Parameter ID="High Crossover" MinValue="1000.0" MaxValue="10000.0" Value="1000.0">
+        <Connections>
+          <Connection NodeId="faust" ParameterId="High Crossover"/>
+        </Connections>
+      </Parameter>
+      <Parameter ID="LF Gain" MinValue="0.0" MaxValue="1.0" Value="1.0">
+        <Connections>
+          <Connection NodeId="faust" ParameterId="LF Gain"/>
+        </Connections>
+      </Parameter>
+      <Parameter ID="Low Crossover" MinValue="100.0" MaxValue="6000.0" Value="1.0">
+        <Connections>
+          <Connection NodeId="faust" ParameterId="Low Crossover"/>
+        </Connections>
+      </Parameter>
+      <Parameter ID="Mid Gain" MinValue="0.0" MaxValue="1.0" Value="1.0">
+        <Connections>
+          <Connection NodeId="faust" ParameterId="MID Gain"/>
+        </Connections>
+      </Parameter>
+      <Parameter ID="Mod Depth" MinValue="0.0" MaxValue="1.0" Value="1.0">
+        <Connections>
+          <Connection NodeId="faust" ParameterId="Mod Depth"/>
+        </Connections>
+      </Parameter>
+      <Parameter ID="Mod Frequency" MinValue="0.0" MaxValue="1.0" Value="1.0">
+        <Connections>
+          <Connection NodeId="faust" ParameterId="Mod Frequency"/>
+        </Connections>
+      </Parameter>
+      <Parameter ID="ReverbTime" MinValue="0.0" MaxValue="12.0" Value="1.0">
+        <Connections>
+          <Connection NodeId="faust" ParameterId="ReverbTime"/>
+        </Connections>
+      </Parameter>
+      <Parameter ID="Size" MinValue="0.5" MaxValue="5.0" Value="1.0">
+        <Connections>
+          <Connection NodeId="faust" ParameterId="Size"/>
+        </Connections>
+      </Parameter>
+      <Parameter ID="Mix" MinValue="0.0" MaxValue="1.0" Value="1.0">
+        <Connections>
+          <Connection NodeId="dry_wet2" ParameterId="DryWet"/>
+        </Connections>
+      </Parameter>
+    </Parameters>
   </Node>
 </Network>

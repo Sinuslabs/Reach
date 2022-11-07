@@ -18,9 +18,6 @@ function showMain() {
 }
 
 function disableStates() {
-	Globals.filterOpen = false;
-	Filter.button_showFilter.setValue(0);
-	
 	Globals.presetBrowserOpen = false;
 	presetBrowserButton.setValue(0);
 	
@@ -40,9 +37,6 @@ function displayShow(route) {
 		Globals.settingsOpen = true;
 		logoButton.setValue(1);
 	}
-	
-	//disable filter panel
-	Filter.panel_filterButtons.set('visible', false);
 	
 	updateFreezeParameter(Reverb.button_freeze.getValue());
 	
@@ -64,21 +58,11 @@ function displayShow(route) {
 function displayShowMain(route) {
 	if (route == 'default') {
 	 	route = 'waveform';
-	   	Globals.filterOpen = false;
-		Filter.button_showFilter.setValue(0);
 		logoButton.setValue(0);
 	};
 	
 	if (Globals.presetBrowserOpen) return;
-	if (route == 'filter') {
-		disableStates();	
-		Globals.filterOpen = true;
-		Filter.button_showFilter.setValue(1);
-		Filter.panel_filterButtons.set('visible', true);
-	} else {
-		Globals.filterOpen = false;
-		Filter.panel_filterButtons.set('visible', false);
-	}
+
 	
 	displayDisableAll();
 	updateFreezeParameter(Reverb.button_freeze.getValue());
