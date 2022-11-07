@@ -38,6 +38,9 @@ themeLabels();
 // Buttons
 const laf = Engine.createGlobalScriptLookAndFeel();
 
+const BUTTON_BORDER_RADIUS = 4;
+const BUTTON_BORDER_SIZE = 2;
+
 laf.registerFunction('drawToggleButton', function(g, obj) {	
 	var a = obj.area;
 	
@@ -45,18 +48,33 @@ laf.registerFunction('drawToggleButton', function(g, obj) {
 		
 		obj.text = obj.text.replace('displayButton-');
 		
-		var BUTTON_BACKGROUND_COLOUR = DisplayTheme.buttonSelectedBackgroundColour;
+		var BUTTON_SELECTED_BACKGROUND_COLOUR = DisplayTheme.buttonSelectedBackgroundColour;
+		var BUTTON_BACKGROUND_COLOUR = DisplayTheme.buttonBackgroundColour;
 		var BUTTON_TEXT_COLOUR = DisplayTheme.buttonSelectedTextColour;
 		
 		if (obj.over) {
-			BUTTON_BACKGROUND_COLOUR = BUTTON_BACKGROUND_COLOUR.replace('0x', '0x' + DisplayTheme.hoverOpacity);
+			BUTTON_SELECTED_BACKGROUND_COLOUR = BUTTON_SELECTED_BACKGROUND_COLOUR.replace('0x', '0x' + DisplayTheme.hoverOpacity);
 			BUTTON_TEXT_COLOUR = BUTTON_TEXT_COLOUR.replace('0x', '0x' + DisplayTheme.hoverOpacity);
 		}
 		
-		g.setColour(BUTTON_BACKGROUND_COLOUR);
-		g.fillRect(a);
-		
-		g.setColour(BUTTON_TEXT_COLOUR);
+		// background layer
+		g.setColour(BUTTON_SELECTED_BACKGROUND_COLOUR);
+		g.fillRoundedRectangle(a, BUTTON_BORDER_RADIUS);
+				
+		if (!obj.value) {
+			var pa = [
+				a[0] + BUTTON_BORDER_SIZE,
+				a[1] + BUTTON_BORDER_SIZE,
+				a[2] - BUTTON_BORDER_SIZE * 2,
+				a[3] - BUTTON_BORDER_SIZE * 2
+			];
+			g.setColour(BUTTON_BACKGROUND_COLOUR);
+			g.fillRoundedRectangle(pa, BUTTON_BORDER_RADIUS);	
+			g.setColour(BUTTON_SELECTED_BACKGROUND_COLOUR);
+		} else {
+			g.setColour(BUTTON_BACKGROUND_COLOUR);
+		}
+				
 		g.setFont(Fonts.secondaryFont, 32.0);
 		g.drawAlignedText(obj.text, a, 'centred');
 		return;
@@ -270,9 +288,6 @@ menuButtonLAF.registerFunction("drawToggleButton", function(g, obj) {
 	], MENU_ITEM_TEXT_ALIGN);
 });
 
-for (menuButton in settingsButtons) {
-	menuButton.setLocalLookAndFeel(menuButtonLAF);
-}
 
 // PHYSICAL BUTTON
 // GENERAL
@@ -716,22 +731,22 @@ popMenuLaf.registerFunction("getIdealPopupMenuItemSize", function(obj) { return 
 comboBox_zoom.setLocalLookAndFeel(popMenuLaf);
 comboBox_theme.setLocalLookAndFeel(popMenuLaf);
 
-const localLaf = Content.createLocalLookAndFeel();
-localLaf.registerFunction("drawFilterDragHandle", function(g, obj)
-{	
-	var SIZE = 26;
-	var area = [obj.handle[0], obj.handle[1], SIZE, SIZE];
-	
-	g.setColour(0XFFFFFFFF);
-	g.fillEllipse(area);
-	
-	g.setColour(0XFF000000);
-	g.drawEllipse(area, 2);
-	
-	g.setFont(Fonts.secondaryFont, 24); 
-	g.drawAlignedText(obj.index, area, "centred");
-});
+//const localLaf = Content.createLocalLookAndFeel();
+//localLaf.registerFunction("drawFilterDragHandle", function(g, obj)
+//{	
+//	var SIZE = 26;
+//	var area = [obj.handle[0], obj.handle[1], SIZE, SIZE];
+//	
+//	g.setColour(0XFFFFFFFF);
+//	g.fillEllipse(area);
+//	
+//	g.setColour(0XFF000000);
+//	g.drawEllipse(area, 2);
+//	
+//	g.setFont(Fonts.secondaryFont, 24); 
+//	g.drawAlignedText(obj.index, area, "centred");
+//});
 
-const var EQ = Content.getComponent("tile_eq");
-EQ.setLocalLookAndFeel(localLaf);
+//const var EQ = Content.getComponent("tile_eq");
+//EQ.setLocalLookAndFeel(localLaf);
 

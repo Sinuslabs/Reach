@@ -15,6 +15,7 @@ include("DegradeAnimation.js");
 include("FlairAnimation.js");
 include("VuMeter.js");
 include("Theme.js");
+include("EffectCustomizer.js");
 
 Content.makeFrontInterface(1900, 860);
 
@@ -65,6 +66,9 @@ inline function showMain() {
 	displayShowMain('default');
 	panel_non_activated.set('visible', !Globals.activated);
 	panel_non_activated.repaint();
+	
+	// DEBUG
+	//displayShow('effects');
 	
 	MainDisplayTimer.stopTimer();
 }

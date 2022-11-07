@@ -254,13 +254,6 @@ inline function onbutton_closePreset_Control(component, value)
 	showMain();
 };
 
-inline function onbutton_x4Control(component, value)
-{
-	showMain();
-};
-
-Content.getComponent("button_x4").setControlCallback(onbutton_x4Control);
-
 Content.getComponent("button_x2").setControlCallback(onbutton_x2Control);
 inline function onbutton_x2Control(component, value)
 {

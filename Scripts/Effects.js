@@ -1,15 +1,15 @@
 namespace Effects {
 	
-	const Flair = Synth.getEffect('Flair');
-	const Degrade = Synth.getEffect("Degrade");
+	//const Flair = Synth.getEffect('Flair');
+	//const Degrade = Synth.getEffect("Degrade");
 	
-	Content.getComponent("knob_degrade_mix").setControlCallback(onknob_degrade_mixControl);
+	Content.getComponent("knob_effects_degrade").setControlCallback(onknob_degrade_mixControl);
 	Content.getComponent("knob_effects_flair").setControlCallback(onknob_flair_flairControl);
 
 	// DEGRADE
 	inline function onknob_degrade_mixControl(component, value)
 	{
-		Degrade.setAttribute(Degrade.Mix, value);
+		//Degrade.setAttribute(Degrade.Mix, value);
 		updateParameterWithLabel('DEGRADE', value, '%');
 		showTempScreen('degrade');
 		
@@ -21,7 +21,7 @@ namespace Effects {
 	// FLAIR
 	inline function onknob_flair_flairControl(component, value)
 	{
-		Flair.setAttribute(Flair.Mix, value);
+		//Flair.setAttribute(Flair.Mix, value);
 		updateParameterWithLabel('FLAIR', value, '%');
 		showTempScreen('flair');
 

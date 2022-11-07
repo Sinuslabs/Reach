@@ -1,0 +1,3 @@
+[
+  "EffectCustomizer.js"
+]
