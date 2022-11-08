@@ -35,6 +35,15 @@ function settingsButtonsRadio(idx) {
 	settingsButtons[idx].setValue(1);
 }
 
+inline function getHardcodedEffect(name) {
+	for ( slot in EffectCustomizer.effectSlots) {
+		local effectName = EffectCustomizer.getIdFromSlot(slot);
+		if (effectName == name) {
+			return slot.getCurrentEffect();
+		}
+	}
+}
+
 
 function repaintAllPanels() {
 	panel_background.repaint();

@@ -13,11 +13,11 @@ namespace Reverb {
 	Content.getComponent("knob_modulation_depth").setControlCallback(depthControl);
 	Content.getComponent("knob_modulation_frequency").setControlCallback(frequencyControl);
 	
+	reg JPVerb;
 	
 	inline function spaceControl(component, value) {
 		
-		//FaustVerb.setAttribute(FaustVerb.Size, value);
-		//FreeVerb.setAttribute(FreeVerb.RoomSize, value);
+		JPVerb.setAttribute(JPVerb.Size, value);
 		
 		updateParameterWithLabel('SPACE', value, '%');
 		showTempScreen('reverb');
@@ -29,8 +29,7 @@ namespace Reverb {
 
 	inline function diffusionControl(component, value) {
 		
-		//FaustVerb.setAttribute(FaustVerb.Diffusion, value);
-		//FreeVerb.setAttribute(FreeVerb.Width, value);
+		JPVerb.setAttribute(JPVerb.Diffusion, value);
 		
 		updateParameterWithLabel('DIFFUSION', value, '%');
 		showTempScreen('reverb');
@@ -41,8 +40,7 @@ namespace Reverb {
 	
 	inline function dampingControl(component, value) {
 	
-		//FaustVerb.setAttribute(FaustVerb.Damping, value);
-		//FreeVerb.setAttribute(FreeVerb.Damping, value);
+		JPVerb.setAttribute(JPVerb.Damping, value);
 		
 		updateParameterWithLabel('DAMPING', value, '%');
 		showTempScreen('reverb');
@@ -53,8 +51,7 @@ namespace Reverb {
 	
 	inline function timeControl(component, value) {
 		
-		//FaustVerb.setAttribute(FaustVerb.ReverbTime, value);
-		//FreeVerb.setAttribute(FreeVerb.RoomSize, component.getValueNormalized());
+		JPVerb.setAttribute(JPVerb.ReverbTime, value);
 		updateParameterWithLabel('TIME', value, 's');
 		showTempScreen('reverb');
 		
@@ -65,7 +62,7 @@ namespace Reverb {
 	
 	
 	inline function depthControl(component, value) {
-		//FaustVerb.setAttribute(4, value);
+		JPVerb.setAttribute(JPVerb.ModDepth, value);
 		
 		updateParameterWithLabel('MOD DEPTH', value, '%');
 		showTempScreen('reverb');
@@ -76,7 +73,7 @@ namespace Reverb {
 	
 	
 	inline function frequencyControl(component, value) {
-		//FaustVerb.setAttribute(5, value);
+		JPVerb.setAttribute(JPVerb.ModFrequency, value);
 		
 		updateParameterWithLabel('MOD FREQUENCY', value, 'hz');
 		showTempScreen('reverb');

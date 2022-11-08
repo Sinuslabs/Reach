@@ -1,18 +1,28 @@
 namespace Effects {
 	
+	inline function getHardcodedEffect(name) {
+		for ( slot in EffectCustomizer.effectSlots) {
+			local effectName = EffectCustomizer.getIdFromSlot(slot);
+			if (effectName == name) {
+				return slot.getCurrentEffect();
+			}
+		}
+	}
 	
-	const var EffectSlot1_HardcodedMasterFX = Synth.getEffect("Effect Slot1_Hardcoded Master FX");
-	//const Flair = Synth.getEffect('Flair');
-	//const Degrade = Synth.getEffect("Degrade");
-	Console.print(trace(Content.getComponent("knob_effects_degrade").getAllProperties()));
-	Console.print(Content.getComponent("knob_effects_degrade").get('processorId'));
+	reg Flanger;
+	reg Distortion;
+	reg Degrade;
+	reg Chorus;
+	
+	//const var Degrade = Synth.getEffect("Effect Slot1_Hardcoded Master FX");
+	//const var Flanger = Synth.getEffect("Effect Slot3_Hardcoded Master FX");
 	Content.getComponent("knob_effects_degrade").setControlCallback(onknob_degrade_mixControl);
 	Content.getComponent("knob_effects_flair").setControlCallback(onknob_flair_flairControl);
 
 	// DEGRADE
 	inline function onknob_degrade_mixControl(component, value)
 	{
-		EffectSlot1_HardcodedMasterFX.setAttribute(EffectSlot1_HardcodedMasterFX.Mix, value);
+		Degrade.setAttribute(Degrade.Mix, value);
 		//Degrade.setAttribute(Degrade.Mix, value);
 		updateParameterWithLabel('DEGRADE', value, '%');
 		showTempScreen('degrade');
@@ -25,7 +35,7 @@ namespace Effects {
 	// FLAIR
 	inline function onknob_flair_flairControl(component, value)
 	{
-		//Flair.setAttribute(Flair.Mix, value);
+		Flanger.setAttribute(Flanger.Mix, value);
 		updateParameterWithLabel('FLAIR', value, '%');
 		showTempScreen('flair');
 

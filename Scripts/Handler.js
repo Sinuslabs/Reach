@@ -191,6 +191,13 @@ Content.getComponent("onPresetLoad").setControlCallback(onPresetLoad);
 inline function onPresetLoad(component, value)
 {
 	Console.print('onload');
+	
+	// Dynamically get the effects
+	Effects.Flanger = getHardcodedEffect('Flanger');
+	Effects.Degrade = getHardcodedEffect('Degrade');
+	Effects.Chorus = getHardcodedEffect('Chorus');
+	Effects.Distortion = getHardcodedEffect('Distort');
+	Reverb.JPVerb = getHardcodedEffect('Reverb');
 
 	if (Engine.getCurrentUserPresetName() == '') {
 		presetBrowserButton.set('text', 'Blackhole');
