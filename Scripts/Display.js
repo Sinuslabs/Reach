@@ -5,23 +5,26 @@ function updateDisplay() {
 	label_parameter_name.set('text', Globals.displayParameter);
 }
 
-
 const screenTimer = Engine.createTimerObject();
 screenTimer.setTimerCallback(showMainScreen);
 
 inline function showMainScreen() {
-	if (Globals.presetBrowserOpen || !UserSettings.enableAnimations || Globals.filterOpen || Globals.settingsOpen) return;
-
 	// stop animation timers
 	ReverbAnimation.stopTimer();
-	FlairAnimation.stopTimer();
 	
-	displayShowMain('default');	
+	showMain();	
 	screenTimer.stopTimer();
 }
 
 function showTempScreen(route) {
-	if (Globals.presetBrowserOpen || !UserSettings.enableAnimations || Globals.filterOpen || Globals.settingsOpen) return;
+
+	if (
+		Globals.effectsOpen ||
+		Globals.presetBrowserOpen ||
+		Globals.settingsOpen ||
+		Globals.aboutOpen ||
+		!UserSettings.enableAnimations
+	) return;
 	
 	if (screenTimer.isTimerRunning()) {	
 		screenTimer.resetCounter();
@@ -29,8 +32,7 @@ function showTempScreen(route) {
 	
 	// Wiggle Animations
 	ReverbAnimation.startTimer();
-	FlairAnimation.startTimer();
 		
-	//screenTimer.startTimer(1500);
+	screenTimer.startTimer(1500);
 	displayShowMain(route);
 }

@@ -1,5 +1,7 @@
 namespace EffectCustomizer {
-	Content.getComponent("button_fx").setControlCallback(onbutton_fxControl);
+	const var button_fx = Content.getComponent("button_fx")
+	
+	const var displayKnobs = Content.getAllComponents('displayKnob');
 	
 	Engine.addModuleStateToUserPreset('Effect Slot1');
 	Engine.addModuleStateToUserPreset('Effect Slot2');
@@ -25,10 +27,24 @@ namespace EffectCustomizer {
 	                        Content.getComponent("panel_effectTab4"),
 	                        Content.getComponent("panel_effectTab5")];
 	                        
+	const var effectDisplays = [Content.getComponent("effectDisplay-Reverb"),
+	                            Content.getComponent("effectDisplay-Degrade"),
+	                            Content.getComponent("effectDisplay-Flanger"),
+	                            Content.getComponent("effectDisplay-Distort"),
+	                            Content.getComponent("effectDisplay-Chorus")];
+	                            
+	// Callbacks
+	button_fx.setControlCallback(onbutton_fxControl);
+                       
 	// INIT
-	setEffectNamesFromSlots();
+	inline function init() {
+		radioEffectBox(effectTabs[0]);
+		setEffectNamesFromSlots();		
+		snapToArea();
+	}
 	
-	snapToArea();
+	init();
+	
 	for (tab in effectTabs) {
 		tab.setPaintRoutine(tabRoutine);
 	}
@@ -52,7 +68,7 @@ namespace EffectCustomizer {
 	    	if (e.clicked) {
  		        currentSlot = getIntersectingSlot(positionX, width);
  		        radioEffectBox(this);
- 		        //showPanel(this.get('text'));
+ 		        showPanel(this.get('text'));
 	  		}
 	    
 	        if (e.drag) {        	
@@ -68,6 +84,17 @@ namespace EffectCustomizer {
 	        }    
 	    });
 	}
+	
+	inline function showPanel(route) {
+		for (display in effectDisplays) {
+			local displayRoute = display.get('text').replace('effectDisplay-');
+			if (displayRoute == route) {
+				display.set('visible', true);
+				continue;
+			} 
+			display.set('visible', false);
+		}
+	}	
 	
 	// sets the provided panel value to 1 all other to 0
 	inline function radioEffectBox(enabledEffect) {
@@ -114,9 +141,6 @@ namespace EffectCustomizer {
 	
 		effectSlots[slot1].swap(effectSlots[slot2]);
 	}
-	
-	
-
 	
 	const TAB_PADDING = 5;
 	const TEXT_PADDING = 10;
@@ -182,10 +206,107 @@ namespace EffectCustomizer {
 	}
 	
 	
-	inline function onbutton_fxControl(component, value)
-	{
-		value ? displayShow('effects') : showMain();
+	inline function onbutton_fxControl(component, value) {
+		if (value) {
+			displayShow('effects');
+			
+			// reset filter panels
+			Filter.panel_filters.set('visible', false);
+			Filter.panel_effectCustomizer.set('visible', true);			
+			Filter.prePostButtons[0].set('visible', false);
+			Filter.prePostButtons[1].set('visible', false);
+			Filter.button_filter.setValue(0);
+			
+			Globals.effectsOpen = true;
+			for (tab in effectTabs) {
+				if (tab.getValue() == 1) {
+					radioEffectBox(tab);
+				}
+			}
+						
+		} else {
+			showMain();	
+		}
 	};
+	
+	
+	const var displayKnobLaf = Content.createLocalLookAndFeel();	
+	displayKnobLaf.registerFunction("drawRotarySlider", function(g, obj){
+		
+		// Padding
+		var PADDING = 10;
+		// Colours
+		var ARC_COLOUR = DisplayTheme.textColour;
+		var INDICATOR_COLOUR = DisplayTheme.textColour;
+		var BORDER_COLOUR = DisplayTheme.textColour;
+		
+		// Make transparent on disabled
+		var disabled = !obj.enabled;
+		if (disabled) {
+			ARC_COLOUR = ARC_COLOUR.replace('0x', '0x66');
+			INDICATOR_COLOUR = INDICATOR_COLOUR.replace('0x', '0x' + DISABLED_OPACITY);
+			BORDER_COLOUR = BORDER_COLOUR.replace('0x', '0x' + DISABLED_OPACITY);
+		}
+		
+		
+		var a = obj.area;
+		var ka = [
+			PADDING,
+			PADDING,
+			a[2] - PADDING * 2,
+			a[2] - PADDING * 2
+		];
+	
+		g.setColour(BORDER_COLOUR);
+	
+		
+		g.drawEllipse(ka, 5);
+		
+		var arcPath = Content.createPath();
+		
+		var start = 2.5;
+		var end = start * 2 * obj.valueNormalized - start;
+		
+		var arcThickness = ARC_THICKNESS / 100;
+		var arcWidth = (1.0 - 2.0 * arcThickness) + arcThickness;
+		var stableSize = a[2];
+		
+		arcPath.addArc(
+			[arcThickness / 2, arcThickness / 2,arcWidth , arcWidth],
+			-start,
+			end
+		 );
+		
+		var pathArea = arcPath.getBounds(a[2]);
+		pathArea = [
+			pathArea[0] ,
+			pathArea[1] ,
+			pathArea[2],
+			pathArea[3]
+		];
+		
+		g.setColour(ARC_COLOUR);	
+		g.drawPath(arcPath, pathArea, stableSize * arcThickness );
+		
+		g.setFont(Fonts.secondaryFont, 22);
+		g.drawAlignedText(obj.text, [ka[0], ka[1] + ka[3] * 0.9, ka[2], ka[3]], 'centred');
+		
+		g.rotate(end, [a[2] / 2 , a[2] / 2 ]);
+		g.setColour(INDICATOR_COLOUR);
+		
+		g.fillRoundedRectangle([
+			a[2] / 2 - INDICATOR_THICKNESS / 2,
+			PADDING + INDICATOR_GAP,
+			(a[2] / 100) * INDICATOR_THICKNESS,
+		 	(a[2] / 100) * INDICATOR_LENGTH],
+		 	0.5
+		);
+		
+	});
+
+	for (knob in displayKnobs) {
+		knob.setLocalLookAndFeel(displayKnobLaf);
+	}
 	
 }
 

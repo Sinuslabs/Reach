@@ -1,6 +1,4 @@
 // Icons
-const var icon_panel_freeze2 = Content.getComponent("icon_panel_freeze2");
-
 const var icon_panel_logo = Content.getComponent("icon_panel_logo");
 const var icon_panel_heart = Content.getComponent("icon_panel_heart");
 const var icon_panel_fullLogo = Content.getComponent('icon_panel_fullLogo');
@@ -21,11 +19,6 @@ icon_panel_fullLogo.setPaintRoutine(function(g) {
 	g.fillPath(Paths.icons['fullLogo'], [0, 0, 360, 40]);
 });
 
-icon_panel_freeze2.setPaintRoutine(function(g) {
-	g.setColour('0xD4D4D4');
-	g.fillPath(Paths.icons['freeze'], [0, 0, 30, 30]);
-});
-
 // LABELS
 const var themeableLabels = Content.getAllComponents('themeAble_label');
 function themeLabels() {
@@ -37,6 +30,24 @@ themeLabels();
 
 // Buttons
 const laf = Engine.createGlobalScriptLookAndFeel();
+
+const SCROLLBAR_PADDING = 5;
+
+laf.registerFunction('drawScrollbar', function(g, obj) {
+	var a = obj.handle;
+	var pa = [
+		a[0] + SCROLLBAR_PADDING,
+		a[1] + SCROLLBAR_PADDING,
+		a[2] - SCROLLBAR_PADDING * 2,
+		a[3] - SCROLLBAR_PADDING * 2,
+	];
+	var SCROLLBAR_COLOUR = DisplayTheme.buttonSelectedBackgroundColour;
+	g.setColour(SCROLLBAR_COLOUR.replace('0x', '0x'+DisplayTheme.hoverOpacity));
+	
+	g.setColour(Colours.grey);
+	g.fillRoundedRectangle(pa, 5);
+	
+});
 
 const BUTTON_BORDER_RADIUS = 4;
 const BUTTON_BORDER_SIZE = 2;
@@ -243,138 +254,8 @@ notActivatedLAF.registerFunction('drawToggleButton', function(g, obj){
 
 button_not_activated.setLocalLookAndFeel(notActivatedLAF);
 
-// SETTINGS SCREEN MENU BUTTON
-const MENU_ITEM_HOVER_OPACITY = 'CC';
-const MENU_ITEM_TEXT_ALIGN = 'left';
-const MENU_ITEM_PADDING_LEFT = 30;
 
-const menuButtonLAF = Content.createLocalLookAndFeel();
-menuButtonLAF.registerFunction("drawToggleButton", function(g, obj) {
-	var a = obj.area;
-	obj.text = obj.text.replace('settings-');
-	
-	var MENU_ITEM_BACKGROUND_COLOUR = DisplayTheme.buttonBackgroundColour;
-	var MENU_ITEM_SELECTED_BACKGROUND_COLOUR = DisplayTheme.buttonSelectedBackgroundColour;
-	var MENU_ITEM_TEXT_COLOUR = DisplayTheme.buttonTextColour;
-	var MENU_ITEM_SELECTED_TEXT_COLOUR = DisplayTheme.buttonSelectedTextColour;
-	
-	// HOVER
-	if (obj.over) {
-		MENU_ITEM_BACKGROUND_COLOUR = MENU_ITEM_BACKGROUND_COLOUR.replace('0x', '0x' + MENU_ITEM_HOVER_OPACITY);
-		MENU_ITEM_SELECTED_BACKGROUND_COLOUR = MENU_ITEM_SELECTED_BACKGROUND_COLOUR.replace('0x', '0x' + MENU_ITEM_HOVER_OPACITY);
-		MENU_ITEM_TEXT_COLOUR = MENU_ITEM_TEXT_COLOUR.replace('0x', '0x' + MENU_ITEM_HOVER_OPACITY);
-		MENU_ITEM_SELECTED_TEXT_COLOUR = MENU_ITEM_SELECTED_TEXT_COLOUR.replace('0x', '0x' + MENU_ITEM_HOVER_OPACITY);
-	}
-	
-	// SELECTED BACKGROUND
-	obj.value == 1 ?
-		g.setColour(MENU_ITEM_SELECTED_BACKGROUND_COLOUR)
-		: g.setColour(MENU_ITEM_BACKGROUND_COLOUR);
-	
-	// Button Background
-	g.fillRect(a);
-	
-	// TEXT
-	obj.value == 1 ?
-		g.setColour(MENU_ITEM_SELECTED_TEXT_COLOUR)
-		: g.setColour(MENU_ITEM_TEXT_COLOUR);
-	
-	g.setFont(Fonts.secondaryFont, 32.0);
-	g.drawAlignedText(obj.text, [
-		a[0] + MENU_ITEM_PADDING_LEFT,
-		a[1],
-		a[2],
-		a[3]
-	], MENU_ITEM_TEXT_ALIGN);
-});
-
-
-// PHYSICAL BUTTON
-// GENERAL
-const BUTTON_PHYSICAL_DISABLED_OPACITY = 'CC';
-const BUTTON_PHYSICAL_HOVER_OPACITY = 'F5';
-const BUTTON_PHYSICAL_BORDER = 2;
-const BUTTON_PHYSICAL_SHADOW_RADIUS = 5;
-const BUTTON_PHYSICAL_PADDING = 6;
-const BUTTON_PHYSICAL_BORDER_RADIUS = 4;
-const BUTTON_PHYSICAL_ICON_SIZE = 20;
-
-const freezeButtonLAF = Content.createLocalLookAndFeel();
-freezeButtonLAF.registerFunction("drawToggleButton", function(g, obj) {	
-
-	var a = obj.area;
-	var borderA = [
-		BUTTON_PHYSICAL_PADDING,
-		BUTTON_PHYSICAL_PADDING,
-		a[2] - BUTTON_PHYSICAL_PADDING * 2,
-		a[3] - BUTTON_PHYSICAL_PADDING * 2
-	];
-	
-	var buttonA = [
-		BUTTON_PHYSICAL_PADDING + BUTTON_PHYSICAL_BORDER,
-		BUTTON_PHYSICAL_PADDING + BUTTON_PHYSICAL_BORDER,
-		a[2] - (BUTTON_PHYSICAL_PADDING + BUTTON_PHYSICAL_BORDER) * 2,
-		a[3] - (BUTTON_PHYSICAL_PADDING + BUTTON_PHYSICAL_BORDER) * 2
-	];
-	
-	var UPPER_GRADIENT_COLOUR = ButtonTheme.upperGradientColour;
-	var LOWER_GRADIENT_COLOUR = ButtonTheme.lowerGradientColour;
-	var BORDER_COLOUR = ButtonTheme.borderColour;
-	var SHADOW_COLOUR = ButtonTheme.shadowColour;
-	var ICON_COLOUR = ButtonTheme.iconColour;
-	var BACKGROUND_HOVER_COLOUR = ButtonTheme.backgroundHoverColour;
-	
-	// Make transparent on disabled
-	var disabled = !obj.enabled;
-	if (disabled || obj.value) {
-		UPPER_GRADIENT_COLOUR = UPPER_GRADIENT_COLOUR.replace('0x', '0x' + BUTTON_PHYSICAL_DISABLED_OPACITY);
-		LOWER_GRADIENT_COLOUR = LOWER_GRADIENT_COLOUR.replace('0x', '0x' + BUTTON_PHYSICAL_DISABLED_OPACITY);
-		BORDER_COLOUR = BORDER_COLOUR.replace('0x', '0x' + BUTTON_PHYSICAL_DISABLED_OPACITY);
-		SHADOW_COLOUR = SHADOW_COLOUR.replace('0x', '0x' + BUTTON_PHYSICAL_DISABLED_OPACITY);
-		ICON_COLOUR = ICON_COLOUR.replace('0x', '0x' + BUTTON_PHYSICAL_DISABLED_OPACITY);
-	}
-	
-	// Hover states
-	if (obj.over) {
-		UPPER_GRADIENT_COLOUR = UPPER_GRADIENT_COLOUR.replace('0x', '0x' + BUTTON_PHYSICAL_HOVER_OPACITY);
-		LOWER_GRADIENT_COLOUR = LOWER_GRADIENT_COLOUR.replace('0x', '0x' + BUTTON_PHYSICAL_HOVER_OPACITY);
-		BORDER_COLOUR = BORDER_COLOUR.replace('0x', '0x' + BUTTON_PHYSICAL_HOVER_OPACITY);
-		SHADOW_COLOUR = SHADOW_COLOUR.replace('0x', '0x' + BUTTON_PHYSICAL_HOVER_OPACITY);
-		ICON_COLOUR = ICON_COLOUR.replace('0x', '0x' + BUTTON_PHYSICAL_HOVER_OPACITY);
-	}
-	
-	g.setColour(BORDER_COLOUR);
-	g.fillRoundedRectangle(borderA, BUTTON_PHYSICAL_BORDER_RADIUS);
-	
-	if (!obj.value) {
-		g.drawDropShadow(buttonA, SHADOW_COLOUR, BUTTON_PHYSICAL_SHADOW_RADIUS);
-	}
-	
-	// Main Colour
-	g.setGradientFill([
-		UPPER_GRADIENT_COLOUR, 0.0, 0.0,
-		LOWER_GRADIENT_COLOUR, 0.5, 100.0]
-	);
-	
-	g.fillRoundedRectangle(buttonA, BUTTON_PHYSICAL_BORDER_RADIUS);
-
-	g.setColour(ICON_COLOUR);
-	
-	var iconPosition = [ 30, 30, 40, 40 ];
-	g.fillPath(Paths.icons[obj.text], iconPosition);
-	
-	g.addNoise({
-		alpha: 0.05,
-		monochromatic: false,
-		scaleFactor: 1.7,
-		area: a
-	});
-});
-
-Reverb.button_freeze.setLocalLookAndFeel(freezeButtonLAF);
-
-// SLIDERS
-
+// KNOBS LOOK AND FEEL
 // GENERAL
 const DISABLED_OPACITY = 'CC';
 
@@ -599,9 +480,8 @@ themePanels();
 
 // override preset browser search bar to hide it
 laf.registerFunction("drawPresetBrowserSearchBar", function(g, obj){});
+laf.registerFunction("drawDialogButton", function(g, obj){	
 
-laf.registerFunction("drawDialogButton", function(g, obj){
-	
 	var WIDTH = 20;
 	var PADDING = 2;
 	var a = obj.area;
@@ -611,10 +491,7 @@ laf.registerFunction("drawDialogButton", function(g, obj){
 		WIDTH,
 		a[3] - PADDING * 2
 	];
-	
-
-	var ICON_COLOUR = DisplayTheme.iconColour;
-	
+	var ICON_COLOUR = DisplayTheme.iconColour;	
 	
 	if (obj.over) {
 		ICON_COLOUR = ICON_COLOUR.replace('0x', '0x' + DisplayTheme.hoverOpacity);
@@ -623,14 +500,7 @@ laf.registerFunction("drawDialogButton", function(g, obj){
 	g.setColour(ICON_COLOUR);
 	
 	if (obj.text == 'More') {
-		var menuA = [
-			a[0] + PADDING,
-			a[1] + PADDING,
-			WIDTH,
-			15
-		];	
-	
-		g.drawPath(Paths.icons['menu'], menuA, 3);
+		g.drawPath(Paths.icons['menu'], pa, 3);
 		return;
 	}
 	
@@ -650,22 +520,12 @@ laf.registerFunction("drawDialogButton", function(g, obj){
 	}
 	
 	if (obj.text == 'Save Preset') {
-		var sa = [
-			pa[2] / 2 - width / 2,
-			pa[1],
-			WIDTH,
-			WIDTH
-		];
-	
-		g.drawPath(Paths.icons['save'], sa, 2);
+		g.drawPath(Paths.icons['save'], [a[0], pa[1], 20, pa[3]], 2);
 		g.setFont(Fonts.secondaryFont, 32.0);
-		g.drawAlignedText('SAVE', a, 'centred');
+		g.drawAlignedText('SAVE', [30, a[1], a[2], a[3]], 'left');
 		return;
 	}
-
-	
 	g.drawAlignedText(obj.text, a, 'centred');
-	
 });
 
 laf.registerFunction("drawPresetBrowserListItem", function(g, obj)
