@@ -1,3 +1,4 @@
+
 namespace EffectCustomizer {
 	const var button_fx = Content.getComponent("button_fx")
 	
