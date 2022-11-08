@@ -5,6 +5,7 @@ include("Effects.js");
 include("Filter.js");
 include("Settings.js");
 include("Config.js");
+include("EffectCustomizer.js");
 include("Router.js");
 include("LookAndFeel.js");
 include("Helpers.js");
@@ -15,7 +16,6 @@ include("DegradeAnimation.js");
 include("FlairAnimation.js");
 include("VuMeter.js");
 include("Theme.js");
-include("EffectCustomizer.js");
 
 Content.makeFrontInterface(1900, 860);
 
@@ -28,10 +28,9 @@ Globals.parameter = 'NONE';
 Globals.freezeMode = false;
 Globals.activated = false;
 Globals.presetBrowserOpen = false;
-Globals.filterOpen = false;
 Globals.settingsOpen = false;
-Globals.currentBandIndex = 0;
-Globals.currentBandFilterType = 'LOWPASS';
+Globals.effectsOpen = false;
+Globals.aboutOpen = false;
 
 // Loading Settings
 if (settingsExist()) {
@@ -58,12 +57,12 @@ label_thank_you.set('visible', Globals.activated);
 
 // Main Screen
 const MainDisplayTimer = Engine.createTimerObject();
-MainDisplayTimer.setTimerCallback(showMain);
+MainDisplayTimer.setTimerCallback(showMainOnInit);
 MainDisplayTimer.startTimer(30);
 
-inline function showMain() {
+inline function showMainOnInit() {
 
-	displayShowMain('default');
+	showMain();
 	panel_non_activated.set('visible', !Globals.activated);
 	panel_non_activated.repaint();
 	

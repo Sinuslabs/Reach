@@ -9,7 +9,7 @@ inline function onbutton_logoControl(component, value) {
 		Globals.settingsOpen = true;
 	} else {
 		Globals.settingsOpen = false;
-		displayShowMain('default');
+		showMain();
 	}
 };
 
@@ -145,10 +145,10 @@ const var button_title = Content.getComponent("button_title");
 button_title.setControlCallback(onbutton_titleControl);
 inline function onbutton_titleControl(component, value)
 {
-	if (CURRENT_ROUTE != 'about') {
+	if (value) {
 		displayShow('about');
 	} else {
-		displayShowMain('default');
+		showMain();
 	}
 };
 
@@ -158,13 +158,10 @@ presetBrowserButton.setControlCallback(onbutton_presetBrowserControl);
 inline function onbutton_presetBrowserControl(component, value)
 {
 	if (value) {
-		Globals.presetBrowserOpen = true;
-		Globals.filterOpen = false;
-		Filter.button_showFilter.setValue(0);
 		displayShow('presetBrowser');
 	} else {
 		Globals.presetBrowserOpen = false;
-		displayShowMain('default');
+		showMain();
 	}
 };
 
@@ -190,16 +187,18 @@ presetBrowserWatcher.addListener("RefreshFunction", "Delays the closing of the P
 	}
 });
 
-Content.getComponent("Button1").setControlCallback(onButton1Control);
-inline function onButton1Control(component, value)
+Content.getComponent("onPresetLoad").setControlCallback(onPresetLoad);
+inline function onPresetLoad(component, value)
 {
-	// reset band to band 1; 
-	Globals.currentBandIndex = 0;
+	Console.print('onload');
+
 	if (Engine.getCurrentUserPresetName() == '') {
 		presetBrowserButton.set('text', 'Blackhole');
 	} else {
 		presetBrowserButton.set('text', Engine.getCurrentUserPresetName());
 	}
+	
+	EffectCustomizer.init();	
 };
 
 const var button_preset_leftArrow = Content.getComponent("button_preset_leftArrow");
@@ -223,9 +222,9 @@ panel_background.setKeyPressCallback(onBackgroundKeypress);
 inline function onBackgroundKeypress(key) {
 	
 	// CTRL + , -> Settings
-	if (key.cmd == true && key.keyCode == 44) CURRENT_ROUTE == 'account' ?  displayShowMain('default') : displayShow('account');
+	if (key.cmd == true && key.keyCode == 44) CURRENT_ROUTE == 'account' ?  showMain() : displayShow('account');
 	// ESC -> main Screen
-	if (key.keyCode == 27) displayShowMain('default');
+	if (key.keyCode == 27) showMain();
 }
 
 // Website
@@ -243,30 +242,11 @@ inline function onButton3Control(component, value)
 };
 
 // X Button
-Content.getComponent("button_x1").setControlCallback(onbutton_x1Control);
-Content.getComponent("button_x3").setControlCallback(onbutton_closePreset_Control);;
+Content.getComponent("button_x1").setControlCallback(onButtonX);
+Content.getComponent("button_x2").setControlCallback(onButtonX);
+Content.getComponent("button_x3").setControlCallback(onButtonX);
 
-inline function onbutton_closePreset_Control(component, value)
-{
-	
-	Globals.presetBrowserOpen = false;
-	presetBrowserButton.setValue(false);
-	showMain();
-};
-
-Content.getComponent("button_x2").setControlCallback(onbutton_x2Control);
-inline function onbutton_x2Control(component, value)
-{
-	
-	disableStates();
-	Globals.settingsOpen = false;
-	displayShowMain('default');
-};
-
-inline function onbutton_x1Control(component, value)
-{
-	showMain();
-};
+inline function onButtonX(component, value) { showMain(); }
 
 // MASTER
 const var Gain = Synth.getEffect("Simple Gain4");
@@ -275,7 +255,7 @@ inline function onknob_io_inControl(component, value)
 {
 	
 	Gain.setAttribute('Gain', value);
-	updateParameterWithDb('Input Gain', Math.floor(value * 100) / 100);
+	//updateParameterWithLabel('Gain', value / 100, 'dB');
 };
 
 const var DryGain = Synth.getEffect("DryGain");

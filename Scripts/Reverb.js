@@ -7,14 +7,12 @@ namespace Reverb {
 	Content.getComponent("knob_reverb_space").setControlCallback(spaceControl);
 	Content.getComponent("knob_reverb_diffusion").setControlCallback(diffusionControl);
 	Content.getComponent("knob_reverb_damping").setControlCallback(dampingControl);
-	const var button_freeze = Content.getComponent("button_freeze");
 	Content.getComponent("knob_reverb_time").setControlCallback(timeControl);
 	
 	// Modulation
 	Content.getComponent("knob_modulation_depth").setControlCallback(depthControl);
 	Content.getComponent("knob_modulation_frequency").setControlCallback(frequencyControl);
 	
-	button_freeze.setControlCallback(freezeControl);
 	
 	inline function spaceControl(component, value) {
 		
@@ -52,14 +50,6 @@ namespace Reverb {
 		ReverbAnimation.setRectThickness(value);
 		ReverbAnimation.AnimationPanel.repaintImmediately();
 	};
-	
-	
-	inline function freezeControl(component, value) {
-	
-		//FreeVerb.setAttribute(FreeVerb.FreezeMode, value);
-		updateFreezeParameter(value);
-	};
-	
 	
 	inline function timeControl(component, value) {
 		
