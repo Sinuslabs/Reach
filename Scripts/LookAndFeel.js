@@ -480,6 +480,29 @@ themePanels();
 
 // override preset browser search bar to hide it
 laf.registerFunction("drawPresetBrowserSearchBar", function(g, obj){});
+
+laf.registerFunction("drawPresetBrowserDialog", function(g, obj)
+{
+	
+	var TOP_PADDING = 20;
+	var PADDING = 50;
+	var a = obj.area;
+	
+	var pa = [a[0] - PADDING, a[1] - PADDING, a[2] + PADDING * 2, a[3] + PADDING * 2];
+	
+	obj.labelArea = [obj.labelArea[0], obj.labelArea[1], obj.labelArea[2], obj.labelArea[3] + 20];
+	
+   g.setColour(Colours.black);
+   g.fillRoundedRectangle(pa, 5.0);
+   g.setColour(Colours.white);
+   g.drawRoundedRectangle(pa, 5, 2);
+   g.setFont(Fonts.secondaryFont, 32.0);
+   obj.text = obj.text.replace('Are you sure you want to replace the file', 'Replace');
+   obj.text = obj.text.replace('Are you sure you want to delete the file ?', 'Delete Preset?');
+   g.drawAlignedText(obj.text, [pa[0], pa[1] + PADDING, pa[2], pa[3]], "centredTop");
+    
+});
+
 laf.registerFunction("drawDialogButton", function(g, obj){	
 
 	var WIDTH = 20;
@@ -525,6 +548,16 @@ laf.registerFunction("drawDialogButton", function(g, obj){
 		g.drawAlignedText('SAVE', [30, a[1], a[2], a[3]], 'left');
 		return;
 	}
+	
+	
+	g.setColour(ICON_COLOUR);
+	g.drawRoundedRectangle(a, 4, 2);
+	if (obj.over) {
+		g.fillRoundedRectangle(a, 4);
+		g.setColour(Colours.black);
+	}
+	
+	g.setFont(Fonts.secondaryFont, 30.0);
 	g.drawAlignedText(obj.text, a, 'centred');
 });
 
