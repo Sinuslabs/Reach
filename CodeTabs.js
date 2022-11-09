@@ -1,7 +1,9 @@
 [
-  "Filter.js",
+  "Reverb.js",
   "EffectCustomizer.js",
+  "Reverb.js",
   "Display.js",
   "Handler.js",
-  "Router.js"
+  "Router.js",
+  "Filter.js"
 ]
