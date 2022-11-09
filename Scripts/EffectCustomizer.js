@@ -240,6 +240,8 @@ namespace EffectCustomizer {
 		var ARC_COLOUR = DisplayTheme.textColour;
 		var INDICATOR_COLOUR = DisplayTheme.textColour;
 		var BORDER_COLOUR = DisplayTheme.textColour;
+		var text = obj.text;
+		var decimalPosition = 1;
 		
 		// Make transparent on disabled
 		var disabled = !obj.enabled;
@@ -248,7 +250,13 @@ namespace EffectCustomizer {
 			INDICATOR_COLOUR = INDICATOR_COLOUR.replace('0x', '0x' + DISABLED_OPACITY);
 			BORDER_COLOUR = BORDER_COLOUR.replace('0x', '0x' + DISABLED_OPACITY);
 		}
-		
+		if (obj.clicked || obj.hover) {
+			
+			text = obj.valueAsText;
+			if (obj.suffix == ' ms') {
+				text = Engine.doubleToString(obj.value / 1000, 2) + ' s';
+			}
+		}
 		
 		var a = obj.area;
 		var ka = [
@@ -290,7 +298,7 @@ namespace EffectCustomizer {
 		g.drawPath(arcPath, pathArea, stableSize * arcThickness );
 		
 		g.setFont(Fonts.secondaryFont, 22);
-		g.drawAlignedText(obj.text, [ka[0], ka[1] + ka[3] * 0.9, ka[2], ka[3]], 'centred');
+		g.drawAlignedText(text, [ka[0], ka[1] + ka[3] * 0.9, ka[2], ka[3]], 'centred');
 		
 		g.rotate(end, [a[2] / 2 , a[2] / 2 ]);
 		g.setColour(INDICATOR_COLOUR);

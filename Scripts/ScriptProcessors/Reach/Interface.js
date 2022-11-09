@@ -1,5 +1,6 @@
 include("Paths.js");
 include("Handler.js");
+include("Helpers.js");
 include("Reverb.js");
 include("Effects.js");
 include("Filter.js");
@@ -8,7 +9,6 @@ include("Config.js");
 include("EffectCustomizer.js");
 include("Router.js");
 include("LookAndFeel.js");
-include("Helpers.js");
 include("Server.js");
 include("Display.js");
 include("ReverbAnimation.js");
