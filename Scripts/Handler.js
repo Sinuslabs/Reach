@@ -4,7 +4,7 @@ const var logoButton = Content.getComponent('button_logo');
 logoButton.setControlCallback(onbutton_logoControl);
 inline function onbutton_logoControl(component, value) { 
 	if (value) {
-		settingsButtonsRadio(0);
+		UserSettings.settingsButtonsRadio(0);
 		displayShowSettings('general');
 		Globals.settingsOpen = true;
 	} else {
@@ -23,28 +23,28 @@ const var settingsButtons = [
 settingsButtons[0].setControlCallback(onbutton_settings_generalControl);
  inline function onbutton_settings_generalControl(component, value)
  {
- 	settingsButtonsRadio(0);
+ 	UserSettings.settingsButtonsRadio(0);
  	displayShowSettings('general');
  };
  
  settingsButtons[1].setControlCallback(onbutton_settings_audioControl);
   inline function onbutton_settings_audioControl(component, value)
   {
-  	settingsButtonsRadio(1);
+  	UserSettings.settingsButtonsRadio(1);
   	displayShowSettings('audio');
   };
 
  settingsButtons[2].setControlCallback(onbutton_settings_activateControl);
  inline function onbutton_settings_activateControl(component, value)
  {
- 	settingsButtonsRadio(2);
+ 	UserSettings.settingsButtonsRadio(2);
  	displayShowSettings('activate');
  };
 
 settingsButtons[3].setControlCallback(onbutton_settings_aboutControl);
 inline function onbutton_settings_aboutControl(component, value)
 {
-	settingsButtonsRadio(3);
+	UserSettings.settingsButtonsRadio(3);
 	displayShowSettings('about');
 };
 
@@ -94,15 +94,6 @@ button_animationToggle.setControlCallback(onbutton_animationToggleControl);
 inline function onbutton_animationToggleControl(component, value)
 {
 	UserSettings.enableAnimations = !value;
-	UserSettings.saveSettings();
-};
-
-// Filter on Drag
-const var button_filterOnDrag = Content.getComponent("button_filterOnDrag");
-button_filterOnDrag.setControlCallback(onbutton_filterOnDragControl);
-inline function onbutton_filterOnDragControl(component, value)
-{
-	UserSettings.filterOnDrag = !value;
 	UserSettings.saveSettings();
 };
 
@@ -262,7 +253,7 @@ inline function onknob_io_inControl(component, value)
 {
 	
 	Gain.setAttribute('Gain', value);
-	//updateParameterWithLabel('Gain', value / 100, 'dB');
+	updateParameterWithLabel('Gain', value / 100, 'dB');
 };
 
 const var DryGain = Synth.getEffect("DryGain");
