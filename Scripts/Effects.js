@@ -123,6 +123,13 @@ namespace Effects {
 	
 	inline function onknob_effects_chorusControl(component, value) {
 		Chorus.setAttribute(Chorus.Mix, value);
+		
+		updateParameterWithLabel('CHORUS', value, '%');
+		showTempScreen('chorus');
+		
+		ChorusAnimations.setShift(value);
+		ChorusAnimations.setAmplitude(value);
+		ChorusAnimations.AnimationPanel.repaintImmediately();
 	};
 	
 	inline function ondisplayButton_chorus_bypassControl(component, value) {
@@ -161,6 +168,12 @@ namespace Effects {
 	
 	inline function onknob_effects_distortionControl(component, value) {
 		Distortion.setAttribute(Distortion.Mix, value);
+		
+		updateParameterWithLabel('DISTORTION', value, '%');
+		showTempScreen('distortion');
+		
+		DistortionAnimation.setAlpha(value);
+		DistortionAnimation.setScale(value);
 	};
 	
 	inline function ondisplayButton_distort_bypassControl(component, value) {

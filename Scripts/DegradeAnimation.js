@@ -12,7 +12,7 @@ namespace DegradeAnimation {
 	reg zoom = 1;
 	
 	inline function setZoom(amount) { zoom = 1 - (amount * -1) * ZOOM_AMOUNT; }
-	inline function setBorderRadius(amount) { borderRadius = BORDER_RADIUS_MULTIPLIER / amount; }
+	inline function setBorderRadius(amount) { borderRadius = BORDER_RADIUS_MULTIPLIER - amount * 40; }
 	
 	AnimationPanel.setPaintRoutine(animationRoutine);
 	inline function animationRoutine(g) {

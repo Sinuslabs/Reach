@@ -63,7 +63,6 @@ namespace Reverb {
 		ReverbAnimation.AnimationPanel.repaintImmediately();
 	};
 	
-
 	inline function diffusionControl(component, value) {
 		
 		JPVerb.setAttribute(JPVerb.Diffusion, value);
@@ -101,7 +100,6 @@ namespace Reverb {
 		ReverbAnimation.AnimationPanel.repaintImmediately();
 	};
 	
-	
 	inline function depthControl(component, value) {
 		JPVerb.setAttribute(JPVerb.ModDepth, value);
 		
@@ -111,7 +109,6 @@ namespace Reverb {
 		ReverbAnimation.setAmplitude(value);
 		ReverbAnimation.AnimationPanel.repaintImmediately();
 	};
-	
 	
 	inline function frequencyControl(component, value) {
 		JPVerb.setAttribute(JPVerb.ModFrequency, value);
@@ -124,6 +121,8 @@ namespace Reverb {
 	};
 	
 	inline function onknob_reverb_mixControl(component, value) {
+		updateParameterWithLabel('MIX', value, '%');
+	
 		JPVerb.setAttribute(JPVerb.Mix, value);
 	};
 	
