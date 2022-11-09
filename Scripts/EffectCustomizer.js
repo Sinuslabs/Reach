@@ -34,6 +34,13 @@ namespace EffectCustomizer {
 	                            Content.getComponent("effectDisplay-Distort"),
 	                            Content.getComponent("effectDisplay-Chorus")];
 	                            
+	const var bypassButtons = [Content.getComponent("displayButton_chorus_bypass"),
+	                           Content.getComponent("displayButton_distort_bypass"),
+	                           Content.getComponent("displayButton_flanger_bypass"),
+	                           Content.getComponent("displayButton_degrade_bypass"),
+	                           Content.getComponent("displayButton_reverb_bypass")];
+	
+	                            
 	// Callbacks
 	button_fx.setControlCallback(onbutton_fxControl);
                        
@@ -87,13 +94,20 @@ namespace EffectCustomizer {
 	}
 	
 	inline function showPanel(route) {
-		for (display in effectDisplays) {
-			local displayRoute = display.get('text').replace('effectDisplay-');
+		for (i=0; i < effectDisplays.length; i++) {
+			local displayRoute = effectDisplays[i].get('text').replace('effectDisplay-');
+			local bypassButton = bypassButtons[i].getId().replace('displayButton_');
+			bypassButton = bypassButton.replace('_bypass');
+			if (bypassButton == route.toLowerCase()) {
+				bypassButtons[i].set('visible', true);
+			} else {
+				bypassButtons[i].set('visible', false);
+			}
 			if (displayRoute == route) {
-				display.set('visible', true);
+				effectDisplays[i].set('visible', true);
 				continue;
-			} 
-			display.set('visible', false);
+			}
+			effectDisplays[i].set('visible', false);
 		}
 	}	
 	
