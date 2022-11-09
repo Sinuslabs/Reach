@@ -1,19 +1,26 @@
 namespace Reverb {
 	
-	
 	reg JPVerb;
 	
+	Content.getComponent("displayButton_reverb_bypass").setControlCallback(ondisplayButton_reverb_bypassControl);
+	const var effectDisplay_Reverb = Content.getComponent("effectDisplay-Reverb");
+	
 	// Reverb
+	const var themeablePanel_reverb = Content.getComponent("themeablePanel_reverb");
+	const var themeablePanel_modulation = Content.getComponent("themeablePanel_modulation");
+	const var themeablePanel_cleanup = Content.getComponent("themeablePanel_cleanup");
+	
 	const var knob_reverb_space = Content.getComponent("knob_reverb_space");
 	const var knob_reverb_diffusion = Content.getComponent("knob_reverb_diffusion");
 	const var knob_reverb_damping = Content.getComponent("knob_reverb_damping");
 	const var knob_reverb_time = Content.getComponent("knob_reverb_time");
-	
+	const var knob_reverb_mix = Content.getComponent("knob_reverb_mix");
 	
 	knob_reverb_space.setControlCallback(sizeControl);
 	knob_reverb_diffusion.setControlCallback(diffusionControl);
 	knob_reverb_damping.setControlCallback(dampingControl);
 	knob_reverb_time.setControlCallback(timeControl);
+	knob_reverb_mix.setControlCallback(onknob_reverb_mixControl);
 	
 	// Modulation
 	Content.getComponent("knob_modulation_depth").setControlCallback(depthControl);
@@ -30,12 +37,18 @@ namespace Reverb {
 	Content.getComponent("displayKnob_reverb_midgain").setControlCallback(disMidgainControl);
 	Content.getComponent("displayKnob_reverb_hfgain").setControlCallback(disHFgainControl);
 	
-	
     displayKnob_reverb_damping.setControlCallback(disDampingControl);
     displayKnob_reverb_diffusion.setControlCallback(disDiffusionControl);
     displayKnob_reverb_reverbTime.setControlCallback(disReverbTimeControl);
     displayKnob_reverb_size.setControlCallback(disSizeControl);
-	
+    
+    inline function ondisplayButton_reverb_bypassControl(component, value) {
+		JPVerb.setBypassed(!value);
+		effectDisplay_Reverb.set('enabled', value);
+		themeablePanel_reverb.set('enabled', value);
+		themeablePanel_modulation.set('enabled', value);
+		themeablePanel_cleanup.set('enabled', value);
+    };
 	
 	inline function sizeControl(component, value) {
 		
@@ -108,6 +121,10 @@ namespace Reverb {
 		
 		ReverbAnimation.setSpeed(component.getValueNormalized());
 		ReverbAnimation.AnimationPanel.repaintImmediately();
+	};
+	
+	inline function onknob_reverb_mixControl(component, value) {
+		JPVerb.setAttribute(JPVerb.Mix, value);
 	};
 	
 	// Display Callbacks
