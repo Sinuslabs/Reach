@@ -270,6 +270,11 @@ namespace EffectCustomizer {
 			if (obj.suffix == ' ms') {
 				text = Engine.doubleToString(obj.value / 1000, 2) + ' s';
 			}
+			if (obj.suffix == ' Hz') {
+				if (obj.value > 1000) {
+					text = Engine.doubleToString(obj.value / 1000, 1) + 'khz';
+				}
+			}
 		}
 		
 		var a = obj.area;
@@ -311,8 +316,10 @@ namespace EffectCustomizer {
 		g.setColour(ARC_COLOUR);	
 		g.drawPath(arcPath, pathArea, stableSize * arcThickness );
 		
-		g.setFont(Fonts.secondaryFont, 22);
-		g.drawAlignedText(text, [ka[0], ka[1] + ka[3] * 0.9, ka[2], ka[3]], 'centred');
+
+		
+		g.setFont(Fonts.secondaryFont, 31);
+		g.drawAlignedText(text, [a[0], ka[1] + ka[3] * 0.9, a[2], ka[3]], 'centred');
 		
 		g.rotate(end, [a[2] / 2 , a[2] / 2 ]);
 		g.setColour(INDICATOR_COLOUR);
