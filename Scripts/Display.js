@@ -11,6 +11,7 @@ screenTimer.setTimerCallback(showMainScreen);
 inline function showMainScreen() {
 	// stop animation timers
 	ReverbAnimation.stopTimer();
+	ChorusAnimations.stopTimer();
 	
 	showMain();	
 	screenTimer.stopTimer();
@@ -32,6 +33,7 @@ function showTempScreen(route) {
 	
 	// Wiggle Animations
 	ReverbAnimation.startTimer();
+	ChorusAnimations.startTimer();
 		
 	screenTimer.startTimer(1500);
 	displayShowMain(route);
