@@ -1,7 +1,6 @@
 namespace UserSettings {
 
 	reg enableAnimations = true;
-	reg filterOnDrag = true;
 	reg theme = 'Light';
 	
 	// Logo Click
@@ -105,15 +104,6 @@ namespace UserSettings {
 		UserSettings.saveSettings();
 	};
 	
-	// Filter on Drag
-	const var button_filterOnDrag = Content.getComponent("button_filterOnDrag");
-	button_filterOnDrag.setControlCallback(onbutton_filterOnDragControl);
-	inline function onbutton_filterOnDragControl(component, value)
-	{
-		UserSettings.filterOnDrag = !value;
-		UserSettings.saveSettings();
-	};
-	
 	// Activate Button
 	Content.getComponent("button_activate").setControlCallback(onbutton_activateControl);
 	const var label_serial_key = Content.getComponent("label_serial_key");
@@ -171,18 +161,19 @@ namespace UserSettings {
 		settingsFile.writeObject({
 			'zoom': Settings.getZoomLevel(),
 			'animationEnabled': UserSettings.enableAnimations,
-			'filterOnDrag': UserSettings.filterOnDrag,
 			'theme': UserSettings.theme
 		});
 	}
 	
 	// reads the settings file
 	function loadSettings() {
+		
+		
+	
 		var savedSettings = settingsFile.loadAsObject();
 		var savedTheme = savedSettings['theme'];
 		var zoomSaved = Engine.doubleToString(savedSettings['zoom'], 1);
 		var animationEnabledSaved = savedSettings['animationEnabled'];
-		var filterOnDragSaved = savedSettings['filterOnDrag'];
 		
 		// zoom level
 		Settings.setZoomLevel(zoomSaved);
@@ -205,12 +196,6 @@ namespace UserSettings {
 		button_animationToggle.setValue(!animationEnabledSaved);
 		// STATE is using normal values tho
 		UserSettings.enableAnimations = animationEnabledSaved;
-		
-		// filter on drag
-		// Toggle buttons are using reversed value to display on by default
-		button_filterOnDrag.setValue(!filterOnDragSaved);
-		// STATE is using normal values tho
-		UserSettings.filterOnDrag = filterOnDragSaved;
 	}
 	
 	// checks if the settings file exist
