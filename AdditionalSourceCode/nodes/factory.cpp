@@ -15,11 +15,14 @@ struct Factory: public scriptnode::dll::StaticLibraryHostFactory
 		TempoSyncer::initTempoData();
 		// Node registrations -------------------------------------------------------------------
 		
+		registerPolyNode<project::Flanger<1>, project::Flanger<NUM_POLYPHONIC_VOICES>>();
 		registerPolyNode<project::FaustReverb<1>, project::FaustReverb<NUM_POLYPHONIC_VOICES>>();
+		registerPolyNode<project::Distortion<1>, project::Distortion<NUM_POLYPHONIC_VOICES>>();
+		registerNode<project::Chorus2>();
 		registerPolyNode<project::Degrade<1>, wrap::illegal_poly<project::Degrade<1>>>();
-		registerNode<project::Flair>();
+		registerPolyNode<project::Flair<1>, wrap::illegal_poly<project::Flair<1>>>();
 		registerPolyNode<project::Reverb<1>, wrap::illegal_poly<project::Reverb<1>>>();
-		registerDataNode<project::NoiseGen_networkdata>();
+		registerPolyNode<project::Waveshaper<1>, wrap::illegal_poly<project::Waveshaper<1>>>();
 	}
 };
 }

@@ -43,6 +43,10 @@ const LIGHT_THEME = {
 		SELECTED_ICON_COLOUR: '0xffffff',
 		ICON_COLOUR: '0xAAAAAA',
 		NOT_ACTIVATED_COLOUR: '0xFF0000',
+		SELECTED_TAB_COLOUR: '0xFFFFFF',
+		TAB_COLOUR: '0x5A5857',
+		SELECTED_TAB_TEXT_COLOUR: '0x000000',
+		TAB_TEXT_COLOUR: '0xD9D9D9'
 	},
 	HEADER: {
 		SELECTED_ICON_COLOUR: '0xA3A3A3',
@@ -98,6 +102,10 @@ const DARK_THEME = {
 		SELECTED_ICON_COLOUR: '0xffffff',
 		ICON_COLOUR: '0xAAAAAA',
 		NOT_ACTIVATED_COLOUR: '0xFF0000',
+		SELECTED_TAB_COLOUR: '0xFFFFFF',
+		TAB_COLOUR: '0x5A5857',
+		SELECTED_TAB_TEXT_COLOUR: '0x000000',
+		TAB_TEXT_COLOUR: '0xD9D9D9'
 	},
 	HEADER: {
 		SELECTED_ICON_COLOUR: '0xA3A3A3',
@@ -244,6 +252,10 @@ namespace DisplayTheme {
 	reg selectedIconColour = '';
 	reg iconColour = '';
 	reg notActivatedColour = '';
+	reg selectedTabColour = '';
+	reg tabColour = '';
+	reg selectedTabTextColour = '';
+	reg tabTextColour = '';
 	
 	inline function load(theme) {
 		buttonSelectedBackgroundColour = theme['BUTTON_SELECTED_BACKGROUND_COLOUR'];
@@ -255,5 +267,9 @@ namespace DisplayTheme {
 		selectedIconColour = theme['SELECTED_ICON_COLOUR'];
 		iconColour = theme['ICON_COLOUR'];
 		notActivatedColour = theme['NOT_ACTIVATED_COLOUR'];
+		selectedTabColour = theme['SELECTED_TAB_COLOUR'];
+		tabColour = theme['TAB_COLOUR'];
+		selectedTabTextColour = theme['SELECTED_TAB_TEXT_COLOUR'];
+		tabTextColour = theme['TAB_TEXT_COLOUR'];
 	}
 }

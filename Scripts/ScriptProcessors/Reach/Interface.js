@@ -1,18 +1,21 @@
 include("Paths.js");
 include("Handler.js");
+include("Helpers.js");
 include("Reverb.js");
 include("Effects.js");
 include("Filter.js");
 include("Settings.js");
 include("Config.js");
+include("EffectCustomizer.js");
 include("Router.js");
 include("LookAndFeel.js");
-include("Helpers.js");
 include("Server.js");
 include("Display.js");
 include("ReverbAnimation.js");
 include("DegradeAnimation.js");
 include("FlairAnimation.js");
+include("ChorusAnimation.js");
+include("DistortionAnimation.js");
 include("VuMeter.js");
 include("Theme.js");
 
@@ -27,10 +30,9 @@ Globals.parameter = 'NONE';
 Globals.freezeMode = false;
 Globals.activated = false;
 Globals.presetBrowserOpen = false;
-Globals.filterOpen = false;
 Globals.settingsOpen = false;
-Globals.currentBandIndex = 0;
-Globals.currentBandFilterType = 'LOWPASS';
+Globals.effectsOpen = false;
+Globals.aboutOpen = false;
 
 // Loading Settings
 if (settingsExist()) {
@@ -57,14 +59,17 @@ label_thank_you.set('visible', Globals.activated);
 
 // Main Screen
 const MainDisplayTimer = Engine.createTimerObject();
-MainDisplayTimer.setTimerCallback(showMain);
+MainDisplayTimer.setTimerCallback(showMainOnInit);
 MainDisplayTimer.startTimer(30);
 
-inline function showMain() {
+inline function showMainOnInit() {
 
-	displayShowMain('default');
+	showMain();
 	panel_non_activated.set('visible', !Globals.activated);
 	panel_non_activated.repaint();
+	
+	// DEBUG
+	//displayShow('effects');
 	
 	MainDisplayTimer.stopTimer();
 }
@@ -93,7 +98,11 @@ const var TimeoutCounter = 10000;
 		GainReductionTimer.startTimer(1000);		
 	} else {
 		GainReduction.setBypassed(true);
-}function onNoteOn()
+}
+
+
+
+function onNoteOn()
 {
 	
 }
