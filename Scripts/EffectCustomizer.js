@@ -176,9 +176,30 @@ namespace EffectCustomizer {
 		local TAB_COLOUR = DisplayTheme.tabColour;
 		local SELECTED_TAB_TEXT_COLOUR = DisplayTheme.selectedTabTextColour;
 		local TAB_TEXT_COLOUR = DisplayTheme.tabTextColour;
+		
+		local text = this.get('text');
+		
 		g.setColour(TAB_COLOUR);
 		if (value) {
-			g.setColour(SELECTED_TAB_COLOUR);
+			switch(text) {
+			  case 'Reverb':
+			    g.setColour(Colours.lightblue);
+			    break;
+			  case 'Degrade':
+			    g.setColour(Colours.whitesmoke);
+			    break;
+			  case 'Chorus':
+			    g.setColour(Colours.lightgreen);
+			    break;
+			  case 'Distort':
+			    g.setColour(Colours.lightcoral);
+			    break;
+			  case 'Flanger':
+			    g.setColour(Colours.lightpink);
+			    break;
+			  default:
+	   			g.setColour(SELECTED_TAB_COLOUR);
+			}
 		}
 		g.fillRoundedRectangle(a, 5);
 		value ? g.setColour(SELECTED_TAB_TEXT_COLOUR) : g.setColour(TAB_TEXT_COLOUR);
@@ -190,7 +211,7 @@ namespace EffectCustomizer {
 			a[3],
 		];
 		g.setFont(Fonts.secondaryFont, 30.0);	
-		g.drawAlignedText(this.get('text'), textArea, 'left');
+		g.drawAlignedText(text, textArea, 'left');
 		
 		local dragDotArea = [
 			a[2] - DOT_PADDING * 3,
