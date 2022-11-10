@@ -1,5 +1,7 @@
 namespace Filter {
 	
+	const var preFilter = Content.getComponent("preFilter");
+	const var postFilter = Content.getComponent("postFilter");
 	
 	const var panel_effectCustomizer = Content.getComponent("panel_effectCustomizer");
 	const var panel_filters = Content.getComponent("panel_filters");
@@ -48,12 +50,6 @@ namespace Filter {
 			panel_effectCustomizer.set('visible', false);
 			prePostButtons[0].set('visible', true);
 			prePostButtons[1].set('visible', true);
-			
-			// select one if none is selected
-			for (btn in prePostButtons) {
-				if (btn.getValue() == 1) radioPrePost(btn);
-			}
-			
 		} else {
 			panel_filters.set('visible', false);
 			panel_effectCustomizer.set('visible', true);			
@@ -62,6 +58,66 @@ namespace Filter {
 		}
 	};
 	
+	
+	const var preFilterLaf = Content.createLocalLookAndFeel();
+
+	
+	Filter.preFilterLaf.registerFunction("drawFilterDragHandle", function(g, obj) {	
+		var SIZE = 26;
+		var area = [obj.handle[0], obj.handle[1], SIZE, SIZE];
+		
+		g.setColour(0XFFFFFFFF);
+		g.fillEllipse(area);
+		
+		g.setColour(0XFF000000);
+		g.drawEllipse(area, 2);
+		
+		g.setFont(Fonts.secondaryFont, 28); 
+		g.drawAlignedText(obj.index, area, "centred");
+	});
+	
+	preFilterLaf.registerFunction("drawFilterPath", function(g, obj){
+		var a = obj.area;
+		
+		g.setGradientFill([Colours.blue, 0.0, 0.0,
+						   Colours.lightblue, 768.0, 280.0,
+						   false]);
+		g.drawPath(obj.path, obj.pathArea, 4);
+		g.setOpacity(0.7);
+		g.fillPath(obj.path, obj.pathArea);
+	});
+	
+	preFilter.setLocalLookAndFeel(preFilterLaf);
+	
+	const var postFilterLaf = Content.createLocalLookAndFeel();
+	
+	
+	postFilterLaf.registerFunction("drawFilterDragHandle", function(g, obj) {	
+		var SIZE = 26;
+		var area = [obj.handle[0], obj.handle[1], SIZE, SIZE];
+		
+		g.setColour(0XFFFFFFFF);
+		g.fillEllipse(area);
+		
+		g.setColour(0XFF000000);
+		g.drawEllipse(area, 2);
+		
+		g.setFont(Fonts.secondaryFont, 28); 
+		g.drawAlignedText(obj.index, area, "centred");
+	});
+	
+	postFilterLaf.registerFunction("drawFilterPath", function(g, obj){
+		var a = obj.area;
+		
+		g.setGradientFill([Colours.red, 0.0, 0.0,
+						   Colours.lightcoral, 768.0, 280.0,
+						   false]);
+		g.drawPath(obj.path, obj.pathArea, 4);
+		g.setOpacity(0.7);
+		g.fillPath(obj.path, obj.pathArea);
+	});
+	
+	postFilter.setLocalLookAndFeel(postFilterLaf);
 
 }
 

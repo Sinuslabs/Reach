@@ -30,6 +30,7 @@ namespace ReverbAnimation {
 	reg zoom = 1;
 	reg amplitude = 1;
 	reg wiggleSpeed = 1;
+	reg opacity = 0;
 	
 	inline function setoutterThickness(amount) { outterThickness = OUTTER_THICKNESS_MULTIPLIER * amount; }
 	inline function setInnerThickness(amount) { innerThickness = INNER_THICKNESS_MULTIPLIER * amount; }
@@ -38,6 +39,7 @@ namespace ReverbAnimation {
 	inline function setZoom(amount) { zoom = 1 - (amount * -1) * ZOOM_AMOUNT; }
 	inline function setAmplitude(amount) { amplitude = AMPLITUDE * amount; }
 	inline function setSpeed(amount) { wiggleSpeed = WIGGLE_SPEED * amount; }
+	inline function setOpacity(amount) { opacity = amount; }
 	
 	inline function startTimer() {
 		reverbAnimationTimer.isTimerRunning() ?
@@ -79,6 +81,7 @@ namespace ReverbAnimation {
 		
 	    g.setColour(DisplayTheme.buttonSelectedBackgroundColour);
 	    
+   		g.setOpacity(opacity);
 	    if (outterThickness >= 0.1) {
 	    	g.drawEllipse(pa, outterThickness);		    
 	    }

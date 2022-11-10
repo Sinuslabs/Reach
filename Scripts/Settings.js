@@ -69,6 +69,14 @@ namespace UserSettings {
 		displayShowSettings('about');
 	};
 	
+	function settingsButtonsRadio(idx) {
+		for (var i=0; i<settingsButtons.length; i++) {
+			settingsButtons[i].setValue(0);
+		}
+		settingsButtons[idx].setValue(1);
+	}
+	
+	
 	// General Settings
 	
 	// Zoom factor	

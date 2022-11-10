@@ -252,7 +252,7 @@ namespace EffectCustomizer {
 			Filter.prePostButtons[0].set('visible', false);
 			Filter.prePostButtons[1].set('visible', false);
 			Filter.button_filter.setValue(0);
-			
+			Console.print('show fx');
 			Globals.effectsOpen = true;
 			for (tab in effectTabs) {
 				if (tab.getValue() == 1) {
