@@ -4,12 +4,12 @@ const var logoButton = Content.getComponent('button_logo');
 logoButton.setControlCallback(onbutton_logoControl);
 inline function onbutton_logoControl(component, value) { 
 	if (value) {
-		settingsButtonsRadio(0);
+		UserSettings.settingsButtonsRadio(0);
 		displayShowSettings('general');
 		Globals.settingsOpen = true;
 	} else {
 		Globals.settingsOpen = false;
-		displayShowMain('default');
+		showMain();
 	}
 };
 
@@ -23,28 +23,28 @@ const var settingsButtons = [
 settingsButtons[0].setControlCallback(onbutton_settings_generalControl);
  inline function onbutton_settings_generalControl(component, value)
  {
- 	settingsButtonsRadio(0);
+ 	UserSettings.settingsButtonsRadio(0);
  	displayShowSettings('general');
  };
  
  settingsButtons[1].setControlCallback(onbutton_settings_audioControl);
   inline function onbutton_settings_audioControl(component, value)
   {
-  	settingsButtonsRadio(1);
+  	UserSettings.settingsButtonsRadio(1);
   	displayShowSettings('audio');
   };
 
  settingsButtons[2].setControlCallback(onbutton_settings_activateControl);
  inline function onbutton_settings_activateControl(component, value)
  {
- 	settingsButtonsRadio(2);
+ 	UserSettings.settingsButtonsRadio(2);
  	displayShowSettings('activate');
  };
 
 settingsButtons[3].setControlCallback(onbutton_settings_aboutControl);
 inline function onbutton_settings_aboutControl(component, value)
 {
-	settingsButtonsRadio(3);
+	UserSettings.settingsButtonsRadio(3);
 	displayShowSettings('about');
 };
 
@@ -97,15 +97,6 @@ inline function onbutton_animationToggleControl(component, value)
 	UserSettings.saveSettings();
 };
 
-// Filter on Drag
-const var button_filterOnDrag = Content.getComponent("button_filterOnDrag");
-button_filterOnDrag.setControlCallback(onbutton_filterOnDragControl);
-inline function onbutton_filterOnDragControl(component, value)
-{
-	UserSettings.filterOnDrag = !value;
-	UserSettings.saveSettings();
-};
-
 // Activate Button
 Content.getComponent("button_activate").setControlCallback(onbutton_activateControl);
 const var label_serial_key = Content.getComponent("label_serial_key");
@@ -145,10 +136,10 @@ const var button_title = Content.getComponent("button_title");
 button_title.setControlCallback(onbutton_titleControl);
 inline function onbutton_titleControl(component, value)
 {
-	if (CURRENT_ROUTE != 'about') {
+	if (value) {
 		displayShow('about');
 	} else {
-		displayShowMain('default');
+		showMain();
 	}
 };
 
@@ -158,13 +149,10 @@ presetBrowserButton.setControlCallback(onbutton_presetBrowserControl);
 inline function onbutton_presetBrowserControl(component, value)
 {
 	if (value) {
-		Globals.presetBrowserOpen = true;
-		Globals.filterOpen = false;
-		Filter.button_showFilter.setValue(0);
 		displayShow('presetBrowser');
 	} else {
 		Globals.presetBrowserOpen = false;
-		displayShowMain('default');
+		showMain();
 	}
 };
 
@@ -190,16 +178,25 @@ presetBrowserWatcher.addListener("RefreshFunction", "Delays the closing of the P
 	}
 });
 
-Content.getComponent("Button1").setControlCallback(onButton1Control);
-inline function onButton1Control(component, value)
+Content.getComponent("onPresetLoad").setControlCallback(onPresetLoad);
+inline function onPresetLoad(component, value)
 {
-	// reset band to band 1; 
-	Globals.currentBandIndex = 0;
+	Console.print('onload');
+	
+	// Dynamically get the effects
+	Effects.Flanger = getHardcodedEffect('Flanger');
+	Effects.Degrade = getHardcodedEffect('Degrade');
+	Effects.Chorus = getHardcodedEffect('Chorus');
+	Effects.Distortion = getHardcodedEffect('Distort');
+	Reverb.JPVerb = getHardcodedEffect('Reverb');
+
 	if (Engine.getCurrentUserPresetName() == '') {
-		presetBrowserButton.set('text', 'Blackhole');
+		presetBrowserButton.set('text', 'Tunnel vision');
 	} else {
 		presetBrowserButton.set('text', Engine.getCurrentUserPresetName());
 	}
+	
+	EffectCustomizer.init();	
 };
 
 const var button_preset_leftArrow = Content.getComponent("button_preset_leftArrow");
@@ -223,9 +220,9 @@ panel_background.setKeyPressCallback(onBackgroundKeypress);
 inline function onBackgroundKeypress(key) {
 	
 	// CTRL + , -> Settings
-	if (key.cmd == true && key.keyCode == 44) CURRENT_ROUTE == 'account' ?  displayShowMain('default') : displayShow('account');
+	if (key.cmd == true && key.keyCode == 44) CURRENT_ROUTE == 'account' ?  showMain() : displayShow('account');
 	// ESC -> main Screen
-	if (key.keyCode == 27) displayShowMain('default');
+	if (key.keyCode == 27) showMain();
 }
 
 // Website
@@ -243,37 +240,11 @@ inline function onButton3Control(component, value)
 };
 
 // X Button
-Content.getComponent("button_x1").setControlCallback(onbutton_x1Control);
-Content.getComponent("button_x3").setControlCallback(onbutton_closePreset_Control);;
+Content.getComponent("button_x1").setControlCallback(onButtonX);
+Content.getComponent("button_x2").setControlCallback(onButtonX);
+Content.getComponent("button_x3").setControlCallback(onButtonX);
 
-inline function onbutton_closePreset_Control(component, value)
-{
-	
-	Globals.presetBrowserOpen = false;
-	presetBrowserButton.setValue(false);
-	showMain();
-};
-
-inline function onbutton_x4Control(component, value)
-{
-	showMain();
-};
-
-Content.getComponent("button_x4").setControlCallback(onbutton_x4Control);
-
-Content.getComponent("button_x2").setControlCallback(onbutton_x2Control);
-inline function onbutton_x2Control(component, value)
-{
-	
-	disableStates();
-	Globals.settingsOpen = false;
-	displayShowMain('default');
-};
-
-inline function onbutton_x1Control(component, value)
-{
-	showMain();
-};
+inline function onButtonX(component, value) { showMain(); }
 
 // MASTER
 const var Gain = Synth.getEffect("Simple Gain4");
@@ -282,7 +253,7 @@ inline function onknob_io_inControl(component, value)
 {
 	
 	Gain.setAttribute('Gain', value);
-	updateParameterWithDb('Input Gain', Math.floor(value * 100) / 100);
+	updateParameterWithLabel('Gain', value / 100, 'dB');
 };
 
 const var DryGain = Synth.getEffect("DryGain");

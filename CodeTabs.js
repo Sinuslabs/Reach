@@ -1,0 +1,10 @@
+[
+  "Filter.js",
+  "Handler.js",
+  "Reverb.js",
+  "Display.js",
+  "Handler.js",
+  "Router.js",
+  "ReverbAnimation.js",
+  "DegradeAnimation.js"
+]
