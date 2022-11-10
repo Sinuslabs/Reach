@@ -12,55 +12,55 @@
             <Control type="ScriptSlider" id="header_vumeter_ch1" value="-0.11"/>
             <Control type="ScriptSlider" id="header_vumeter_ch2" value="-0.11"/>
             <Control type="ScriptButton" id="onPresetLoad" value="0.0"/>
-            <Control type="ScriptSlider" id="knob_reverb_space" value="0.0"/>
-            <Control type="ScriptSlider" id="knob_reverb_diffusion" value="0.0"/>
-            <Control type="ScriptSlider" id="knob_reverb_damping" value="0.0"/>
-            <Control type="ScriptSlider" id="knob_reverb_mix" value="0.0"/>
-            <Control type="ScriptSlider" id="knob_reverb_time" value="0.0"/>
-            <Control type="ScriptSlider" id="knob_cleanup_low" value="0.0"/>
-            <Control type="ScriptSlider" id="knob_cleanup_high" value="0.0"/>
+            <Control type="ScriptSlider" id="knob_reverb_space" value="2.910000085830688"/>
+            <Control type="ScriptSlider" id="knob_reverb_diffusion" value="1.0"/>
+            <Control type="ScriptSlider" id="knob_reverb_damping" value="0.009999999776482582"/>
+            <Control type="ScriptSlider" id="knob_reverb_mix" value="0.1000000014901161"/>
+            <Control type="ScriptSlider" id="knob_reverb_time" value="8.789999961853027"/>
+            <Control type="ScriptSlider" id="knob_cleanup_low" value="1.0"/>
+            <Control type="ScriptSlider" id="knob_cleanup_high" value="1.0"/>
             <Control type="ScriptSlider" id="knob_modulation_depth" value="0.0"/>
             <Control type="ScriptSlider" id="knob_modulation_frequency" value="0.0"/>
-            <Control type="ScriptSlider" id="knob_effects_distortion" value="0.6399999856948853"/>
-            <Control type="ScriptSlider" id="knob_effects_degrade" value="0.0"/>
+            <Control type="ScriptSlider" id="knob_effects_distortion" value="0.0"/>
+            <Control type="ScriptSlider" id="knob_effects_degrade" value="0.8100000023841858"/>
             <Control type="ScriptSlider" id="knob_effects_flair" value="0.6600000262260437"/>
-            <Control type="ScriptSlider" id="knob_effects_chorus" value="0.4300000071525574"/>
-            <Control type="ScriptSlider" id="knob_io_in" value="5.800001621246338"/>
+            <Control type="ScriptSlider" id="knob_effects_chorus" value="1.0"/>
+            <Control type="ScriptSlider" id="knob_io_in" value="0.0"/>
             <Control type="ScriptSlider" id="knob_io_out" value="0.449999988079071"/>
             <Control type="ScriptButton" id="button_not_activated" value="0.0"/>
-            <Control type="ScriptPanel" id="panel_effectTab1" value="1"/>
+            <Control type="ScriptPanel" id="panel_effectTab1" value="0"/>
             <Control type="ScriptPanel" id="panel_effectTab3" value="0"/>
             <Control type="ScriptPanel" id="panel_effectTab4" value="0"/>
-            <Control type="ScriptPanel" id="panel_effectTab5" value="0"/>
-            <Control type="ScriptSlider" id="displayKnob_reverb_diffusion" value="0.0"/>
-            <Control type="ScriptSlider" id="displayKnob_reverb_hfgain" value="0.0"/>
-            <Control type="ScriptSlider" id="displayKnob_reverb_highcrossover" value="0.0"/>
-            <Control type="ScriptSlider" id="displayKnob_reverb_lowGain" value="0.0"/>
-            <Control type="ScriptSlider" id="displayKnob_reverb_lowcrossover" value="0.0"/>
-            <Control type="ScriptSlider" id="displayKnob_reverb_midgain" value="0.0"/>
-            <Control type="ScriptSlider" id="displayKnob_reverb_reverbTime" value="0.0"/>
-            <Control type="ScriptSlider" id="displayKnob_reverb_size" value="0.0"/>
-            <Control type="ScriptSlider" id="displayKnob_reverb_damping" value="0.0"/>
+            <Control type="ScriptPanel" id="panel_effectTab5" value="1"/>
+            <Control type="ScriptSlider" id="displayKnob_reverb_diffusion" value="1.0"/>
+            <Control type="ScriptSlider" id="displayKnob_reverb_hfgain" value="1.0"/>
+            <Control type="ScriptSlider" id="displayKnob_reverb_highcrossover" value="3129.0"/>
+            <Control type="ScriptSlider" id="displayKnob_reverb_lowGain" value="1.0"/>
+            <Control type="ScriptSlider" id="displayKnob_reverb_lowcrossover" value="1003.0"/>
+            <Control type="ScriptSlider" id="displayKnob_reverb_midgain" value="1.0"/>
+            <Control type="ScriptSlider" id="displayKnob_reverb_reverbTime" value="8.789999961853027"/>
+            <Control type="ScriptSlider" id="displayKnob_reverb_size" value="2.910000085830688"/>
+            <Control type="ScriptSlider" id="displayKnob_reverb_damping" value="0.009999999776482582"/>
             <Control type="ScriptButton" id="displayButton_reverb_bypass" value="1.0"/>
-            <Control type="ScriptSlider" id="displayKnob_degrade_highcut" value="0.0"/>
-            <Control type="ScriptSlider" id="displayKnob_degrade_lowcut" value="0.0"/>
+            <Control type="ScriptSlider" id="displayKnob_degrade_highcut" value="17079.0"/>
+            <Control type="ScriptSlider" id="displayKnob_degrade_lowcut" value="25.0"/>
             <Control type="ScriptSlider" id="displayKnob_degrade_depth" value="0.0"/>
             <Control type="ScriptSlider" id="displayKnob_degrade_frequency" value="0.0"/>
-            <Control type="ScriptSlider" id="displayKnob_degrade_amount" value="0.0"/>
+            <Control type="ScriptSlider" id="displayKnob_degrade_amount" value="64.0"/>
             <Control type="ScriptButton" id="displayButton_degrade_bypass" value="1.0"/>
-            <Control type="ScriptSlider" id="displayKnob_flanger_speed" value="0.0"/>
-            <Control type="ScriptSlider" id="displayKnob_flanger_depth" value="0.0"/>
-            <Control type="ScriptSlider" id="displayKnob_flanger_feedback" value="0.0"/>
-            <Control type="ScriptSlider" id="displayKnob_flanger_delay" value="0.0"/>
-            <Control type="ScriptSlider" id="displayKnob_flanger_offset" value="0.0"/>
+            <Control type="ScriptSlider" id="displayKnob_flanger_speed" value="0.699999988079071"/>
+            <Control type="ScriptSlider" id="displayKnob_flanger_depth" value="1.0"/>
+            <Control type="ScriptSlider" id="displayKnob_flanger_feedback" value="0.75"/>
+            <Control type="ScriptSlider" id="displayKnob_flanger_delay" value="0.4300000071525574"/>
+            <Control type="ScriptSlider" id="displayKnob_flanger_offset" value="0.3300000131130219"/>
             <Control type="ScriptButton" id="displayButton_flanger_bypass" value="1.0"/>
             <Control type="ScriptSlider" id="displayKnob_distort_amount" value="0.0"/>
             <Control type="ScriptSlider" id="displayKnob_distort_gain" value="0.0"/>
             <Control type="ScriptButton" id="displayButton_distort_bypass" value="1.0"/>
-            <Control type="ScriptSlider" id="displayKnob_chorus_Delay" value="0.0"/>
-            <Control type="ScriptSlider" id="displayKnob_chorus_depth" value="0.0"/>
-            <Control type="ScriptSlider" id="displayKnob_chorus_feedback" value="0.0"/>
-            <Control type="ScriptSlider" id="displayKnob_chorus_rate" value="0.0"/>
+            <Control type="ScriptSlider" id="displayKnob_chorus_Delay" value="0.7699999809265137"/>
+            <Control type="ScriptSlider" id="displayKnob_chorus_depth" value="0.3700000047683716"/>
+            <Control type="ScriptSlider" id="displayKnob_chorus_feedback" value="0.6100000143051147"/>
+            <Control type="ScriptSlider" id="displayKnob_chorus_rate" value="0.5799999833106995"/>
             <Control type="ScriptButton" id="displayButton_chorus_bypass" value="1.0"/>
             <Control type="ScriptButton" id="button_website" value="0.0"/>
             <Control type="ScriptButton" id="button_github" value="0.0"/>
@@ -112,10 +112,10 @@
         <Processor Type="SlotFX" ID="Effect Slot1" Bypassed="0">
           <ChildProcessors>
             <Processor Type="Hardcoded Master FX" ID="Effect Slot1_Hardcoded Master FX"
-                       Bypassed="0" Network="Reverb" Reverb="1.0" Damping="0.0" Diffusion="0.0"
-                       HFGain="0.0" HighCrossover="0.0" LFGain="0.0" LowCrossover="0.0"
-                       MidGain="0.0" ModDepth="0.0" ModFrequency="0.0" ReverbTime="0.0"
-                       Size="0.0" Mix="0.0">
+                       Bypassed="0" Network="Reverb" Reverb="1.0" Damping="0.009999999776482582"
+                       Diffusion="1.0" HFGain="1.0" HighCrossover="3129.0" LFGain="1.0"
+                       LowCrossover="1003.0" MidGain="1.0" ModDepth="0.0" ModFrequency="0.0"
+                       ReverbTime="8.789999961853027" Size="2.910000085830688" Mix="0.1000000014901161">
               <ChildProcessors/>
               <RoutingMatrix NumSourceChannels="2" Channel0="0" Send0="-1" Channel1="1" Send1="-1"/>
             </Processor>
@@ -126,8 +126,9 @@
         <Processor Type="SlotFX" ID="Effect Slot2" Bypassed="0">
           <ChildProcessors>
             <Processor Type="Hardcoded Master FX" ID="Effect Slot2_Hardcoded Master FX"
-                       Bypassed="0" Network="Degrade" Degrade="1.0" Mix="0.0" HighCut="0.0"
-                       LowCut="0.0" ModulationDepth="0.0" ModulationSpeed="0.0" Amount="0.0">
+                       Bypassed="0" Network="Degrade" Degrade="1.0" Mix="0.8100000023841858"
+                       HighCut="17079.0" LowCut="25.0" ModulationDepth="0.0" ModulationSpeed="0.0"
+                       Amount="64.0">
               <ChildProcessors/>
               <RoutingMatrix NumSourceChannels="2" Channel0="0" Send0="-1" Channel1="1" Send1="-1"/>
             </Processor>
@@ -138,8 +139,9 @@
         <Processor Type="SlotFX" ID="Effect Slot3" Bypassed="0">
           <ChildProcessors>
             <Processor Type="Hardcoded Master FX" ID="Effect Slot3_Hardcoded Master FX"
-                       Bypassed="0" Network="Flair" Flanger="1.0" Speed="0.0" Depth="0.0"
-                       Feedback="0.0" Delay="0.0" Offset="0.0" Mix="0.6600000262260437">
+                       Bypassed="0" Network="Chorus2" Chorus="1.0" CentreDelay="0.7699999809265137"
+                       Depth="0.3700000047683716" Feedback="0.6100000143051147" Rate="0.5799999833106995"
+                       Mix="1.0">
               <ChildProcessors/>
               <RoutingMatrix NumSourceChannels="2" Channel0="0" Send0="-1" Channel1="1" Send1="-1"/>
             </Processor>
@@ -150,8 +152,9 @@
         <Processor Type="SlotFX" ID="Effect Slot4" Bypassed="0">
           <ChildProcessors>
             <Processor Type="Hardcoded Master FX" ID="Effect Slot4_Hardcoded Master FX"
-                       Bypassed="0" Network="Waveshaper" Distort="1.0" Mix="0.6399999856948853"
-                       Amount="0.0" Gain="0.0">
+                       Bypassed="0" Network="Flair" Flanger="1.0" Speed="0.699999988079071"
+                       Depth="1.0" Feedback="0.75" Delay="0.4300000071525574" Offset="0.3300000131130219"
+                       Mix="0.6600000262260437">
               <ChildProcessors/>
               <RoutingMatrix NumSourceChannels="2" Channel0="0" Send0="-1" Channel1="1" Send1="-1"/>
             </Processor>
@@ -162,8 +165,8 @@
         <Processor Type="SlotFX" ID="Effect Slot5" Bypassed="0">
           <ChildProcessors>
             <Processor Type="Hardcoded Master FX" ID="Effect Slot5_Hardcoded Master FX"
-                       Bypassed="0" Network="Chorus2" Chorus="1.0" CentreDelay="0.0"
-                       Depth="0.0" Feedback="0.0" Rate="0.0" Mix="0.4300000071525574">
+                       Bypassed="0" Network="Waveshaper" Distort="1.0" Mix="0.0" Amount="0.0"
+                       Gain="0.0">
               <ChildProcessors/>
               <RoutingMatrix NumSourceChannels="2" Channel0="0" Send0="-1" Channel1="1" Send1="-1"/>
             </Processor>
@@ -203,8 +206,8 @@
           <RoutingMatrix NumSourceChannels="4" Channel0="0" Send0="-1" Channel1="1" Send1="-1"
                          Channel2="-1" Send2="0" Channel3="-1" Send3="1"/>
         </Processor>
-        <Processor Type="SimpleGain" ID="Simple Gain4" Bypassed="0" Gain="5.800001621246338"
-                   Delay="0.0" Width="100.0" Balance="0.0" InvertPolarity="0.0">
+        <Processor Type="SimpleGain" ID="Simple Gain4" Bypassed="0" Gain="0.0" Delay="0.0"
+                   Width="100.0" Balance="0.0" InvertPolarity="0.0">
           <ChildProcessors>
             <Processor Type="ModulatorChain" ID="Gain Modulation" Bypassed="0" Intensity="1.0">
               <ChildProcessors/>
@@ -228,7 +231,7 @@
           <RoutingMatrix NumSourceChannels="4" Channel0="0" Send0="-1" Channel1="1" Send1="-1"
                          Channel2="-1" Send2="2" Channel3="-1" Send3="3"/>
         </Processor>
-        <Processor Type="SimpleGain" ID="Simple Gain5" Bypassed="1" Gain="-4.389999866485596"
+        <Processor Type="SimpleGain" ID="Simple Gain5" Bypassed="0" Gain="-4.389999866485596"
                    Delay="0.0" Width="100.0" Balance="0.0" InvertPolarity="0.0">
           <ChildProcessors>
             <Processor Type="ModulatorChain" ID="Gain Modulation" Bypassed="0" Intensity="1.0">

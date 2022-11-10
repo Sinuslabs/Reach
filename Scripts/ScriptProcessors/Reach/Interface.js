@@ -14,6 +14,8 @@ include("Display.js");
 include("ReverbAnimation.js");
 include("DegradeAnimation.js");
 include("FlairAnimation.js");
+include("ChorusAnimation.js");
+include("DistortionAnimation.js");
 include("VuMeter.js");
 include("Theme.js");
 
@@ -96,7 +98,11 @@ const var TimeoutCounter = 10000;
 		GainReductionTimer.startTimer(1000);		
 	} else {
 		GainReduction.setBypassed(true);
-}function onNoteOn()
+}
+
+
+
+function onNoteOn()
 {
 	
 }

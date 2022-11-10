@@ -1,11 +1,10 @@
 [
   "Filter.js",
   "Handler.js",
-  "Effects.js",
+  "Reverb.js",
   "Display.js",
   "Handler.js",
   "Router.js",
-  "EffectCustomizer.js",
-  "Reverb.js",
-  "Reverb.js"
+  "ReverbAnimation.js",
+  "DegradeAnimation.js"
 ]
