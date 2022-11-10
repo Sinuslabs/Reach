@@ -1,9 +1,22 @@
+reg decimal = 2;
+
 function updateParameterWithLabel(parameterName, value, label) {
 	
-	if (label != 'Hz') {
-		value = value * 100;
+	
+	if (label == 's') {
+		if (value < 1) {
+			label = 'ms';
+			value *= 100;
+			decimal = 0;
+		}	
+		value = Engine.doubleToString(value, decimal);
+	} else {
+		value = Math.round(parseInt(value * 100));
 	}
-	Globals.displayParameter = parameterName + ' | ' + Math.round(parseInt(value)) + label;
+	
+	
+	
+	Globals.displayParameter = parameterName + ' | ' + value + label;
 	updateDisplay();
 }
 

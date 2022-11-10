@@ -163,7 +163,6 @@ namespace Effects {
 	
 	const var knob_effects_distortion = Content.getComponent("knob_effects_distortion");
 	knob_effects_distortion.setControlCallback(onknob_effects_distortionControl);	
-	Content.getComponent("displayKnob_distort_gain").setControlCallback(ondisplayKnob_distort_gainControl);	
 	Content.getComponent("displayKnob_distort_amount").setControlCallback(ondisplayKnob_distort_amountControl);
 	
 	inline function onknob_effects_distortionControl(component, value) {
@@ -186,8 +185,5 @@ namespace Effects {
 	inline function ondisplayKnob_distort_amountControl(component, value) {
 		Distortion.setAttribute(Distortion.Amount, value);
 	};
-	
-	inline function ondisplayKnob_distort_gainControl(component, value) {
-		Distortion.setAttribute(Distortion.Gain, value);
-	};
+
 }

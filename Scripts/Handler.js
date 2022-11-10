@@ -191,7 +191,7 @@ inline function onPresetLoad(component, value)
 	Reverb.JPVerb = getHardcodedEffect('Reverb');
 
 	if (Engine.getCurrentUserPresetName() == '') {
-		presetBrowserButton.set('text', 'Blackhole');
+		presetBrowserButton.set('text', 'Tunnel vision');
 	} else {
 		presetBrowserButton.set('text', Engine.getCurrentUserPresetName());
 	}

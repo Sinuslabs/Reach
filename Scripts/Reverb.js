@@ -58,7 +58,6 @@ namespace Reverb {
     };
 	
 	inline function sizeControl(component, value) {
-		
 		JPVerb.setAttribute(JPVerb.Size, value);
 		
 		displayKnob_reverb_size.setValue(value);
@@ -71,7 +70,6 @@ namespace Reverb {
 	};
 	
 	inline function diffusionControl(component, value) {
-		
 		JPVerb.setAttribute(JPVerb.Diffusion, value);
 		displayKnob_reverb_diffusion.setValue(value);
 		
@@ -83,7 +81,6 @@ namespace Reverb {
 	};
 	
 	inline function dampingControl(component, value) {
-	
 		JPVerb.setAttribute(JPVerb.Damping, value);
 		displayKnob_reverb_damping.setValue(value);
 		
@@ -95,13 +92,11 @@ namespace Reverb {
 	};
 	
 	inline function timeControl(component, value) {
-		
 		JPVerb.setAttribute(JPVerb.ReverbTime, value);
 		displayKnob_reverb_reverbTime.setValue(value);
 		
 		updateParameterWithLabel('TIME', value, 's');
 		showTempScreen('reverb');
-		
 		
 		ReverbAnimation.setZoom(component.getValueNormalized());
 		ReverbAnimation.AnimationPanel.repaintImmediately();
@@ -128,9 +123,13 @@ namespace Reverb {
 	};
 	
 	inline function onknob_reverb_mixControl(component, value) {
-		updateParameterWithLabel('MIX', value, '%');
-	
 		JPVerb.setAttribute(JPVerb.Mix, value);
+		
+		updateParameterWithLabel('MIX', value, '%');
+		showTempScreen('reverb');
+
+		ReverbAnimation.setOpacity(value);
+		ReverbAnimation.AnimationPanel.repaintImmediately();
 	};
 	
 	inline function onknob_cleanup_lowControl(component, value) {
@@ -150,46 +149,37 @@ namespace Reverb {
 		knob_reverb_damping.setValue(value);
 	};
 	
-	
 	inline function disDiffusionControl(component, value) {
 		JPVerb.setAttribute(JPVerb.Diffusion, value);
 		knob_reverb_diffusion.setValue(value);
 	};
-	
 	
 	inline function disReverbTimeControl(component, value) {
 		JPVerb.setAttribute(JPVerb.ReverbTime, value);
 		knob_reverb_time.setValue(value);
 	};
 	
-	
 	inline function disSizeControl(component, value) {
 		JPVerb.setAttribute(JPVerb.Size, value);
 		knob_reverb_space.setValue(value);
 	};
 	
-	
 	inline function disLowcrossoverControl(component, value) {
 		JPVerb.setAttribute(JPVerb.LowCrossover, value);
 	};
 	
-	
 	inline function disHighcrossoverControl(component, value) {
 		JPVerb.setAttribute(JPVerb.HighCrossover, value);
 	};
-	
 	
 	inline function disLowGainControl(component, value) {
 		JPVerb.setAttribute(JPVerb.LFGain, value);
 		knob_cleanup_low.setValue(value);
 	};
 	
-	
 	inline function disMidgainControl(component, value) {
 		JPVerb.setAttribute(JPVerb.MidGain, value);
 	};
-	
-	
 	
 	inline function disHFgainControl(component, value) {
 		JPVerb.setAttribute(JPVerb.HFGain, value);
