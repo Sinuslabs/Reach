@@ -1,1 +1,0 @@
-const AUTH_KEY = '';

@@ -9,17 +9,17 @@
 
 // Include third party header files ----------------
 
-#include "Distortion.h"
 #include "FaustReverb.h"
+#include "Distortion.h"
 #include "Flanger.h"
 
 // Include compiled network files ------------------
 
-#include "Chorus2.h"
-#include "Degrade.h"
-#include "Flair.h"
 #include "Reverb.h"
 #include "Waveshaper.h"
+#include "Flair.h"
+#include "Chorus2.h"
+#include "Degrade.h"
 
 #if (defined (_WIN32) || defined (_WIN64))
 #pragma warning( pop )

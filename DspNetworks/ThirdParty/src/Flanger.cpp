@@ -2,7 +2,7 @@
 author: "JOS, revised by RM"
 name: "flanger"
 version: "0.0"
-Code generated with Faust 2.50.6 (https://faust.grame.fr)
+Code generated with Faust 2.52.6 (https://faust.grame.fr)
 Compilation options: -lang cpp -rui -cn _Flanger -scn ::faust::dsp -es 1 -mcd 16 -uim -single -ftz 0
 ------------------------------------------------------------ */
 
