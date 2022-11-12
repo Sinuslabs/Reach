@@ -112,18 +112,6 @@ namespace UserSettings {
 		UserSettings.saveSettings();
 	};
 	
-	// Activate Button
-	Content.getComponent("button_activate").setControlCallback(onbutton_activateControl);
-	const var label_serial_key = Content.getComponent("label_serial_key");
-	var userKey;
-	inline function onbutton_activateControl(component, value)
-	{
-		if (value == 1.0) {
-		 	userKey = label_serial_key.get('text');		
-			activateLicense(userKey);
-		}
-	};
-	
 	// Buy Reach Button
 	Content.getComponent("button_buy_reach").setControlCallback(onbutton_buy_reachControl);
 	inline function onbutton_buy_reachControl(component, value)

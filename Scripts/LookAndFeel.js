@@ -56,7 +56,6 @@ laf.registerFunction('drawToggleButton', function(g, obj) {
 	var a = obj.area;
 	
 	if (obj.text.indexOf('displayButton-') != -1) {
-		
 		obj.text = obj.text.replace('displayButton-');
 		
 		var BUTTON_SELECTED_BACKGROUND_COLOUR = DisplayTheme.buttonSelectedBackgroundColour;
@@ -167,6 +166,33 @@ laf.registerFunction('drawToggleButton', function(g, obj) {
 		}
 	}
 });
+
+const asyncButtonLaf = Content.createLocalLookAndFeel();
+asyncButtonLaf.registerFunction('drawToggleButton', function(g, obj) {
+	var a = obj.area;
+	
+	obj.text = obj.text.replace('displayButton-');
+	
+	var BUTTON_SELECTED_BACKGROUND_COLOUR = DisplayTheme.buttonSelectedBackgroundColour;
+	var BUTTON_BACKGROUND_COLOUR = DisplayTheme.buttonBackgroundColour;
+	var BUTTON_TEXT_COLOUR = DisplayTheme.buttonSelectedTextColour;
+	
+	var LOADING_INDICATOR_LENGTH = 30;
+	var LOADING_INDICATOR_THICKNESS = 5;
+	
+	if (obj.over) {
+		BUTTON_SELECTED_BACKGROUND_COLOUR = BUTTON_SELECTED_BACKGROUND_COLOUR.replace('0x', '0x' + DisplayTheme.hoverOpacity);
+		BUTTON_TEXT_COLOUR = BUTTON_TEXT_COLOUR.replace('0x', '0x' + DisplayTheme.hoverOpacity);
+	}
+	
+	g.setColour(BUTTON_SELECTED_BACKGROUND_COLOUR);
+	g.fillRoundedRectangle(a, 2);	
+
+	g.setColour(BUTTON_TEXT_COLOUR);
+	g.setFont(Fonts.secondaryFont, 32.0);
+	g.drawAlignedText(obj.text, a, 'centred');
+});
+button_active.setLocalLookAndFeel(asyncButtonLaf);
 
 // Preset Browser Button
 const presetBrowserButtonLAF = Content.createLocalLookAndFeel();
@@ -578,7 +604,6 @@ laf.registerFunction("drawPresetBrowserListItem", function(g, obj)
     g.drawAlignedText(obj.text, [5, a[1], a[2], a[3]], "left");
 });
 
-
 const popMenuLaf = Content.createLocalLookAndFeel();
 
 popMenuLaf.registerFunction("drawPopupMenuItem", function(g, obj)
@@ -602,8 +627,6 @@ popMenuLaf.registerFunction("drawPopupMenuItem", function(g, obj)
     g.setColour(Colours.white);
     g.drawAlignedText(obj.text, [a[0] + h, a[1], a[2] - h, a[3]], "left");
 });
-
-
 
 popMenuLaf.registerFunction("drawComboBox", function(g, obj)
 {

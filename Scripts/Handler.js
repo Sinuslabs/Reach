@@ -98,14 +98,17 @@ inline function onbutton_animationToggleControl(component, value)
 };
 
 // Activate Button
-Content.getComponent("button_activate").setControlCallback(onbutton_activateControl);
-const var label_serial_key = Content.getComponent("label_serial_key");
-var userKey;
-inline function onbutton_activateControl(component, value)
-{
-	if (value == 1.0) {
-	 	userKey = label_serial_key.get('text');		
-		activateLicense(userKey);
+const var button_active = Content.getComponent("button_activate")
+const var email = Content.getComponent("label_email");
+const var password = Content.getComponent("label_password");
+
+button_active.setControlCallback(onbutton_activateControl);
+inline function onbutton_activateControl(component, value) {
+	
+	if (value) {
+		local usermail = email.get('text');
+		local userpw = password.get('text');
+		API.activateLicense(usermail, userpw);
 	}
 };
 
