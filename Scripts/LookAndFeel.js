@@ -6,17 +6,17 @@ const var icon_panel_fullLogo = Content.getComponent('icon_panel_fullLogo');
 // custom Icons
 icon_panel_heart.setPaintRoutine(function(g) {
 	g.setColour('0xFF7A00');
-	g.fillPath(Paths.icons['heart'], [0, 0, 25, 25]);
+	g.fillPath(Paths.icons['heart'], [0, 0, 18, 18]);
 });
 
 icon_panel_logo.setPaintRoutine(function(g) {
 	g.setColour('0xffffff');
-	g.fillPath(Paths.icons['logo'], [0, 0, 75, 75]);
+	g.fillPath(Paths.icons['logo'], [0, 0, 48, 48]);
 });
 
 icon_panel_fullLogo.setPaintRoutine(function(g) {
 	g.setColour('0xffffff');
-	g.fillPath(Paths.icons['fullLogo'], [0, 0, 360, 40]);
+	g.fillPath(Paths.icons['fullLogo'], [0, 0, 220, 30]);
 });
 
 // LABELS
@@ -85,7 +85,7 @@ laf.registerFunction('drawToggleButton', function(g, obj) {
 			g.setColour(BUTTON_BACKGROUND_COLOUR);
 		}
 				
-		g.setFont(Fonts.secondaryFont, 32.0);
+		g.setFont(Fonts.secondaryFont, 19.0);
 		g.drawAlignedText(obj.text, a, 'centred');
 		return;
 	}
@@ -145,7 +145,7 @@ laf.registerFunction('drawToggleButton', function(g, obj) {
 		
 		g.setColour(SWITCH_COLOUR);
 		g.drawRect(a, switchBorder);
-		g.setFont(Fonts.secondaryFont, 26.0);
+		g.setFont(Fonts.secondaryFont, 18.0);
 		
 		if (!obj.value) {
 			g.fillRect([
@@ -189,7 +189,7 @@ asyncButtonLaf.registerFunction('drawToggleButton', function(g, obj) {
 	g.fillRoundedRectangle(a, 2);	
 
 	g.setColour(BUTTON_TEXT_COLOUR);
-	g.setFont(Fonts.secondaryFont, 32.0);
+	g.setFont(Fonts.secondaryFont, 19.0);
 	g.drawAlignedText(obj.text, a, 'centred');
 });
 button_active.setLocalLookAndFeel(asyncButtonLaf);
@@ -211,7 +211,7 @@ presetBrowserButtonLAF.registerFunction('drawToggleButton', function(g, obj) {
 		g.setColour(SELECTED_TEXT_COLOUR) :
 		g.setColour(TEXT_COLOUR);
 	
-	g.setFont(Fonts.mainFont, 26);
+	g.setFont(Fonts.mainFont, 16);
 	g.drawAlignedText(obj.text, a, 'left');
 });
 presetBrowserButton.setLocalLookAndFeel(presetBrowserButtonLAF);
@@ -257,7 +257,7 @@ headerTitleLAF.registerFunction('drawToggleButton', function(g, obj){
 		g.setColour(SELECTED_TEXT_COLOUR) :
 		g.setColour(TEXT_COLOUR);
 	
-	g.setFont(Fonts.mainFont, 60);
+	g.setFont(Fonts.mainFont, 36);
 	g.drawAlignedText(obj.text, a, 'left');
 });
 button_title.setLocalLookAndFeel(headerTitleLAF);
@@ -274,7 +274,7 @@ notActivatedLAF.registerFunction('drawToggleButton', function(g, obj){
 	
 	g.setColour(TEXT_COLOUR);
 	
-	g.setFont(Fonts.secondaryFont, 38);
+	g.setFont(Fonts.secondaryFont, 23.0);
 	g.drawAlignedText(obj.text, a, 'left');
 });
 
@@ -286,8 +286,8 @@ button_not_activated.setLocalLookAndFeel(notActivatedLAF);
 const DISABLED_OPACITY = 'CC';
 
 // ARC
-const ARC_THICKNESS = 3;
-const ARC_PADDING = 13;
+const ARC_THICKNESS = 2;
+const ARC_PADDING = 10;
 
 // INDICATOR
 const INDICATOR_THICKNESS = 5;
@@ -297,7 +297,7 @@ const INDICATOR_GAP = 8;
 
 // MAIN BODY
 
-const BORDER = 2;
+const BORDER = 2 ;
 
 // SHADOW
 const SHADOW_RADIUS = 10;
@@ -311,7 +311,7 @@ const GLOW_AMOUNT = 3;
 laf.registerFunction("drawRotarySlider", function(g, obj){
 	
 	// Padding
-	var PADDING = 10;
+	var PADDING = 6;
 	
 	// Colours
 	var ARC_COLOUR = SliderTheme.arcColour;
@@ -338,7 +338,7 @@ laf.registerFunction("drawRotarySlider", function(g, obj){
 	}
 	
 	if (obj.text == 'red' || obj.text == 'blue') {
-		PADDING = 22;
+		PADDING = 13;
 	}
 	
 	var a = obj.area;
@@ -522,7 +522,7 @@ laf.registerFunction("drawPresetBrowserDialog", function(g, obj)
    g.fillRoundedRectangle(pa, 5.0);
    g.setColour(Colours.white);
    g.drawRoundedRectangle(pa, 5, 2);
-   g.setFont(Fonts.secondaryFont, 32.0);
+   g.setFont(Fonts.secondaryFont, 28.0);
    obj.text = obj.text.replace('Are you sure you want to replace the file', 'Replace');
    obj.text = obj.text.replace('Are you sure you want to delete the file ?', 'Delete Preset?');
    g.drawAlignedText(obj.text, [pa[0], pa[1] + PADDING, pa[2], pa[3]], "centredTop");
@@ -531,8 +531,8 @@ laf.registerFunction("drawPresetBrowserDialog", function(g, obj)
 
 laf.registerFunction("drawDialogButton", function(g, obj){	
 
-	var WIDTH = 20;
-	var PADDING = 2;
+	var WIDTH = 12;
+	var PADDING = 5;
 	var a = obj.area;
 	var pa = [
 		(a[2] / 2 - WIDTH / 2) + PADDING,
@@ -549,12 +549,12 @@ laf.registerFunction("drawDialogButton", function(g, obj){
 	g.setColour(ICON_COLOUR);
 	
 	if (obj.text == 'More') {
-		g.drawPath(Paths.icons['menu'], pa, 3);
+		g.drawPath(Paths.icons['menu'], pa, 2);
 		return;
 	}
 	
 	if (obj.text == 'Add') {
-		g.drawPath(Paths.icons['add'], pa, 3);
+		g.drawPath(Paths.icons['add'], pa, 2);
 		return;
 	}
 	
@@ -569,8 +569,8 @@ laf.registerFunction("drawDialogButton", function(g, obj){
 	}
 	
 	if (obj.text == 'Save Preset') {
-		g.drawPath(Paths.icons['save'], [a[0], pa[1], 20, pa[3]], 2);
-		g.setFont(Fonts.secondaryFont, 32.0);
+		g.drawPath(Paths.icons['save'], [a[0], pa[1], 14, pa[3]], 2);
+		g.setFont(Fonts.secondaryFont, 19.0);
 		g.drawAlignedText('SAVE', [30, a[1], a[2], a[3]], 'left');
 		return;
 	}
@@ -600,7 +600,7 @@ laf.registerFunction("drawPresetBrowserListItem", function(g, obj)
     	g.setColour(obj.textColour);	    
     }
    
-   	g.setFont(Fonts.secondaryFont, 32.0);
+   	g.setFont(Fonts.secondaryFont, 19.0);
     g.drawAlignedText(obj.text, [5, a[1], a[2], a[3]], "left");
 });
 
@@ -623,7 +623,7 @@ popMenuLaf.registerFunction("drawPopupMenuItem", function(g, obj)
         g.fillRect(obj.area);
     }
     
-    g.setFont(Fonts.secondaryFont, 38.0);
+    g.setFont(Fonts.secondaryFont, 23.0);
     g.setColour(Colours.white);
     g.drawAlignedText(obj.text, [a[0] + h, a[1], a[2] - h, a[3]], "left");
 });
@@ -635,14 +635,14 @@ popMenuLaf.registerFunction("drawComboBox", function(g, obj)
     g.setColour(obj.bgColour);
     g.fillRoundedRectangle([a[0], a[1], a[2], a[3]], 2.0);
     g.setColour(Colours.withAlpha(obj.textColour, (obj.enabled && obj.active) ? 1.0 : 0.2));
-    g.setFont(Fonts.secondaryFont, 36.0);
+    g.setFont(Fonts.secondaryFont, 26.0);
    
     g.drawAlignedText(obj.text, [a[0] + 30, a[1], a[2]-10, a[3]], "left");
     var h = a[3];
     g.fillTriangle([a[0] + a[2] - h/3 - 10, a[1] + h/3, h/3, h/3], Math.PI);
 });
 
-popMenuLaf.registerFunction("getIdealPopupMenuItemSize", function(obj) { return 60; });
+popMenuLaf.registerFunction("getIdealPopupMenuItemSize", function(obj) { return 36; });
 
 comboBox_zoom.setLocalLookAndFeel(popMenuLaf);
 comboBox_theme.setLocalLookAndFeel(popMenuLaf);

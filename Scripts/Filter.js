@@ -1,5 +1,9 @@
 namespace Filter {
 	
+	Engine.addModuleStateToUserPreset('preFilter');
+	Engine.addModuleStateToUserPreset('postFilter');
+
+	
 	const var preFilter = Content.getComponent("preFilter");
 	const var postFilter = Content.getComponent("postFilter");
 	
@@ -63,7 +67,7 @@ namespace Filter {
 
 	
 	Filter.preFilterLaf.registerFunction("drawFilterDragHandle", function(g, obj) {	
-		var SIZE = 26;
+		var SIZE = 20;
 		var area = [obj.handle[0], obj.handle[1], SIZE, SIZE];
 		
 		g.setColour(0XFFFFFFFF);
@@ -72,7 +76,7 @@ namespace Filter {
 		g.setColour(0XFF000000);
 		g.drawEllipse(area, 2);
 		
-		g.setFont(Fonts.secondaryFont, 28); 
+		g.setFont(Fonts.secondaryFont, 17); 
 		g.drawAlignedText(obj.index, area, "centred");
 	});
 	
@@ -93,7 +97,7 @@ namespace Filter {
 	
 	
 	postFilterLaf.registerFunction("drawFilterDragHandle", function(g, obj) {	
-		var SIZE = 26;
+		var SIZE = 20;
 		var area = [obj.handle[0], obj.handle[1], SIZE, SIZE];
 		
 		g.setColour(0XFFFFFFFF);
@@ -102,7 +106,7 @@ namespace Filter {
 		g.setColour(0XFF000000);
 		g.drawEllipse(area, 2);
 		
-		g.setFont(Fonts.secondaryFont, 28); 
+		g.setFont(Fonts.secondaryFont, 17); 
 		g.drawAlignedText(obj.index, area, "centred");
 	});
 	
