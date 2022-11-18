@@ -222,8 +222,6 @@ const var panel_background = Content.getComponent("panel_background");
 panel_background.setKeyPressCallback(onBackgroundKeypress);
 inline function onBackgroundKeypress(key) {
 	
-	// CTRL + , -> Settings
-	if (key.cmd == true && key.keyCode == 44) CURRENT_ROUTE == 'account' ?  showMain() : displayShow('account');
 	// ESC -> main Screen
 	if (key.keyCode == 27) showMain();
 }

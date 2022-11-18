@@ -157,12 +157,12 @@ namespace EffectCustomizer {
 		effectSlots[slot1].swap(effectSlots[slot2]);
 	}
 	
-	const TAB_PADDING = 5;
-	const TEXT_PADDING = 10;
-	const DOT_PADDING = 8;
+	const TAB_PADDING = 3;
+	const TEXT_PADDING = 6;
+	const DOT_PADDING = 5;
 	// size for all 6 dots not individual one
-	const DOTS_WIDTH = 10;
-	const DOTS_HEIGHT = 18;	
+	const DOTS_WIDTH = 6;
+	const DOTS_HEIGHT = 11;	
 	inline function tabRoutine(g) {
 		local a = [
 			0 + TAB_PADDING,
@@ -210,7 +210,7 @@ namespace EffectCustomizer {
 			a[2],
 			a[3],
 		];
-		g.setFont(Fonts.secondaryFont, 30.0);	
+		g.setFont(Fonts.secondaryFont, 18.0);	
 		g.drawAlignedText(text, textArea, 'left');
 		
 		local dragDotArea = [
@@ -270,7 +270,7 @@ namespace EffectCustomizer {
 	displayKnobLaf.registerFunction("drawRotarySlider", function(g, obj){
 		
 		// Padding
-		var PADDING = 10;
+		var PADDING = 6;
 		// Colours
 		var ARC_COLOUR = DisplayTheme.textColour;
 		var INDICATOR_COLOUR = DisplayTheme.textColour;
@@ -309,7 +309,7 @@ namespace EffectCustomizer {
 		g.setColour(BORDER_COLOUR);
 	
 		
-		g.drawEllipse(ka, 5);
+		g.drawEllipse(ka, 3);
 		
 		var arcPath = Content.createPath();
 		
@@ -339,7 +339,7 @@ namespace EffectCustomizer {
 		
 
 		
-		g.setFont(Fonts.secondaryFont, 31);
+		g.setFont(Fonts.secondaryFont, 18);
 		g.drawAlignedText(text, [a[0], ka[1] + ka[3] * 0.9, a[2], ka[3]], 'centred');
 		
 		g.rotate(end, [a[2] / 2 , a[2] / 2 ]);

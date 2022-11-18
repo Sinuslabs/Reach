@@ -48,7 +48,6 @@
     <Control type="ScriptSlider" id="displayKnob_flanger_offset" value="0.0"/>
     <Control type="ScriptButton" id="displayButton_flanger_bypass" value="0.0"/>
     <Control type="ScriptSlider" id="displayKnob_distort_amount" value="0.0"/>
-    <Control type="ScriptSlider" id="displayKnob_distort_gain" value="0.0"/>
     <Control type="ScriptButton" id="displayButton_distort_bypass" value="0.0"/>
     <Control type="ScriptSlider" id="displayKnob_chorus_Delay" value="0.0"/>
     <Control type="ScriptSlider" id="displayKnob_chorus_depth" value="0.0"/>
@@ -59,6 +58,23 @@
     <Control type="ScriptButton" id="button_github" value="0.0"/>
   </Content>
   <Modules>
+    <Processor Type="CurveEq" ID="preFilter" Bypassed="0" NumFilters="1" Band0="9.566433906555176"
+               Band1="65.13794708251953" Band2="0.9807159304618835" Band3="1.0"
+               Band4="1.0" FFTEnabled="1">
+      <ChildProcessors/>
+      <RoutingMatrix NumSourceChannels="4" Channel0="0" Send0="-1" Channel1="1" Send1="-1"
+                     Channel2="-1" Send2="-1" Channel3="-1" Send3="-1"/>
+    </Processor>
+    <Processor Type="CurveEq" ID="postFilter" Bypassed="0" NumFilters="3" Band0="13.9300708770752"
+               Band1="2650.3857421875" Band2="0.7692307829856873" Band3="1.0"
+               Band4="4.0" Band5="-18.12587356567383" Band6="176.96728515625"
+               Band7="2.856100082397461" Band8="1.0" Band9="4.0" Band10="12.75524520874023"
+               Band11="57.04475021362305" Band12="1.0" Band13="1.0" Band14="4.0"
+               FFTEnabled="1">
+      <ChildProcessors/>
+      <RoutingMatrix NumSourceChannels="4" Channel0="-1" Send0="-1" Channel1="-1"
+                     Send1="-1" Channel2="2" Send2="-1" Channel3="3" Send3="-1"/>
+    </Processor>
     <Processor Type="SlotFX" ID="Effect Slot1" Bypassed="0">
       <ChildProcessors>
         <Processor Type="Hardcoded Master FX" ID="Effect Slot1_Hardcoded Master FX"

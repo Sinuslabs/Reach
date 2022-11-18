@@ -5,7 +5,6 @@ include("Reverb.js");
 include("Effects.js");
 include("Filter.js");
 include("Settings.js");
-include("Config.js");
 include("EffectCustomizer.js");
 include("Router.js");
 include("LookAndFeel.js");
@@ -19,11 +18,24 @@ include("DistortionAnimation.js");
 include("VuMeter.js");
 include("Theme.js");
 
-Content.makeFrontInterface(1900, 860);
+Content.makeFrontInterface(1134, 516);
 
 Engine.loadFontAs("{PROJECT_FOLDER}Fonts/SpaceMono-Regular.ttf", "space");
 Engine.loadFontAs("{PROJECT_FOLDER}Fonts/Inter-SemiBold.ttf", "inter-semi");
 Engine.setGlobalFont("inter-semi");
+
+// Rescale Interface
+const var allComponents = Content.getAllComponents('.*');
+//for (component in allComponents) {
+//	var x = component.get('x') * 0.6;
+//	var y = component.get('y') * 0.6;
+//	var width = component.getWidth() * 0.6;
+//	var height = component.getHeight() * 0.6;
+//	component.set('x', x);
+//	component.set('y', y);
+//	component.set('width', width);
+//	component.set('height', height);
+//}
 
 // Setting Global State
 Globals.parameter = 'NONE';
@@ -74,20 +86,21 @@ inline function showMainOnInit() {
 	MainDisplayTimer.stopTimer();
 }
 
+Console.print(!Globals.activated);
+
 const var GainReduction = Synth.getEffect("Simple Gain5");
 const var GainReductionTimer = Engine.createTimerObject();
-const var TimeoutCounter = 10000;
+const var TimeoutCounter = 15000;
 
 	var TimeoutCurrent = 0;
 	
-	GainReductionTimer.setTimerCallback(function()
-	{
+	GainReductionTimer.setTimerCallback(function() {
 	    TimeoutCurrent += 1000;
 	    
 	    if (TimeoutCurrent == TimeoutCounter) {
 	      TimeoutCurrent = 0;  
 	    }
-	    if (TimeoutCurrent > 7000) {
+	    if (TimeoutCurrent > 13000) {
 	       GainReduction.setBypassed(false);
 	    } else {
 	        GainReduction.setBypassed(true);

@@ -1,4 +1,5 @@
 [
+  "Handler.js",
   "Filter.js",
   "Handler.js",
   "Reverb.js",
