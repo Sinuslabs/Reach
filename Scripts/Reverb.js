@@ -135,12 +135,14 @@ namespace Reverb {
 	inline function onknob_cleanup_lowControl(component, value) {
 		JPVerb.setAttribute(JPVerb.LFGain, value);
 		displayKnob_reverb_lowGain.setValue(value);
-	
+		
+		updateParameterWithLabel('REVERBERATION LOW', value, '%');	
 	};
 	
 	inline function onknob_cleanup_highControl(component, value) {
 		JPVerb.setAttribute(JPVerb.HFGain, value);
 		displayKnob_reverb_hfgain.setValue(value);
+		updateParameterWithLabel('REVERBERATION HIGH', value, '%');	
 	};
 	
 	// Display Callbacks

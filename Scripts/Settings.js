@@ -86,6 +86,11 @@ namespace UserSettings {
 	comboBox_zoom.setControlCallback(onComboBox_zoomControl);
 	inline function onComboBox_zoomControl(component, value)
 	{
+
+		if (value == 13.0) {
+			return;
+		}
+
 		Settings.setZoomLevel(zoomFactors[value - 1]);
 		UserSettings.saveSettings();
 	};

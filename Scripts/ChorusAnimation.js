@@ -9,7 +9,7 @@ namespace ChorusAnimations {
 	// Settings
 	const PADDING = 10;
 	const SHIFT_MULTIPLIER = 30;
-	const AMPLITUDE = 100;
+	const AMPLITUDE = 60;
 	const REFRESH_SPEED = 30;
 	const WIGGLE_SPEED = 0.15;
 	
@@ -28,8 +28,6 @@ namespace ChorusAnimations {
 	}
 	
 	inline function stopTimer() {
-		Console.print('stop');
-	
 		chorusAnimationTimer.stopTimer();
 	}
 	
@@ -45,18 +43,20 @@ namespace ChorusAnimations {
 	inline function animationRoutine(g) {
 		
 		
-		local DOT_SIZE = 15;
+		local DOT_SIZE = 9;
 		
 		local a = [ this.getWidth() / 2, 20, DOT_SIZE, DOT_SIZE];
 		g.setColour(Colours.white);
 		
-		local swingAmount = [0.9, 1.6, 1, 1.2, 0.8, 1.4];
+		local swingAmount = [0.9, 1.6, 1, 1.2, 0.8, 1.4, 1.3];
 		
-		for (i=1; i<=dots; i++) {
-			
-			local swing = Math.sin(rotor * swingAmount[i-1]) * amplitude ;
-		
-			g.fillEllipse([a[0] + swing, a[1] + i * 30, a[2], a[3]]);			
+		for (i=0; i<=dots; i++) {
+			local shift = (i) * 18;
+			local swing = Math.sin(rotor * swingAmount[i]) * amplitude ;
+			//if (i==1) {
+			//	shift = 0;
+			//}
+			g.fillEllipse([a[0] + swing, a[1] + shift, a[2], a[3]]);			
 		}
 	};
 }

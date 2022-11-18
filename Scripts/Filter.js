@@ -86,7 +86,7 @@ namespace Filter {
 		g.setGradientFill([Colours.blue, 0.0, 0.0,
 						   Colours.lightblue, 768.0, 280.0,
 						   false]);
-		g.drawPath(obj.path, obj.pathArea, 4);
+		g.drawPath(obj.path, obj.pathArea, 2);
 		g.setOpacity(0.7);
 		g.fillPath(obj.path, obj.pathArea);
 	});
@@ -116,7 +116,7 @@ namespace Filter {
 		g.setGradientFill([Colours.red, 0.0, 0.0,
 						   Colours.lightcoral, 768.0, 280.0,
 						   false]);
-		g.drawPath(obj.path, obj.pathArea, 4);
+		g.drawPath(obj.path, obj.pathArea, 2);
 		g.setOpacity(0.7);
 		g.fillPath(obj.path, obj.pathArea);
 	});

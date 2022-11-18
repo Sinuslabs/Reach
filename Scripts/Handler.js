@@ -206,14 +206,19 @@ const var button_preset_leftArrow = Content.getComponent("button_preset_leftArro
 button_preset_leftArrow.setControlCallback(onbutton_preset_leftArrowControl);
 inline function onbutton_preset_leftArrowControl(component, value)
 {
-	Engine.loadPreviousUserPreset(false);
+	if (value) {
+		Engine.loadPreviousUserPreset(false);		
+	}
+
 };
 
 const var button_preset_rightArrow = Content.getComponent("button_preset_rightArrow");
 button_preset_rightArrow.setControlCallback(onbutton_preset_rightArrowControl);
 inline function onbutton_preset_rightArrowControl(component, value)
 {
-	Engine.loadNextUserPreset(false);
+	if (value) {
+		Engine.loadNextUserPreset(false);		
+	}
 };
 
 // SHORTCUT HANDLER

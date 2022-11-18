@@ -600,7 +600,7 @@ laf.registerFunction("drawPresetBrowserListItem", function(g, obj)
     	g.setColour(obj.textColour);	    
     }
    
-   	g.setFont(Fonts.secondaryFont, 19.0);
+   	g.setFont(Fonts.secondaryFont, 18.0);
     g.drawAlignedText(obj.text, [5, a[1], a[2], a[3]], "left");
 });
 
@@ -646,23 +646,3 @@ popMenuLaf.registerFunction("getIdealPopupMenuItemSize", function(obj) { return 
 
 comboBox_zoom.setLocalLookAndFeel(popMenuLaf);
 comboBox_theme.setLocalLookAndFeel(popMenuLaf);
-
-//const localLaf = Content.createLocalLookAndFeel();
-//localLaf.registerFunction("drawFilterDragHandle", function(g, obj)
-//{	
-//	var SIZE = 26;
-//	var area = [obj.handle[0], obj.handle[1], SIZE, SIZE];
-//	
-//	g.setColour(0XFFFFFFFF);
-//	g.fillEllipse(area);
-//	
-//	g.setColour(0XFF000000);
-//	g.drawEllipse(area, 2);
-//	
-//	g.setFont(Fonts.secondaryFont, 24); 
-//	g.drawAlignedText(obj.index, area, "centred");
-//});
-
-//const var EQ = Content.getComponent("tile_eq");
-//EQ.setLocalLookAndFeel(localLaf);
-

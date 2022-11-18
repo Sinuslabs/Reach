@@ -15,9 +15,9 @@ namespace ReverbAnimation {
 	const REFRESH_SPEED = 30;
 	
 	const RINGS_AMOUNT = 10;
-	const OUTTER_THICKNESS_MULTIPLIER = 10;
+	const OUTTER_THICKNESS_MULTIPLIER = 6;
 	const INNER_THICKNESS_MULTIPLIER = 0.2;
-	const ZOOM_AMOUNT = 2;
+	const ZOOM_AMOUNT = 0.5;
 	const RECT_THICKNESS_MULTIPLIER = 5;
 	const AMPLITUDE = 2;
 	const WIGGLE_SPEED = 0.5;

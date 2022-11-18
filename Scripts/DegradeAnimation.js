@@ -8,7 +8,7 @@ namespace DegradeAnimation {
 	reg rings = 10;
 	reg PADDING = 1;
 	reg borderRadius = 1;
-	reg thickness = 4;
+	reg thickness = 2;
 	reg zoom = 1;
 	
 	inline function setZoom(amount) { zoom = 1 - (amount * -1) * ZOOM_AMOUNT; }
