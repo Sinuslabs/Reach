@@ -60,7 +60,7 @@ namespace EffectCustomizer {
 	const SWAP_SENSITIVITY = 80;
 	
 	for (tab in effectTabs) {
-		tab.setDraggingBounds([0,0, 810, 50]);
+		tab.setDraggingBounds([0,0, 486, 30]);
 		reg currentSlot;
 		var wannaBeSlot;
 	    tab.setMouseCallback(function(e) {	
@@ -252,7 +252,6 @@ namespace EffectCustomizer {
 			Filter.prePostButtons[0].set('visible', false);
 			Filter.prePostButtons[1].set('visible', false);
 			Filter.button_filter.setValue(0);
-			Console.print('show fx');
 			Globals.effectsOpen = true;
 			for (tab in effectTabs) {
 				if (tab.getValue() == 1) {
@@ -289,7 +288,17 @@ namespace EffectCustomizer {
 			
 			text = obj.valueAsText;
 			if (obj.suffix == ' ms') {
-				text = Engine.doubleToString(obj.value / 1000, 2) + ' s';
+				reg label;
+				if (obj.value < 1.0) {
+					label = ' ms';
+					obj.value *= 100;
+					obj.value = Engine.doubleToString(obj.value * 10, 0);
+				} else {
+					label = ' s';
+					obj.value = Engine.doubleToString(obj.value, 2);
+				}
+			
+				text = obj.value + label;
 			}
 			if (obj.suffix == ' Hz') {
 				if (obj.value > 1000) {
@@ -336,8 +345,6 @@ namespace EffectCustomizer {
 		
 		g.setColour(ARC_COLOUR);	
 		g.drawPath(arcPath, pathArea, stableSize * arcThickness );
-		
-
 		
 		g.setFont(Fonts.secondaryFont, 18);
 		g.drawAlignedText(text, [a[0], ka[1] + ka[3] * 0.9, a[2], ka[3]], 'centred');
