@@ -194,7 +194,7 @@ inline function onPresetLoad(component, value)
 	Reverb.JPVerb = getHardcodedEffect('Reverb');
 
 	if (Engine.getCurrentUserPresetName() == '') {
-		presetBrowserButton.set('text', 'Tunnel vision');
+		presetBrowserButton.set('text', 'Standard');
 	} else {
 		presetBrowserButton.set('text', Engine.getCurrentUserPresetName());
 	}
@@ -238,12 +238,6 @@ inline function onpanel_githubControl(component, value)
 	if (value) Engine.openWebsite('https://sinuslabs.io/product/reach');
 };
 
-// Github
-Content.getComponent("button_github").setControlCallback(onButton3Control);
-inline function onButton3Control(component, value)
-{ 
-	if (value) Engine.openWebsite('https://github.com/Sinuslabs/Reach');
-};
 
 // X Button
 Content.getComponent("button_x1").setControlCallback(onButtonX);

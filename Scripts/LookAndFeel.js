@@ -510,8 +510,8 @@ laf.registerFunction("drawPresetBrowserSearchBar", function(g, obj){});
 laf.registerFunction("drawPresetBrowserDialog", function(g, obj)
 {
 	
-	var TOP_PADDING = 20;
-	var PADDING = 50;
+	var TOP_PADDING = 10;
+	var PADDING = 10;
 	var a = obj.area;
 	
 	var pa = [a[0] - PADDING, a[1] - PADDING, a[2] + PADDING * 2, a[3] + PADDING * 2];
@@ -574,8 +574,6 @@ laf.registerFunction("drawDialogButton", function(g, obj){
 		g.drawAlignedText('SAVE', [30, a[1], a[2], a[3]], 'left');
 		return;
 	}
-	
-	
 	g.setColour(ICON_COLOUR);
 	g.drawRoundedRectangle(a, 4, 2);
 	if (obj.over) {

@@ -15,7 +15,6 @@ namespace Filter {
 	const var filterAnalysers = [Content.getComponent("panel_preFilterAnalyser"),
 	                             Content.getComponent("panel_postFilterAnalyser")];
 	
-	
 	const var button_filter = Content.getComponent("button_filter");
 	
 	button_filter.setControlCallback(onbutton_filterControl);
@@ -54,6 +53,12 @@ namespace Filter {
 			panel_effectCustomizer.set('visible', false);
 			prePostButtons[0].set('visible', true);
 			prePostButtons[1].set('visible', true);
+			
+			// if both buttons are false choose post filter
+			local preValue = prePostButtons[0].getValue();
+			local postValue = prePostButtons[1].getValue();
+			if (!preValue && !postValue) radioPrePost(1);
+			
 		} else {
 			panel_filters.set('visible', false);
 			panel_effectCustomizer.set('visible', true);			

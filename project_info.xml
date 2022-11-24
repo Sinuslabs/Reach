@@ -15,7 +15,7 @@
   <ExtraDefinitionsWindows value="ENABLE_ALL_PEAK_METERS=1"/>
   <ExtraDefinitionsOSX value="ENABLE_ALL_PEAK_METERS=1"/>
   <ExtraDefinitionsIOS value="ENABLE_ALL_PEAK_METERS=1"/>
-  <ExtraDefinitionsLinux value="ENABLE_ALL_PEAK_METERS=1"/>
+  <ExtraDefinitionsLinux value="ENABLE_ALL_PEAK_METERS=1&#10;AUDIOFFT_FFTW3=1"/>
   <AppGroupID value=""/>
   <RedirectSampleFolder value=""/>
   <AAXCategoryFX value="AAX_ePlugInCategory_Modulation"/>
@@ -31,4 +31,6 @@
   <ForceStereoOutput value="No"/>
   <EnableMidiOut value="No"/>
   <AdminPermissions value="No"/>
+  <EmbedUserPresets value="Yes"/>
+  <EnableGlobalPreprocessor value="No"/>
 </ProjectSettings>

@@ -241,6 +241,17 @@ namespace EffectCustomizer {
 	    return undefined;
 	}
 	
+	// Main Screen
+	const EffectTabInitTimer = Engine.createTimerObject();
+	EffectTabInitTimer.setTimerCallback(showTabOnInit);
+
+	
+	inline function showTabOnInit() {
+		radioEffectBox(currenTab);
+		EffectTabInitTimer.stopTimer();
+	}
+	
+	var currenTab;
 	
 	inline function onbutton_fxControl(component, value) {
 		if (value) {
@@ -255,8 +266,13 @@ namespace EffectCustomizer {
 			Globals.effectsOpen = true;
 			for (tab in effectTabs) {
 				if (tab.getValue() == 1) {
-					radioEffectBox(tab);
+					currenTab = tab;	
+					EffectTabInitTimer.startTimer(30);
 				}
+			}
+			if (!isDefined(currenTab)) {
+				currenTab = effectTabs[1];
+				EffectTabInitTimer.startTimer(30);
 			}
 						
 		} else {
