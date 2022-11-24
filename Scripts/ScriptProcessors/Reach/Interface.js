@@ -38,8 +38,9 @@ Globals.aboutOpen = false;
 if (settingsExist()) {
 	UserSettings.loadSettings();
 } else {
-	Settings.setZoomLevel(0.6);
+	Settings.setZoomLevel(1);
 	comboBox_zoom.setValue(4.0);
+	Theme.setTheme('Light');
 }
 
 reg i;
