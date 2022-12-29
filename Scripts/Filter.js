@@ -8,12 +8,9 @@ namespace Filter {
 	const var postFilter = Content.getComponent("postFilter");
 	
 	const var panel_effectCustomizer = Content.getComponent("panel_effectCustomizer");
-	const var panel_filters = Content.getComponent("panel_filters");
 	const var prePostButtons = [Content.getComponent("button_filters_pre"),
 	                            Content.getComponent("button_filters_post")];
 	                            
-	const var filterAnalysers = [Content.getComponent("panel_preFilterAnalyser"),
-	                             Content.getComponent("panel_postFilterAnalyser")];
 	
 	const var button_filter = Content.getComponent("button_filter");
 	
@@ -23,21 +20,16 @@ namespace Filter {
 	
 	inline function onPreButton(component, value) {
 		radioPrePost(0);
-		show(0);
+		preFilter.set('visible', true);
+		postFilter.set('visible', false);
 	}
 	
 	inline function onPostButton(component, value) {
 		radioPrePost(1);
-		show(1);
+		preFilter.set('visible', false);
+		postFilter.set('visible', true);
 	}
 	
-	inline function show(index) {
-		for (filterPanels in filterAnalysers) {
-			filterPanels.set('visible', false);
-		}
-		filterAnalysers[index].set('visible', true);
-	}
-
 	// sets the provided button index value to 1 all other to 0
 	inline function radioPrePost(index) {
 		for (btn in prePostButtons) {
@@ -46,25 +38,8 @@ namespace Filter {
 		prePostButtons[index].setValue(1);
 	}	
 
-	inline function onbutton_filterControl(component, value)
-	{
-		if (value) {
-			panel_filters.set('visible', true);
-			panel_effectCustomizer.set('visible', false);
-			prePostButtons[0].set('visible', true);
-			prePostButtons[1].set('visible', true);
-			
-			// if both buttons are false choose post filter
-			local preValue = prePostButtons[0].getValue();
-			local postValue = prePostButtons[1].getValue();
-			if (!preValue && !postValue) radioPrePost(1);
-			
-		} else {
-			panel_filters.set('visible', false);
-			panel_effectCustomizer.set('visible', true);			
-			prePostButtons[0].set('visible', false);
-			prePostButtons[1].set('visible', false);
-		}
+	inline function onbutton_filterControl(component, value) {
+		value ? displayShow('filter') : showMain();
 	};
 	
 	
@@ -76,10 +51,10 @@ namespace Filter {
 		var area = [obj.handle[0], obj.handle[1], SIZE, SIZE];
 		
 		g.setColour(0XFFFFFFFF);
-		g.fillEllipse(area);
+		g.fillRoundedRectangle(area, 2);
 		
 		g.setColour(0XFF000000);
-		g.drawEllipse(area, 2);
+		g.drawRoundedRectangle(area, 2, 1);
 		
 		g.setFont(Fonts.secondaryFont, 17); 
 		g.drawAlignedText(obj.index, area, "centred");
@@ -88,11 +63,11 @@ namespace Filter {
 	preFilterLaf.registerFunction("drawFilterPath", function(g, obj){
 		var a = obj.area;
 		
-		g.setGradientFill([Colours.blue, 0.0, 0.0,
-						   Colours.lightblue, 768.0, 280.0,
+		g.setGradientFill(['0x4E65FF', 0.0, 0.0,
+						   '0x92EFFD', 768.0, 280.0,
 						   false]);
 		g.drawPath(obj.path, obj.pathArea, 2);
-		g.setOpacity(0.7);
+		g.setOpacity(0.9);
 		g.fillPath(obj.path, obj.pathArea);
 	});
 	
@@ -106,10 +81,10 @@ namespace Filter {
 		var area = [obj.handle[0], obj.handle[1], SIZE, SIZE];
 		
 		g.setColour(0XFFFFFFFF);
-		g.fillEllipse(area);
+		g.fillRoundedRectangle(area, 2);
 		
 		g.setColour(0XFF000000);
-		g.drawEllipse(area, 2);
+		g.drawRoundedRectangle(area, 2, 1);
 		
 		g.setFont(Fonts.secondaryFont, 17); 
 		g.drawAlignedText(obj.index, area, "centred");
@@ -118,11 +93,11 @@ namespace Filter {
 	postFilterLaf.registerFunction("drawFilterPath", function(g, obj){
 		var a = obj.area;
 		
-		g.setGradientFill([Colours.red, 0.0, 0.0,
-						   Colours.lightcoral, 768.0, 280.0,
+		g.setGradientFill(['0xDB3445', 0.0, 0.0,
+						   '0xFF3752', 768.0, 280.0,
 						   false]);
 		g.drawPath(obj.path, obj.pathArea, 2);
-		g.setOpacity(0.7);
+		g.setOpacity(0.9);
 		g.fillPath(obj.path, obj.pathArea);
 	});
 	

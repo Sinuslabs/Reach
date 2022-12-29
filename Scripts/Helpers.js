@@ -17,7 +17,6 @@ function updateParameterWithLabel(parameterName, value, label) {
 	
 	
 	Globals.displayParameter = parameterName + ' | ' + value + label;
-	updateDisplay();
 }
 
 function updateParameterWithDb(parameter, value) {
@@ -28,7 +27,6 @@ function updateParameterWithDb(parameter, value) {
 // each caller needs to handle conversion (used for filter multi value update);
 inline function customParameter(parameter) {
 	Globals.displayParameter = parameter;
-	updateDisplay();
 }
 
 inline function getHardcodedEffect(name) {
