@@ -1,6 +1,7 @@
 namespace UserSettings {
 
 	reg enableAnimations = true;
+	reg startupAnimation = true;
 	reg theme = 'Light';
 	
 	// Logo Click
@@ -36,7 +37,6 @@ namespace UserSettings {
 	
 	const var settingsButtons = [
 		Content.getComponent('button_settings_general'),
-		Content.getComponent('button_settings_audio'),
 		Content.getComponent('button_settings_activate'),
 		Content.getComponent('button_settings_about')
 	];
@@ -47,25 +47,19 @@ namespace UserSettings {
 	 	settingsButtonsRadio(0);
 	 	displayShowSettings('general');
 	 };
-	 
-	 settingsButtons[1].setControlCallback(onbutton_settings_audioControl);
-	  inline function onbutton_settings_audioControl(component, value)
-	  {
-	  	settingsButtonsRadio(1);
-	  	displayShowSettings('audio');
-	  };
 	
-	 settingsButtons[2].setControlCallback(onbutton_settings_activateControl);
+	 settingsButtons[1].setControlCallback(onbutton_settings_activateControl);
 	 inline function onbutton_settings_activateControl(component, value)
 	 {
-	 	settingsButtonsRadio(2);
+	 	settingsButtonsRadio(1);
 	 	displayShowSettings('activate');
 	 };
 	
-	settingsButtons[3].setControlCallback(onbutton_settings_aboutControl);
+	
+	settingsButtons[2].setControlCallback(onbutton_settings_aboutControl);
 	inline function onbutton_settings_aboutControl(component, value)
 	{
-		settingsButtonsRadio(3);
+		settingsButtonsRadio(2);
 		displayShowSettings('about');
 	};
 	
@@ -111,11 +105,19 @@ namespace UserSettings {
 	// Animations
 	const var button_animationToggle = Content.getComponent("button_animationToggle");
 	button_animationToggle.setControlCallback(onbutton_animationToggleControl);
-	inline function onbutton_animationToggleControl(component, value)
-	{
-		UserSettings.enableAnimations = !value;
-		UserSettings.saveSettings();
+	inline function onbutton_animationToggleControl(component, value) {
+		enableAnimations = !value;
+		saveSettings();
 	};
+	
+	const var button_startupAnimationToggle = Content.getComponent("button_startupAnimationToggle");
+	button_startupAnimationToggle.setControlCallback(onbutton_startupAnimationToggleControl);
+	inline function onbutton_startupAnimationToggleControl(component, value) {
+		startupAnimation = !value;
+		saveSettings();
+	};
+	
+	
 	
 	// Buy Reach Button
 	Content.getComponent("button_buy_reach").setControlCallback(onbutton_buy_reachControl);
@@ -155,19 +157,20 @@ namespace UserSettings {
 		settingsFile.writeObject({
 			'zoom': Settings.getZoomLevel(),
 			'animationEnabled': UserSettings.enableAnimations,
+			'startupAnimation': UserSettings.startupAnimation,
 			'theme': UserSettings.theme
 		});
 	}
 	
 	// reads the settings file
 	function loadSettings() {
-		
-		
 	
 		var savedSettings = settingsFile.loadAsObject();
+		
 		var savedTheme = savedSettings['theme'];
 		var zoomSaved = Engine.doubleToString(savedSettings['zoom'], 1);
 		var animationEnabledSaved = savedSettings['animationEnabled'];
+		var startupAnimationSaved = savedSettings['startupAnimation'];
 		
 		// zoom level
 		Settings.setZoomLevel(zoomSaved);
@@ -188,8 +191,11 @@ namespace UserSettings {
 		// animation toggle
 		// Toggle buttons are using reversed value to display on by default
 		button_animationToggle.setValue(!animationEnabledSaved);
-		// STATE is using normal values tho
 		UserSettings.enableAnimations = animationEnabledSaved;
+		
+		// startup animation
+		button_startupAnimationToggle.setValue(!startupAnimationSaved);
+		startupAnimation = startupAnimationSaved;
 	}
 	
 	// checks if the settings file exist

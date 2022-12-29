@@ -4,13 +4,18 @@ namespace Effects {
 	reg Distortion;
 	reg Degrade;
 	reg Chorus;
+	
 		
 	// Flanger
 	const var knob_effects_flair = Content.getComponent("knob_effects_flair");
-	const var themeAble_label_effects_flanger = Content.getComponent("themeAble_label_effects_flanger");
 	knob_effects_flair.setControlCallback(onknob_flair_flairControl);
 	
-	Content.getComponent("displayButton_flanger_bypass").setControlCallback(ondisplayButton_flanger_bypassControl);
+	const var displayButton_flanger_bypass = Content.getComponent("displayButton_flanger_bypass");
+	const var button_flanger_bypass = Content.getComponent("button_flanger_bypass");
+	
+	displayButton_flanger_bypass.setControlCallback(ondisplayButton_flanger_bypassControl);
+	button_flanger_bypass.setControlCallback(ondisplayButton_flanger_bypassControl);
+	
 	const var effectDisplay_Flanger = Content.getComponent("effectDisplay-Flanger");
 	
 	Content.getComponent("displayKnob_flanger_speed").setControlCallback(ondisplayKnob_flanger_speedControl);
@@ -28,13 +33,19 @@ namespace Effects {
 		FlairAnimation.setShift(value);
 		FlairAnimation.setAmplitude(value);
 		FlairAnimation.AnimationPanel.repaintImmediately();
+		
+		// Main Display Indicator
+		
+		EffectCustomizer.repaintIndicators();
 	};
 	
 	inline function ondisplayButton_flanger_bypassControl(component, value) {
 		Flanger.setBypassed(!value);
 		effectDisplay_Flanger.set('enabled', value);
 		knob_effects_flair.set('enabled', value);
-		themeAble_label_effects_flanger.set('enabled', value);
+		
+		displayButton_flanger_bypass.setValue(value);
+		button_flanger_bypass.setValue(value);
 	};
 	
 	inline function ondisplayKnob_flanger_speedControl(component, value) {
@@ -59,10 +70,13 @@ namespace Effects {
 	
 	// DEGRADE
 	const var knob_effects_degrade = Content.getComponent("knob_effects_degrade");
-	const var themeAble_label_effects_degrade = Content.getComponent("themeAble_label_effects_degrade");
 	knob_effects_degrade.setControlCallback(onknob_degrade_mixControl);
 	
-	Content.getComponent("displayButton_degrade_bypass").setControlCallback(ondisplayButton_degrade_bypassControl);
+	const var displayButton_degrade_bypass = Content.getComponent("displayButton_degrade_bypass");
+	const var button_degrade_bypass = Content.getComponent("button_degrade_bypass")
+	
+	displayButton_degrade_bypass.setControlCallback(ondisplayButton_degrade_bypassControl);
+	button_degrade_bypass.setControlCallback(ondisplayButton_degrade_bypassControl);
 	const var effectDisplay_Degrade = Content.getComponent("effectDisplay-Degrade");
 	
 	Content.getComponent("displayKnob_degrade_amount").setControlCallback(ondisplayKnob_degrade_amountControl);
@@ -79,6 +93,8 @@ namespace Effects {
 		DegradeAnimation.setZoom(value);
 		DegradeAnimation.setBorderRadius(value);		
 		DegradeAnimation.AnimationPanel.repaintImmediately();
+		
+		EffectCustomizer.repaintIndicators();
 	};
 	
 	inline function ondisplayButton_degrade_bypassControl(component, value) {
@@ -86,7 +102,9 @@ namespace Effects {
 		Degrade.setBypassed(!value);
 		effectDisplay_Degrade.set('enabled', value);
 		knob_effects_degrade.set('enabled', value);
-		themeAble_label_effects_degrade.set('enabled', value);
+		
+		button_degrade_bypass.setValue(value);
+		displayButton_degrade_bypass.setValue(value);
 	};
 	
 	inline function ondisplayKnob_degrade_amountControl(component, value) {
@@ -110,9 +128,12 @@ namespace Effects {
 	};
 	
 	// CHORUS
-	Content.getComponent("displayButton_chorus_bypass").setControlCallback(ondisplayButton_chorus_bypassControl);
-	const var themeAble_label_effects_chorus = Content.getComponent("themeAble_label_effects_chorus");
 	const var effectDisplay_Chorus = Content.getComponent("effectDisplay-Chorus");
+	
+	const var displayButton_chorus_bypass = Content.getComponent("displayButton_chorus_bypass");
+	const var button_chorus_bypass = Content.getComponent("button_chorus_bypass");
+	displayButton_chorus_bypass.setControlCallback(ondisplayButton_chorus_bypassControl);
+	button_chorus_bypass.setControlCallback(ondisplayButton_chorus_bypassControl);
 	
 	const var knob_effects_chorus = Content.getComponent("knob_effects_chorus");
 	knob_effects_chorus.setControlCallback(onknob_effects_chorusControl);
@@ -122,21 +143,31 @@ namespace Effects {
 	Content.getComponent("displayKnob_chorus_Delay").setControlCallback(ondisplayKnob_chorus_DelayControl);
 	
 	inline function onknob_effects_chorusControl(component, value) {
-		Chorus.setAttribute(Chorus.Mix, value);
+		Console.print(value);
+	
+		if (value) {
+	
+			Chorus.setAttribute(Chorus.Mix, value);
+			
+			updateParameterWithLabel('CHORUS', value, '%');
+			showTempScreen('chorus');
+			
+			ChorusAnimations.setShift(value);
+			ChorusAnimations.setAmplitude(value);
+			ChorusAnimations.AnimationPanel.repaintImmediately();
+			
+			EffectCustomizer.repaintIndicators();
 		
-		updateParameterWithLabel('CHORUS', value, '%');
-		showTempScreen('chorus');
-		
-		ChorusAnimations.setShift(value);
-		ChorusAnimations.setAmplitude(value);
-		ChorusAnimations.AnimationPanel.repaintImmediately();
+		}
 	};
 	
 	inline function ondisplayButton_chorus_bypassControl(component, value) {
 		Chorus.setBypassed(!value);
 		effectDisplay_Chorus.set('enabled', value);
 		knob_effects_chorus.set('enabled', value);
-		themeAble_label_effects_chorus.set('enabled', value);
+		
+		displayButton_chorus_bypass.setValue(value);
+		button_chorus_bypass.setValue(value);
 	};
 	
 	inline function ondisplayKnob_chorus_rateControl(component, value) {
@@ -156,10 +187,13 @@ namespace Effects {
 	};
 	
 	// DISTORION
-	
-	Content.getComponent("displayButton_distort_bypass").setControlCallback(ondisplayButton_distort_bypassControl);
-	const var themeAble_label_effects_distortion = Content.getComponent("themeAble_label_effects_distortion");
 	const var effectDisplay_Distort = Content.getComponent("effectDisplay-Distort");
+	
+	const var displayButton_distort_bypass = Content.getComponent("displayButton_distort_bypass");
+	const var button_distort_bypass = Content.getComponent("button_distort_bypass");
+	
+	displayButton_distort_bypass.setControlCallback(ondisplayButton_distort_bypassControl);
+	button_distort_bypass.setControlCallback(ondisplayButton_distort_bypassControl);
 	
 	const var knob_effects_distortion = Content.getComponent("knob_effects_distortion");
 	knob_effects_distortion.setControlCallback(onknob_effects_distortionControl);	
@@ -173,13 +207,17 @@ namespace Effects {
 		
 		DistortionAnimation.setAlpha(value);
 		DistortionAnimation.setScale(value);
+		
+		EffectCustomizer.repaintIndicators();
 	};
 	
 	inline function ondisplayButton_distort_bypassControl(component, value) {
 		Distortion.setBypassed(!value);
 		effectDisplay_Distort.set('enabled', value);
 		knob_effects_distortion.set('enabled', value);
-		themeAble_label_effects_distortion.set('enabled', value);
+		
+		displayButton_distort_bypass.setValue(value);
+		button_distort_bypass.setValue(value);
 	};
 	
 	inline function ondisplayKnob_distort_amountControl(component, value) {

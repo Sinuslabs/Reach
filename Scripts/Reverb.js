@@ -130,6 +130,8 @@ namespace Reverb {
 
 		ReverbAnimation.setOpacity(value);
 		ReverbAnimation.AnimationPanel.repaintImmediately();
+		
+		EffectCustomizer.repaintIndicators();
 	};
 	
 	inline function onknob_cleanup_lowControl(component, value) {

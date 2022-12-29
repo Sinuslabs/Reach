@@ -39,7 +39,18 @@ namespace EffectCustomizer {
 	                           Content.getComponent("displayButton_flanger_bypass"),
 	                           Content.getComponent("displayButton_degrade_bypass"),
 	                           Content.getComponent("displayButton_reverb_bypass")];
-	
+	                           
+    const var effectIndicators = [Content.getComponent("displayPanel_fx1"),
+                                  Content.getComponent("displayPanel_fx2"),
+                                  Content.getComponent("displayPanel_fx3"),
+                                  Content.getComponent("displayPanel_fx4"),
+                                  Content.getComponent("displayPanel_fx5")];
+   
+    const var panelBypassButtons = [Content.getComponent("button_degrade_bypass"),
+                                    Content.getComponent("button_flanger_bypass"),
+                                    Content.getComponent("button_chorus_bypass"),
+                                    Content.getComponent("button_distort_bypass")];
+                                
 	                            
 	// Callbacks
 	button_fx.setControlCallback(onbutton_fxControl);
@@ -60,7 +71,7 @@ namespace EffectCustomizer {
 	const SWAP_SENSITIVITY = 80;
 	
 	for (tab in effectTabs) {
-		tab.setDraggingBounds([0,0, 486, 30]);
+		tab.setDraggingBounds([0,0, 486, 40]);
 		reg currentSlot;
 		var wannaBeSlot;
 	    tab.setMouseCallback(function(e) {	
@@ -171,47 +182,33 @@ namespace EffectCustomizer {
 			this.getHeight()  - TAB_PADDING * 2
 		];
 		
-		local value = this.getValue();		
-		local SELECTED_TAB_COLOUR = DisplayTheme.selectedTabColour;
-		local TAB_COLOUR = DisplayTheme.tabColour;
-		local SELECTED_TAB_TEXT_COLOUR = DisplayTheme.selectedTabTextColour;
-		local TAB_TEXT_COLOUR = DisplayTheme.tabTextColour;
-		
-		local text = this.get('text');
-		
-		g.setColour(TAB_COLOUR);
-		if (value) {
-			switch(text) {
-			  case 'Reverb':
-			    g.setColour(Colours.lightblue);
-			    break;
-			  case 'Degrade':
-			    g.setColour(Colours.whitesmoke);
-			    break;
-			  case 'Chorus':
-			    g.setColour(Colours.lightgreen);
-			    break;
-			  case 'Distort':
-			    g.setColour(Colours.lightcoral);
-			    break;
-			  case 'Flanger':
-			    g.setColour(Colours.lightpink);
-			    break;
-			  default:
-	   			g.setColour(SELECTED_TAB_COLOUR);
-			}
-		}
-		g.fillRoundedRectangle(a, 5);
-		value ? g.setColour(SELECTED_TAB_TEXT_COLOUR) : g.setColour(TAB_TEXT_COLOUR);
-		
 		local textArea = [
 			a[0] + TEXT_PADDING,
 			a[1],
 			a[2],
 			a[3],
 		];
+		
+		local text = this.get('text');
+		
+		local value = this.getValue();		
+		local SELECTED_TAB_COLOUR = getEffectColour(text);
+		local SELECTED_TAB_TEXT_COLOUR = DisplayTheme.selectedTabTextColour;
+		local TAB_TEXT_COLOUR = DisplayTheme.tabTextColour;
+		local TAB_COLOUR = '0x32364C';
+		
+		
+		value ? g.setColour(SELECTED_TAB_COLOUR) : g.setColour(TAB_COLOUR);
+		
+		g.fillRoundedRectangle(a, 2);
+		value ? g.setColour(SELECTED_TAB_TEXT_COLOUR) : g.setColour(TAB_TEXT_COLOUR);
+		
+		if (value && text == 'Reverb') {
+			g.setColour(Colours.white);
+		}
+		
 		g.setFont(Fonts.secondaryFont, 18.0);	
-		g.drawAlignedText(text, textArea, 'left');
+		g.drawAlignedText(text.toUpperCase(), textArea, 'left');
 		
 		local dragDotArea = [
 			a[2] - DOT_PADDING * 3,
@@ -227,6 +224,7 @@ namespace EffectCustomizer {
 		for ( i=0; i<effectSlots.length; i++ ) {
 				reg effectName = getIdFromSlot(effectSlots[i]);
 			effectTabs[i].set('text', effectName);
+			effectIndicators[i].set('text', effectName);
 		}
 	}
 	
@@ -257,12 +255,6 @@ namespace EffectCustomizer {
 		if (value) {
 			displayShow('effects');
 			
-			// reset filter panels
-			Filter.panel_filters.set('visible', false);
-			Filter.panel_effectCustomizer.set('visible', true);			
-			Filter.prePostButtons[0].set('visible', false);
-			Filter.prePostButtons[1].set('visible', false);
-			Filter.button_filter.setValue(0);
 			Globals.effectsOpen = true;
 			for (tab in effectTabs) {
 				if (tab.getValue() == 1) {
@@ -279,6 +271,80 @@ namespace EffectCustomizer {
 			showMain();	
 		}
 	};
+	
+	for (indicator in effectIndicators) {
+		indicator.setPaintRoutine(indicatorRoutine);
+	}
+	
+	inline function repaintIndicators() {
+		for (indicator in effectIndicators) {
+			setEffectNamesFromSlots();
+			indicator.repaint();
+		}
+	}
+	
+	// PAINT ROUTINE
+	inline function indicatorRoutine(g) {
+		
+		local GAP = 5;
+		
+		local upperA = [0, 0, this.getWidth(), this.getHeight() / 2];
+		local lowerA = [0, this.getHeight()/2 + GAP, this.getWidth(), this.getHeight() / 2 - GAP];
+		local text = this.get('text');
+		local value = getEffectValue(text);
+		
+		local statusBarArea = [lowerA[0], lowerA[1], lowerA[2] * value, lowerA[3]];
+		
+		g.setColour(getEffectColour(text));
+		g.drawRect(lowerA, 2);
+		
+		g.fillRect(statusBarArea);
+		
+		g.setFont(Fonts.secondaryFont, 14);
+		g.drawAlignedText(text.toUpperCase(), upperA, 'left');
+	}
+	
+	inline function getEffectColour(effectName) {
+		switch(effectName) {
+			case 'Reverb':
+				return '0x1E7DFF';
+			case 'Degrade': 
+				return '0xF4F4F4';
+			case 'Flanger':
+				return '0x60ABE5';
+			case 'Chorus':
+				return '0x7AE7C7';
+			case 'Distort':
+				return '0xEB3B4B';
+			case 'Reverb MIX':
+				return '0x1E7DFF';
+			case 'IO MIX':
+				return '0xD22B2B';
+			default:
+				return Colours.black
+				break;	
+		}
+	}
+	
+	inline function getEffectValue(effectName) {
+		local colour;
+		switch(effectName) {
+			case 'Reverb':
+				return Reverb.knob_reverb_mix.getValue();
+			case 'Degrade': 
+				return Effects.knob_effects_degrade.getValue();
+			case 'Flanger':
+				return Effects.knob_effects_flair.getValue();
+			case 'Chorus':
+				return Effects.knob_effects_chorus.getValue();
+			case 'Distort':
+				return Effects.knob_effects_distortion.getValue();
+			default:
+				return 0
+				break;		
+		}
+	
+	}
 	
 	
 	const var displayKnobLaf = Content.createLocalLookAndFeel();	
@@ -370,9 +436,9 @@ namespace EffectCustomizer {
 		
 		g.fillRoundedRectangle([
 			a[2] / 2 - INDICATOR_THICKNESS / 2,
-			PADDING + INDICATOR_GAP,
+			PADDING + 0,
 			(a[2] / 100) * INDICATOR_THICKNESS,
-		 	(a[2] / 100) * INDICATOR_LENGTH],
+		 	(a[2] / 100) * 30],
 		 	0.5
 		);
 		
@@ -380,6 +446,30 @@ namespace EffectCustomizer {
 
 	for (knob in displayKnobs) {
 		knob.setLocalLookAndFeel(displayKnobLaf);
+	}
+	
+	const var bypassButtonLAF = Content.createLocalLookAndFeel();	
+	bypassButtonLAF.registerFunction("drawToggleButton", circleButtonLAF);
+	
+	inline function circleButtonLAF(g, obj) {
+		local PADDING = 2;
+
+		local BUTTON_COLOUR = SliderTheme.indicatorColour;
+
+		local a = obj.area;
+		local pa = [
+			a[0] + PADDING,
+			a[1] + PADDING,
+			a[2] - PADDING * 2,
+			a[3] - PADDING * 2
+		];
+
+		g.setColour(BUTTON_COLOUR);		
+		obj.value ? g.fillEllipse(pa) : g.drawEllipse(pa, 1);
+	}
+	
+	for (button in panelBypassButtons) {
+		button.setLocalLookAndFeel(bypassButtonLAF);
 	}
 	
 }
