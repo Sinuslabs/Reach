@@ -37,7 +37,9 @@ using dry_path_t = container::chain<parameter::empty,
 
 template <int NV>
 using wet_path_t = container::chain<parameter::empty, 
-                                    wrap::fix<2, project::Distortion<NV>>, 
+                                    wrap::fix<2, filters::one_pole<NV>>, 
+                                    filters::one_pole<NV>, 
+                                    project::Distortion<NV>, 
                                     core::gain>;
 
 namespace dry_wet1_t_parameters
@@ -78,10 +80,15 @@ template <int NV>
 using Mix = parameter::plain<Waveshaper_impl::dry_wet1_t<NV>, 
                              0>;
 template <int NV>
+using lp = parameter::plain<filters::one_pole<NV>, 0>;
+template <int NV> using hp = lp<NV>;
+template <int NV>
 using Waveshaper_t_plist = parameter::list<Distort, 
                                            Mix<NV>, 
                                            Amount<NV>, 
-                                           Gain<NV>>;
+                                           Gain<NV>, 
+                                           lp<NV>, 
+                                           hp<NV>>;
 }
 
 template <int NV>
@@ -103,7 +110,7 @@ template <int NV> struct instance: public Waveshaper_impl::Waveshaper_t_<NV>
 		
 		SNEX_METADATA_ID(Waveshaper);
 		SNEX_METADATA_NUM_CHANNELS(2);
-		SNEX_METADATA_ENCODED_PARAMETERS(64)
+		SNEX_METADATA_ENCODED_PARAMETERS(92)
 		{
 			0x005B, 0x0000, 0x4400, 0x7369, 0x6F74, 0x7472, 0x0000, 0x0000, 
             0x0000, 0x8000, 0x003F, 0x8000, 0x003F, 0x8000, 0x003F, 0x0000, 
@@ -112,7 +119,11 @@ template <int NV> struct instance: public Waveshaper_impl::Waveshaper_t_<NV>
             0x0000, 0x4100, 0x6F6D, 0x6E75, 0x0074, 0x0000, 0x0000, 0x0000, 
             0x3F80, 0x5C29, 0x3E8F, 0x0000, 0x3F80, 0x0000, 0x0000, 0x035B, 
             0x0000, 0x4700, 0x6961, 0x006E, 0x0000, 0x0000, 0x0000, 0x3F80, 
-            0x0000, 0x3F80, 0x0000, 0x3F80, 0x0000, 0x0000, 0x0000, 0x0000
+            0x0000, 0x3F80, 0x0000, 0x3F80, 0x0000, 0x0000, 0x045B, 0x0000, 
+            0x6C00, 0x0070, 0x0000, 0x41A0, 0x4000, 0x469C, 0x12C1, 0x45E8, 
+            0x6C1A, 0x3E6B, 0x0000, 0x0000, 0x055B, 0x0000, 0x6800, 0x0070, 
+            0x0000, 0x41A0, 0x4000, 0x469C, 0x0000, 0x41A0, 0x6C1A, 0x3E6B, 
+            0x0000, 0x0000, 0x0000, 0x0000
 		};
 	};
 	
@@ -125,8 +136,10 @@ template <int NV> struct instance: public Waveshaper_impl::Waveshaper_t_<NV>
 		auto& dry_wet_mixer = this->getT(0).getT(0).getT(0); // Waveshaper_impl::dry_wet_mixer_t
 		auto& dry_gain = this->getT(0).getT(0).getT(1);      // core::gain
 		auto& wet_path = this->getT(0).getT(1);              // Waveshaper_impl::wet_path_t<NV>
-		auto& faust = this->getT(0).getT(1).getT(0);         // project::Distortion<NV>
-		auto& wet_gain = this->getT(0).getT(1).getT(1);      // core::gain
+		auto& one_pole = this->getT(0).getT(1).getT(0);      // filters::one_pole<NV>
+		auto& one_pole1 = this->getT(0).getT(1).getT(1);     // filters::one_pole<NV>
+		auto& faust = this->getT(0).getT(1).getT(2);         // project::Distortion<NV>
+		auto& wet_gain = this->getT(0).getT(1).getT(3);      // core::gain
 		
 		// Parameter Connections -----------------------------------------------------------------
 		
@@ -137,6 +150,10 @@ template <int NV> struct instance: public Waveshaper_impl::Waveshaper_t_<NV>
 		this->getParameterT(2).connectT(0, faust); // Amount -> faust::distortion
 		
 		this->getParameterT(3).connectT(0, faust); // Gain -> faust::gain
+		
+		this->getParameterT(4).connectT(0, one_pole); // lp -> one_pole::Frequency
+		
+		this->getParameterT(5).connectT(0, one_pole1); // hp -> one_pole1::Frequency
 		
 		// Modulation Connections ----------------------------------------------------------------
 		
@@ -154,6 +171,20 @@ template <int NV> struct instance: public Waveshaper_impl::Waveshaper_t_<NV>
 		dry_gain.setParameterT(1, 20.); // core::gain::Smoothing
 		dry_gain.setParameterT(2, 0.);  // core::gain::ResetValue
 		
+		;                                // one_pole::Frequency is automated
+		one_pole.setParameterT(1, 1.);   // filters::one_pole::Q
+		one_pole.setParameterT(2, 0.);   // filters::one_pole::Gain
+		one_pole.setParameterT(3, 0.01); // filters::one_pole::Smoothing
+		one_pole.setParameterT(4, 0.);   // filters::one_pole::Mode
+		one_pole.setParameterT(5, 1.);   // filters::one_pole::Enabled
+		
+		;                                 // one_pole1::Frequency is automated
+		one_pole1.setParameterT(1, 1.);   // filters::one_pole::Q
+		one_pole1.setParameterT(2, 0.);   // filters::one_pole::Gain
+		one_pole1.setParameterT(3, 0.01); // filters::one_pole::Smoothing
+		one_pole1.setParameterT(4, 1.);   // filters::one_pole::Mode
+		one_pole1.setParameterT(5, 1.);   // filters::one_pole::Enabled
+		
 		; // faust::distortion is automated
 		; // faust::gain is automated
 		
@@ -165,6 +196,8 @@ template <int NV> struct instance: public Waveshaper_impl::Waveshaper_t_<NV>
 		this->setParameterT(1, 1.);
 		this->setParameterT(2, 0.28);
 		this->setParameterT(3, 1.);
+		this->setParameterT(4, 7426.34);
+		this->setParameterT(5, 20.);
 	}
 	
 	static constexpr bool isPolyphonic() { return NV > 1; };
