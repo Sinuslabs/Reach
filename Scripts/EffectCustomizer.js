@@ -1,7 +1,8 @@
 
 namespace EffectCustomizer {
 	const var button_fx = Content.getComponent("button_fx")
-	
+ 	button_fx.setControlCallback(onbutton_fxControl);
+ 	
 	const var displayKnobs = Content.getAllComponents('displayKnob');
 	
 	Engine.addModuleStateToUserPreset('Effect Slot1');
@@ -40,27 +41,110 @@ namespace EffectCustomizer {
 	                           Content.getComponent("displayButton_degrade_bypass"),
 	                           Content.getComponent("displayButton_reverb_bypass")];
 	                           
-    const var effectIndicators = [Content.getComponent("displayPanel_fx1"),
-                                  Content.getComponent("displayPanel_fx2"),
-                                  Content.getComponent("displayPanel_fx3"),
-                                  Content.getComponent("displayPanel_fx4"),
-                                  Content.getComponent("displayPanel_fx5")];
+	const var displayPanel_fx1 = Content.getComponent("displayPanel_fx1");
+	const var displayPanel_fx2 = Content.getComponent("displayPanel_fx2");
+	const var displayPanel_fx3 = Content.getComponent("displayPanel_fx3");
+	const var displayPanel_fx4 = Content.getComponent("displayPanel_fx4");
+	const var displayPanel_fx5 = Content.getComponent("displayPanel_fx5");
+	
+	const var effectIndicators = [displayPanel_fx1,
+	                                displayPanel_fx2,
+	                                displayPanel_fx3,
+	                                displayPanel_fx4,
+	                                displayPanel_fx5];
    
     const var panelBypassButtons = [Content.getComponent("button_degrade_bypass"),
                                     Content.getComponent("button_flanger_bypass"),
                                     Content.getComponent("button_chorus_bypass"),
                                     Content.getComponent("button_distort_bypass")];
-                                
-	                            
-	// Callbacks
-	button_fx.setControlCallback(onbutton_fxControl);
-                       
+    
+	const var displayPanel_distortIndicator = Content.getComponent("displayPanel_distortIndicator");
+	const var displayPanel_flangerIndicator = Content.getComponent("displayPanel_flangerIndicator");
+	const var displayPanel_degradeIndicator = Content.getComponent("displayPanel_degradeIndicator");
+	const var displayPanel_reverbIndicator = Content.getComponent("displayPanel_reverbIndicator");
+	const var displayPanel_chorusIndicator = Content.getComponent("displayPanel_chorusIndicator");
+	
+	const var fxCustomizerIndicators = [displayPanel_distortIndicator,
+	                                    displayPanel_flangerIndicator,
+	                                    displayPanel_degradeIndicator,
+	                                    displayPanel_reverbIndicator,
+	                                    displayPanel_chorusIndicator];
+                  
 	// INIT
 	inline function init() {
 		radioEffectBox(effectTabs[0]);
 		setEffectNamesFromSlots();		
 		snapToArea();
 	}
+	
+	// Shortcut listener	
+	const var indicatorShortcutWatcher = Engine.createBroadcaster({
+		"id": "effectKnobsOnClickStatus",
+		"args": ["component", "event"]
+	});
+	
+	indicatorShortcutWatcher.attachToComponentMouseEvents([
+	"displayPanel_fx1",
+	"displayPanel_fx2",
+	"displayPanel_fx3",
+	"displayPanel_fx4",
+	"displayPanel_fx5"
+	], "Clicks Only", "Mouse Listener for Effect Controls");
+	indicatorShortcutWatcher.addListener("RefreshFunction", "Mute and navigate to Effect", function(component, event) {
+	
+		if (event.cmdDown && event.clicked) {			
+			switch(component.get('text')) {
+				case 'Reverb':
+					Reverb.displayButton_reverb_bypass.setValue(!Reverb.displayButton_reverb_bypass.getValue());
+					Reverb.displayButton_reverb_bypass.changed();
+					return;
+				case 'Degrade':
+					Effects.displayButton_degrade_bypass.setValue(!Effects.displayButton_degrade_bypass.getValue());
+					Effects.displayButton_degrade_bypass.changed();
+					return;
+				case 'Flanger':
+					Effects.displayButton_flanger_bypass.setValue(!Effects.displayButton_flanger_bypass.getValue());
+					Effects.displayButton_flanger_bypass.changed();
+					return;
+				case 'Chorus':
+					Effects.displayButton_chorus_bypass.setValue(!Effects.displayButton_chorus_bypass.getValue());
+					Effects.displayButton_chorus_bypass.changed();
+					return;
+				case 'Distort':
+					Effects.displayButton_distort_bypass.setValue(!Effects.displayButton_distort_bypass.getValue());
+					Effects.displayButton_distort_bypass.changed();
+					return;
+				case 'default':
+					return;
+			}
+		}
+		
+		if (event.clicked) {
+			var text = component.get('text');
+			var effectIndex = getEffectIndex(text);
+			displayShow('effects');
+			Globals.effectsOpen = true;
+			
+			radioEffectBox(effectTabs[effectIndex]);
+			showPanel(text);
+		}
+	});
+	
+	inline function getEffectIndex(effectName) {
+		
+		for ( i=0; i<effectSlots.length; i++ ) {
+			local slotEffect = getIdFromSlot(effectSlots[i]);
+			
+			//Console.print(slotEffect);
+			if (slotEffect == effectName) {
+			
+				return i;
+			}
+		}
+	
+		
+	}
+	     
 	
 	init();
 	
@@ -272,6 +356,29 @@ namespace EffectCustomizer {
 		}
 	};
 	
+	for (indicator in fxCustomizerIndicators) {
+		indicator.setPaintRoutine(customizerIndicatorRoutine);
+	}
+	
+	inline function customizerIndicatorRoutine(g) {
+		
+		local enabled = this.get('enabled');
+		local text = this.get('text');
+		
+		local a = [
+			0,
+			0,
+			this.getWidth(),
+			this.getHeight()
+		];
+		
+		g.setColour(getEffectColour(text));
+		
+		if (!enabled) g.setColour('0x7f7f7f');
+		
+		g.fillRoundedRectangle(a, 2);
+	}
+	
 	for (indicator in effectIndicators) {
 		indicator.setPaintRoutine(indicatorRoutine);
 	}
@@ -292,10 +399,15 @@ namespace EffectCustomizer {
 		local lowerA = [0, this.getHeight()/2 + GAP, this.getWidth(), this.getHeight() / 2 - GAP];
 		local text = this.get('text');
 		local value = getEffectValue(text);
+		local bypassed = getEffectBypass(text);
+	
 		
 		local statusBarArea = [lowerA[0], lowerA[1], lowerA[2] * value, lowerA[3]];
 		
 		g.setColour(getEffectColour(text));
+		
+		if (bypassed) g.setColour('0x0x7f7f7f');
+		
 		g.drawRect(lowerA, 2);
 		
 		g.fillRect(statusBarArea);
@@ -326,8 +438,25 @@ namespace EffectCustomizer {
 		}
 	}
 	
+	inline function getEffectBypass(effectName) {
+		switch(effectName) {
+			case 'Reverb':
+				return Reverb.JPVerb.isBypassed();
+			case 'Degrade': 
+				return Effects.Degrade.isBypassed();
+			case 'Flanger':
+				return Effects.Flanger.isBypassed();
+			case 'Chorus':
+				return Effects.Chorus.isBypassed();
+			case 'Distort':
+				return Effects.Distortion.isBypassed();
+			default:
+				return 0
+				break;		
+		}
+	}
+	
 	inline function getEffectValue(effectName) {
-		local colour;
 		switch(effectName) {
 			case 'Reverb':
 				return Reverb.knob_reverb_mix.getValue();
@@ -369,9 +498,12 @@ namespace EffectCustomizer {
 		if (obj.clicked || obj.hover) {
 			
 			text = obj.valueAsText;
+			
+
+			
 			if (obj.suffix == ' ms') {
 				reg label;
-				if (obj.value < 1.0) {
+				if (obj.value <= 1.0) {
 					label = ' ms';
 					obj.value *= 100;
 					obj.value = Engine.doubleToString(obj.value * 10, 0);
@@ -398,8 +530,6 @@ namespace EffectCustomizer {
 		];
 	
 		g.setColour(BORDER_COLOUR);
-	
-		
 		g.drawEllipse(ka, 3);
 		
 		var arcPath = Content.createPath();

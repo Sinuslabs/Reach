@@ -4,7 +4,6 @@ namespace Effects {
 	reg Distortion;
 	reg Degrade;
 	reg Chorus;
-	
 		
 	// Flanger
 	const var knob_effects_flair = Content.getComponent("knob_effects_flair");
@@ -12,6 +11,8 @@ namespace Effects {
 	
 	const var displayButton_flanger_bypass = Content.getComponent("displayButton_flanger_bypass");
 	const var button_flanger_bypass = Content.getComponent("button_flanger_bypass");
+	
+	const var containerPanel_flanger = Content.getComponent("containerPanel_flanger");
 	
 	displayButton_flanger_bypass.setControlCallback(ondisplayButton_flanger_bypassControl);
 	button_flanger_bypass.setControlCallback(ondisplayButton_flanger_bypassControl);
@@ -39,13 +40,8 @@ namespace Effects {
 		EffectCustomizer.repaintIndicators();
 	};
 	
-	inline function ondisplayButton_flanger_bypassControl(component, value) {
-		Flanger.setBypassed(!value);
-		effectDisplay_Flanger.set('enabled', value);
-		knob_effects_flair.set('enabled', value);
-		
-		displayButton_flanger_bypass.setValue(value);
-		button_flanger_bypass.setValue(value);
+	inline function ondisplayButton_flanger_bypassControl(component, value) {		
+		bypassFlanger(value);
 	};
 	
 	inline function ondisplayKnob_flanger_speedControl(component, value) {
@@ -68,12 +64,29 @@ namespace Effects {
 		Flanger.setAttribute(Flanger.Offset, value);
 	};
 	
+	inline function bypassFlanger(value) {
+		Flanger.setBypassed(!value);
+		effectDisplay_Flanger.set('enabled', value);
+		containerPanel_flanger.set('enabled', value);
+	
+		displayButton_flanger_bypass.setValue(value);
+		button_flanger_bypass.setValue(value);
+		
+		EffectCustomizer.displayPanel_flangerIndicator.set('enabled', value);
+		EffectCustomizer.displayPanel_flangerIndicator.repaint();
+		
+		EffectCustomizer.repaintIndicators();
+	}
+	
 	// DEGRADE
 	const var knob_effects_degrade = Content.getComponent("knob_effects_degrade");
 	knob_effects_degrade.setControlCallback(onknob_degrade_mixControl);
 	
 	const var displayButton_degrade_bypass = Content.getComponent("displayButton_degrade_bypass");
 	const var button_degrade_bypass = Content.getComponent("button_degrade_bypass")
+	const var containerPanel_degrade = Content.getComponent("containerPanel_degrade");
+	
+	
 	
 	displayButton_degrade_bypass.setControlCallback(ondisplayButton_degrade_bypassControl);
 	button_degrade_bypass.setControlCallback(ondisplayButton_degrade_bypassControl);
@@ -98,13 +111,7 @@ namespace Effects {
 	};
 	
 	inline function ondisplayButton_degrade_bypassControl(component, value) {
-		
-		Degrade.setBypassed(!value);
-		effectDisplay_Degrade.set('enabled', value);
-		knob_effects_degrade.set('enabled', value);
-		
-		button_degrade_bypass.setValue(value);
-		displayButton_degrade_bypass.setValue(value);
+		bypassDegrade(value);
 	};
 	
 	inline function ondisplayKnob_degrade_amountControl(component, value) {
@@ -127,11 +134,27 @@ namespace Effects {
 		Degrade.setAttribute(Degrade.LowCut, value);
 	};
 	
+	inline function bypassDegrade(value) {
+		
+		Degrade.setBypassed(!value);
+		effectDisplay_Degrade.set('enabled', value);
+		containerPanel_degrade.set('enabled', value);
+	
+		button_degrade_bypass.setValue(value);
+		displayButton_degrade_bypass.setValue(value);
+		EffectCustomizer.displayPanel_degradeIndicator.set('enabled', value);
+		EffectCustomizer.displayPanel_degradeIndicator.repaint();
+		EffectCustomizer.repaintIndicators();
+	}
+	
 	// CHORUS
 	const var effectDisplay_Chorus = Content.getComponent("effectDisplay-Chorus");
 	
 	const var displayButton_chorus_bypass = Content.getComponent("displayButton_chorus_bypass");
 	const var button_chorus_bypass = Content.getComponent("button_chorus_bypass");
+	
+	const var containerPanel_chorus = Content.getComponent("containerPanel_chorus");
+	
 	displayButton_chorus_bypass.setControlCallback(ondisplayButton_chorus_bypassControl);
 	button_chorus_bypass.setControlCallback(ondisplayButton_chorus_bypassControl);
 	
@@ -142,14 +165,10 @@ namespace Effects {
 	Content.getComponent("displayKnob_chorus_depth").setControlCallback(ondisplayKnob_chorus_depthControl);
 	Content.getComponent("displayKnob_chorus_Delay").setControlCallback(ondisplayKnob_chorus_DelayControl);
 	
-	inline function onknob_effects_chorusControl(component, value) {
-		Console.print(value);
-	
-		if (value) {
+	inline function onknob_effects_chorusControl(component, value) {	
 	
 			Chorus.setAttribute(Chorus.Mix, value);
 			
-			updateParameterWithLabel('CHORUS', value, '%');
 			showTempScreen('chorus');
 			
 			ChorusAnimations.setShift(value);
@@ -158,16 +177,10 @@ namespace Effects {
 			
 			EffectCustomizer.repaintIndicators();
 		
-		}
 	};
 	
-	inline function ondisplayButton_chorus_bypassControl(component, value) {
-		Chorus.setBypassed(!value);
-		effectDisplay_Chorus.set('enabled', value);
-		knob_effects_chorus.set('enabled', value);
-		
-		displayButton_chorus_bypass.setValue(value);
-		button_chorus_bypass.setValue(value);
+	inline function ondisplayButton_chorus_bypassControl(component, value) {		
+		bypassChorus(value);
 	};
 	
 	inline function ondisplayKnob_chorus_rateControl(component, value) {
@@ -186,23 +199,42 @@ namespace Effects {
 		Chorus.setAttribute(Chorus.CentreDelay, value);
 	};
 	
+	inline function bypassChorus(value) {
+		Chorus.setBypassed(!value);
+		effectDisplay_Chorus.set('enabled', value);
+		containerPanel_chorus.set('enabled', value);
+	
+		displayButton_chorus_bypass.setValue(value);
+		button_chorus_bypass.setValue(value);
+		EffectCustomizer.displayPanel_chorusIndicator.set('enabled', value);
+		EffectCustomizer.displayPanel_chorusIndicator.repaint();
+		EffectCustomizer.repaintIndicators();
+	}
+	
 	// DISTORION
 	const var effectDisplay_Distort = Content.getComponent("effectDisplay-Distort");
 	
 	const var displayButton_distort_bypass = Content.getComponent("displayButton_distort_bypass");
 	const var button_distort_bypass = Content.getComponent("button_distort_bypass");
 	
+	const var containerPanel_distort = Content.getComponent("containerPanel_distort");
+	
+	const var displayPanel_distortIndicator = Content.getComponent("displayPanel_distortIndicator");
+	
 	displayButton_distort_bypass.setControlCallback(ondisplayButton_distort_bypassControl);
 	button_distort_bypass.setControlCallback(ondisplayButton_distort_bypassControl);
 	
 	const var knob_effects_distortion = Content.getComponent("knob_effects_distortion");
 	knob_effects_distortion.setControlCallback(onknob_effects_distortionControl);	
+	
 	Content.getComponent("displayKnob_distort_amount").setControlCallback(ondisplayKnob_distort_amountControl);
+	Content.getComponent("displayKnob_distort_lowPass").setControlCallback(ondisplayKnob_distort_lowPassControl);
+	Content.getComponent("displayKnob_distort_highpass").setControlCallback(ondisplayKnob_distort_highpassControl);	
+	
 	
 	inline function onknob_effects_distortionControl(component, value) {
 		Distortion.setAttribute(Distortion.Mix, value);
 		
-		updateParameterWithLabel('DISTORTION', value, '%');
 		showTempScreen('distortion');
 		
 		DistortionAnimation.setAlpha(value);
@@ -212,16 +244,32 @@ namespace Effects {
 	};
 	
 	inline function ondisplayButton_distort_bypassControl(component, value) {
-		Distortion.setBypassed(!value);
-		effectDisplay_Distort.set('enabled', value);
-		knob_effects_distortion.set('enabled', value);
-		
-		displayButton_distort_bypass.setValue(value);
-		button_distort_bypass.setValue(value);
+		bypassDistortion(value);
 	};
 	
 	inline function ondisplayKnob_distort_amountControl(component, value) {
 		Distortion.setAttribute(Distortion.Amount, value);
 	};
+	
+	inline function ondisplayKnob_distort_lowPassControl(component, value) {
+		Distortion.setAttribute(Distortion.lp, value);
+	};
+	
+	inline function ondisplayKnob_distort_highpassControl(component, value) {
+		Distortion.setAttribute(Distortion.hp, value);
+	};
+	
+	inline function bypassDistortion(value) {
+		Distortion.setBypassed(!value);
+		effectDisplay_Distort.set('enabled', value);
+		containerPanel_distort.set('enabled', value);
+	
+		displayButton_distort_bypass.setValue(value);
+		button_distort_bypass.setValue(value);
+		EffectCustomizer.displayPanel_distortIndicator.set('enabled', value);
+		
+		EffectCustomizer.displayPanel_distortIndicator.repaint();
+		EffectCustomizer.repaintIndicators();
+	}
 
 }

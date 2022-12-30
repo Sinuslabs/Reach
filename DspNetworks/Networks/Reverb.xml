@@ -3,13 +3,21 @@
 <Network ID="Reverb" Version="0.0.0" AllowCompilation="1">
   <Node FactoryPath="container.chain" ID="Reverb" Bypassed="0" ShowParameters="1">
     <Nodes>
+      <Node ID="oscilloscope" FactoryPath="analyse.oscilloscope" Bypassed="0">
+        <ComplexData>
+          <DisplayBuffers>
+            <DisplayBuffer Index="-1" EmbeddedData=""/>
+          </DisplayBuffers>
+        </ComplexData>
+        <Parameters/>
+      </Node>
       <Node ID="dry_wet2" FactoryPath="container.split" ShowParameters="1"
             NodeColour="4285503847" Bypassed="0">
         <Nodes>
           <Node ID="dry_path1" FactoryPath="container.chain" Bypassed="0">
             <Nodes>
               <Node ID="dry_wet_mixer1" FactoryPath="control.xfader" Bypassed="0"
-                    NodeColour="4285503847" Folded="1">
+                    NodeColour="4285503847">
                 <Properties>
                   <Property ID="NumParameters" Value="2"/>
                   <Property ID="Mode" Value="Linear"/>
@@ -46,6 +54,30 @@
           </Node>
           <Node ID="wet_path1" FactoryPath="container.chain" Bypassed="0">
             <Nodes>
+              <Node ID="feedback_delay2" FactoryPath="container.fix32_block" Bypassed="0">
+                <Nodes>
+                  <Node ID="fb_out1" FactoryPath="routing.receive" Bypassed="0">
+                    <Parameters>
+                      <Parameter MinValue="0.0" MaxValue="1.0" ID="Feedback" Automated="1"/>
+                    </Parameters>
+                  </Node>
+                  <Node ID="delay1" FactoryPath="core.fix_delay" Bypassed="0">
+                    <Parameters>
+                      <Parameter MinValue="0.0" MaxValue="1000.0" StepSize="0.1000000014901161"
+                                 SkewFactor="0.3010300099849701" ID="DelayTime" Automated="1"/>
+                      <Parameter MinValue="0.0" MaxValue="1024.0" StepSize="1.0" ID="FadeTime"
+                                 Value="533.0"/>
+                    </Parameters>
+                  </Node>
+                  <Node ID="fb_in1" FactoryPath="routing.send" Bypassed="0">
+                    <Properties>
+                      <Property ID="Connection" Value="fb_out1"/>
+                    </Properties>
+                    <Parameters/>
+                  </Node>
+                </Nodes>
+                <Parameters/>
+              </Node>
               <Node ID="faust" FactoryPath="core.faust" Bypassed="0">
                 <Properties>
                   <Property ID="ClassId" Value="FaustReverb"/>
@@ -105,7 +137,7 @@
       <Parameter ID="Reverb" MinValue="0.0" MaxValue="1.0" Value="1.0">
         <Connections/>
       </Parameter>
-      <Parameter ID="Damping" MinValue="0.0" MaxValue="1.0" Value="1.0">
+      <Parameter ID="Damping" MinValue="0.0" MaxValue="1.0" Value="0.868">
         <Connections>
           <Connection NodeId="faust" ParameterId="Damping"/>
         </Connections>
@@ -140,7 +172,7 @@
           <Connection NodeId="faust" ParameterId="MID Gain"/>
         </Connections>
       </Parameter>
-      <Parameter ID="Mod Depth" MinValue="0.0" MaxValue="1.0" Value="1.0">
+      <Parameter ID="Mod Depth" MinValue="0.0" MaxValue="1.0" Value="0.0">
         <Connections>
           <Connection NodeId="faust" ParameterId="Mod Depth"/>
         </Connections>
@@ -163,6 +195,16 @@
       <Parameter ID="Mix" MinValue="0.0" MaxValue="1.0" Value="1.0">
         <Connections>
           <Connection NodeId="dry_wet2" ParameterId="DryWet"/>
+        </Connections>
+      </Parameter>
+      <Parameter ID="preDelay" MinValue="0.0" MaxValue="1.0" Value="1.0">
+        <Connections>
+          <Connection NodeId="delay1" ParameterId="DelayTime"/>
+        </Connections>
+      </Parameter>
+      <Parameter ID="feedbacl" MinValue="0.0" MaxValue="1.0" Value="1.0">
+        <Connections>
+          <Connection NodeId="fb_out1" ParameterId="Feedback"/>
         </Connections>
       </Parameter>
     </Parameters>

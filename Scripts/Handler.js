@@ -1,3 +1,46 @@
+// Shortcut listener	
+const var knobShortcutWatcher = Engine.createBroadcaster({
+	"id": "effectKnobsOnClickStatus",
+	"args": ["component", "event"]
+});
+
+knobShortcutWatcher.attachToComponentMouseEvents([
+"knob_effects_degrade",
+"knob_effects_flair",
+"knob_effects_chorus",
+"knob_effects_distortion",
+"knob_reverb_mix"
+], "Clicks Only", "Mouse Listener for Effect Controls");
+knobShortcutWatcher.addListener("RefreshFunction", "Bypasses Effect", function(component, event) {
+	if (event.cmdDown && event.clicked) {
+		switch(component.get('text')) {
+			case 'Reverb MIX':
+				Reverb.displayButton_reverb_bypass.setValue(!Reverb.displayButton_reverb_bypass.getValue());
+				Reverb.displayButton_reverb_bypass.changed();
+				break;
+			case 'Degrade':
+			Console.print('Degrade');
+				Effects.displayButton_degrade_bypass.setValue(!Effects.displayButton_degrade_bypass.getValue());
+				Effects.displayButton_degrade_bypass.changed();
+				break;
+			case 'Flanger':
+				Effects.displayButton_flanger_bypass.setValue(!Effects.displayButton_flanger_bypass.getValue());
+				Effects.displayButton_flanger_bypass.changed();
+				break;
+			case 'Chorus':
+				Effects.displayButton_chorus_bypass.setValue(!Effects.displayButton_chorus_bypass.getValue());
+				Effects.displayButton_chorus_bypass.changed();
+				break;
+			case 'Distort':
+				Effects.displayButton_distort_bypass.setValue(!Effects.displayButton_distort_bypass.getValue());
+				Effects.displayButton_distort_bypass.changed();
+				break;
+			case 'default':
+				return;
+		}
+	}
+});
+
 
 // MAIN MIX KNOB
 const var knob_io_out = Content.getComponent("knob_io_out");
