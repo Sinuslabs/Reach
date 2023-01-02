@@ -26,6 +26,8 @@ Engine.loadFontAs("{PROJECT_FOLDER}Fonts/JetBrainsMono-Medium.ttf", "jetbrains-m
 Engine.loadFontAs("{PROJECT_FOLDER}Fonts/Inter-SemiBold.ttf", "inter-semi");
 Engine.setGlobalFont("inter-semi");
 
+Engine.loadNextUserPreset(true);
+
 // Setting Global State
 Globals.parameter = 'NONE';
 Globals.freezeMode = false;

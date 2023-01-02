@@ -229,7 +229,15 @@ namespace Effects {
 	
 	Content.getComponent("displayKnob_distort_amount").setControlCallback(ondisplayKnob_distort_amountControl);
 	Content.getComponent("displayKnob_distort_lowPass").setControlCallback(ondisplayKnob_distort_lowPassControl);
-	Content.getComponent("displayKnob_distort_highpass").setControlCallback(ondisplayKnob_distort_highpassControl);	
+	Content.getComponent("displayKnob_distort_highpass").setControlCallback(ondisplayKnob_distort_highpassControl);
+	
+
+	
+	Content.getComponent("displayKnob_distort_postlowcut").setControlCallback(ondisplaySlider_distort_postlowcutControl);
+
+	Content.getComponent("displayKnob_distort_posthighcut").setControlCallback(ondisplaySlider_distort_posthighcutControl);
+	
+
 	
 	
 	inline function onknob_effects_distortionControl(component, value) {
@@ -258,6 +266,16 @@ namespace Effects {
 	inline function ondisplayKnob_distort_highpassControl(component, value) {
 		Distortion.setAttribute(Distortion.hp, value);
 	};
+	
+	inline function ondisplaySlider_distort_postlowcutControl(component, value) {
+		
+		Distortion.setAttribute(Distortion.postlp, value);
+	};
+	
+	inline function ondisplaySlider_distort_posthighcutControl(component, value) {
+		Distortion.setAttribute(Distortion.posthp, value);
+	};
+	
 	
 	inline function bypassDistortion(value) {
 		Distortion.setBypassed(!value);
