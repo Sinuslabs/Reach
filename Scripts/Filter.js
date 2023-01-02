@@ -40,6 +40,11 @@ namespace Filter {
 
 	inline function onbutton_filterControl(component, value) {
 		value ? displayShow('filter') : showMain();
+		
+		if (!prePostButtons[0].getValue() && !prePostButtons[1].getValue()) {
+			prePostButtons[0].setValue(1);
+			prePostButtons[0].changed();
+		} 
 	};
 	
 	

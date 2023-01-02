@@ -288,9 +288,7 @@ const var Gain = Synth.getEffect("Simple Gain4");
 Content.getComponent("knob_io_in").setControlCallback(onknob_io_inControl);
 inline function onknob_io_inControl(component, value)
 {
-	
 	Gain.setAttribute('Gain', value);
-	updateParameterWithLabel('Gain', value / 100, 'dB');
 };
 
 const var DryGain = Synth.getEffect("DryGain");
@@ -304,6 +302,4 @@ inline function onknob_io_outControl(component, value)
 	
 	local dryAmount = parseInt((1- value) * 100);
 	local wetAmount = parseInt(value * 100);
-	
-	customParameter('DRY: ' + dryAmount + ' | WET: ' + wetAmount);
 };

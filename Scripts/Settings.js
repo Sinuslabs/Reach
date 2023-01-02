@@ -114,7 +114,7 @@ namespace UserSettings {
 	button_startupAnimationToggle.setControlCallback(onbutton_startupAnimationToggleControl);
 	inline function onbutton_startupAnimationToggleControl(component, value) {
 		startupAnimation = !value;
-		saveSettings();
+		UserSettings.saveSettings();
 	};
 	
 	

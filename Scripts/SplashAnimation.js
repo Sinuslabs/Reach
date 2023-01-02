@@ -7,16 +7,13 @@ namespace SplashAnimation {
 	// DECLARTIONS
 	const var tubeAniPanel = Content.getComponent("tubeAni");
 	const var animationBackground = Content.getComponent("animationBackground");
-	
+	const var tubeAniTimer = Engine.createTimerObject();
 
 	
 	inline function init() {
-		Console.print('running');
-	
 		// ANIMATION SETUP
 		tubeAniPanel.setAnimation(tubeAni);
 		
-		const var tubeAniTimer = Engine.createTimerObject();
 		tubeAniTimer.setTimerCallback(nextFrame);
 		tubeAniTimer.startTimer(25);
 		
@@ -28,7 +25,7 @@ namespace SplashAnimation {
 	
 	inline function nextFrame() {
 		tubeAniPanel.setAnimationFrame(frame);
-		frame += 1;
+		frame += 1.4;
 		if (frame >= 80) {
 			tubeAniTimer.stopTimer();
 			tubeAniPanel.set('visible', false);

@@ -210,16 +210,25 @@ presetBrowserButtonLAF.registerFunction('drawToggleButton', function(g, obj) {
 	obj.value ?
 		g.setColour(SELECTED_TEXT_COLOUR) :
 		g.setColour(TEXT_COLOUR);
-	
-	g.setFont(Fonts.mainFont, 16);
-	g.drawAlignedText(obj.text, a, 'left');
+		
+	g.setFont(Fonts.secondaryFont, 22);
+	g.drawAlignedText(obj.text, [a[0] + 5, a[1], a[2], a[3]], 'left');
 });
 presetBrowserButton.setLocalLookAndFeel(presetBrowserButtonLAF);
 
 // HEADER BUTTONS
 const headerButtonsLAF = Content.createLocalLookAndFeel();
 headerButtonsLAF.registerFunction('drawToggleButton', function(g, obj){
+	
+	var padding = 22;
+
 	var a = obj.area;
+	var pa = [	
+		a[0] + padding / 2, 
+		a[1] + padding / 2 ,
+		a[2] - padding / 2,
+		a[3] - padding 
+	];
 
 	var SELECTED_ICON_COLOUR = HeaderTheme.selectedIconColour;
 	var ICON_COLOUR = HeaderTheme.iconColour;
@@ -233,8 +242,7 @@ headerButtonsLAF.registerFunction('drawToggleButton', function(g, obj){
 		g.setColour(SELECTED_ICON_COLOUR) :
 		g.setColour(ICON_COLOUR);
 	
-	g.fillPath(Paths.icons[obj.text], [this.getHeight / 2, this.getWidth / 2, parseInt(a[2]), parseInt(a[3])]);
-	return;
+	g.fillPath(Paths.icons[obj.text], pa);
 });
 
 button_preset_rightArrow.setLocalLookAndFeel(headerButtonsLAF);
@@ -413,6 +421,17 @@ laf.registerFunction("drawRotarySlider", function(g, obj){
 	var ringColour = EffectCustomizer.getEffectColour(obj.text);
 	if (isDefined(ringColour)) {
 		g.setColour(ringColour);
+		if (!obj.enabled) {
+			g.setGradientFill([
+				UPPER_GRADIENT, 0.0, 0.0,
+				LOWER_GRADIENT, 0.5, 100.0]
+			);
+		}
+	}
+	
+	// FIX REVERB TITLE 
+	if (text == 'Reverb MIX') {
+		text = 'MIX';
 	}
 	
 	g.fillEllipse(sockelA);
@@ -660,8 +679,8 @@ laf.registerFunction("drawPresetBrowserSearchBar", function(g, obj){});
 laf.registerFunction("drawPresetBrowserDialog", function(g, obj)
 {
 	
-	var TOP_PADDING = 10;
-	var PADDING = 10;
+	var TOP_PADDING = 5;
+	var PADDING = 5;
 	var a = obj.area;
 	
 	var pa = [a[0] - PADDING, a[1] - PADDING, a[2] + PADDING * 2, a[3] + PADDING * 2];

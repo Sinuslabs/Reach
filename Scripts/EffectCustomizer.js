@@ -69,13 +69,14 @@ namespace EffectCustomizer {
 	                                    displayPanel_degradeIndicator,
 	                                    displayPanel_reverbIndicator,
 	                                    displayPanel_chorusIndicator];
-                  
-	// INIT
+	                                    
+	// setup effect customizer tabs
 	inline function init() {
-		radioEffectBox(effectTabs[0]);
 		setEffectNamesFromSlots();		
 		snapToArea();
+		setCurrentTab();
 	}
+	init();
 	
 	// Shortcut listener	
 	const var indicatorShortcutWatcher = Engine.createBroadcaster({
@@ -92,7 +93,7 @@ namespace EffectCustomizer {
 	], "Clicks Only", "Mouse Listener for Effect Controls");
 	indicatorShortcutWatcher.addListener("RefreshFunction", "Mute and navigate to Effect", function(component, event) {
 	
-		if (event.cmdDown && event.clicked) {			
+		if (event.cmdDown && event.clicked) {		
 			switch(component.get('text')) {
 				case 'Reverb':
 					Reverb.displayButton_reverb_bypass.setValue(!Reverb.displayButton_reverb_bypass.getValue());
@@ -130,34 +131,26 @@ namespace EffectCustomizer {
 		}
 	});
 	
+	// gets the current id from the the effectName
 	inline function getEffectIndex(effectName) {
-		
 		for ( i=0; i<effectSlots.length; i++ ) {
 			local slotEffect = getIdFromSlot(effectSlots[i]);
-			
-			//Console.print(slotEffect);
 			if (slotEffect == effectName) {
-			
 				return i;
 			}
 		}
-	
-		
 	}
-	     
-	
-	init();
-	
-	for (tab in effectTabs) {
-		tab.setPaintRoutine(tabRoutine);
-	}
-	                        
+
 	const SWAP_SENSITIVITY = 80;
 	
 	for (tab in effectTabs) {
 		tab.setDraggingBounds([0,0, 486, 40]);
 		reg currentSlot;
 		var wannaBeSlot;
+		
+		// assigning Graphics Routine
+		tab.setPaintRoutine(tabRoutine);
+		
 	    tab.setMouseCallback(function(e) {	
 	    	var positionX = this.getGlobalPositionX() + SWAP_SENSITIVITY;
 	    	var width = this.getWidth() - SWAP_SENSITIVITY * 2;
@@ -173,11 +166,38 @@ namespace EffectCustomizer {
  		        radioEffectBox(this);
  		        showPanel(this.get('text'));
 	  		}
+	  		
+	  		if (e.cmdDown && e.clicked) {		
+	  			switch(this.get('text')) {
+	  				case 'Reverb':
+	  					Reverb.displayButton_reverb_bypass.setValue(!Reverb.displayButton_reverb_bypass.getValue());
+	  					Reverb.displayButton_reverb_bypass.changed();
+	  					return;
+	  				case 'Degrade':
+	  					Effects.displayButton_degrade_bypass.setValue(!Effects.displayButton_degrade_bypass.getValue());
+	  					Effects.displayButton_degrade_bypass.changed();
+	  					return;
+	  				case 'Flanger':
+	  					Effects.displayButton_flanger_bypass.setValue(!Effects.displayButton_flanger_bypass.getValue());
+	  					Effects.displayButton_flanger_bypass.changed();
+	  					return;
+	  				case 'Chorus':
+	  					Effects.displayButton_chorus_bypass.setValue(!Effects.displayButton_chorus_bypass.getValue());
+	  					Effects.displayButton_chorus_bypass.changed();
+	  					return;
+	  				case 'Distort':
+	  					Effects.displayButton_distort_bypass.setValue(!Effects.displayButton_distort_bypass.getValue());
+	  					Effects.displayButton_distort_bypass.changed();
+	  					return;
+	  				case 'default':
+	  					return;
+	  			}
+	  			return;
+	  		}
 	    
 	        if (e.drag) {        	
 	        	wannaBeSlot = getIntersectingSlot(positionX, width);
 	        	if (typeof wannaBeSlot == 'number' && typeof currentSlot == 'number') {
-	        		var name = this.get('text');
 	        		if (currentSlot != wannaBeSlot) {
 	        			swapSlots(currentSlot, wannaBeSlot);
 	        			currentSlot = wannaBeSlot;
@@ -252,6 +272,9 @@ namespace EffectCustomizer {
 		effectSlots[slot1].swap(effectSlots[slot2]);
 	}
 	
+	
+	//  -- GRAPHICS --
+	
 	const TAB_PADDING = 3;
 	const TEXT_PADDING = 6;
 	const DOT_PADDING = 5;
@@ -274,6 +297,7 @@ namespace EffectCustomizer {
 		];
 		
 		local text = this.get('text');
+		local bypassed = getEffectBypass(text);
 		
 		local value = this.getValue();		
 		local SELECTED_TAB_COLOUR = getEffectColour(text);
@@ -281,11 +305,14 @@ namespace EffectCustomizer {
 		local TAB_TEXT_COLOUR = DisplayTheme.tabTextColour;
 		local TAB_COLOUR = '0x32364C';
 		
-		
 		value ? g.setColour(SELECTED_TAB_COLOUR) : g.setColour(TAB_COLOUR);
 		
+		if (!value) {
+			if (bypassed) g.setColour('0x0x7f7f7f');			
+		}
+		
 		g.fillRoundedRectangle(a, 2);
-		value ? g.setColour(SELECTED_TAB_TEXT_COLOUR) : g.setColour(TAB_TEXT_COLOUR);
+		value || bypassed ? g.setColour(SELECTED_TAB_TEXT_COLOUR) : g.setColour(TAB_TEXT_COLOUR);
 		
 		if (value && text == 'Reverb') {
 			g.setColour(Colours.white);
@@ -324,37 +351,37 @@ namespace EffectCustomizer {
 	}
 	
 	// Main Screen
-	const EffectTabInitTimer = Engine.createTimerObject();
-	EffectTabInitTimer.setTimerCallback(showTabOnInit);
-
-	
 	inline function showTabOnInit() {
 		radioEffectBox(currenTab);
-		EffectTabInitTimer.stopTimer();
 	}
 	
-	var currenTab;
 	
 	inline function onbutton_fxControl(component, value) {
 		if (value) {
 			displayShow('effects');
-			
 			Globals.effectsOpen = true;
-			for (tab in effectTabs) {
-				if (tab.getValue() == 1) {
-					currenTab = tab;	
-					EffectTabInitTimer.startTimer(30);
-				}
-			}
-			if (!isDefined(currenTab)) {
-				currenTab = effectTabs[1];
-				EffectTabInitTimer.startTimer(30);
-			}
-						
+			setCurrentTab();
 		} else {
 			showMain();	
 		}
 	};
+	
+	
+	
+	inline function setCurrentTab() {
+		for (tab in effectTabs) {
+			if (tab.getValue() == 1) {
+				local text = tab.get('text');						
+				local effectIndex = getEffectIndex(text);
+				radioEffectBox(effectTabs[effectIndex]);
+				showPanel(text);
+				return;
+			}
+		}
+		local effectIndex = getEffectIndex('Reverb');
+		radioEffectBox(effectTabs[effectIndex]);
+		showPanel('Reverb');
+	}
 	
 	for (indicator in fxCustomizerIndicators) {
 		indicator.setPaintRoutine(customizerIndicatorRoutine);
