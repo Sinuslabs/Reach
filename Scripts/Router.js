@@ -15,6 +15,15 @@ function displayDisableAll() {
 
 inline function showMain() {
 	disableStates();
+	
+	// sync indicators
+	EffectCustomizer.repaintIndicators();
+	
+	// restoring main button states
+	
+	Filter.button_filter.set('visible', true);
+	EffectCustomizer.button_fx.set('visible', true);
+	
 	displayShowMain('waveform');
 }
 
@@ -28,35 +37,45 @@ function disableStates() {
 	Globals.effectsOpen = false;
 	EffectCustomizer.button_fx.setValue(0);
 	
+	Globals.filterOpen = false;
+	Filter.button_filter.setValue(0);
+	
 	Globals.aboutOpen = false;
 	button_title.setValue(0);
 	
-	Filter.prePostButtons[0].set('visible', false);
-	Filter.prePostButtons[1].set('visible', false);
 }
 
 function displayShow(route) {
 	displayDisableAll();	
 	disableStates();
 	
-	if (route == 'settings') {
-		Globals.settingsOpen = true;
-		logoButton.setValue(1);
-	}
-	
-	if (route == 'presetBrowser') {
-		Globals.presetBrowserOpen = true;
-		presetBrowserButton.setValue(1);
-	}
-	
-	if (route == 'effects') {
-		Globals.effectsOpen = true;
-		EffectCustomizer.button_fx.setValue(1);
-	}
-	
-	if (route == 'about') {
-		Globals.aboutOpen = true;
-		button_title.setValue(1);
+	switch(route) {
+		case 'settings':
+			Globals.settingsOpen = true;
+			logoButton.setValue(1);
+			break;
+		case 'presetBrowser':
+			Globals.presetBrowserOpen = true;
+			presetBrowserButton.setValue(1);
+			break;
+		case 'effects':
+			Globals.effectsOpen = true;
+			EffectCustomizer.button_fx.setValue(1);
+			
+			Filter.button_filter.set('visible', false);
+			break;
+		case 'filter':
+			Globals.filterOpen = true;
+			Filter.button_filter.setValue(1);
+			
+			EffectCustomizer.button_fx.set('visible', false);
+			break;
+		case 'about':
+			Globals.aboutOpen = true;
+			button_title.setValue(1);
+			break;
+		case 'default':
+			break;
 	}
 	
 	for (display in displayRoutes) {

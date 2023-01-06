@@ -1,10 +1,3 @@
-// Display Parameter
-const var label_parameter_name = Content.getComponent("label_parameter_name");
-
-function updateDisplay() {
-	label_parameter_name.set('text', Globals.displayParameter);
-}
-
 const screenTimer = Engine.createTimerObject();
 screenTimer.setTimerCallback(showMainScreen);
 
@@ -24,6 +17,8 @@ function showTempScreen(route) {
 		Globals.presetBrowserOpen ||
 		Globals.settingsOpen ||
 		Globals.aboutOpen ||
+		Globals.filterOpen ||
+		presetChangedTimer.isTimerRunning() ||
 		!UserSettings.enableAnimations
 	) return;
 	

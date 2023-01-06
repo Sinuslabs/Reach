@@ -49,7 +49,7 @@ laf.registerFunction('drawScrollbar', function(g, obj) {
 	
 });
 
-const BUTTON_BORDER_RADIUS = 4;
+const BUTTON_BORDER_RADIUS = 2;
 const BUTTON_BORDER_SIZE = 2;
 
 laf.registerFunction('drawToggleButton', function(g, obj) {	
@@ -126,8 +126,8 @@ laf.registerFunction('drawToggleButton', function(g, obj) {
 		}
 		
 		obj.value == 1 ?
-			g.setColour(SELECTED_ICON_COLOUR) :
-			g.setColour(ICON_COLOUR);
+			g.setColour(ICON_COLOUR) :
+			g.setColour(SELECTED_ICON_COLOUR);
 		
 		g.fillPath(Paths.icons[obj.text], [this.getHeight / 2, this.getWidth / 2, parseInt(a[2]), parseInt(a[3])]);
 		return;
@@ -210,16 +210,25 @@ presetBrowserButtonLAF.registerFunction('drawToggleButton', function(g, obj) {
 	obj.value ?
 		g.setColour(SELECTED_TEXT_COLOUR) :
 		g.setColour(TEXT_COLOUR);
-	
-	g.setFont(Fonts.mainFont, 16);
-	g.drawAlignedText(obj.text, a, 'left');
+		
+	g.setFont(Fonts.secondaryFont, 22);
+	g.drawAlignedText(obj.text, [a[0] + 5, a[1], a[2], a[3]], 'left');
 });
 presetBrowserButton.setLocalLookAndFeel(presetBrowserButtonLAF);
 
 // HEADER BUTTONS
 const headerButtonsLAF = Content.createLocalLookAndFeel();
 headerButtonsLAF.registerFunction('drawToggleButton', function(g, obj){
+	
+	var padding = 22;
+
 	var a = obj.area;
+	var pa = [	
+		a[0] + padding / 2, 
+		a[1] + padding / 2 ,
+		a[2] - padding / 2,
+		a[3] - padding 
+	];
 
 	var SELECTED_ICON_COLOUR = HeaderTheme.selectedIconColour;
 	var ICON_COLOUR = HeaderTheme.iconColour;
@@ -233,8 +242,7 @@ headerButtonsLAF.registerFunction('drawToggleButton', function(g, obj){
 		g.setColour(SELECTED_ICON_COLOUR) :
 		g.setColour(ICON_COLOUR);
 	
-	g.fillPath(Paths.icons[obj.text], [this.getHeight / 2, this.getWidth / 2, parseInt(a[2]), parseInt(a[3])]);
-	return;
+	g.fillPath(Paths.icons[obj.text], pa);
 });
 
 button_preset_rightArrow.setLocalLookAndFeel(headerButtonsLAF);
@@ -257,7 +265,7 @@ headerTitleLAF.registerFunction('drawToggleButton', function(g, obj){
 		g.setColour(SELECTED_TEXT_COLOUR) :
 		g.setColour(TEXT_COLOUR);
 	
-	g.setFont(Fonts.mainFont, 36);
+	g.setFont(Fonts.secondaryFont, 48);
 	g.drawAlignedText(obj.text, a, 'left');
 });
 button_title.setLocalLookAndFeel(headerTitleLAF);
@@ -287,21 +295,23 @@ const DISABLED_OPACITY = 'CC';
 
 // ARC
 const ARC_THICKNESS = 2;
-const ARC_PADDING = 10;
+const ARC_PADDING = 0;
+
+// SOCKEL
+const SOCKEL_PADDING = 3.5;
 
 // INDICATOR
-const INDICATOR_THICKNESS = 5;
-const INDICATOR_LENGTH = 15;
+const INDICATOR_THICKNESS = 6;
+const INDICATOR_LENGTH = 9;
 const INDICATOR_BORDER_RADIUS = 2;
-const INDICATOR_GAP = 8;
+const INDICATOR_GAP = 5;
 
 // MAIN BODY
-
 const BORDER = 2 ;
 
 // SHADOW
-const SHADOW_RADIUS = 10;
-const SHADOW_OFFSET = [0, 2];
+const SHADOW_RADIUS = 5;
+const SHADOW_OFFSET = [0, 4];
 const SHADOW_PADDING = 5;
 
 // EXTRA RING
@@ -311,7 +321,7 @@ const GLOW_AMOUNT = 3;
 laf.registerFunction("drawRotarySlider", function(g, obj){
 	
 	// Padding
-	var PADDING = 6;
+	var PADDING = 8;
 	
 	// Colours
 	var ARC_COLOUR = SliderTheme.arcColour;
@@ -319,9 +329,12 @@ laf.registerFunction("drawRotarySlider", function(g, obj){
 	var UPPER_GRADIENT = SliderTheme.upperGradientColour;
 	var LOWER_GRADIENT = SliderTheme.lowerGradientColour;
 	var BORDER_COLOUR = SliderTheme.borderColour;
+	var TEXT_COLOUR = SliderTheme.textColour;
 	var SHADOW_COLOUR = SliderTheme.shadowColour;
 	var RED_COLOUR = SliderTheme.redColour;
 	var BLUE_COLOUR = SliderTheme.blueColour;
+	
+	var text = obj.text;
 	
 	// Make transparent on disabled
 	var disabled = !obj.enabled;
@@ -335,6 +348,7 @@ laf.registerFunction("drawRotarySlider", function(g, obj){
 		SHADOW_COLOUR = SHADOW_COLOUR.replace('0x', '0x' + DISABLED_OPACITY);
 		RED_COLOUR = RED_COLOUR.replace('0x', '0x' + DISABLED_OPACITY);
 		BLUE_COLOUR = BLUE_COLOUR.replace('0x', '0x' + DISABLED_OPACITY);
+		TEXT_COLOUR = TEXT_COLOUR.replace('0x', '0x' + DISABLED_OPACITY);
 	}
 	
 	if (obj.text == 'red' || obj.text == 'blue') {
@@ -342,29 +356,49 @@ laf.registerFunction("drawRotarySlider", function(g, obj){
 	}
 	
 	var a = obj.area;
+	
+	var sockelA = [
+		SOCKEL_PADDING,
+		SOCKEL_PADDING,
+		a[2] - SOCKEL_PADDING * 2,
+		a[2] - SOCKEL_PADDING * 2
+	];
+	
 	var ka = [
 		PADDING,
 		PADDING,
 		a[2] - PADDING * 2,
-		a[3] - PADDING * 2
+		a[2] - PADDING * 2
 	];
+	
 	var sa = [
 		PADDING + SHADOW_PADDING,
 		PADDING + SHADOW_PADDING,
 		a[2] - (PADDING + SHADOW_PADDING) * 2,
-		a[3] - (PADDING + SHADOW_PADDING) * 2
+		a[2] - (PADDING + SHADOW_PADDING) * 2
 	];
 	
-	if (obj.text == 'red') {
-		g.setColour(RED_COLOUR);
-		var ra = [
-			PADDING - GLOW_RING_SIZE,
-			PADDING - GLOW_RING_SIZE,
-			a[2] - (PADDING - GLOW_RING_SIZE) * 2,
-			a[3] - (PADDING - GLOW_RING_SIZE) * 2
-		];
-		g.fillEllipse(ra);
-		g.addDropShadowFromAlpha(RED_COLOUR, GLOW_AMOUNT);
+	if (obj.clicked || obj.hover) {
+		
+		text = obj.valueAsText;
+		if (obj.suffix == ' ms') {
+			reg label;
+			if (obj.value < 1.0) {
+				label = ' ms';
+				obj.value *= 100;
+				obj.value = Engine.doubleToString(obj.value * 10, 0);
+			} else {
+				label = ' s';
+				obj.value = Engine.doubleToString(obj.value, 2);
+			}
+		
+			text = obj.value + label;
+		}
+		if (obj.suffix == ' Hz') {
+			if (obj.value > 1000) {
+				text = Engine.doubleToString(obj.value / 1000, 1) + 'khz';
+			}
+		}
 	}
 	
 	if (obj.text == 'blue') {
@@ -378,6 +412,29 @@ laf.registerFunction("drawRotarySlider", function(g, obj){
 		g.fillEllipse(ra);
 		g.addDropShadowFromAlpha(BLUE_COLOUR, GLOW_AMOUNT);
 	}
+	
+	g.setGradientFill([
+		UPPER_GRADIENT, 0.0, 0.0,
+		LOWER_GRADIENT, 0.5, 100.0]
+	);
+	
+	var ringColour = EffectCustomizer.getEffectColour(obj.text);
+	if (isDefined(ringColour)) {
+		g.setColour(ringColour);
+		if (!obj.enabled) {
+			g.setGradientFill([
+				UPPER_GRADIENT, 0.0, 0.0,
+				LOWER_GRADIENT, 0.5, 100.0]
+			);
+		}
+	}
+	
+	// FIX REVERB TITLE 
+	if (text == 'Reverb MIX') {
+		text = 'MIX';
+	}
+	
+	g.fillEllipse(sockelA);
 	
 	// SHADOW PATH
 	var shadowPath = Content.createPath();
@@ -428,18 +485,20 @@ laf.registerFunction("drawRotarySlider", function(g, obj){
 		pathArea[3]
 	];
 	
+	g.setColour(TEXT_COLOUR);
+	g.setFont(Fonts.mainFont, 15);
+	g.drawAlignedText(text.toUpperCase(), [a[0], ka[1] + ka[3] * 0.9, a[2], ka[3]], 'centred');
+	
 	g.setColour(ARC_COLOUR);	
 	
-	if (obj.text == 'red') {
-		g.setColour(RED_COLOUR);
-	}
-	if (obj.text == 'blue') {
-		g.setColour(BLUE_COLOUR);
+
+	if (obj.text == 'Reverb MIX') {
+		g.setColour(ringColour);
 	}
 	
 	g.drawPath(arcPath, pathArea, stableSize * arcThickness );
 	
-	g.rotate(end, [a[2] / 2, a[3] / 2]);
+	g.rotate(end, [a[2] / 2, a[2] / 2]);
 	g.setColour(INDICATOR_COLOUR);
 	g.fillRoundedRectangle([
 		a[2] / 2 - INDICATOR_THICKNESS / 2,
@@ -450,10 +509,123 @@ laf.registerFunction("drawRotarySlider", function(g, obj){
 	);
 });
 
+const var mixLAF = Content.createLocalLookAndFeel();
+mixLAF.registerFunction('drawRotarySlider', mixKnobLAF);
+
+inline function mixKnobLAF(g, obj) {
+	// Padding
+	local PADDING = 8;
+	local ARC_PADDING = 15;
+	local ARC_THICKNESS = 3;
+		
+	// Colours
+	local ARC_COLOUR = SliderTheme.arcColour;
+	local INDICATOR_COLOUR = SliderTheme.indicatorColour;
+	local UPPER_GRADIENT = SliderTheme.upperGradientColour;
+	local LOWER_GRADIENT = SliderTheme.lowerGradientColour;
+	local BORDER_COLOUR = SliderTheme.borderColour;
+	local TEXT_COLOUR = SliderTheme.textColour;
+	local SHADOW_COLOUR = SliderTheme.shadowColour;
+	
+	local text = obj.valueAsText;
+	
+	local a = obj.area;
+	
+	local sockelA = [
+		SOCKEL_PADDING,
+		SOCKEL_PADDING,
+		a[2] - SOCKEL_PADDING * 2,
+		a[2] - SOCKEL_PADDING * 2
+	];
+	
+	local ka = [
+		PADDING,
+		PADDING,
+		a[2] - PADDING * 2,
+		a[2] - PADDING * 2
+	];
+	
+	local sa = [
+		PADDING + SHADOW_PADDING,
+		PADDING + SHADOW_PADDING,
+		a[2] - (PADDING + SHADOW_PADDING) * 2,
+		a[2] - (PADDING + SHADOW_PADDING) * 2
+	];
+	
+	g.setGradientFill([
+		UPPER_GRADIENT, 0.0, 0.0,
+		LOWER_GRADIENT, 0.5, 100.0]
+	);
+	
+	g.fillEllipse(sockelA);
+	
+	// SHADOW PATH
+	local shadowPath = Content.createPath();
+	shadowPath.addArc([0.0, 0.0, 1.0, 1.0], 0, Math.PI * 2);
+	if (!disabled) {
+		g.drawDropShadowFromPath(
+			shadowPath,
+			sa,
+			SHADOW_COLOUR,
+			SHADOW_RADIUS, SHADOW_OFFSET
+		);
+	}
+	
+	g.setColour(BORDER_COLOUR);
+	g.fillEllipse(ka);
+	g.setGradientFill([
+		UPPER_GRADIENT, 0.0, 0.0,
+		LOWER_GRADIENT, 0.5, 100.0]
+	);
+	
+	g.fillEllipse([
+		ka[0] + BORDER,
+		ka[1] + BORDER,
+		ka[2] - BORDER * 2,
+		ka[3] - BORDER * 2
+	]);
+	
+	local arcPath = Content.createPath();
+	
+	local start = 2.5;
+	local end = start * 2 * obj.valueNormalized - start;
+	
+	local arcThickness = ARC_THICKNESS / 100;
+	local arcWidth = (1.0 - 2.0 * arcThickness) + arcThickness;
+	local stableSize = a[2];
+	
+	arcPath.addArc(
+		[arcThickness / 2, arcThickness / 2,arcWidth , arcWidth],
+		-start,
+		end
+	 );
+	
+	local pathArea = arcPath.getBounds(a[2] - ARC_PADDING);
+	pathArea = [
+		pathArea[0] + ARC_PADDING / 2,
+		pathArea[1] + ARC_PADDING / 2,
+		pathArea[2],
+		pathArea[3]
+	];
+	
+	g.setColour(TEXT_COLOUR);
+	g.setFont(Fonts.secondaryFont, 25);
+	g.drawAlignedText(text, ka, 'centred');
+	
+	g.setFont(Fonts.mainFont, 15);
+	g.drawAlignedText('MIX', [a[0], ka[1] + ka[3] * 0.7, a[2], ka[3]], 'centred');
+	
+	g.setColour(ARC_COLOUR);	
+	g.drawPath(arcPath, pathArea, stableSize * arcThickness );
+}
+
+
+knob_io_out.setLocalLookAndFeel(mixLAF);
+
 // Themeable Panels
 const var themeablePanels = Content.getAllComponents('themeablePanel');
-const PANEL_BORDER = 2;
-const PANEL_BORDER_RADIUS = 5;
+const PANEL_BORDER = 0;
+const PANEL_BORDER_RADIUS = 4;
 
 // Main Panels
 function themePanels() {
@@ -461,9 +633,6 @@ function themePanels() {
 		panel.setPaintRoutine(function(g)
 		{
 			var a = [0, 0, this.getWidth(), this.getHeight()];
-			g.setColour(PanelTheme.borderColour);
-			g.fillRoundedRectangle(a, PANEL_BORDER_RADIUS);
-			
 			g.setGradientFill([
 				PanelTheme.upperGradientColour, 0.0, 0.0,
 				PanelTheme.lowerGradientColour, 0.5, 100.0]
@@ -494,7 +663,7 @@ function themeMainPanel() {
 		);
 		g.fillRoundedRectangle(a, PANEL_BORDER_RADIUS);
 		g.addNoise({
-			alpha: 0.02,
+			alpha: 0.03,
 			monochromatic: true,
 			scaleFactor: 1.2,
 			area: a
@@ -510,8 +679,8 @@ laf.registerFunction("drawPresetBrowserSearchBar", function(g, obj){});
 laf.registerFunction("drawPresetBrowserDialog", function(g, obj)
 {
 	
-	var TOP_PADDING = 10;
-	var PADDING = 10;
+	var TOP_PADDING = 5;
+	var PADDING = 5;
 	var a = obj.area;
 	
 	var pa = [a[0] - PADDING, a[1] - PADDING, a[2] + PADDING * 2, a[3] + PADDING * 2];
@@ -641,6 +810,6 @@ popMenuLaf.registerFunction("drawComboBox", function(g, obj)
 });
 
 popMenuLaf.registerFunction("getIdealPopupMenuItemSize", function(obj) { return 36; });
-
 comboBox_zoom.setLocalLookAndFeel(popMenuLaf);
 comboBox_theme.setLocalLookAndFeel(popMenuLaf);
+
