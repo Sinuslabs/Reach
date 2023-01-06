@@ -11,6 +11,11 @@ function displayDisableAll() {
 	for (display in displayRoutes) {
 		display.set('visible', false);
 	}
+	
+	if (SplashAnimation.tubeAniTimer.isTimerRunning() && !Globals.screenLock) {
+		Console.print('timer running');
+		SplashAnimation.cancelAnimation();
+	}
 }
 
 inline function showMain() {
