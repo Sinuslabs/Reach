@@ -265,7 +265,10 @@ panel_background.setKeyPressCallback(onBackgroundKeypress);
 inline function onBackgroundKeypress(key) {
 	
 	// ESC -> main Screen
-	if (key.keyCode == 27) showMain();
+	if (key.keyCode == 27) { 
+		showMain();
+		SplashAnimation.cancelAnimation();
+	} 
 }
 
 // Website

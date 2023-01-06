@@ -26,13 +26,15 @@ namespace SplashAnimation {
 	inline function nextFrame() {
 		tubeAniPanel.setAnimationFrame(frame);
 		frame += 1.4;
-		if (frame >= 80) {
-			tubeAniTimer.stopTimer();
-			tubeAniPanel.set('visible', false);
-			showUI();
-		}
+		if (frame >= 80) cancelAnimation();
 	}
 	
+	inline function cancelAnimation() {
+		tubeAniTimer.stopTimer();
+		tubeAniPanel.set('visible', false);
+		showUI();
+		Globals.screenLock = false;
+	}
 	
 	inline function showUI() {
 		Filter.button_filter.set('visible', true);
