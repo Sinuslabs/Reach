@@ -145,6 +145,7 @@ namespace Effects {
 		EffectCustomizer.displayPanel_degradeIndicator.set('enabled', value);
 		EffectCustomizer.displayPanel_degradeIndicator.repaint();
 		EffectCustomizer.repaintIndicators();
+		EffectCustomizer.repaintTabs();
 	}
 	
 	// CHORUS
@@ -176,6 +177,7 @@ namespace Effects {
 			ChorusAnimations.AnimationPanel.repaintImmediately();
 			
 			EffectCustomizer.repaintIndicators();
+			EffectCustomizer.repaintTabs();
 		
 	};
 	
@@ -209,6 +211,7 @@ namespace Effects {
 		EffectCustomizer.displayPanel_chorusIndicator.set('enabled', value);
 		EffectCustomizer.displayPanel_chorusIndicator.repaint();
 		EffectCustomizer.repaintIndicators();
+		EffectCustomizer.repaintTabs();
 	}
 	
 	// DISTORION
@@ -249,6 +252,7 @@ namespace Effects {
 		DistortionAnimation.setScale(value);
 		
 		EffectCustomizer.repaintIndicators();
+		EffectCustomizer.repaintTabs();
 	};
 	
 	inline function ondisplayButton_distort_bypassControl(component, value) {
@@ -288,6 +292,7 @@ namespace Effects {
 		
 		EffectCustomizer.displayPanel_distortIndicator.repaint();
 		EffectCustomizer.repaintIndicators();
+		EffectCustomizer.repaintTabs();
 	}
 
 }

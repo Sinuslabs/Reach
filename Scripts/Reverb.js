@@ -187,6 +187,7 @@ namespace Reverb {
 		EffectCustomizer.displayPanel_reverbIndicator.repaint();
 		
 		EffectCustomizer.repaintIndicators();
+		EffectCustomizer.repaintTabs();
 	}
 	
 	
