@@ -161,11 +161,7 @@ namespace EffectCustomizer {
 	    	if (e.hover) {
 		    	this.data.hover = 1;
 	    	}
-	    	if (e.clicked) {
- 		        currentSlot = getIntersectingSlot(positionX, width);
- 		        radioEffectBox(this);
- 		        showPanel(this.get('text'));
-	  		}
+
 	  		
 	  		if (e.cmdDown && e.clicked) {		
 	  			switch(this.get('text')) {
@@ -194,6 +190,12 @@ namespace EffectCustomizer {
 	  			}
 	  			return;
 	  		}
+	  		
+	  		if (e.clicked) {
+ 		        currentSlot = getIntersectingSlot(positionX, width);
+ 		        radioEffectBox(this);
+ 		        showPanel(this.get('text'));
+	  		}
 	    
 	        if (e.drag) {        	
 	        	wannaBeSlot = getIntersectingSlot(positionX, width);
@@ -206,6 +208,12 @@ namespace EffectCustomizer {
 	        	}
 	        }    
 	    });
+	}
+	
+	inline function repaintTabs() {
+		for (tab in EffectCustomizer.effectTabs) {
+			tab.repaint();
+		}
 	}
 	
 	inline function showPanel(route) {
