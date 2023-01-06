@@ -18,25 +18,37 @@ include("ChorusAnimation.js");
 include("DistortionAnimation.js");
 include("VuMeter.js");
 include("Theme.js");
+include("SplashAnimation.js");
 
 Content.makeFrontInterface(1134, 510);
 
-Engine.loadFontAs("{PROJECT_FOLDER}Fonts/SpaceMono-Regular.ttf", "space");
+Engine.loadFontAs("{PROJECT_FOLDER}Fonts/JetBrainsMono-Medium.ttf", "jetbrains-mono");
 Engine.loadFontAs("{PROJECT_FOLDER}Fonts/Inter-SemiBold.ttf", "inter-semi");
 Engine.setGlobalFont("inter-semi");
+
+Engine.loadNextUserPreset(true);
 
 // Setting Global State
 Globals.parameter = 'NONE';
 Globals.freezeMode = false;
-Globals.activated = false;
+
+// DEBUG
+Globals.activated = true;
 Globals.presetBrowserOpen = false;
 Globals.settingsOpen = false;
 Globals.effectsOpen = false;
 Globals.aboutOpen = false;
+Globals.filterOpen = false;
 
 // Loading Settings
 if (settingsExist()) {
 	UserSettings.loadSettings();
+	if (UserSettings.startupAnimation) {
+		SplashAnimation.init();
+	} else {
+		SplashAnimation.tubeAniPanel.set('visible', false);
+		SplashAnimation.animationBackground.set('visible', false);
+	}
 } else {
 	Settings.setZoomLevel(1);
 	comboBox_zoom.setValue(4.0);
@@ -61,16 +73,13 @@ label_thank_you.set('visible', Globals.activated);
 // Main Screen
 const MainDisplayTimer = Engine.createTimerObject();
 MainDisplayTimer.setTimerCallback(showMainOnInit);
-MainDisplayTimer.startTimer(30);
+MainDisplayTimer.startTimer(20);
 
 inline function showMainOnInit() {
 
 	showMain();
 	panel_non_activated.set('visible', !Globals.activated);
 	panel_non_activated.repaint();
-	
-	// DEBUG
-	//displayShow('effects');
 	
 	MainDisplayTimer.stopTimer();
 }

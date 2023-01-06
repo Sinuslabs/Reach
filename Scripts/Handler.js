@@ -1,3 +1,50 @@
+// Shortcut listener	
+const var knobShortcutWatcher = Engine.createBroadcaster({
+	"id": "effectKnobsOnClickStatus",
+	"args": ["component", "event"]
+});
+
+knobShortcutWatcher.attachToComponentMouseEvents([
+"knob_effects_degrade",
+"knob_effects_flair",
+"knob_effects_chorus",
+"knob_effects_distortion",
+"knob_reverb_mix"
+], "Clicks Only", "Mouse Listener for Effect Controls");
+knobShortcutWatcher.addListener("RefreshFunction", "Bypasses Effect", function(component, event) {
+	if (event.cmdDown && event.clicked) {
+		switch(component.get('text')) {
+			case 'Reverb MIX':
+				Reverb.displayButton_reverb_bypass.setValue(!Reverb.displayButton_reverb_bypass.getValue());
+				Reverb.displayButton_reverb_bypass.changed();
+				break;
+			case 'Degrade':
+			Console.print('Degrade');
+				Effects.displayButton_degrade_bypass.setValue(!Effects.displayButton_degrade_bypass.getValue());
+				Effects.displayButton_degrade_bypass.changed();
+				break;
+			case 'Flanger':
+				Effects.displayButton_flanger_bypass.setValue(!Effects.displayButton_flanger_bypass.getValue());
+				Effects.displayButton_flanger_bypass.changed();
+				break;
+			case 'Chorus':
+				Effects.displayButton_chorus_bypass.setValue(!Effects.displayButton_chorus_bypass.getValue());
+				Effects.displayButton_chorus_bypass.changed();
+				break;
+			case 'Distort':
+				Effects.displayButton_distort_bypass.setValue(!Effects.displayButton_distort_bypass.getValue());
+				Effects.displayButton_distort_bypass.changed();
+				break;
+			case 'default':
+				return;
+		}
+	}
+});
+
+
+// MAIN MIX KNOB
+const var knob_io_out = Content.getComponent("knob_io_out");
+
 // Logo Click
 const var logoButton = Content.getComponent('button_logo');
 
@@ -13,43 +60,8 @@ inline function onbutton_logoControl(component, value) {
 	}
 };
 
-const var settingsButtons = [
-	Content.getComponent('button_settings_general'),
-	Content.getComponent('button_settings_audio'),
-	Content.getComponent('button_settings_activate'),
-	Content.getComponent('button_settings_about')
-];
-
-settingsButtons[0].setControlCallback(onbutton_settings_generalControl);
- inline function onbutton_settings_generalControl(component, value)
- {
- 	UserSettings.settingsButtonsRadio(0);
- 	displayShowSettings('general');
- };
- 
- settingsButtons[1].setControlCallback(onbutton_settings_audioControl);
-  inline function onbutton_settings_audioControl(component, value)
-  {
-  	UserSettings.settingsButtonsRadio(1);
-  	displayShowSettings('audio');
-  };
-
- settingsButtons[2].setControlCallback(onbutton_settings_activateControl);
- inline function onbutton_settings_activateControl(component, value)
- {
- 	UserSettings.settingsButtonsRadio(2);
- 	displayShowSettings('activate');
- };
-
-settingsButtons[3].setControlCallback(onbutton_settings_aboutControl);
-inline function onbutton_settings_aboutControl(component, value)
-{
-	UserSettings.settingsButtonsRadio(3);
-	displayShowSettings('about');
-};
 
 // General Settings
-
 // Zoom factor
 
 const zoomFactors = [
@@ -202,12 +214,36 @@ inline function onPresetLoad(component, value)
 	EffectCustomizer.init();	
 };
 
+
+
+Content.getComponent("button_quickTheme").setControlCallback(onbutton_quickThemeControl);
+inline function onbutton_quickThemeControl(component, value)
+{
+	if (value) {
+
+		if (Theme.name == 'Light') {
+			Theme.setTheme('Dark');
+		} else {
+			Theme.setTheme('Light');
+		}
+	
+	}
+
+};
+
+const var presetChangedTimer = Engine.createTimerObject();
+presetChangedTimer.setTimerCallback(stopPresetTimer);
+
+inline function stopPresetTimer() { presetChangedTimer.stopTimer(); }
+
+
 const var button_preset_leftArrow = Content.getComponent("button_preset_leftArrow");
 button_preset_leftArrow.setControlCallback(onbutton_preset_leftArrowControl);
 inline function onbutton_preset_leftArrowControl(component, value)
 {
 	if (value) {
-		Engine.loadPreviousUserPreset(false);		
+		Engine.loadPreviousUserPreset(false);
+		presetChangedTimer.startTimer(200);
 	}
 
 };
@@ -218,6 +254,7 @@ inline function onbutton_preset_rightArrowControl(component, value)
 {
 	if (value) {
 		Engine.loadNextUserPreset(false);		
+		presetChangedTimer.startTimer(200);
 	}
 };
 
@@ -251,9 +288,7 @@ const var Gain = Synth.getEffect("Simple Gain4");
 Content.getComponent("knob_io_in").setControlCallback(onknob_io_inControl);
 inline function onknob_io_inControl(component, value)
 {
-	
 	Gain.setAttribute('Gain', value);
-	updateParameterWithLabel('Gain', value / 100, 'dB');
 };
 
 const var DryGain = Synth.getEffect("DryGain");
@@ -267,6 +302,4 @@ inline function onknob_io_outControl(component, value)
 	
 	local dryAmount = parseInt((1- value) * 100);
 	local wetAmount = parseInt(value * 100);
-	
-	customParameter('DRY: ' + dryAmount + ' | WET: ' + wetAmount);
 };

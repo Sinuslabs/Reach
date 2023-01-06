@@ -126,8 +126,8 @@ laf.registerFunction('drawToggleButton', function(g, obj) {
 		}
 		
 		obj.value == 1 ?
-			g.setColour(ICON_COLOUR) :
-			g.setColour(SELECTED_ICON_COLOUR);
+			g.setColour(SELECTED_ICON_COLOUR) :
+			g.setColour(ICON_COLOUR);
 		
 		g.fillPath(Paths.icons[obj.text], [this.getHeight / 2, this.getWidth / 2, parseInt(a[2]), parseInt(a[3])]);
 		return;
@@ -210,25 +210,16 @@ presetBrowserButtonLAF.registerFunction('drawToggleButton', function(g, obj) {
 	obj.value ?
 		g.setColour(SELECTED_TEXT_COLOUR) :
 		g.setColour(TEXT_COLOUR);
-		
-	g.setFont(Fonts.secondaryFont, 22);
-	g.drawAlignedText(obj.text, [a[0] + 5, a[1], a[2], a[3]], 'left');
+	
+	g.setFont(Fonts.mainFont, 16);
+	g.drawAlignedText(obj.text, a, 'left');
 });
 presetBrowserButton.setLocalLookAndFeel(presetBrowserButtonLAF);
 
 // HEADER BUTTONS
 const headerButtonsLAF = Content.createLocalLookAndFeel();
 headerButtonsLAF.registerFunction('drawToggleButton', function(g, obj){
-	
-	var padding = 22;
-
 	var a = obj.area;
-	var pa = [	
-		a[0] + padding / 2, 
-		a[1] + padding / 2 ,
-		a[2] - padding / 2,
-		a[3] - padding 
-	];
 
 	var SELECTED_ICON_COLOUR = HeaderTheme.selectedIconColour;
 	var ICON_COLOUR = HeaderTheme.iconColour;
@@ -242,7 +233,8 @@ headerButtonsLAF.registerFunction('drawToggleButton', function(g, obj){
 		g.setColour(SELECTED_ICON_COLOUR) :
 		g.setColour(ICON_COLOUR);
 	
-	g.fillPath(Paths.icons[obj.text], pa);
+	g.fillPath(Paths.icons[obj.text], [this.getHeight / 2, this.getWidth / 2, parseInt(a[2]), parseInt(a[3])]);
+	return;
 });
 
 button_preset_rightArrow.setLocalLookAndFeel(headerButtonsLAF);
@@ -401,6 +393,18 @@ laf.registerFunction("drawRotarySlider", function(g, obj){
 		}
 	}
 	
+	if (obj.text == 'red') {
+		g.setColour(RED_COLOUR);
+		var ra = [
+			PADDING - GLOW_RING_SIZE,
+			PADDING - GLOW_RING_SIZE,
+			a[2] - (PADDING - GLOW_RING_SIZE) * 2,
+			a[3] - (PADDING - GLOW_RING_SIZE) * 2
+		];
+		g.fillEllipse(ra);
+		g.addDropShadowFromAlpha(RED_COLOUR, GLOW_AMOUNT);
+	}
+	
 	if (obj.text == 'blue') {
 		g.setColour(BLUE_COLOUR);
 		var ra = [
@@ -417,22 +421,6 @@ laf.registerFunction("drawRotarySlider", function(g, obj){
 		UPPER_GRADIENT, 0.0, 0.0,
 		LOWER_GRADIENT, 0.5, 100.0]
 	);
-	
-	var ringColour = EffectCustomizer.getEffectColour(obj.text);
-	if (isDefined(ringColour)) {
-		g.setColour(ringColour);
-		if (!obj.enabled) {
-			g.setGradientFill([
-				UPPER_GRADIENT, 0.0, 0.0,
-				LOWER_GRADIENT, 0.5, 100.0]
-			);
-		}
-	}
-	
-	// FIX REVERB TITLE 
-	if (text == 'Reverb MIX') {
-		text = 'MIX';
-	}
 	
 	g.fillEllipse(sockelA);
 	
@@ -454,6 +442,8 @@ laf.registerFunction("drawRotarySlider", function(g, obj){
 		UPPER_GRADIENT, 0.0, 0.0,
 		LOWER_GRADIENT, 0.5, 100.0]
 	);
+	
+
 	
 	g.fillEllipse([
 		ka[0] + BORDER,
@@ -487,13 +477,15 @@ laf.registerFunction("drawRotarySlider", function(g, obj){
 	
 	g.setColour(TEXT_COLOUR);
 	g.setFont(Fonts.mainFont, 15);
-	g.drawAlignedText(text.toUpperCase(), [a[0], ka[1] + ka[3] * 0.9, a[2], ka[3]], 'centred');
+	g.drawAlignedText(text, [a[0], ka[1] + ka[3] * 0.9, a[2], ka[3]], 'centred');
 	
 	g.setColour(ARC_COLOUR);	
 	
-
-	if (obj.text == 'Reverb MIX') {
-		g.setColour(ringColour);
+	if (obj.text == 'red') {
+		g.setColour(RED_COLOUR);
+	}
+	if (obj.text == 'blue') {
+		g.setColour(BLUE_COLOUR);
 	}
 	
 	g.drawPath(arcPath, pathArea, stableSize * arcThickness );
@@ -508,119 +500,6 @@ laf.registerFunction("drawRotarySlider", function(g, obj){
 	 	INDICATOR_BORDER_RADIUS
 	);
 });
-
-const var mixLAF = Content.createLocalLookAndFeel();
-mixLAF.registerFunction('drawRotarySlider', mixKnobLAF);
-
-inline function mixKnobLAF(g, obj) {
-	// Padding
-	local PADDING = 8;
-	local ARC_PADDING = 15;
-	local ARC_THICKNESS = 3;
-		
-	// Colours
-	local ARC_COLOUR = SliderTheme.arcColour;
-	local INDICATOR_COLOUR = SliderTheme.indicatorColour;
-	local UPPER_GRADIENT = SliderTheme.upperGradientColour;
-	local LOWER_GRADIENT = SliderTheme.lowerGradientColour;
-	local BORDER_COLOUR = SliderTheme.borderColour;
-	local TEXT_COLOUR = SliderTheme.textColour;
-	local SHADOW_COLOUR = SliderTheme.shadowColour;
-	
-	local text = obj.valueAsText;
-	
-	local a = obj.area;
-	
-	local sockelA = [
-		SOCKEL_PADDING,
-		SOCKEL_PADDING,
-		a[2] - SOCKEL_PADDING * 2,
-		a[2] - SOCKEL_PADDING * 2
-	];
-	
-	local ka = [
-		PADDING,
-		PADDING,
-		a[2] - PADDING * 2,
-		a[2] - PADDING * 2
-	];
-	
-	local sa = [
-		PADDING + SHADOW_PADDING,
-		PADDING + SHADOW_PADDING,
-		a[2] - (PADDING + SHADOW_PADDING) * 2,
-		a[2] - (PADDING + SHADOW_PADDING) * 2
-	];
-	
-	g.setGradientFill([
-		UPPER_GRADIENT, 0.0, 0.0,
-		LOWER_GRADIENT, 0.5, 100.0]
-	);
-	
-	g.fillEllipse(sockelA);
-	
-	// SHADOW PATH
-	local shadowPath = Content.createPath();
-	shadowPath.addArc([0.0, 0.0, 1.0, 1.0], 0, Math.PI * 2);
-	if (!disabled) {
-		g.drawDropShadowFromPath(
-			shadowPath,
-			sa,
-			SHADOW_COLOUR,
-			SHADOW_RADIUS, SHADOW_OFFSET
-		);
-	}
-	
-	g.setColour(BORDER_COLOUR);
-	g.fillEllipse(ka);
-	g.setGradientFill([
-		UPPER_GRADIENT, 0.0, 0.0,
-		LOWER_GRADIENT, 0.5, 100.0]
-	);
-	
-	g.fillEllipse([
-		ka[0] + BORDER,
-		ka[1] + BORDER,
-		ka[2] - BORDER * 2,
-		ka[3] - BORDER * 2
-	]);
-	
-	local arcPath = Content.createPath();
-	
-	local start = 2.5;
-	local end = start * 2 * obj.valueNormalized - start;
-	
-	local arcThickness = ARC_THICKNESS / 100;
-	local arcWidth = (1.0 - 2.0 * arcThickness) + arcThickness;
-	local stableSize = a[2];
-	
-	arcPath.addArc(
-		[arcThickness / 2, arcThickness / 2,arcWidth , arcWidth],
-		-start,
-		end
-	 );
-	
-	local pathArea = arcPath.getBounds(a[2] - ARC_PADDING);
-	pathArea = [
-		pathArea[0] + ARC_PADDING / 2,
-		pathArea[1] + ARC_PADDING / 2,
-		pathArea[2],
-		pathArea[3]
-	];
-	
-	g.setColour(TEXT_COLOUR);
-	g.setFont(Fonts.secondaryFont, 25);
-	g.drawAlignedText(text, ka, 'centred');
-	
-	g.setFont(Fonts.mainFont, 15);
-	g.drawAlignedText('MIX', [a[0], ka[1] + ka[3] * 0.7, a[2], ka[3]], 'centred');
-	
-	g.setColour(ARC_COLOUR);	
-	g.drawPath(arcPath, pathArea, stableSize * arcThickness );
-}
-
-
-knob_io_out.setLocalLookAndFeel(mixLAF);
 
 // Themeable Panels
 const var themeablePanels = Content.getAllComponents('themeablePanel');
@@ -679,8 +558,8 @@ laf.registerFunction("drawPresetBrowserSearchBar", function(g, obj){});
 laf.registerFunction("drawPresetBrowserDialog", function(g, obj)
 {
 	
-	var TOP_PADDING = 5;
-	var PADDING = 5;
+	var TOP_PADDING = 10;
+	var PADDING = 10;
 	var a = obj.area;
 	
 	var pa = [a[0] - PADDING, a[1] - PADDING, a[2] + PADDING * 2, a[3] + PADDING * 2];
