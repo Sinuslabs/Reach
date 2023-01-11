@@ -49,8 +49,8 @@ laf.registerFunction('drawScrollbar', function(g, obj) {
 	
 });
 
-const BUTTON_BORDER_RADIUS = 2;
-const BUTTON_BORDER_SIZE = 2;
+const BUTTON_BORDER_RADIUS = 1.5;
+const BUTTON_BORDER_SIZE = 1.5;
 
 laf.registerFunction('drawToggleButton', function(g, obj) {	
 	var a = obj.area;
@@ -186,7 +186,7 @@ asyncButtonLaf.registerFunction('drawToggleButton', function(g, obj) {
 	}
 	
 	g.setColour(BUTTON_SELECTED_BACKGROUND_COLOUR);
-	g.fillRoundedRectangle(a, 2);	
+	g.fillRoundedRectangle(a, BUTTON_BORDER_RADIUS);	
 
 	g.setColour(BUTTON_TEXT_COLOUR);
 	g.setFont(Fonts.secondaryFont, 19.0);

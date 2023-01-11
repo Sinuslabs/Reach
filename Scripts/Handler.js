@@ -141,11 +141,6 @@ inline function onbutton_not_activatedControl(component, value)
 	}
 };
 
-// Account License Panel
-const var panel_non_activated = Content.getComponent("panel_non_activated");
-panel_non_activated.set('visible', !Globals.activated);
-panel_non_activated.repaint();
-
 // Title Button
 const var button_title = Content.getComponent("button_title");
 button_title.setControlCallback(onbutton_titleControl);
