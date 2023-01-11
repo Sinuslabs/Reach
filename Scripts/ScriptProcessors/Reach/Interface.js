@@ -33,12 +33,13 @@ Globals.parameter = 'NONE';
 Globals.freezeMode = false;
 
 // DEBUG
-Globals.activated = true;
+Globals.activated = false;
 Globals.presetBrowserOpen = false;
 Globals.settingsOpen = false;
 Globals.effectsOpen = false;
 Globals.aboutOpen = false;
 Globals.filterOpen = false;
+Globals.screenLock = true;
 
 // Loading Settings
 if (settingsExist()) {
@@ -53,6 +54,7 @@ if (settingsExist()) {
 	Settings.setZoomLevel(1);
 	comboBox_zoom.setValue(4.0);
 	Theme.setTheme('Light');
+	SplashAnimation.init();
 }
 
 reg i;
@@ -80,7 +82,7 @@ inline function showMainOnInit() {
 	showMain();
 	panel_non_activated.set('visible', !Globals.activated);
 	panel_non_activated.repaint();
-	
+	Globals.screenLock = false;
 	MainDisplayTimer.stopTimer();
 }
 
