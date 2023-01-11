@@ -145,9 +145,9 @@ namespace UserSettings {
 	};
 	
 	// Account License Panel
-	const var panel_non_activated = Content.getComponent("panel_non_activated");
-	panel_non_activated.set('visible', !Globals.activated);
-	panel_non_activated.repaint();
+	const var displayPanel_login = Content.getComponent("displayPanel_login");
+	displayPanel_login.set('visible', !Globals.activated);
+	displayPanel_login.repaint();
 
 	const settingsDir = FileSystem.getFolder(FileSystem.UserPresets).getParentDirectory();
 	const settingsFile = settingsDir.getChildFile('settings.json');
