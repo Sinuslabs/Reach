@@ -33,7 +33,6 @@ WizardImageFile=C:\Users\iso\Documents\GitHub\Reach\Installer\Windows\Wizard-ima
 DefaultDirName="C:\Program Files\Common Files\VST3\"
 DisableDirPage=no
 DirExistsWarning=no
-Uninstallable=yes
 
 [Languages]
 Name: "english"; MessagesFile: "compiler:Default.isl"; LicenseFile: "C:\Users\iso\Documents\GitHub\Reach\LICENSE"
