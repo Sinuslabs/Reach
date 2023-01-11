@@ -2,7 +2,7 @@
 author: "JOS, revised by RM"
 name: "flanger"
 version: "0.0"
-Code generated with Faust 2.50.6 (https://faust.grame.fr)
+Code generated with Faust 2.52.6 (https://faust.grame.fr)
 Compilation options: -lang cpp -rui -cn _Flanger -scn ::faust::dsp -es 1 -mcd 16 -uim -single -ftz 0
 ------------------------------------------------------------ */
 
@@ -75,7 +75,7 @@ class _Flanger final : public ::faust::dsp {
 		m->declare("demos.lib/version", "0.1");
 		m->declare("description", "Flanger effect application.");
 		m->declare("filename", "Flanger.dsp");
-		m->declare("filters.lib/lowpass0_highpass1", "Copyright (C) 2003-2019 by Julius O. Smith III <jos@ccrma.stanford.edu>");
+		m->declare("filters.lib/lowpass0_highpass1", "MIT-style STK-4.3 license");
 		m->declare("filters.lib/name", "Faust Filters Library");
 		m->declare("filters.lib/nlf2:author", "Julius O. Smith III");
 		m->declare("filters.lib/nlf2:copyright", "Copyright (C) 2003-2019 by Julius O. Smith III <jos@ccrma.stanford.edu>");
