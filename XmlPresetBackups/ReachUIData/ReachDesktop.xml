@@ -13,11 +13,12 @@
       <Component type="ScriptSlider" id="header_vumeter_ch1" x="868.0" y="32.0"
                  width="162.0" height="6.0" max="1.100000023841858" parentComponent="panel_header"
                  style="Horizontal" showTextBox="0" scrollWheel="0" enabled="0"
-                 itemColour2="0" itemColour="4293125091" bgColour="4284835173"/>
+                 itemColour2="0" itemColour="4293125091" bgColour="4284835173"
+                 saveInPreset="0"/>
       <Component type="ScriptSlider" id="header_vumeter_ch2" x="868.0" y="26.0"
                  width="162.0" height="6.0" max="1.100000023841858" parentComponent="panel_header"
                  style="Horizontal" showTextBox="0" itemColour2="0" itemColour="4293125091"
-                 bgColour="4284835173" enabled="0"/>
+                 bgColour="4284835173" enabled="0" saveInPreset="0"/>
       <Component type="ScriptButton" id="button_title" x="0.0" y="-6.0" width="140.0"
                  height="70.0" text=" REACH" parentComponent="panel_header" saveInPreset="0"/>
       <Component type="ScriptButton" id="button_logo" x="1080.0" y="4.0" width="40.0"
@@ -36,7 +37,7 @@
                  textColour="-9737365" fontSize="12.0" height="16.79999923706055"
                  editable="0" itemColour2="0" width="76.80000305175781"/>
       <Component type="ScriptButton" id="button_presetBrowser" x="200.0" y="4.0"
-                 parentComponent="panel_header" width="200.0" height="50.0" text="- INIT -"
+                 parentComponent="panel_header" width="200.0" height="50.0" text="Tryptamine"
                  textColour="272841017" itemColour2="0" itemColour="268435456"
                  bgColour="16711680" saveInPreset="0" enableMidiLearn="0"/>
       <Component type="ScriptButton" id="onPresetLoad" x="330.0" y="24.0" parentComponent="panel_header"
@@ -203,17 +204,17 @@
                parentComponent="panel_background" textColour="0">
       <Component type="ScriptPanel" id="display_main" x="0.0" y="0.0" width="510.0"
                  height="252.0" parentComponent="panelDisplay_display" textColour="16777215"
-                 bgColour="16777215" itemColour="0" itemColour2="0">
+                 bgColour="16777215" itemColour="0" itemColour2="0" visible="0">
         <Component type="ScriptPanel" id="displayPanel_fx1" x="8.0" y="208.0" width="60.0"
                    height="35.0" text="Reverb" parentComponent="display_main"/>
         <Component type="ScriptPanel" id="displayPanel_fx2" x="78.0" y="208.0" width="60.0"
-                   height="35.0" text="Degrade" parentComponent="display_main"/>
+                   height="35.0" text="Flanger" parentComponent="display_main"/>
         <Component type="ScriptPanel" id="displayPanel_fx3" x="148.0" y="208.0"
-                   width="60.0" height="35.0" text="Flanger" parentComponent="display_main"/>
-        <Component type="ScriptPanel" id="displayPanel_fx4" x="218.0" y="208.0"
                    width="60.0" height="35.0" text="Chorus" parentComponent="display_main"/>
+        <Component type="ScriptPanel" id="displayPanel_fx4" x="218.0" y="208.0"
+                   width="60.0" height="35.0" text="Distort" parentComponent="display_main"/>
         <Component type="ScriptPanel" id="displayPanel_fx5" x="288.0" y="208.0"
-                   width="60.0" text="Distort" height="35.0" parentComponent="display_main"/>
+                   width="60.0" text="Degrade" height="35.0" parentComponent="display_main"/>
         <Component type="ScriptPanel" id="display_main_reverb" x="0.0" y="0.0" parentComponent="display_main"
                    width="510.0" height="198.0" itemColour2="0" itemColour="0" bgColour="16777215"
                    textColour="16777215" visible="0">
@@ -234,7 +235,7 @@
         </Component>
         <Component type="ScriptPanel" id="display_main_waveform" x="0.0" y="0.0"
                    width="510.0" height="198.0" parentComponent="display_main" itemColour="0"
-                   itemColour2="0" bgColour="16777215" textColour="0">
+                   itemColour2="0" bgColour="16777215" textColour="0" visible="0">
           <Component type="ScriptFloatingTile" id="FloatingTile1" x="8.0" y="38.79999923706055"
                      width="490.0" height="160.0" ContentType="AudioAnalyser" bgColour="16769505"
                      itemColour="4294967295" itemColour2="16711680" textColour="4294901760"
@@ -256,7 +257,7 @@
         </Component>
         <Component type="ScriptButton" id="button_not_activated" x="358.0" y="8.0"
                    parentComponent="display_main" width="140.0" height="30.0" isMomentary="1"
-                   text="NOT ACTIVATED" enableMidiLearn="0" visible="0"/>
+                   text="NOT ACTIVATED" enableMidiLearn="0"/>
       </Component>
       <Component type="ScriptPanel" id="display_effects" x="0.0" y="0.0" parentComponent="panelDisplay_display"
                  width="510.0" height="252.0" itemColour="4278190080" itemColour2="4278190080"
@@ -289,23 +290,23 @@
             <Component type="ScriptPanel" id="panel_effectTab2" x="96.90000152587891"
                        y="0.0" width="99.0" height="40.0" parentComponent="panel_customizerHeader"
                        allowDragging="1" allowCallbacks="Clicks, Hover &amp; Dragging"
-                       itemColour="4278239743" text="Degrade"/>
+                       itemColour="4278239743" text="Flanger"/>
             <Component type="ScriptPanel" id="panel_effectTab3" x="194.1000061035156"
                        y="0.0" width="99.0" height="40.0" parentComponent="panel_customizerHeader"
                        allowDragging="1" allowCallbacks="Clicks, Hover &amp; Dragging"
-                       itemColour="4278239743" text="Flanger"/>
+                       itemColour="4278239743" text="Chorus"/>
             <Component type="ScriptPanel" id="panel_effectTab4" x="291.2999877929688"
                        y="0.0" parentComponent="panel_customizerHeader" width="99.0"
                        height="40.0" allowDragging="1" allowCallbacks="Clicks, Hover &amp; Dragging"
-                       itemColour="4278239743" text="Chorus"/>
+                       itemColour="4278239743" text="Distort"/>
             <Component type="ScriptPanel" id="panel_effectTab5" x="387.2999877929688"
                        y="0.0" width="99.0" height="40.0" parentComponent="panel_customizerHeader"
                        allowDragging="1" allowCallbacks="Clicks, Hover &amp; Dragging"
-                       itemColour="4278239743" text="Distort"/>
+                       itemColour="4278239743" text="Degrade"/>
           </Component>
           <Component type="ScriptPanel" id="effectDisplay-Reverb" x="0.0" y="40.0"
                      width="490.0" height="190.0" parentComponent="panel_effectCustomizer"
-                     textColour="16777215">
+                     textColour="16777215" visible="0">
             <Component type="ScriptSlider" id="displayKnob_reverb_feedback" x="110.0"
                        y="45.0" width="70.0" height="150.0" parentComponent="effectDisplay-Reverb"
                        text="FEEDBACK" mode="NormalizedPercentage" suffix="%" middlePosition="0.5"/>
@@ -350,7 +351,7 @@
           <Component type="ScriptButton" id="displayButton_reverb_bypass" x="10.0"
                      y="60.0" width="12.0" height="12.0" text="displayIcon-onOff"
                      parentComponent="panel_effectCustomizer" isPluginParameter="1"
-                     pluginParameterName="Reverb Bypass"/>
+                     pluginParameterName="Reverb Bypass" visible="0"/>
           <Component type="ScriptPanel" id="effectDisplay-Degrade" x="0.0" y="40.0"
                      width="490.0" height="160.0" parentComponent="panel_effectCustomizer"
                      textColour="16777215" visible="0">
@@ -462,7 +463,7 @@
                      pluginParameterName="Distortion Bypass" visible="0"/>
           <Component type="ScriptPanel" id="effectDisplay-Chorus" x="0.0" y="40.0"
                      width="490.0" height="160.0" parentComponent="panel_effectCustomizer"
-                     textColour="16777215" visible="0">
+                     textColour="16777215">
             <Component type="ScriptPanel" id="displayPanel_chorusIndicator" x="3.0"
                        y="0.0" parentComponent="effectDisplay-Chorus" width="480.0"
                        height="4.0" itemColour="4286244807" itemColour2="4286244807"
@@ -484,7 +485,7 @@
           <Component type="ScriptButton" id="displayButton_chorus_bypass" x="10.0"
                      y="60.0" width="12.0" height="12.0" text="displayIcon-onOff"
                      parentComponent="panel_effectCustomizer" isPluginParameter="1"
-                     pluginParameterName="Chorus Bypass" visible="0"/>
+                     pluginParameterName="Chorus Bypass"/>
         </Component>
       </Component>
       <Component type="ScriptPanel" id="display_filter" x="-2.0" y="8.0" width="500.0"
@@ -543,15 +544,31 @@
       </Component>
       <Component type="ScriptPanel" id="display_settings" x="0.0" y="0.0" width="510.0"
                  height="252.0" parentComponent="panelDisplay_display" itemColour2="4278190080"
-                 itemColour="4278190080" textColour="16777215" visible="0">
-        <Component type="ScriptButton" id="button_x2" x="486.0" y="12.0" width="12.0"
-                   height="12.0" text="displayIcon-outline-x" itemColour="4294967295"
-                   parentComponent="display_settings" itemColour2="4222331819" saveInPreset="0"
-                   isMomentary="1"/>
-        <Component type="ScriptPanel" id="panel_settings_content_container" x="198.0"
-                   y="36.0" width="300.0" height="210.0" parentComponent="display_settings"
+                 itemColour="4278190080" textColour="16777215">
+        <Component type="ScriptPanel" id="panel_settings_container" x="-2.0" y="-2.0"
+                   width="190.0" height="190.0" parentComponent="display_settings"
+                   textColour="16777215">
+          <Component type="ScriptButton" id="button_settings_general" x="10.0" y="10.0"
+                     parentComponent="panel_settings_container" width="180.0" height="40.0"
+                     text="displayButton-GENERAL" itemColour="4288782753" bgColour="4278190080"
+                     itemColour2="65386" saveInPreset="0" enableMidiLearn="0"/>
+          <Component type="ScriptButton" id="button_settings_activate" x="10.0" y="55.0"
+                     parentComponent="panel_settings_container" width="180.0" height="40.0"
+                     text="displayButton-ACTIVATE" saveInPreset="0" bgColour="4278190080"
+                     itemColour="4288782753" itemColour2="1118481" enableMidiLearn="0"/>
+          <Component type="ScriptButton" id="button_settings_about" x="10.0" y="100.0"
+                     parentComponent="panel_settings_container" width="180.0" height="40.0"
+                     text="displayButton-ABOUT" saveInPreset="0" itemColour="4288782753"
+                     bgColour="4278190080" itemColour2="1118481" enableMidiLearn="0"/>
+        </Component>
+        <Component type="ScriptButton" id="button_buy_reach" x="8.0" y="198.0" width="180.0"
+                   height="50.0" text="displayButton-Buy REACH" parentComponent="display_settings"
+                   bgColour="4294967295" textColour="4278190080" itemColour="4292532954"
+                   isMomentary="1" saveInPreset="0" defaultValue="1.0" enableMidiLearn="0"/>
+        <Component type="ScriptPanel" id="panel_settings_content_container" x="178.0"
+                   y="-2.0" width="340.0" height="260.0" parentComponent="display_settings"
                    bgColour="16777215" itemColour="0" itemColour2="0" textColour="16777215">
-          <Component type="ScriptPanel" id="dis-settings_general" x="0.0" y="0.0"
+          <Component type="ScriptPanel" id="dis-settings_general" x="20.0" y="30.0"
                      width="300.0" height="210.0" parentComponent="panel_settings_content_container"
                      itemColour="0" itemColour2="0" bgColour="16777215" textColour="16777215"
                      visible="0">
@@ -582,67 +599,83 @@
                        y="162.0" width="140.0" height="40.0" text="SPLASH SCREEN" fontName="jetbrains-mono"
                        fontSize="19.0" alignment="left" parentComponent="dis-settings_general"/>
           </Component>
-          <Component type="ScriptPanel" id="dis-settings_activate" x="0.0" y="-18.0"
-                     width="300.0" height="230.0" parentComponent="panel_settings_content_container"
-                     textColour="0" itemColour2="0" itemColour="0" bgColour="0" visible="0">
-            <Component type="ScriptPanel" id="panel_non_activated" x="6.0" y="0.0" width="280.0"
-                       height="230.0" itemColour="4278190080" itemColour2="4278190080"
-                       parentComponent="dis-settings_activate" borderSize="0.0" visible="0">
-              <Component type="ScriptPanel" id="Panel1" x="14.0" y="40.0" textColour="4294967295"
-                         width="250.0" height="30.0" borderRadius="2.0" borderSize="1.0"
-                         parentComponent="panel_non_activated"/>
-              <Component type="ScriptLabel" id="Label1" x="12.0" y="80.0" text="Password"
-                         fontName="jetbrains-mono" fontSize="20.0" alignment="left" parentComponent="panel_non_activated"
-                         editable="0" width="110.0" height="20.0"/>
-              <Component type="ScriptLabel" id="label_email" x="14.0" y="40.0" width="250.0"
-                         height="30.0" fontSize="30.0" fontName="jetbrains-mono" alignment="left"
-                         text="" parentComponent="panel_non_activated"/>
-              <Component type="ScriptLabel" id="label_license_code" x="14.0" y="16.0"
-                         text="Username / Email" fontName="jetbrains-mono" fontSize="20.0"
-                         width="210.0" height="24.0" parentComponent="panel_non_activated"
+          <Component type="ScriptPanel" id="dis-settings_activate" x="0.0" y="0.0"
+                     width="340.0" height="260.0" parentComponent="panel_settings_content_container"
+                     textColour="0" itemColour2="0" itemColour="0" bgColour="0">
+            <Component type="ScriptPanel" id="displayPanel_login" x="6.0" y="0.0" width="330.0"
+                       height="260.0" itemColour="0" itemColour2="0" parentComponent="dis-settings_activate"
+                       borderSize="0.0">
+              <Component type="ScriptPanel" id="Panel1" x="44.0" y="85.0" textColour="4294967295"
+                         width="250" height="40" borderRadius="1.0" borderSize="1.0" parentComponent="displayPanel_login">
+                <Component type="ScriptLabel" id="label_email" x="0" y="0" width="250" height="40"
+                           fontSize="26.0" fontName="jetbrains-mono" alignment="left" text="fds"
+                           parentComponent="Panel1"/>
+              </Component>
+              <Component type="ScriptLabel" id="displayLabel_password" x="40.0" y="130.0"
+                         text="PASSWORD" fontName="jetbrains-mono" fontSize="18.0" alignment="left"
+                         parentComponent="displayPanel_login" editable="0" width="110.0"
+                         height="30.0"/>
+              <Component type="ScriptLabel" id="label_license_code" x="40.0" y="55.0"
+                         text="EMAIL / USERNAME" fontName="jetbrains-mono" fontSize="18.0"
+                         width="210.0" height="30.0" parentComponent="displayPanel_login"
                          editable="0" alignment="left"/>
-              <Component type="ScriptButton" id="button_buy_reach" x="12.0" y="190.0"
-                         width="132.0" height="24.0" text="displayButton-Buy REACH" parentComponent="panel_non_activated"
-                         bgColour="4294967295" textColour="4278190080" itemColour="4292532954"
-                         isMomentary="1" saveInPreset="0" defaultValue="1.0" enableMidiLearn="0"/>
-              <Component type="ScriptPanel" id="panel_license_input" x="14.0" y="100.0"
-                         width="250.0" height="30.0" borderSize="1.0" borderRadius="2.0"
-                         textColour="4294967295" parentComponent="panel_non_activated"/>
-              <Component type="ScriptLabel" id="label_status_account" x="174.0" y="190.0"
-                         textColour="4294901760" fontSize="18.0" fontName="jetbrains-mono"
-                         text="NOT ACTIVATED" width="108.0" height="24.0" editable="0"
-                         parentComponent="panel_non_activated"/>
-              <Component type="ScriptLabel" id="label_password" x="18.0" y="100.0" width="240.0"
-                         height="30.0" fontName="space" fontSize="34.0" alignment="left"
-                         text="" parentComponent="panel_non_activated" fontStyle="Password"/>
-              <Component type="ScriptButton" id="button_activate" x="14.0" y="140.0" width="252.0"
-                         height="30.0" text="ACTIVATE" parentComponent="panel_non_activated"
+              <Component type="ScriptPanel" id="panel_license_input" x="44.0" y="160.0"
+                         width="250" height="40" borderSize="1.0" borderRadius="1.0" textColour="4294967295"
+                         parentComponent="displayPanel_login">
+                <Component type="ScriptLabel" id="label_password" x="0" y="0" width="250"
+                           height="40" fontName="space" fontSize="34.0" alignment="left"
+                           text="" parentComponent="panel_license_input" fontStyle="Password"/>
+              </Component>
+              <Component type="ScriptButton" id="button_activate" x="44.0" y="210.0" width="250"
+                         height="40" text="ACTIVATE" parentComponent="displayPanel_login"
                          itemColour="4292532954" textColour="4278190080" isMomentary="1"
                          bgColour="4294967295" itemColour2="4227792896" saveInPreset="0"
                          defaultValue="1.0" enableMidiLearn="0"/>
-              <Component type="ScriptLabel" id="label_not_found" x="0.0" y="132.0" parentComponent="panel_non_activated"
-                         fontSize="26.0" fontName="space" textColour="4294927974" text="Credentials are incorrect."
-                         width="300.0" height="18.0" editable="0" visible="0"/>
+              <Component type="ScriptLabel" id="label_not_found" x="-6.0" y="120.0" parentComponent="displayPanel_login"
+                         fontSize="20.0" fontName="space" textColour="4294927974" text="Credentials are incorrect."
+                         width="300.0" height="30.0" editable="0" visible="0"/>
             </Component>
             <Component type="ScriptLabel" id="label_thank_you" x="30.0" y="70.0" text="Thank you for using REACH"
                        fontName="jetbrains-mono" width="240.0" height="30.0" fontSize="20.0"
-                       parentComponent="dis-settings_activate" editable="0"/>
+                       parentComponent="dis-settings_activate" editable="0" visible="0"/>
+            <Component type="ScriptPanel" id="displayPanel_serial" x="10.0" y="0.0"
+                       width="330.0" height="260.0" parentComponent="dis-settings_activate"
+                       itemColour="16711680" itemColour2="0" bgColour="16777215" visible="0">
+              <Component type="ScriptPanel" id="Panel2" x="40.0" y="100.0" width="240.0"
+                         height="40.0" textColour="4294967295" borderRadius="1.0" borderSize="1.0"
+                         itemColour2="0" itemColour="0" parentComponent="displayPanel_serial"/>
+              <Component type="ScriptButton" id="displayButton_activateSerial" x="40.0"
+                         y="150.0" width="240.0" height="40.0" text="displayButton-ACTIVATE"
+                         parentComponent="displayPanel_serial"/>
+              <Component type="ScriptLabel" id="displayLabel_serialKey" x="40.0" y="100.0"
+                         width="240.0" height="40.0" fontSize="22.0" fontName="jetbrains-mono"
+                         alignment="left" parentComponent="displayPanel_serial" text=""/>
+              <Component type="ScriptLabel" id="displayLabel_serial" x="35.0" y="70.0"
+                         text="SERIAL" fontName="jetbrains-mono" fontSize="18.0" alignment="left"
+                         parentComponent="displayPanel_serial" editable="0"/>
+            </Component>
+            <Component type="ScriptButton" id="displayButton_serial" x="50.0" y="10.0"
+                       width="100.0" height="40.0" parentComponent="dis-settings_activate"
+                       text="displayButton-SERIAL" saveInPreset="0"/>
+            <Component type="ScriptButton" id="displayButton_login" x="160.0" y="10.0"
+                       parentComponent="dis-settings_activate" text="displayButton-LOGIN"
+                       width="100.0" height="40.0" saveInPreset="0"/>
           </Component>
-          <Component type="ScriptPanel" id="dis-settings_about" x="0.0" y="0.0" width="300.0"
-                     height="186.0" parentComponent="panel_settings_content_container"
-                     textColour="0" itemColour2="0" itemColour="0" bgColour="0">
-            <Component type="ScriptButton" id="button_website" x="190.0" y="162.0" text="displayButton-Website"
-                       width="108.0" height="24.0" bgColour="4294967295" itemColour="4292532954"
+          <Component type="ScriptPanel" id="dis-settings_about" x="0.0" y="0.0" width="330.0"
+                     height="250.0" parentComponent="panel_settings_content_container"
+                     textColour="0" itemColour2="0" itemColour="0" bgColour="0" visible="0">
+            <Component type="ScriptButton" id="button_website" x="200.0" y="200.0" text="displayButton-Website"
+                       width="120.0" height="40.0" bgColour="4294967295" itemColour="4292532954"
                        parentComponent="dis-settings_about" itemColour2="4227858431"
                        textColour="4278190080" isMomentary="1" saveInPreset="0"/>
-            <Component type="ScriptPanel" id="icon_panel_fullLogo" x="48.0" y="24.0"
+            <Component type="ScriptPanel" id="icon_panel_fullLogo" x="50.0" y="70.0"
                        width="220.0" height="30.0" bgColour="4294967295" parentComponent="dis-settings_about"/>
-            <Component type="ScriptLabel" id="label_aboutTitle" x="108.0" y="72.0" fontSize="20.0"
-                       fontName="jetbrains-mono" text="Reach" parentComponent="dis-settings_about"
+            <Component type="ScriptLabel" id="label_aboutTitle" x="110.0" y="118.0"
+                       fontSize="20.0" fontName="space" text="Reach" parentComponent="dis-settings_about"
                        editable="0" width="76.80000305175781" height="16.79999923706055"/>
-            <Component type="ScriptLabel" id="label_version" x="96.0" y="90.0" text="Version: 1.4"
-                       locked="1" fontName="jetbrains-mono" fontSize="20.0" width="102.0"
-                       height="18.0" parentComponent="dis-settings_about" editable="0"/>
+            <Component type="ScriptLabel" id="label_version" x="98.0" y="136.0" text="Version: 1.3"
+                       locked="1" fontName="space" fontSize="20.0" width="102.0" height="18.0"
+                       parentComponent="dis-settings_about" editable="0"/>
           </Component>
           <Component type="ScriptPanel" id="dis-settings_audio" x="0.0" y="0.0" width="300.0"
                      height="186.0" parentComponent="panel_settings_content_container"
@@ -653,22 +686,10 @@
                        FontSize="32.0" parentComponent="dis-settings_audio" Font="space"/>
           </Component>
         </Component>
-        <Component type="ScriptPanel" id="panel_settings_container" x="0.0" y="36.0"
-                   width="192.0" height="186.0" parentComponent="display_settings"
-                   textColour="16777215">
-          <Component type="ScriptButton" id="button_settings_general" x="8.0" y="12.0"
-                     parentComponent="panel_settings_container" width="168.0" height="30.0"
-                     text="displayButton-General" itemColour="4288782753" bgColour="4278190080"
-                     itemColour2="65386" saveInPreset="0" enableMidiLearn="0"/>
-          <Component type="ScriptButton" id="button_settings_activate" x="8.0" y="42.0"
-                     parentComponent="panel_settings_container" width="168.0" height="30.0"
-                     text="displayButton-Activate" saveInPreset="0" bgColour="4278190080"
-                     itemColour="4288782753" itemColour2="1118481" enableMidiLearn="0"/>
-          <Component type="ScriptButton" id="button_settings_about" x="8.0" y="72.0"
-                     parentComponent="panel_settings_container" width="168.0" height="30.0"
-                     text="displayButton-About" saveInPreset="0" itemColour="4288782753"
-                     bgColour="4278190080" itemColour2="1118481" enableMidiLearn="0"/>
-        </Component>
+        <Component type="ScriptButton" id="button_x2" x="486.0" y="12.0" width="12.0"
+                   height="12.0" text="displayIcon-outline-x" itemColour="4294967295"
+                   parentComponent="display_settings" itemColour2="4222331819" saveInPreset="0"
+                   isMomentary="1"/>
       </Component>
       <Component type="ScriptPanel" id="display_presetBrowser" x="0.0" y="0.0"
                  width="510.0" height="252.0" parentComponent="panelDisplay_display"

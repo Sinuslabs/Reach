@@ -62,14 +62,13 @@ reg j;
 
 // Activation Label
 //const var button_not_activated = Content.getComponent("button_not_activated");
-const var label_status_account = Content.getComponent("label_status_account");
 const var label_thank_you = Content.getComponent("label_thank_you");
 
 // Check License
 getActivationStatus();
 
 API.label_not_found.set('visible', false);
-button_not_activated.set('visible', !Globals.activated);
+UserSettings.button_not_activated.set('visible', !Globals.activated);
 label_thank_you.set('visible', Globals.activated);
 
 // Main Screen
@@ -80,8 +79,6 @@ MainDisplayTimer.startTimer(20);
 inline function showMainOnInit() {
 
 	showMain();
-	panel_non_activated.set('visible', !Globals.activated);
-	panel_non_activated.repaint();
 	Globals.screenLock = false;
 	MainDisplayTimer.stopTimer();
 }

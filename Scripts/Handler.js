@@ -131,16 +131,6 @@ inline function onbutton_buy_reachControl(component, value)
 	if (value) Engine.openWebsite('https://sinuslabs.io/product/reach');
 };
 
-const var button_not_activated = Content.getComponent("button_not_activated");
-button_not_activated.setControlCallback(onbutton_not_activatedControl);
-inline function onbutton_not_activatedControl(component, value)
-{
-	if (value) {
-		displayShowSettings('activate');
-		Globals.settingsOpen = true;
-	}
-};
-
 // Title Button
 const var button_title = Content.getComponent("button_title");
 button_title.setControlCallback(onbutton_titleControl);

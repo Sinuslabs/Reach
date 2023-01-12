@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<Network ID="test" Version="0.0.0">
+  <Node FactoryPath="container.chain" ID="test" Bypassed="0">
+    <Nodes>
+      <Node ID="recorder" FactoryPath="core.recorder" Bypassed="0">
+        <ComplexData>
+          <AudioFiles>
+            <AudioFile Index="-1" EmbeddedData="{INTERNAL}" MinValue="0" MaxValue="49920"/>
+          </AudioFiles>
+        </ComplexData>
+        <Parameters>
+          <Parameter MinValue="0.0" MaxValue="1.0" StepSize="1.0" ID="State" Value="1.0"/>
+          <Parameter MinValue="0.0" MaxValue="2000.0" StepSize="0.1000000014901161"
+                     ID="RecordingLength" Value="1040.000015497208"/>
+        </Parameters>
+      </Node>
+    </Nodes>
+    <Parameters/>
+  </Node>
+</Network>
