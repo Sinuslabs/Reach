@@ -1,13 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<Preset Version="1.3.0">
+<Preset Version="1.4.0">
   <Content Processor="Interface">
-    <Control type="ScriptSlider" id="header_vumeter_ch1" value="0.2592303298442671"/>
-    <Control type="ScriptSlider" id="header_vumeter_ch2" value="0.2787975678755926"/>
     <Control type="ScriptButton" id="onPresetLoad" value="0.0"/>
     <Control type="ScriptButton" id="button_quickTheme" value="0.0"/>
     <Control type="ScriptSlider" id="knob_reverb_space" value="4.949999809265137"/>
-    <Control type="ScriptSlider" id="knob_reverb_diffusion" value="0.3300000131130219"/>
+    <Control type="ScriptSlider" id="knob_reverb_diffusion" value="0.3299999833106995"/>
     <Control type="ScriptSlider" id="knob_reverb_damping" value="0.0"/>
     <Control type="ScriptSlider" id="knob_reverb_mix" value="0.7899999618530273"/>
     <Control type="ScriptSlider" id="knob_reverb_time" value="9.809999465942383"/>
@@ -23,7 +21,7 @@
     <Control type="ScriptSlider" id="knob_effects_chorus" value="0.0"/>
     <Control type="ScriptButton" id="button_distort_bypass" value="1.0"/>
     <Control type="ScriptSlider" id="knob_effects_distortion" value="0.0"/>
-    <Control type="ScriptSlider" id="knob_io_in" value="2.000001430511475"/>
+    <Control type="ScriptSlider" id="knob_io_in" value="6.900001525878906"/>
     <Control type="ScriptSlider" id="knob_io_out" value="0.8399999737739563"/>
     <Control type="ScriptButton" id="button_not_activated" value="0.0"/>
     <Control type="ScriptSlider" id="displayKnob_reverb_feedback" value="0.4300000071525574"/>
@@ -32,24 +30,24 @@
     <Control type="ScriptSlider" id="displayKnob_reverb_highcrossover" value="1667.0"/>
     <Control type="ScriptSlider" id="displayKnob_reverb_lowGain" value="0.3100000023841858"/>
     <Control type="ScriptSlider" id="displayKnob_reverb_lowcrossover" value="523.0"/>
-    <Control type="ScriptSlider" id="displayKnob_reverb_midgain" value="0.8600000143051147"/>
+    <Control type="ScriptSlider" id="displayKnob_reverb_midgain" value="0.85999995470047"/>
     <Control type="ScriptButton" id="displayButton_reverb_panic" value="0.0"/>
     <Control type="ScriptButton" id="displayButton_reverb_bypass" value="1.0"/>
     <Control type="ScriptSlider" id="displayKnob_degrade_highcut" value="20000.0"/>
     <Control type="ScriptSlider" id="displayKnob_degrade_lowcut" value="25.0"/>
     <Control type="ScriptSlider" id="displayKnob_degrade_depth" value="0.0"/>
     <Control type="ScriptSlider" id="displayKnob_degrade_frequency" value="0.3499999940395355"/>
-    <Control type="ScriptSlider" id="displayKnob_degrade_amount" value="37.63000106811523"/>
+    <Control type="ScriptSlider" id="displayKnob_degrade_amount" value="37.62999725341797"/>
     <Control type="ScriptButton" id="displayButton_degrade_bypass" value="1.0"/>
     <Control type="ScriptSlider" id="displayKnob_flanger_speed" value="0.03999999910593033"/>
     <Control type="ScriptSlider" id="displayKnob_flanger_depth" value="0.8100000023841858"/>
-    <Control type="ScriptSlider" id="displayKnob_flanger_feedback" value="0.9700000286102295"/>
+    <Control type="ScriptSlider" id="displayKnob_flanger_feedback" value="0.9699999690055847"/>
     <Control type="ScriptSlider" id="displayKnob_flanger_delay" value="0.1599999964237213"/>
     <Control type="ScriptSlider" id="displayKnob_flanger_offset" value="0.3299999833106995"/>
     <Control type="ScriptButton" id="displayButton_flanger_bypass" value="1.0"/>
     <Control type="ScriptSlider" id="displayKnob_distort_lowPass" value="3421.0"/>
     <Control type="ScriptSlider" id="displayKnob_distort_highpass" value="133.0"/>
-    <Control type="ScriptSlider" id="displayKnob_distort_amount" value="0.4000000059604645"/>
+    <Control type="ScriptSlider" id="displayKnob_distort_amount" value="0.3999999761581421"/>
     <Control type="ScriptSlider" id="displayKnob_distort_postlowcut" value="2409.0"/>
     <Control type="ScriptSlider" id="displayKnob_distort_posthighcut" value="216.0"/>
     <Control type="ScriptButton" id="displayButton_distort_bypass" value="1.0"/>
@@ -74,11 +72,11 @@
     </Processor>
     <Processor Type="SlotFX" ID="Effect Slot1" Bypassed="0">
       <ChildProcessors>
-        <Processor Type="Hardcoded Master FX" ID="Effect Slot3_Hardcoded Master FX"
+        <Processor Type="Hardcoded Master FX" ID="Effect Slot1_Hardcoded Master FX"
                    Bypassed="0" Network="Reverb" Reverb="1.0" Damping="0.0" Diffusion="0.3300000131130219"
                    HFGain="0.9700000286102295" HighCrossover="1667.0" LFGain="0.3100000023841858"
                    LowCrossover="523.0" MidGain="0.8600000143051147" ModDepth="0.2800000011920929"
-                   ModFrequency="0.8299999833106995" ReverbTime="9.810000419616699"
+                   ModFrequency="0.8299999833106995" ReverbTime="9.809999465942383"
                    Size="4.949999809265137" Mix="0.7899999618530273" preDelay="0.1680000126361847"
                    feedbacl="0.4300000071525574">
           <EditorStates BodyShown="1" Visible="1" Solo="0"/>
@@ -91,7 +89,7 @@
     </Processor>
     <Processor Type="SlotFX" ID="Effect Slot2" Bypassed="0">
       <ChildProcessors>
-        <Processor Type="Hardcoded Master FX" ID="Effect Slot1_Hardcoded Master FX"
+        <Processor Type="Hardcoded Master FX" ID="Effect Slot2_Hardcoded Master FX"
                    Bypassed="0" Network="Degrade" Degrade="1.0" Mix="0.7599999904632568"
                    HighCut="20000.0" LowCut="25.0" ModulationDepth="0.0" ModulationSpeed="0.3499999940395355"
                    Amount="37.63000106811523">
@@ -105,7 +103,7 @@
     </Processor>
     <Processor Type="SlotFX" ID="Effect Slot3" Bypassed="0">
       <ChildProcessors>
-        <Processor Type="Hardcoded Master FX" ID="Effect Slot2_Hardcoded Master FX"
+        <Processor Type="Hardcoded Master FX" ID="Effect Slot3_Hardcoded Master FX"
                    Bypassed="0" Network="Flair" Flanger="1.0" Speed="0.03999999910593033"
                    Depth="0.8100000023841858" Feedback="0.9700000286102295" Delay="0.1599999964237213"
                    Offset="0.3299999833106995" Mix="0.6499999761581421">

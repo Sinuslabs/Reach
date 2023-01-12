@@ -146,7 +146,6 @@ namespace Theme {
 		repaintAllPanels();
 		themeLabels();
 		
-		saveSettings();
 	}
 }
 

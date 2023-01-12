@@ -63,7 +63,12 @@ namespace UserSettings {
 	 {
 	 	settingsButtonsRadio(1);
 	 	displayShowSettings('activate');
-	 	activatePageRadio('serial');
+	 	if (!Globals.activated) {
+	 		settingsButtonsRadio(1);				
+	 		activatePageRadio('serial');
+	 	} else {
+		 	activatePageRadio('thankyou');
+	 	}
 	 };
 	
 	
@@ -131,8 +136,7 @@ namespace UserSettings {
 	
 	// Buy Reach Button
 	Content.getComponent("button_buy_reach").setControlCallback(onbutton_buy_reachControl);
-	inline function onbutton_buy_reachControl(component, value)
-	{
+	inline function onbutton_buy_reachControl(component, value) {
 		if (value) Engine.openWebsite('https://sinuslabs.io/product/reach');
 	};
 	
@@ -143,8 +147,10 @@ namespace UserSettings {
 		if (value) {
 			displayShowSettings('activate');
 			Globals.settingsOpen = true;
-			settingsButtonsRadio(1);
-			activatePageRadio('serial');
+			if (!Globals.activated) {
+				settingsButtonsRadio(1);				
+				activatePageRadio('serial');
+			}
 		}
 	};
 	
@@ -181,14 +187,27 @@ namespace UserSettings {
 			case 'serial':
 				displayPanel_serial.set('visible', true);
 				displayPanel_login.set('visible', false);
+				label_thank_you.set('visible', false);
+				displayButton_serial.set('visible', true);
+				displayButton_login.set('visible', true);
 				displayButton_serial.setValue(true);
 				displayButton_login.setValue(false);
 				break;
 			case 'login':
 				displayPanel_login.set('visible', true);
 				displayPanel_serial.set('visible', false);
+				label_thank_you.set('visible', false);
+				displayButton_serial.set('visible', true);
+				displayButton_login.set('visible', true);
 				displayButton_serial.setValue(false);
 				displayButton_login.setValue(true);
+				break;
+			case 'thankyou':
+				displayPanel_login.set('visible', false);
+				displayPanel_serial.set('visible', false);
+				label_thank_you.set('visible', true);
+				displayButton_serial.set('visible', false);
+				displayButton_login.set('visible', false);
 				break;
 			default:
 				break
@@ -197,6 +216,8 @@ namespace UserSettings {
 	
 	// saves the settings from the general page
 	function saveSettings() {
+		Console.print('startup animation enabled: ' + UserSettings.startupAnimation);
+	
 		settingsFile.writeObject({
 			'zoom': Settings.getZoomLevel(),
 			'animationEnabled': UserSettings.enableAnimations,
@@ -214,7 +235,7 @@ namespace UserSettings {
 		var zoomSaved = Engine.doubleToString(savedSettings['zoom'], 1);
 		var animationEnabledSaved = savedSettings['animationEnabled'];
 		var startupAnimationSaved = savedSettings['startupAnimation'];
-		
+		Console.print('load animation' + startupAnimationSaved);
 		// zoom level
 		Settings.setZoomLevel(zoomSaved);
 		var zoomFactorsIndex = zoomFactors.indexOf(zoomSaved, 0, 0);
@@ -235,7 +256,6 @@ namespace UserSettings {
 		// Toggle buttons are using reversed value to display on by default
 		button_animationToggle.setValue(!animationEnabledSaved);
 		UserSettings.enableAnimations = animationEnabledSaved;
-		
 		// startup animation
 		button_startupAnimationToggle.setValue(!startupAnimationSaved);
 		startupAnimation = startupAnimationSaved;

@@ -1,9 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<Preset Version="1.3.0">
+<Preset Version="1.4.0">
   <Content Processor="Interface">
-    <Control type="ScriptSlider" id="header_vumeter_ch1" value="0.6891465030389727"/>
-    <Control type="ScriptSlider" id="header_vumeter_ch2" value="0.6452140090922612"/>
     <Control type="ScriptButton" id="onPresetLoad" value="0.0"/>
     <Control type="ScriptButton" id="button_quickTheme" value="0.0"/>
     <Control type="ScriptSlider" id="knob_reverb_space" value="0.1599999964237213"/>
@@ -75,7 +73,7 @@
     <Processor Type="SlotFX" ID="Effect Slot1" Bypassed="0">
       <ChildProcessors>
         <Processor Type="Hardcoded Master FX" ID="Effect Slot1_Hardcoded Master FX"
-                   Bypassed="0" Network="Reverb" Reverb="1.0" Damping="0.7900000214576721"
+                   Bypassed="0" Network="Reverb" Reverb="1.0" Damping="0.7899999618530273"
                    Diffusion="1.0" HFGain="0.0" HighCrossover="1667.0" LFGain="1.0"
                    LowCrossover="523.0" MidGain="0.7699999809265137" ModDepth="0.0"
                    ModFrequency="0.0" ReverbTime="0.3100000023841858" Size="0.1599999964237213"

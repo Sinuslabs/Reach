@@ -10,10 +10,7 @@ namespace API {
 		var license = getLocalLicense();
 		if (license) Globals.activated = true;
 	}
-	const testSerial = '8868-40D2-E54C-2601';
 	inline function activateLicenseWithSerial(serialKey) {
-		Console.print(serialKey);
-	
 		Server.callWithPOST('', {
 			'license_key': serialKey,
 			'fslm_api_key': Config.API_KEY,
@@ -22,15 +19,14 @@ namespace API {
 	}
 	
 	inline function checkSerialLicense(status, data) {
-		
+		Console.print(trace(data));
 		if (data['product_id'] == '62') {
-			Console.print('license is valid for Reach');
+			setActivate();
 		}
 	}
 	
 	inline function activateLicense(usermail, userpw) {
 		Server.setHttpHeader('Content-Type: application/json');
-		
 		local p = '{	
 			"username": "'+usermail+'",
 			"password": "'+userpw+'"
@@ -50,25 +46,27 @@ namespace API {
 		}
 	}
 	
+	inline function setActivate() {
+		local data = {'isActivated': true, date: Engine.getSystemTime(true)};
+		local machineId = FileSystem.getSystemId();
+		local appDateDir = FileSystem.getFolder(FileSystem.UserPresets).getParentDirectory();
+		appDateDir.getChildFile("license.dat").writeEncryptedObject(data, machineId);
+	
+		Globals.activated = true;
+		
+		// Disable gain reduction
+		GainReduction.setBypassed(true);
+		GainReductionTimer.stopTimer();
+			
+		UserSettings.button_not_activated.set('visible', !Globals.activated);
+		UserSettings.activatePageRadio('thankyou');
+	}
+	
 
 	
 	inline function checkLicense(status, data) {
 		if (data.response.licenses[0].product_name == 'Reach') {
-			local data = {'isActivated': true, date: Engine.getSystemTime(true)};
-			local machineId = FileSystem.getSystemId();
-			local appDateDir = FileSystem.getFolder(FileSystem.UserPresets).getParentDirectory();
-			appDateDir.getChildFile("license.dat").writeEncryptedObject(data, machineId);
-			Globals.activated = true;
-			
-			// Disable gain reduction
-			GainReduction.setBypassed(true);
-			GainReductionTimer.stopTimer();
-					
-			// update panels
-			panel_non_activated.set('visible', !Globals.activated);
-			panel_non_activated.repaint();
-			button_not_activated.set('visible', !Globals.activated);
-			label_thank_you.set('visible', Globals.activated);
+			setActivate();
 		} else {
 			label_not_found.set('text', 'Serial Key is not valid.');
 			label_not_found.set('visible', true);
