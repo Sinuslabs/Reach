@@ -10,6 +10,23 @@ namespace API {
 		var license = getLocalLicense();
 		if (license) Globals.activated = true;
 	}
+	const testSerial = '8868-40D2-E54C-2601';
+	inline function activateLicenseWithSerial(serialKey) {
+		Console.print(serialKey);
+	
+		Server.callWithPOST('', {
+			'license_key': serialKey,
+			'fslm_api_key': Config.API_KEY,
+			'fslm_v2_api_request': 'details'	
+		}, checkSerialLicense);
+	}
+	
+	inline function checkSerialLicense(status, data) {
+		
+		if (data['product_id'] == '62') {
+			Console.print('license is valid for Reach');
+		}
+	}
 	
 	inline function activateLicense(usermail, userpw) {
 		Server.setHttpHeader('Content-Type: application/json');
@@ -32,6 +49,8 @@ namespace API {
 			label_not_found.set('visible', true);
 		}
 	}
+	
+
 	
 	inline function checkLicense(status, data) {
 		if (data.response.licenses[0].product_name == 'Reach') {

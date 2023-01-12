@@ -19,6 +19,16 @@ namespace UserSettings {
 		}
 	};
 	
+	const var displayButton_activateSerial = Content.getComponent("displayButton_activateSerial");
+	const var displayLabel_serialKey = Content.getComponent("displayLabel_serialKey");
+	displayButton_activateSerial.setControlCallback(ondisplayButton_activateSerialControl);
+	inline function ondisplayButton_activateSerialControl(component, value) {
+		if (value) {
+			Console.print(FileSystem.getSystemId());
+			API.activateLicenseWithSerial(displayLabel_serialKey.get('text'));
+		}
+	};
+	
 	// router for settings screen
 	function displayShowSettings(route) {
 		displayDisableAll();
@@ -53,6 +63,7 @@ namespace UserSettings {
 	 {
 	 	settingsButtonsRadio(1);
 	 	displayShowSettings('activate');
+	 	activatePageRadio('serial');
 	 };
 	
 	
@@ -78,8 +89,7 @@ namespace UserSettings {
 	
 	const var comboBox_zoom = Content.getComponent("ComboBox_zoom")
 	comboBox_zoom.setControlCallback(onComboBox_zoomControl);
-	inline function onComboBox_zoomControl(component, value)
-	{
+	inline function onComboBox_zoomControl(component, value) {
 
 		if (value == 13.0) {
 			return;
@@ -133,24 +143,57 @@ namespace UserSettings {
 		if (value) {
 			displayShowSettings('activate');
 			Globals.settingsOpen = true;
+			settingsButtonsRadio(1);
+			activatePageRadio('serial');
 		}
 	};
 	
 	
 	// Website
 	Content.getComponent("button_website").setControlCallback(onpanel_githubControl);
-	inline function onpanel_githubControl(component, value)
-	{
+	inline function onpanel_githubControl(component, value) {
 		if (value) Engine.openWebsite('https://sinuslabs.io/product/reach');
 	};
 	
 	// Account License Panel
 	const var displayPanel_login = Content.getComponent("displayPanel_login");
-	displayPanel_login.set('visible', !Globals.activated);
-	displayPanel_login.repaint();
-
+	const var displayPanel_serial = Content.getComponent("displayPanel_serial");
+	
 	const settingsDir = FileSystem.getFolder(FileSystem.UserPresets).getParentDirectory();
 	const settingsFile = settingsDir.getChildFile('settings.json');
+	
+	// Activate Serial Panel
+	
+	const var displayButton_serial = Content.getComponent("displayButton_serial");
+	displayButton_serial.setControlCallback(ondisplayButton_serialControl);
+	inline function ondisplayButton_serialControl(component, value)	{
+		activatePageRadio('serial');
+	};
+	
+	const var displayButton_login = Content.getComponent("displayButton_login");
+	displayButton_login.setControlCallback(ondisplayButton_loginControl);
+	inline function ondisplayButton_loginControl(component, value) {
+		activatePageRadio('login');
+	};
+	
+	inline function activatePageRadio(route) {
+		switch(route) {
+			case 'serial':
+				displayPanel_serial.set('visible', true);
+				displayPanel_login.set('visible', false);
+				displayButton_serial.setValue(true);
+				displayButton_login.setValue(false);
+				break;
+			case 'login':
+				displayPanel_login.set('visible', true);
+				displayPanel_serial.set('visible', false);
+				displayButton_serial.setValue(false);
+				displayButton_login.setValue(true);
+				break;
+			default:
+				break
+		}
+	}
 	
 	// saves the settings from the general page
 	function saveSettings() {

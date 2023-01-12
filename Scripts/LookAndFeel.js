@@ -172,7 +172,6 @@ asyncButtonLaf.registerFunction('drawToggleButton', function(g, obj) {
 	var a = obj.area;
 	
 	obj.text = obj.text.replace('displayButton-');
-	
 	var BUTTON_SELECTED_BACKGROUND_COLOUR = DisplayTheme.buttonSelectedBackgroundColour;
 	var BUTTON_BACKGROUND_COLOUR = DisplayTheme.buttonBackgroundColour;
 	var BUTTON_TEXT_COLOUR = DisplayTheme.buttonSelectedTextColour;
@@ -193,6 +192,7 @@ asyncButtonLaf.registerFunction('drawToggleButton', function(g, obj) {
 	g.drawAlignedText(obj.text, a, 'centred');
 });
 button_active.setLocalLookAndFeel(asyncButtonLaf);
+UserSettings.displayButton_activateSerial.setLocalLookAndFeel(asyncButtonLaf);
 
 // Preset Browser Button
 const presetBrowserButtonLAF = Content.createLocalLookAndFeel();
@@ -286,7 +286,7 @@ notActivatedLAF.registerFunction('drawToggleButton', function(g, obj){
 	g.drawAlignedText(obj.text, a, 'left');
 });
 
-button_not_activated.setLocalLookAndFeel(notActivatedLAF);
+UserSettings.button_not_activated.setLocalLookAndFeel(notActivatedLAF);
 
 
 // KNOBS LOOK AND FEEL
