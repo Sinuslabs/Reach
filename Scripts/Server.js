@@ -11,6 +11,8 @@ namespace API {
 		if (license) Globals.activated = true;
 	}
 	inline function activateLicenseWithSerial(serialKey) {
+		Console.print(serialKey);
+		
 		Server.callWithPOST('', {
 			'license_key': serialKey.trim(),
 			'fslm_api_key': Config.API_KEY,
@@ -19,6 +21,7 @@ namespace API {
 	}
 	
 	inline function checkSerialLicense(status, data) {
+		Console.print(trace(data));
 		if (data['product_id'] == '62') {
 			setActivate();
 		}
@@ -56,9 +59,12 @@ namespace API {
 		// Disable gain reduction
 		GainReduction.setBypassed(true);
 		GainReductionTimer.stopTimer();
+		
+		button_buy_reach.set('visible', false);
 			
 		UserSettings.button_not_activated.set('visible', !Globals.activated);
 		UserSettings.activatePageRadio('thankyou');
+		
 	}
 	
 

@@ -125,7 +125,8 @@ inline function onbutton_activateControl(component, value) {
 };
 
 // Buy Reach Button
-Content.getComponent("button_buy_reach").setControlCallback(onbutton_buy_reachControl);
+const var button_buy_reach = Content.getComponent("button_buy_reach");
+button_buy_reach.setControlCallback(onbutton_buy_reachControl);
 inline function onbutton_buy_reachControl(component, value)
 {
 	if (value) Engine.openWebsite('https://sinuslabs.io/product/reach');

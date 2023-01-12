@@ -45,6 +45,7 @@ Globals.screenLock = true;
 // Loading Settings
 if (settingsExist()) {
 	UserSettings.loadSettings();
+	Console.print(UserSettings.startupAnimation);
 	if (UserSettings.startupAnimation) {
 		SplashAnimation.init();
 	} else {
@@ -70,6 +71,7 @@ getActivationStatus();
 
 API.label_not_found.set('visible', false);
 UserSettings.button_not_activated.set('visible', !Globals.activated);
+button_buy_reach.set('visible', !Globals.activated);
 label_thank_you.set('visible', Globals.activated);
 
 // Main Screen
