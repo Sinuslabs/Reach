@@ -13,7 +13,6 @@ function displayDisableAll() {
 	}
 	
 	if (SplashAnimation.tubeAniTimer.isTimerRunning() && !Globals.screenLock) {
-		Console.print('timer running');
 		SplashAnimation.cancelAnimation();
 	}
 }
