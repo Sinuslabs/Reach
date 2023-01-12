@@ -19,7 +19,6 @@ knobShortcutWatcher.addListener("RefreshFunction", "Bypasses Effect", function(c
 				Reverb.displayButton_reverb_bypass.changed();
 				break;
 			case 'Degrade':
-			Console.print('Degrade');
 				Effects.displayButton_degrade_bypass.setValue(!Effects.displayButton_degrade_bypass.getValue());
 				Effects.displayButton_degrade_bypass.changed();
 				break;

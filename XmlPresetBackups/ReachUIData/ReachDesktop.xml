@@ -37,7 +37,7 @@
                  textColour="-9737365" fontSize="12.0" height="16.79999923706055"
                  editable="0" itemColour2="0" width="76.80000305175781"/>
       <Component type="ScriptButton" id="button_presetBrowser" x="200.0" y="4.0"
-                 parentComponent="panel_header" width="200.0" height="50.0" text="- INIT -"
+                 parentComponent="panel_header" width="200.0" height="50.0" text="Mario"
                  textColour="272841017" itemColour2="0" itemColour="268435456"
                  bgColour="16711680" saveInPreset="0" enableMidiLearn="0"/>
       <Component type="ScriptButton" id="onPresetLoad" x="330.0" y="24.0" parentComponent="panel_header"
@@ -141,7 +141,8 @@
                  width="10.0" height="10.0" parentComponent="themeablePanel_effects"/>
       <Component type="ScriptPanel" id="containerPanel_degrade" x="42.0" y="38.0"
                  width="90.0" height="100.0" parentComponent="themeablePanel_effects"
-                 itemColour2="0" itemColour="0" bgColour="16777215" textColour="16777215">
+                 itemColour2="0" itemColour="0" bgColour="16777215" textColour="16777215"
+                 enabled="0.0">
         <Component type="ScriptSlider" id="knob_effects_degrade" x="10.0" y="0.0"
                    width="70.0" height="100.0" text="Degrade" parentComponent="containerPanel_degrade"
                    mouseSensitivity="2.0" pluginParameterName="Degrade Mix" isPluginParameter="1"
@@ -151,7 +152,8 @@
                  width="10.0" height="10.0" parentComponent="themeablePanel_effects"/>
       <Component type="ScriptPanel" id="containerPanel_flanger" x="162.0" y="28.0"
                  width="90.0" height="110.0" itemColour="0" itemColour2="0" textColour="16777215"
-                 bgColour="16777215" parentComponent="themeablePanel_effects">
+                 bgColour="16777215" parentComponent="themeablePanel_effects"
+                 enabled="0.0">
         <Component type="ScriptSlider" id="knob_effects_flair" x="10.0" y="10.0"
                    width="70.0" height="100.0" text="Flanger" parentComponent="containerPanel_flanger"
                    mouseSensitivity="2.0" pluginParameterName="Flanger Mix" isPluginParameter="1"
@@ -171,7 +173,8 @@
                  width="10.0" height="10.0" parentComponent="themeablePanel_effects"/>
       <Component type="ScriptPanel" id="containerPanel_distort" x="162.0" y="138.0"
                  width="90.0" height="110.0" textColour="16777215" itemColour2="0"
-                 itemColour="0" bgColour="16777215" parentComponent="themeablePanel_effects">
+                 itemColour="0" bgColour="16777215" parentComponent="themeablePanel_effects"
+                 enabled="0.0">
         <Component type="ScriptSlider" id="knob_effects_distortion" x="10.0" y="8.0"
                    width="70.0" height="100.0" parentComponent="containerPanel_distort"
                    mouseSensitivity="2.0" pluginParameterName="Distortion Mix" isPluginParameter="1"
@@ -208,11 +211,11 @@
         <Component type="ScriptPanel" id="displayPanel_fx1" x="8.0" y="208.0" width="60.0"
                    height="35.0" text="Reverb" parentComponent="display_main"/>
         <Component type="ScriptPanel" id="displayPanel_fx2" x="78.0" y="208.0" width="60.0"
-                   height="35.0" text="Degrade" parentComponent="display_main"/>
+                   height="35.0" text="Chorus" parentComponent="display_main"/>
         <Component type="ScriptPanel" id="displayPanel_fx3" x="148.0" y="208.0"
-                   width="60.0" height="35.0" text="Flanger" parentComponent="display_main"/>
+                   width="60.0" height="35.0" text="Degrade" parentComponent="display_main"/>
         <Component type="ScriptPanel" id="displayPanel_fx4" x="218.0" y="208.0"
-                   width="60.0" height="35.0" text="Chorus" parentComponent="display_main"/>
+                   width="60.0" height="35.0" text="Flanger" parentComponent="display_main"/>
         <Component type="ScriptPanel" id="displayPanel_fx5" x="288.0" y="208.0"
                    width="60.0" text="Distort" height="35.0" parentComponent="display_main"/>
         <Component type="ScriptPanel" id="display_main_reverb" x="0.0" y="0.0" parentComponent="display_main"
@@ -290,15 +293,15 @@
             <Component type="ScriptPanel" id="panel_effectTab2" x="96.90000152587891"
                        y="0.0" width="99.0" height="40.0" parentComponent="panel_customizerHeader"
                        allowDragging="1" allowCallbacks="Clicks, Hover &amp; Dragging"
-                       itemColour="4278239743" text="Degrade"/>
+                       itemColour="4278239743" text="Chorus"/>
             <Component type="ScriptPanel" id="panel_effectTab3" x="194.1000061035156"
                        y="0.0" width="99.0" height="40.0" parentComponent="panel_customizerHeader"
                        allowDragging="1" allowCallbacks="Clicks, Hover &amp; Dragging"
-                       itemColour="4278239743" text="Flanger"/>
+                       itemColour="4278239743" text="Degrade"/>
             <Component type="ScriptPanel" id="panel_effectTab4" x="291.2999877929688"
                        y="0.0" parentComponent="panel_customizerHeader" width="99.0"
                        height="40.0" allowDragging="1" allowCallbacks="Clicks, Hover &amp; Dragging"
-                       itemColour="4278239743" text="Chorus"/>
+                       itemColour="4278239743" text="Flanger"/>
             <Component type="ScriptPanel" id="panel_effectTab5" x="387.2999877929688"
                        y="0.0" width="99.0" height="40.0" parentComponent="panel_customizerHeader"
                        allowDragging="1" allowCallbacks="Clicks, Hover &amp; Dragging"
@@ -354,11 +357,11 @@
                      pluginParameterName="Reverb Bypass" visible="0"/>
           <Component type="ScriptPanel" id="effectDisplay-Degrade" x="0.0" y="40.0"
                      width="490.0" height="160.0" parentComponent="panel_effectCustomizer"
-                     textColour="16777215" visible="0">
+                     textColour="16777215" visible="0" enabled="0.0">
             <Component type="ScriptPanel" id="displayPanel_degradeIndicator" x="3.0"
                        y="0.0" width="480.0" height="4.0" parentComponent="effectDisplay-Degrade"
                        itemColour="4294243572" itemColour2="4294243572" borderRadius="1.0"
-                       borderSize="1.0" text="Degrade"/>
+                       borderSize="1.0" text="Degrade" enabled="0.0"/>
             <Component type="ScriptSlider" id="displayKnob_degrade_highcut" x="384.0"
                        y="50.0" width="66.0" height="90.0" text="HIGH CUT" parentComponent="effectDisplay-Degrade"
                        mode="Frequency" min="20.0" max="20000.0" stepSize="1.0" suffix=" Hz"
@@ -393,11 +396,11 @@
                      pluginParameterName="Degrade Bypass" visible="0"/>
           <Component type="ScriptPanel" id="effectDisplay-Flanger" x="0.0" y="40.0"
                      width="490.0" height="160.0" parentComponent="panel_effectCustomizer"
-                     textColour="16777215" visible="0">
+                     textColour="16777215" visible="0" enabled="0.0">
             <Component type="ScriptPanel" id="displayPanel_flangerIndicator" x="3.0"
                        y="0.0" width="480.0" height="4.0" parentComponent="effectDisplay-Flanger"
                        itemColour="4284525541" itemColour2="4284525541" borderSize="1.0"
-                       borderRadius="1.0" text="Flanger"/>
+                       borderRadius="1.0" text="Flanger" enabled="0.0"/>
             <Component type="ScriptSlider" id="displayKnob_flanger_speed" x="36.0" y="50.0"
                        text="SPEED" width="72.0" height="102.0" parentComponent="effectDisplay-Flanger"
                        isPluginParameter="1" pluginParameterName="Flanger Speed"/>
@@ -424,11 +427,11 @@
                      pluginParameterName="Flanger Bypass" visible="0"/>
           <Component type="ScriptPanel" id="effectDisplay-Distort" x="0.0" y="40.0"
                      width="490.0" height="190.0" parentComponent="panel_effectCustomizer"
-                     textColour="16777215">
+                     textColour="16777215" enabled="0.0">
             <Component type="ScriptPanel" id="displayPanel_distortIndicator" x="3.0"
                        y="0.0" width="480.0" height="4.0" parentComponent="effectDisplay-Distort"
                        itemColour="4293606219" itemColour2="4293606219" borderSize="1.0"
-                       borderRadius="1.0" text="Distort"/>
+                       borderRadius="1.0" text="Distort" enabled="0.0"/>
             <Component type="ScriptSlider" id="displayKnob_distort_lowPass" x="100.0"
                        y="50.0" width="66.0" height="100.0" text="HIGH CUT" parentComponent="effectDisplay-Distort"
                        mode="Frequency" min="20.0" max="20000.0" stepSize="1.0" suffix=" Hz"
@@ -604,7 +607,7 @@
                      textColour="0" itemColour2="0" itemColour="0" bgColour="0">
             <Component type="ScriptPanel" id="displayPanel_login" x="6.0" y="0.0" width="330.0"
                        height="260.0" itemColour="0" itemColour2="0" parentComponent="dis-settings_activate"
-                       borderSize="0.0" visible="0">
+                       borderSize="0.0">
               <Component type="ScriptPanel" id="Panel1" x="44.0" y="85.0" textColour="4294967295"
                          width="250.0" height="40.0" borderRadius="1.0" borderSize="1.0"
                          parentComponent="displayPanel_login">
@@ -641,13 +644,13 @@
                        parentComponent="dis-settings_activate" editable="0" visible="0"/>
             <Component type="ScriptPanel" id="displayPanel_serial" x="10.0" y="0.0"
                        width="330.0" height="260.0" parentComponent="dis-settings_activate"
-                       itemColour="16711680" itemColour2="0" bgColour="16777215">
+                       itemColour="16711680" itemColour2="0" bgColour="16777215" visible="0">
               <Component type="ScriptPanel" id="Panel2" x="40.0" y="100.0" width="240.0"
                          height="40.0" textColour="4294967295" borderRadius="1.0" borderSize="1.0"
                          itemColour2="0" itemColour="0" parentComponent="displayPanel_serial"/>
               <Component type="ScriptButton" id="displayButton_activateSerial" x="40.0"
-                         y="150.0" width="240.0" height="40.0" text="displayButton-ACTIVATE"
-                         parentComponent="displayPanel_serial" saveInPreset="0"/>
+                         y="150.0" width="240.0" height="40.0" text="ACTIVATE" parentComponent="displayPanel_serial"
+                         saveInPreset="0"/>
               <Component type="ScriptLabel" id="displayLabel_serialKey" x="40.0" y="100.0"
                          width="240.0" height="40.0" fontSize="22.0" fontName="jetbrains-mono"
                          alignment="left" parentComponent="displayPanel_serial" text=""/>

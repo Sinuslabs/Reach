@@ -12,14 +12,13 @@ namespace API {
 	}
 	inline function activateLicenseWithSerial(serialKey) {
 		Server.callWithPOST('', {
-			'license_key': serialKey,
+			'license_key': serialKey.trim(),
 			'fslm_api_key': Config.API_KEY,
 			'fslm_v2_api_request': 'details'	
 		}, checkSerialLicense);
 	}
 	
 	inline function checkSerialLicense(status, data) {
-		Console.print(trace(data));
 		if (data['product_id'] == '62') {
 			setActivate();
 		}
@@ -77,8 +76,10 @@ namespace API {
 	inline function serverActivity(isWaiting) {		
 		if (isWaiting) {
 			button_active.set('text', 'loading');
+			UserSettings.displayButton_activateSerial.set('text', 'loading');
 		} else {
 			button_active.set('text', 'ACTIVATE');
+			UserSettings.displayButton_activateSerial.set('text', 'ACTIVATE');
 		}
 	}
 	

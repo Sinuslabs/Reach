@@ -45,7 +45,6 @@ Globals.screenLock = true;
 // Loading Settings
 if (settingsExist()) {
 	UserSettings.loadSettings();
-	Console.print(UserSettings.startupAnimation);
 	if (UserSettings.startupAnimation) {
 		SplashAnimation.init();
 	} else {
