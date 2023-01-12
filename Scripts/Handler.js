@@ -98,6 +98,7 @@ inline function onComboBox1Control(component, value)
 	if (value == 2.0) {
 		Theme.setTheme('Dark');	
 	}
+	UserSettings.saveSettings();
 };
 
 // Animations
@@ -205,13 +206,12 @@ Content.getComponent("button_quickTheme").setControlCallback(onbutton_quickTheme
 inline function onbutton_quickThemeControl(component, value)
 {
 	if (value) {
-
 		if (Theme.name == 'Light') {
 			Theme.setTheme('Dark');
 		} else {
 			Theme.setTheme('Light');
 		}
-	
+		UserSettings.saveSettings();
 	}
 
 };

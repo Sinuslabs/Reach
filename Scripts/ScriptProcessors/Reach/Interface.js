@@ -4,6 +4,7 @@ include("Helpers.js");
 include("Reverb.js");
 include("Effects.js");
 include("Filter.js");
+include("Config.js");
 include("Settings.js");
 include("EffectCustomizer.js");
 include("ZoomHandler.js");
@@ -44,6 +45,7 @@ Globals.screenLock = true;
 // Loading Settings
 if (settingsExist()) {
 	UserSettings.loadSettings();
+	Console.print(UserSettings.startupAnimation);
 	if (UserSettings.startupAnimation) {
 		SplashAnimation.init();
 	} else {

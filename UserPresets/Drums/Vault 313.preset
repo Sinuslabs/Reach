@@ -1,9 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<Preset Version="1.3.0">
+<Preset Version="1.4.0">
   <Content Processor="Interface">
-    <Control type="ScriptSlider" id="header_vumeter_ch1" value="0.7048761130211993"/>
-    <Control type="ScriptSlider" id="header_vumeter_ch2" value="0.7207663686782562"/>
     <Control type="ScriptButton" id="onPresetLoad" value="0.0"/>
     <Control type="ScriptButton" id="button_quickTheme" value="0.0"/>
     <Control type="ScriptSlider" id="knob_reverb_space" value="1.870000004768372"/>
@@ -23,7 +21,7 @@
     <Control type="ScriptSlider" id="knob_effects_chorus" value="0.0"/>
     <Control type="ScriptButton" id="button_distort_bypass" value="1.0"/>
     <Control type="ScriptSlider" id="knob_effects_distortion" value="0.0"/>
-    <Control type="ScriptSlider" id="knob_io_in" value="-2.599998474121094"/>
+    <Control type="ScriptSlider" id="knob_io_in" value="0.1000014916062355"/>
     <Control type="ScriptSlider" id="knob_io_out" value="0.5899999737739563"/>
     <Control type="ScriptButton" id="button_not_activated" value="0.0"/>
     <Control type="ScriptSlider" id="displayKnob_reverb_feedback" value="0.0"/>

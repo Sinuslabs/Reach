@@ -1,9 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<Preset Version="1.3.0">
+<Preset Version="1.4.0">
   <Content Processor="Interface">
-    <Control type="ScriptSlider" id="header_vumeter_ch1" value="0.5515469375514944"/>
-    <Control type="ScriptSlider" id="header_vumeter_ch2" value="0.5683323148177293"/>
     <Control type="ScriptButton" id="onPresetLoad" value="0.0"/>
     <Control type="ScriptButton" id="button_quickTheme" value="0.0"/>
     <Control type="ScriptSlider" id="knob_reverb_space" value="1.870000004768372"/>
@@ -23,7 +21,7 @@
     <Control type="ScriptSlider" id="knob_effects_chorus" value="0.449999988079071"/>
     <Control type="ScriptButton" id="button_distort_bypass" value="1.0"/>
     <Control type="ScriptSlider" id="knob_effects_distortion" value="0.09999999403953552"/>
-    <Control type="ScriptSlider" id="knob_io_in" value="3.900001525878906"/>
+    <Control type="ScriptSlider" id="knob_io_in" value="6.400001525878906"/>
     <Control type="ScriptSlider" id="knob_io_out" value="0.5899999737739563"/>
     <Control type="ScriptButton" id="button_not_activated" value="0.0"/>
     <Control type="ScriptSlider" id="displayKnob_reverb_feedback" value="0.0"/>
@@ -76,7 +74,7 @@
       <ChildProcessors>
         <Processor Type="Hardcoded Master FX" ID="Effect Slot1_Hardcoded Master FX"
                    Bypassed="0" Network="Reverb" Reverb="1.0" Damping="0.8899999856948853"
-                   Diffusion="0.300000011920929" HFGain="0.8100000023841858" HighCrossover="4122.0"
+                   Diffusion="0.2999999821186066" HFGain="0.8100000023841858" HighCrossover="4122.0"
                    LFGain="0.3400000035762787" LowCrossover="1247.0" MidGain="0.85999995470047"
                    ModDepth="0.0" ModFrequency="0.0" ReverbTime="3.569999933242798"
                    Size="1.870000004768372" Mix="0.5899999737739563" preDelay="0.0"

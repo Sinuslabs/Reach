@@ -1,9 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<Preset Version="1.3.0">
+<Preset Version="1.4.0">
   <Content Processor="Interface">
-    <Control type="ScriptSlider" id="header_vumeter_ch1" value="0.7089633978975599"/>
-    <Control type="ScriptSlider" id="header_vumeter_ch2" value="0.6948722005116514"/>
     <Control type="ScriptButton" id="onPresetLoad" value="0.0"/>
     <Control type="ScriptButton" id="button_quickTheme" value="0.0"/>
     <Control type="ScriptSlider" id="knob_reverb_space" value="3.799999952316284"/>
@@ -23,7 +21,7 @@
     <Control type="ScriptSlider" id="knob_effects_chorus" value="0.25"/>
     <Control type="ScriptButton" id="button_distort_bypass" value="1.0"/>
     <Control type="ScriptSlider" id="knob_effects_distortion" value="0.0"/>
-    <Control type="ScriptSlider" id="knob_io_in" value="4.000001430511475"/>
+    <Control type="ScriptSlider" id="knob_io_in" value="4.0"/>
     <Control type="ScriptSlider" id="knob_io_out" value="0.5600000023841858"/>
     <Control type="ScriptButton" id="button_not_activated" value="0.0"/>
     <Control type="ScriptSlider" id="displayKnob_reverb_feedback" value="0.0"/>
@@ -32,7 +30,7 @@
     <Control type="ScriptSlider" id="displayKnob_reverb_highcrossover" value="4122.0"/>
     <Control type="ScriptSlider" id="displayKnob_reverb_lowGain" value="0.03999999910593033"/>
     <Control type="ScriptSlider" id="displayKnob_reverb_lowcrossover" value="1247.0"/>
-    <Control type="ScriptSlider" id="displayKnob_reverb_midgain" value="0.8600000143051147"/>
+    <Control type="ScriptSlider" id="displayKnob_reverb_midgain" value="0.85999995470047"/>
     <Control type="ScriptButton" id="displayButton_reverb_panic" value="0.0"/>
     <Control type="ScriptButton" id="displayButton_reverb_bypass" value="1.0"/>
     <Control type="ScriptSlider" id="displayKnob_degrade_highcut" value="10714.0"/>
@@ -60,13 +58,15 @@
     <Control type="ScriptButton" id="displayButton_chorus_bypass" value="1.0"/>
   </Content>
   <Modules>
-    <Processor Type="CurveEq" ID="preFilter" Bypassed="0" NumFilters="0" FFTEnabled="1">
+    <Processor Type="CurveEq" ID="preFilter" Bypassed="0" NumFilters="1" Band0="6.967742443084717"
+               Band1="614.5482788085938" Band2="2.197000026702881" Band3="1.0"
+               Band4="4.0" FFTEnabled="1">
       <ChildProcessors/>
       <RoutingMatrix NumSourceChannels="4" Channel0="0" Send0="-1" Channel1="1" Send1="-1"
                      Channel2="-1" Send2="-1" Channel3="-1" Send3="-1"/>
     </Processor>
-    <Processor Type="CurveEq" ID="postFilter" Bypassed="0" NumFilters="1" Band0="10.90909004211426"
-               Band1="1465.368530273438" Band2="1.113878965377808" Band3="1.0"
+    <Processor Type="CurveEq" ID="postFilter" Bypassed="0" NumFilters="1" Band0="3.870968341827393"
+               Band1="3975.271484375" Band2="0.5069999694824219" Band3="1.0"
                Band4="4.0" FFTEnabled="1">
       <ChildProcessors/>
       <RoutingMatrix NumSourceChannels="4" Channel0="-1" Send0="-1" Channel1="-1"
