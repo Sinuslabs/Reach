@@ -10,7 +10,7 @@
 
 * [Windows](https://github.com/Sinuslabs/Reach/releases/latest/download/reach-installer.exe) 
 * [MacOS](https://github.com/Sinuslabs/Reach/releases/latest/download/reach-installer.pkg)
-* [Linux](https://github.com/Sinuslabs/Reach/releases/latest/download/reach-installer.sh)
+* [Linux](https://github.com/Sinuslabs/Reach/releases/latest/download/reach-installer.tar.gz)
 
 ### Features
 
