@@ -20,6 +20,7 @@ include("DistortionAnimation.js");
 include("VuMeter.js");
 include("Theme.js");
 include("SplashAnimation.js");
+include("Randomization.js");
 
 Content.makeFrontInterface(1134, 510);
 
