@@ -1,5 +1,6 @@
 #pragma once
 
+#include <JuceHeader.h>
 // These will improve the readability of the connection definition
 
 #define getT(Idx) template get<Idx>()

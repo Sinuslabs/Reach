@@ -1,6 +1,6 @@
 {
   "zoom": 1.0,
-  "animationEnabled": 1,
-  "startupAnimation": 1,
+  "animationEnabled": false,
+  "startupAnimation": false,
   "theme": "Light"
 }
