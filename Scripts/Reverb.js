@@ -16,32 +16,38 @@ namespace Reverb {
 	const var knob_reverb_damping = Content.getComponent("knob_reverb_damping");
 	const var knob_reverb_time = Content.getComponent("knob_reverb_time");
 	const var knob_reverb_mix = Content.getComponent("knob_reverb_mix");
-	const var knob_cleanup_low = Content.getComponent("knob_cleanup_low")
-	const var knob_cleanup_high = Content.getComponent("knob_cleanup_high");
-	
+
 	knob_reverb_space.setControlCallback(sizeControl);
 	knob_reverb_diffusion.setControlCallback(diffusionControl);
 	knob_reverb_damping.setControlCallback(dampingControl);
 	knob_reverb_time.setControlCallback(timeControl);
 	knob_reverb_mix.setControlCallback(onknob_reverb_mixControl);
-	knob_cleanup_low.setControlCallback(onknob_cleanup_lowControl);
-	knob_cleanup_high.setControlCallback(onknob_cleanup_highControl);
 	
 	// Modulation
 	Content.getComponent("knob_modulation_depth").setControlCallback(depthControl);
 	Content.getComponent("knob_modulation_frequency").setControlCallback(frequencyControl);
 	
-	// Display 
+	// Cleanup
+	Content.getComponent("knob_cleanup_ducking").setControlCallback(onknob_cleanup_duckingControl);
 	
-    Content.getComponent("displayKnob_reverb_preDelay").setControlCallback(ondisplayKnob_reverb_preDelayControl);
+	// Display
+	
+	const var displayKnob_reverb_smoothing = Content.getComponent("displayKnob_reverb_smoothing")
+	displayKnob_reverb_smoothing.setControlCallback(ondisplayKnob_reverb_smoothing);
+	
+	
     const var displayKnob_reverb_feedback = Content.getComponent("displayKnob_reverb_feedback");
     displayKnob_reverb_feedback.setControlCallback(ondisplayKnob_reverb_feedbackControl);
     
     const var displayButton_reverb_panic = Content.getComponent("displayButton_reverb_panic");
     displayButton_reverb_panic.setControlCallback(ondisplayButton_reverb_panicControl);
+ 	
+ 	const var displayKnob_reverb_lowcrossover = Content.getComponent("displayKnob_reverb_lowcrossover");
+ 	const var displayKnob_reverb_highcrossover = Content.getComponent("displayKnob_reverb_highcrossover")
  
-	Content.getComponent("displayKnob_reverb_lowcrossover").setControlCallback(disLowcrossoverControl);
-	Content.getComponent("displayKnob_reverb_highcrossover").setControlCallback(disHighcrossoverControl);	
+	displayKnob_reverb_lowcrossover.setControlCallback(disLowcrossoverControl);
+	displayKnob_reverb_highcrossover.setControlCallback(disHighcrossoverControl);
+		
 	const var displayKnob_reverb_lowGain = Content.getComponent("displayKnob_reverb_lowGain");
 	const var displayKnob_reverb_midgain = Content.getComponent("displayKnob_reverb_midgain");
 	const var displayKnob_reverb_hfgain = Content.getComponent("displayKnob_reverb_hfgain");
@@ -49,6 +55,11 @@ namespace Reverb {
     displayKnob_reverb_lowGain.setControlCallback(disLowGainControl);
     displayKnob_reverb_midgain.setControlCallback(disMidgainControl);
     displayKnob_reverb_hfgain.setControlCallback(disHFgainControl);
+    
+    // Custom LAF Bars
+    displayKnob_reverb_lowGain.setLocalLookAndFeel(barKnobLAF);
+    displayKnob_reverb_midgain.setLocalLookAndFeel(barKnobLAF);
+    displayKnob_reverb_hfgain.setLocalLookAndFeel(barKnobLAF);
     
 	// CALLBACKS
 	inline function sizeControl(component, value) {
@@ -84,6 +95,19 @@ namespace Reverb {
 		ReverbAnimation.AnimationPanel.repaintImmediately();
 	};
 	
+	inline function onknob_reverb_mixControl(component, value) {
+		JPVerb.setAttribute(JPVerb.Mix, value);
+		
+		showTempScreen('reverb');
+	
+		ReverbAnimation.setOpacity(value);
+		ReverbAnimation.AnimationPanel.repaintImmediately();
+		
+		EffectCustomizer.repaintIndicators();
+	};
+	
+	// Modulation Callbacks
+	
 	inline function depthControl(component, value) {
 		JPVerb.setAttribute(JPVerb.ModDepth, value);
 		
@@ -102,31 +126,20 @@ namespace Reverb {
 		ReverbAnimation.AnimationPanel.repaintImmediately();
 	};
 	
-	inline function onknob_reverb_mixControl(component, value) {
-		JPVerb.setAttribute(JPVerb.Mix, value);
-		
-		showTempScreen('reverb');
-
-		ReverbAnimation.setOpacity(value);
-		ReverbAnimation.AnimationPanel.repaintImmediately();
-		
-		EffectCustomizer.repaintIndicators();
+	// Cleanup Callbacks
+	
+	inline function onknob_cleanup_duckingControl(component, value) {
+		JPVerb.setAttribute(JPVerb.Ducking, value);
 	};
 	
-	inline function onknob_cleanup_lowControl(component, value) {
-		JPVerb.setAttribute(JPVerb.LFGain, value);
-		displayKnob_reverb_lowGain.setValue(value);
-		
-		updateParameterWithLabel('REVERBERATION LOW', value, '%');	
-	};
 	
-	inline function onknob_cleanup_highControl(component, value) {
-		JPVerb.setAttribute(JPVerb.HFGain, value);
-		displayKnob_reverb_hfgain.setValue(value);
-		updateParameterWithLabel('REVERBERATION HIGH', value, '%');	
-	};
 	
 	// Display Callbacks
+	inline function ondisplayKnob_reverb_smoothing(component, value) {
+		Console.print(value);
+	
+		JPVerb.setAttribute(JPVerb.Smoothing , value * 1000);
+	};
 	
 	inline function ondisplayButton_reverb_bypassControl(component, value) {
 			bypassReverb(value);
@@ -134,7 +147,7 @@ namespace Reverb {
 	
 	var restoreFeedbackValue;
 	
-	inline function ondisplayKnob_reverb_preDelayControl(component, value) {
+	inline function preDelayControl(component, value) {
 			JPVerb.setAttribute(JPVerb.preDelay, value);
 	};
 	
@@ -162,7 +175,6 @@ namespace Reverb {
 	
 	inline function disLowGainControl(component, value) {
 		JPVerb.setAttribute(JPVerb.LFGain, value);
-		knob_cleanup_low.setValue(value);
 	};
 	
 	inline function disMidgainControl(component, value) {
@@ -171,7 +183,6 @@ namespace Reverb {
 	
 	inline function disHFgainControl(component, value) {
 		JPVerb.setAttribute(JPVerb.HFGain, value);
-		knob_cleanup_high.setValue(value);
 	};
 	
 	inline function bypassReverb(value) {

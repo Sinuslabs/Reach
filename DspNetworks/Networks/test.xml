@@ -3,17 +3,50 @@
 <Network ID="test" Version="0.0.0">
   <Node FactoryPath="container.chain" ID="test" Bypassed="0">
     <Nodes>
-      <Node ID="recorder" FactoryPath="core.recorder" Bypassed="0">
-        <ComplexData>
-          <AudioFiles>
-            <AudioFile Index="-1" EmbeddedData="{INTERNAL}" MinValue="0" MaxValue="49920"/>
-          </AudioFiles>
-        </ComplexData>
-        <Parameters>
-          <Parameter MinValue="0.0" MaxValue="1.0" StepSize="1.0" ID="State" Value="1.0"/>
-          <Parameter MinValue="0.0" MaxValue="2000.0" StepSize="0.1000000014901161"
-                     ID="RecordingLength" Value="1040.000015497208"/>
-        </Parameters>
+      <Node ID="fix256_block" FactoryPath="container.fix256_block" Bypassed="0">
+        <Nodes>
+          <Node ID="envelope_follower" FactoryPath="dynamics.envelope_follower"
+                Bypassed="0">
+            <ModulationTargets>
+              <Connection NodeId="smoothed_parameter" ParameterId="Value"/>
+            </ModulationTargets>
+            <ComplexData>
+              <DisplayBuffers>
+                <DisplayBuffer Index="-1"/>
+              </DisplayBuffers>
+            </ComplexData>
+            <Parameters>
+              <Parameter MinValue="0.0" MaxValue="1000.0" StepSize="0.1000000014901161"
+                         SkewFactor="0.2313782125711441" ID="Attack" Value="0.0"/>
+              <Parameter MinValue="0.0" MaxValue="1000.0" StepSize="0.1000000014901161"
+                         SkewFactor="0.2313782125711441" ID="Release" Value="0.0"/>
+              <Parameter MinValue="0.0" MaxValue="1.0" ID="ProcessSignal" Value="0.0"/>
+            </Parameters>
+          </Node>
+          <Node ID="smoothed_parameter" FactoryPath="control.smoothed_parameter"
+                Bypassed="0">
+            <Properties>
+              <Property ID="Mode" Value="Linear Ramp"/>
+            </Properties>
+            <ModulationTargets>
+              <Connection NodeId="pma" ParameterId="Value"/>
+            </ModulationTargets>
+            <Parameters>
+              <Parameter MinValue="0.0" MaxValue="1.0" ID="Value" Automated="1"/>
+              <Parameter MinValue="0.1000000014901161" MaxValue="1000.0" StepSize="0.1000000014901161"
+                         ID="SmoothingTime" Value="206.70000308007"/>
+              <Parameter MinValue="0.0" MaxValue="1.0" StepSize="1.0" ID="Enabled" Value="1.0"/>
+            </Parameters>
+          </Node>
+          <Node ID="pma" FactoryPath="control.pma" Bypassed="0">
+            <Parameters>
+              <Parameter MinValue="0.0" MaxValue="1.0" ID="Value" Automated="1"/>
+              <Parameter MinValue="-1.0" MaxValue="1.0" ID="Multiply" Value="1.0"/>
+              <Parameter MinValue="-1.0" MaxValue="1.0" ID="Add" Value="0.0"/>
+            </Parameters>
+          </Node>
+        </Nodes>
+        <Parameters/>
       </Node>
     </Nodes>
     <Parameters/>
