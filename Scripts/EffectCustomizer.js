@@ -271,6 +271,8 @@ namespace EffectCustomizer {
 	
 	// swaps the effect slots and the effectTabs
 	inline function swapSlots(slot1, slot2) {
+		Console.print('swap' + slot1 + ' with ' + slot2);
+	
 		local effect1 = effectTabs[slot1];
 		local effect2 = effectTabs[slot2];
 		

@@ -253,7 +253,12 @@ inline function onBackgroundKeypress(key) {
 	if (key.keyCode == 27) { 
 		showMain();
 		SplashAnimation.cancelAnimation();
-	} 
+	}
+	if (key.keyCode == 82) {
+		Console.print(returnTest());
+		Randomization.randomizeParameters();
+		Randomization.randomizeButton();
+	}
 }
 
 // Website
