@@ -17,14 +17,33 @@ namespace Randomization {
 		
 		if (!value) return;
 	
-		randomizeParameters();
-		randomizeButton();		
+		randomizeParameters();	
 	};
 	
 	inline function randomizeParameters() {
 		randomizeKnobs(panelKnobs);
 		randomizeKnobs(displayKnobs);
 		randomizeEffectsChain();
+		
+		randomizeButton();
+	}
+	
+	inline function randomizePanelKnobs() {
+		randomizeKnobs(panelKnobs);
+		
+		randomizeButton();
+	}
+	
+	inline function randomizeDisplayKnobs() {
+		randomizeKnobs(displayKnobs);
+		
+		randomizeButton();
+	}
+	
+	inline function randomizeEffects() {
+		randomizeEffectsChain();
+		
+		randomizeButton();
 	}
 	
 	inline function randomizeButton() {
