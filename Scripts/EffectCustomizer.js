@@ -75,6 +75,7 @@ namespace EffectCustomizer {
 		setEffectNamesFromSlots();		
 		snapToArea();
 		setCurrentTab();
+		repaintIndicators();
 	}
 	init();
 	

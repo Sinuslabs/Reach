@@ -259,6 +259,15 @@ inline function onBackgroundKeypress(key) {
 		Randomization.randomizeParameters();
 		Randomization.randomizeButton();
 	}
+	if (key.keyCode == 68) {
+		Randomization.randomizeDisplayKnobs();
+	}
+	if (key.keyCode == 75) {
+		Randomization.randomizePanelKnobs();
+	}
+	if (key.keyCode == 69) {
+		Randomization.randomizeEffects();
+	}
 }
 
 // Website
