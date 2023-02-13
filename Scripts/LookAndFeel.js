@@ -885,3 +885,61 @@ popMenuLaf.registerFunction("getIdealPopupMenuItemSize", function(obj) { return 
 comboBox_zoom.setLocalLookAndFeel(popMenuLaf);
 comboBox_theme.setLocalLookAndFeel(popMenuLaf);
 
+const var floatingLock_panel = Content.getComponent("floatingLock_panel");
+floatingLock_panel.setPaintRoutine(function(g) {
+	
+	// Colors
+	var BORDER_COLOUR = SliderTheme.arcColour;
+	var BACKGROUND_COLOUR = SliderTheme.lowerGradientColour;
+	
+	var PADDING = 1;
+	var a = [ 0, 0, this.getWidth(), this.getHeight()];
+	var paddingA = [
+		PADDING,
+		PADDING,
+		this.getWidth() - PADDING * 2,
+		this.getHeight() - PADDING * 2
+	];
+	g.setColour(BORDER_COLOUR);
+	g.fillRoundedRectangle(a, 3);
+	g.setColour(BACKGROUND_COLOUR);
+	g.fillRoundedRectangle(paddingA, 2);
+});
+
+const var button_floatingLock = Content.getComponent("button_floatingLock");
+const var floatButtonLAF = Content.createLocalLookAndFeel();
+floatButtonLAF.registerFunction('drawToggleButton', floatButtonGraphics);
+
+inline function floatButtonGraphics(g, obj) {
+	
+	local ICON_SIZE = 15;
+	
+	local a = obj.area; 
+	local textArea = [
+		this.getHeight / 2 + 20,
+		this.getWidth / 2 + 3,
+		100,
+		15
+	];
+	
+	local iconArea = [this.getHeight / 2 + 5, this.getWidth / 2 + 2, ICON_SIZE - 5, ICON_SIZE];
+	local SELECTED_ICON_COLOUR = PanelTheme.selectedIconColour;
+	
+	obj.text = obj.text.replace('icon-');
+	if (obj.over == 1) {
+		SELECTED_ICON_COLOUR = SELECTED_ICON_COLOUR.replace('0x', '0x' + PanelTheme.hoverOpacity);
+	}
+	
+	g.setColour(SELECTED_ICON_COLOUR);
+	g.fillPath(Paths.icons[obj.text], iconArea);
+	
+	g.setFont(Fonts.secondaryFont, 14);
+	g.drawAlignedText('LOCK PARAMETER', textArea, 'left');
+}
+	
+button_floatingLock.setLocalLookAndFeel(floatButtonLAF);
+
+
+
+
+

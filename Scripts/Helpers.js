@@ -14,6 +14,7 @@ function repaintAllPanels() {
 	for (panel in themeablePanels) {
 		panel.repaint();
 	}
+	floatingLock_panel.repaint();
 }
 
 function returnTest() {
