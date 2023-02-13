@@ -245,7 +245,6 @@ inline function onbutton_preset_rightArrowControl(component, value)
 
 // SHORTCUT HANDLER
 const var panel_background = Content.getComponent("panel_background");
-
 panel_background.setKeyPressCallback(onBackgroundKeypress);
 inline function onBackgroundKeypress(key) {
 	
@@ -253,6 +252,7 @@ inline function onBackgroundKeypress(key) {
 	if (key.keyCode == 27) { 
 		showMain();
 		SplashAnimation.cancelAnimation();
+		Randomization.hideLockMenu();
 	}
 	if (key.keyCode == 82) {
 		Console.print(returnTest());
