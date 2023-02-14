@@ -32,8 +32,6 @@ namespace Reverb {
 	
 	// Display
 	
-	const var displayKnob_reverb_smoothing = Content.getComponent("displayKnob_reverb_smoothing")
-	displayKnob_reverb_smoothing.setControlCallback(ondisplayKnob_reverb_smoothing);
 	
 	
     const var displayKnob_reverb_feedback = Content.getComponent("displayKnob_reverb_feedback");
@@ -129,18 +127,12 @@ namespace Reverb {
 	// Cleanup Callbacks
 	
 	inline function onknob_cleanup_duckingControl(component, value) {
-		JPVerb.setAttribute(JPVerb.Ducking, value);
+		JPVerb.setAttribute(JPVerb.Smoothing , value);
 	};
 	
 	
 	
 	// Display Callbacks
-	inline function ondisplayKnob_reverb_smoothing(component, value) {
-		Console.print(value);
-	
-		JPVerb.setAttribute(JPVerb.Smoothing , value * 1000);
-	};
-	
 	inline function ondisplayButton_reverb_bypassControl(component, value) {
 			bypassReverb(value);
 	};
