@@ -19,6 +19,7 @@
 #include "Degrade.h"
 #include "Flair.h"
 #include "Reverb.h"
+#include "ReverbParameters_networkdata.h"
 #include "test_networkdata.h"
 #include "Waveshaper.h"
 

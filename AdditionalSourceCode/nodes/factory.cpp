@@ -23,6 +23,7 @@ struct Factory: public scriptnode::dll::StaticLibraryHostFactory
 		registerPolyNode<project::Flair<1>, wrap::illegal_poly<project::Flair<1>>>();
 		registerPolyNode<project::Reverb<1>, wrap::illegal_poly<project::Reverb<1>>>();
 		registerPolyNode<project::Waveshaper<1>, wrap::illegal_poly<project::Waveshaper<1>>>();
+		registerDataNode<project::ReverbParameters_networkdata>();
 		registerDataNode<project::test_networkdata>();
 	}
 };
