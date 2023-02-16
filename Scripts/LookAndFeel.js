@@ -618,9 +618,81 @@ inline function mixKnobLAF(g, obj) {
 	g.setColour(ARC_COLOUR);	
 	g.drawPath(arcPath, pathArea, stableSize * arcThickness );
 }
-
-
 knob_io_out.setLocalLookAndFeel(mixLAF);
+
+// CUSTOM KNOBS
+const var barKnobLAF = Content.createLocalLookAndFeel();
+barKnobLAF.registerFunction('drawRotarySlider', barKnobGraphics);
+
+inline function barKnobGraphics(g, obj) {
+	
+	local GAP = 5;
+	local disabled = !obj.enabled;
+	local BAR_COLOUR = DisplayTheme.buttonSelectedBackgroundColour;
+	local text = obj.text;
+	local value = obj.value;
+	local a = obj.area;
+	local pa = [
+		a[0] + PADDING,
+		a[1] + PADDING,
+		a[2] - PADDING * 2,
+		a[3] - PADDING * 2,
+	];
+	local upperA = [pa[0], pa[1], pa[2], pa[3] / 1.7];
+	local lowerA = [0, a[3] / 2 + GAP, a[2], a[3] / 2 - GAP];
+
+	local statusBarArea = [0, upperA[3] * (1 - obj.valueNormalized), upperA[2], upperA[3]  - upperA[3] * (1 - obj.valueNormalized)];
+	
+	if (obj.clicked || obj.hover) { text = obj.valueAsText; }
+	
+	if (disabled) {
+		BAR_COLOUR = BAR_COLOUR.replace('0x', '0x' + DisplayTheme.hoverOpacity);
+	}
+	g.setColour(BAR_COLOUR);	
+	g.drawRect(upperA, 2);
+	g.fillRect(statusBarArea);
+	g.setFont(Fonts.secondaryFont, 14);
+	g.drawAlignedText(text.toUpperCase(), lowerA, 'centred');
+}
+
+Reverb.displayKnob_reverb_lowGain.setLocalLookAndFeel(barKnobLAF);
+Reverb.displayKnob_reverb_midgain.setLocalLookAndFeel(barKnobLAF);
+Reverb.displayKnob_reverb_hfgain.setLocalLookAndFeel(barKnobLAF);
+
+const var freqKnobLAF = Content.createLocalLookAndFeel();
+freqKnobLAF.registerFunction('drawRotarySlider', freqKnobGraphics);
+
+inline function freqKnobGraphics(g, obj) {
+	
+	local GAP = 2;
+	local text = obj.text;
+	local value = obj.value;
+	local valueText;
+	local disabled = !obj.enabled;
+
+	local BAR_COLOUR = DisplayTheme.buttonSelectedBackgroundColour;	
+	
+	local a = obj.area;
+	local upperA = [a[0], a[1], a[2], a[3] / 2];
+	local lowerA = [0, a[3] / 2 + GAP, a[2], a[3] / 2 - GAP];
+	
+	if (disabled) {
+		BAR_COLOUR = BAR_COLOUR.replace('0x', '0x' + DisplayTheme.hoverOpacity);
+	}
+	
+	if (obj.value > 1000) {
+		valueText = Engine.doubleToString(obj.value / 1000, 1) + 'khz';
+	} else {
+		valueText = Engine.doubleToString(obj.value, 0) + 'Hz';
+	}
+	
+	g.setColour(BAR_COLOUR);
+	g.setFont(Fonts.secondaryFont, 20);
+	g.drawAlignedText(valueText, upperA, 'centred');
+}
+
+//Reverb.displayKnob_reverb_lowcrossover.setLocalLookAndFeel(freqKnobLAF);
+//Reverb.displayKnob_reverb_highcrossover.setLocalLookAndFeel(freqKnobLAF);
 
 // Themeable Panels
 const var themeablePanels = Content.getAllComponents('themeablePanel');
@@ -812,4 +884,62 @@ popMenuLaf.registerFunction("drawComboBox", function(g, obj)
 popMenuLaf.registerFunction("getIdealPopupMenuItemSize", function(obj) { return 36; });
 comboBox_zoom.setLocalLookAndFeel(popMenuLaf);
 comboBox_theme.setLocalLookAndFeel(popMenuLaf);
+
+const var floatingLock_panel = Content.getComponent("floatingLock_panel");
+floatingLock_panel.setPaintRoutine(function(g) {
+	
+	// Colors
+	var BORDER_COLOUR = SliderTheme.arcColour;
+	var BACKGROUND_COLOUR = SliderTheme.lowerGradientColour;
+	
+	var PADDING = 1;
+	var a = [ 0, 0, this.getWidth(), this.getHeight()];
+	var paddingA = [
+		PADDING,
+		PADDING,
+		this.getWidth() - PADDING * 2,
+		this.getHeight() - PADDING * 2
+	];
+	g.setColour(BORDER_COLOUR);
+	g.fillRoundedRectangle(a, 3);
+	g.setColour(BACKGROUND_COLOUR);
+	g.fillRoundedRectangle(paddingA, 2);
+});
+
+const var button_floatingLock = Content.getComponent("button_floatingLock");
+const var floatButtonLAF = Content.createLocalLookAndFeel();
+floatButtonLAF.registerFunction('drawToggleButton', floatButtonGraphics);
+
+inline function floatButtonGraphics(g, obj) {
+	
+	local ICON_SIZE = 15;
+	
+	local a = obj.area; 
+	local textArea = [
+		this.getHeight / 2 + 20,
+		this.getWidth / 2 + 3,
+		100,
+		15
+	];
+	
+	local iconArea = [this.getHeight / 2 + 5, this.getWidth / 2 + 2, ICON_SIZE - 5, ICON_SIZE];
+	local SELECTED_ICON_COLOUR = PanelTheme.selectedIconColour;
+	
+	obj.text = obj.text.replace('icon-');
+	if (obj.over == 1) {
+		SELECTED_ICON_COLOUR = SELECTED_ICON_COLOUR.replace('0x', '0x' + PanelTheme.hoverOpacity);
+	}
+	
+	g.setColour(SELECTED_ICON_COLOUR);
+	g.fillPath(Paths.icons[obj.text], iconArea);
+	
+	g.setFont(Fonts.secondaryFont, 14);
+	g.drawAlignedText('LOCK PARAMETER', textArea, 'left');
+}
+	
+button_floatingLock.setLocalLookAndFeel(floatButtonLAF);
+
+
+
+
 
