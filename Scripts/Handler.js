@@ -245,7 +245,6 @@ inline function onbutton_preset_rightArrowControl(component, value)
 
 // SHORTCUT HANDLER
 const var panel_background = Content.getComponent("panel_background");
-
 panel_background.setKeyPressCallback(onBackgroundKeypress);
 inline function onBackgroundKeypress(key) {
 	
@@ -253,7 +252,22 @@ inline function onBackgroundKeypress(key) {
 	if (key.keyCode == 27) { 
 		showMain();
 		SplashAnimation.cancelAnimation();
-	} 
+		Randomization.hideLockMenu();
+	}
+	if (key.keyCode == 82) {
+		Console.print(returnTest());
+		Randomization.randomizeParameters();
+		Randomization.randomizeButton();
+	}
+	if (key.keyCode == 68) {
+		Randomization.randomizeDisplayKnobs();
+	}
+	if (key.keyCode == 75) {
+		Randomization.randomizePanelKnobs();
+	}
+	if (key.keyCode == 69) {
+		Randomization.randomizeEffects();
+	}
 }
 
 // Website
@@ -272,11 +286,16 @@ Content.getComponent("button_x3").setControlCallback(onButtonX);
 inline function onButtonX(component, value) { showMain(); }
 
 // MASTER
+const var WetOnlyGain = Synth.getEffect("WetExtraGain");
 const var Gain = Synth.getEffect("Simple Gain4");
 Content.getComponent("knob_io_in").setControlCallback(onknob_io_inControl);
 inline function onknob_io_inControl(component, value)
 {
-	Gain.setAttribute('Gain', value);
+	Console.print(' Settings Gain: ' + UserSettings.wetOnlyGain);
+	UserSettings.wetOnlyGain 
+		? WetOnlyGain.setAttribute('Gain', value)
+		: Gain.setAttribute('Gain', value);
+	
 };
 
 const var DryGain = Synth.getEffect("DryGain");

@@ -28,7 +28,6 @@ namespace Effects {
 	inline function onknob_flair_flairControl(component, value)
 	{
 		Flanger.setAttribute(Flanger.Mix, value);
-		updateParameterWithLabel('FLAIR', value, '%');
 		showTempScreen('flair');
 	
 		FlairAnimation.setShift(value);
@@ -76,6 +75,7 @@ namespace Effects {
 		EffectCustomizer.displayPanel_flangerIndicator.repaint();
 		
 		EffectCustomizer.repaintIndicators();
+		EffectCustomizer.repaintTabs();
 	}
 	
 	// DEGRADE
@@ -100,7 +100,6 @@ namespace Effects {
 	
 	inline function onknob_degrade_mixControl(component, value) {
 		Degrade.setAttribute(Degrade.Mix, value);
-		updateParameterWithLabel('DEGRADE', value, '%');
 		showTempScreen('degrade');
 		
 		DegradeAnimation.setZoom(value);
