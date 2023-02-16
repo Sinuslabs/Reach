@@ -286,11 +286,16 @@ Content.getComponent("button_x3").setControlCallback(onButtonX);
 inline function onButtonX(component, value) { showMain(); }
 
 // MASTER
+const var WetOnlyGain = Synth.getEffect("WetExtraGain");
 const var Gain = Synth.getEffect("Simple Gain4");
 Content.getComponent("knob_io_in").setControlCallback(onknob_io_inControl);
 inline function onknob_io_inControl(component, value)
 {
-	Gain.setAttribute('Gain', value);
+	Console.print(' Settings Gain: ' + UserSettings.wetOnlyGain);
+	UserSettings.wetOnlyGain 
+		? WetOnlyGain.setAttribute('Gain', value)
+		: Gain.setAttribute('Gain', value);
+	
 };
 
 const var DryGain = Synth.getEffect("DryGain");

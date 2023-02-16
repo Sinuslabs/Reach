@@ -3,6 +3,7 @@ namespace UserSettings {
 	reg enableAnimations = true;
 	reg startupAnimation = true;
 	reg theme = 'Light';
+	reg wetOnlyGain = false;
 	
 	// Logo Click
 	const var logoButton = Content.getComponent('button_logo');
@@ -24,7 +25,6 @@ namespace UserSettings {
 	displayButton_activateSerial.setControlCallback(ondisplayButton_activateSerialControl);
 	inline function ondisplayButton_activateSerialControl(component, value) {
 		if (value) {
-			Console.print(FileSystem.getSystemId());
 			API.activateLicenseWithSerial(displayLabel_serialKey.get('text'));
 		}
 	};
@@ -47,6 +47,7 @@ namespace UserSettings {
 	
 	const var settingsButtons = [
 		Content.getComponent('button_settings_general'),
+		Content.getComponent('button_settings_routing'),
 		Content.getComponent('button_settings_activate'),
 		Content.getComponent('button_settings_about')
 	];
@@ -57,14 +58,22 @@ namespace UserSettings {
 	 	settingsButtonsRadio(0);
 	 	displayShowSettings('general');
 	 };
-	
-	 settingsButtons[1].setControlCallback(onbutton_settings_activateControl);
-	 inline function onbutton_settings_activateControl(component, value)
+	 
+	 settingsButtons[1].setControlCallback(onbutton_settings_routingControl);
+	 inline function onbutton_settings_routingControl(component, value)
 	 {
 	 	settingsButtonsRadio(1);
+	 	displayShowSettings('routing');
+
+	 };
+	
+	 settingsButtons[2].setControlCallback(onbutton_settings_activateControl);
+	 inline function onbutton_settings_activateControl(component, value)
+	 {
+	 	settingsButtonsRadio(2);
 	 	displayShowSettings('activate');
 	 	if (!Globals.activated) {
-	 		settingsButtonsRadio(1);				
+	 		settingsButtonsRadio(2);				
 	 		activatePageRadio('serial');
 	 	} else {
 		 	activatePageRadio('thankyou');
@@ -72,10 +81,10 @@ namespace UserSettings {
 	 };
 	
 	
-	settingsButtons[2].setControlCallback(onbutton_settings_aboutControl);
+	settingsButtons[3].setControlCallback(onbutton_settings_aboutControl);
 	inline function onbutton_settings_aboutControl(component, value)
 	{
-		settingsButtonsRadio(2);
+		settingsButtonsRadio(3);
 		displayShowSettings('about');
 	};
 	
@@ -130,9 +139,20 @@ namespace UserSettings {
 	inline function onbutton_startupAnimationToggleControl(component, value) {
 		startupAnimation = !value;
 		UserSettings.saveSettings();
+		
 	};
 	
+	// ROUTING 
+	const var wetOnlyGainSwitch = Content.getComponent("button_wetGainToggle")
+	wetOnlyGainSwitch.setControlCallback(onbutton_wetGainToggleControl);	
 	
+	inline function onbutton_wetGainToggleControl(component, value) {
+		wetOnlyGain = !value; 
+		UserSettings.saveSettings();
+
+		setGainBypass();
+
+	};
 	
 	// Buy Reach Button
 	Content.getComponent("button_buy_reach").setControlCallback(onbutton_buy_reachControl);
@@ -148,7 +168,7 @@ namespace UserSettings {
 			displayShowSettings('activate');
 			Globals.settingsOpen = true;
 			if (!Globals.activated) {
-				settingsButtonsRadio(1);				
+				settingsButtonsRadio(2);				
 				activatePageRadio('serial');
 			}
 		}
@@ -216,13 +236,12 @@ namespace UserSettings {
 	
 	// saves the settings from the general page
 	function saveSettings() {
-		Console.print('startup animation enabled: ' + UserSettings.startupAnimation);
-	
 		settingsFile.writeObject({
 			'zoom': Settings.getZoomLevel(),
 			'animationEnabled': UserSettings.enableAnimations,
 			'startupAnimation': UserSettings.startupAnimation,
-			'theme': UserSettings.theme
+			'theme': UserSettings.theme,
+			'wetOnlyGain': UserSettings.wetOnlyGain,
 		});
 	}
 	
@@ -235,7 +254,8 @@ namespace UserSettings {
 		var zoomSaved = Engine.doubleToString(savedSettings['zoom'], 1);
 		var animationEnabledSaved = savedSettings['animationEnabled'];
 		var startupAnimationSaved = savedSettings['startupAnimation'];
-		Console.print('load animation' + startupAnimationSaved);
+		var wetOnlyGainSaved = savedSettings['wetOnlyGain'];		
+		
 		// zoom level
 		Settings.setZoomLevel(zoomSaved);
 		var zoomFactorsIndex = zoomFactors.indexOf(zoomSaved, 0, 0);
@@ -259,6 +279,17 @@ namespace UserSettings {
 		// startup animation
 		button_startupAnimationToggle.setValue(!startupAnimationSaved);
 		startupAnimation = startupAnimationSaved;
+		
+		// wet only gain
+		wetOnlyGainSwitch.setValue(!wetOnlyGainSaved);
+		wetOnlyGain = wetOnlyGainSaved;
+		
+		setGainBypass();
+	}
+	
+	function setGainBypass() {
+		WetOnlyGain.setBypassed(!wetOnlyGain);
+		Gain.setBypassed(wetOnlyGain);
 	}
 	
 	// checks if the settings file exist

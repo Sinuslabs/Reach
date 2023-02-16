@@ -46,7 +46,6 @@ Globals.screenLock = true;
 // Loading Settings
 if (settingsExist()) {
 	UserSettings.loadSettings();
-	Console.print(UserSettings.startupAnimation);
 	if (UserSettings.startupAnimation) {
 		SplashAnimation.init();
 	} else {
@@ -57,6 +56,8 @@ if (settingsExist()) {
 	Settings.setZoomLevel(1);
 	comboBox_zoom.setValue(4.0);
 	Theme.setTheme('Light');
+	UserSettings.setGainBypass();
+	UserSettings.wetOnlyGainSwitch.setValue(1);
 	SplashAnimation.init();
 }
 

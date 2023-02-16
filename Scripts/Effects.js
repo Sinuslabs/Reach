@@ -75,6 +75,7 @@ namespace Effects {
 		EffectCustomizer.displayPanel_flangerIndicator.repaint();
 		
 		EffectCustomizer.repaintIndicators();
+		EffectCustomizer.repaintTabs();
 	}
 	
 	// DEGRADE
