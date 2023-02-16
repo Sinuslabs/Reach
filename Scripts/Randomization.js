@@ -13,7 +13,20 @@ namespace Randomization {
 	allKnobsAndTabs.concat(EffectCustomizer.effectTabs);
 	
 	// holds component id's that are locked
-	const var banList = ['knob_io_in'];
+	const var banList = [
+		'knob_io_in',
+		'displayKnob_distort_highpass',
+		'displayKnob_distort_lowPass',
+		'displayKnob_distort_posthighcut',
+		'displayKnob_distort_postlowcut',
+		'displayKnob_degrade_highcut',
+		'displayKnob_degrade_lowcut',
+		'displayKnob_reverb_lowcrossover',
+		'displayKnob_reverb_highcrossover',
+		'displayKnob_reverb_midgain',
+		'displayKnob_reverb_lowGain',
+		'displayKnob_reverb_hfgain'
+	];
 	
 	const var button_randomization = Content.getComponent("button_randomization");
 	

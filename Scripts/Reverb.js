@@ -11,6 +11,7 @@ namespace Reverb {
 	const var themeablePanel_modulation = Content.getComponent("themeablePanel_modulation");
 	const var themeablePanel_cleanup = Content.getComponent("themeablePanel_cleanup");
 	
+	
 	const var knob_reverb_space = Content.getComponent("knob_reverb_space");
 	const var knob_reverb_diffusion = Content.getComponent("knob_reverb_diffusion");
 	const var knob_reverb_damping = Content.getComponent("knob_reverb_damping");
@@ -29,11 +30,10 @@ namespace Reverb {
 	
 	// Cleanup
 	Content.getComponent("knob_cleanup_ducking").setControlCallback(onknob_cleanup_duckingControl);
+	Content.getComponent("knob_cleanup_preDelay").setControlCallback(preDelayControl);
+	
 	
 	// Display
-	
-	
-	
     const var displayKnob_reverb_feedback = Content.getComponent("displayKnob_reverb_feedback");
     displayKnob_reverb_feedback.setControlCallback(ondisplayKnob_reverb_feedbackControl);
     
