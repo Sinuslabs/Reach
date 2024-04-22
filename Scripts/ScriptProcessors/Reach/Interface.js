@@ -1,15 +1,20 @@
+
+
+include("Theme.js");
 include("Paths.js");
-include("Handler.js");
 include("Helpers.js");
-include("Reverb.js");
-include("Effects.js");
 include("Filter.js");
 include("Config.js");
+
+include("LookAndFeel.js");
 include("Settings.js");
+include("Handler.js");
+
+include("Effects.js");
+include("Reverb.js");
 include("EffectCustomizer.js");
 include("ZoomHandler.js");
 include("Router.js");
-include("LookAndFeel.js");
 include("Server.js");
 include("Display.js");
 include("ReverbAnimation.js");
@@ -18,7 +23,6 @@ include("FlairAnimation.js");
 include("ChorusAnimation.js");
 include("DistortionAnimation.js");
 include("VuMeter.js");
-include("Theme.js");
 include("SplashAnimation.js");
 include("Randomization.js");
 
@@ -28,14 +32,12 @@ Engine.loadFontAs("{PROJECT_FOLDER}Fonts/JetBrainsMono-Medium.ttf", "jetbrains-m
 Engine.loadFontAs("{PROJECT_FOLDER}Fonts/Inter-SemiBold.ttf", "inter-semi");
 Engine.setGlobalFont("inter-semi");
 
-Engine.loadNextUserPreset(true);
-
 // Setting Global State
 Globals.parameter = 'NONE';
 Globals.freezeMode = false;
 
 // DEBUG
-Globals.activated = false;
+Globals.activated = true;
 Globals.presetBrowserOpen = false;
 Globals.settingsOpen = false;
 Globals.effectsOpen = false;
@@ -113,6 +115,24 @@ const var TimeoutCounter = 15000;
 		GainReduction.setBypassed(true);
 }
 
+function themeMainPanel() {
+	panel_background.setPaintRoutine(function(g) {
+		var a = [0, 0, this.getWidth(), this.getHeight()];
+		g.setGradientFill([
+			PanelTheme.mainUpperGradientColour, 0.0, 0.0,
+			PanelTheme.mainLowerGradientColour, 0.5, 100.0]
+		);
+		g.fillRoundedRectangle(a, PANEL_BORDER_RADIUS);
+		g.addNoise({
+			alpha: 0.03,
+			monochromatic: true,
+			scaleFactor: 1.2,
+			area: a
+		});
+	});
+}
+themeMainPanel();
+themePanels();
 
 
 

@@ -1,6 +1,5 @@
 #pragma once
 
-#include <JuceHeader.h>
 // These will improve the readability of the connection definition
 
 #define getT(Idx) template get<Idx>()
@@ -14,26 +13,31 @@ using namespace snex::Types;
 
 namespace Waveshaper_impl
 {
-// =============================| Node & Parameter type declarations |=============================
+// ==============================| Node & Parameter type declarations |==============================
 
 DECLARE_PARAMETER_RANGE_SKEW(dry_wet_mixer_c0Range, 
                              -100., 
                              0., 
                              5.42227);
 
-using dry_wet_mixer_c0 = parameter::from0To1<core::gain, 
+template <int NV>
+using dry_wet_mixer_c0 = parameter::from0To1<core::gain<NV>, 
                                              0, 
                                              dry_wet_mixer_c0Range>;
 
-using dry_wet_mixer_c1 = dry_wet_mixer_c0;
+template <int NV> using dry_wet_mixer_c1 = dry_wet_mixer_c0<NV>;
 
-using dry_wet_mixer_multimod = parameter::list<dry_wet_mixer_c0, dry_wet_mixer_c1>;
+template <int NV>
+using dry_wet_mixer_multimod = parameter::list<dry_wet_mixer_c0<NV>, dry_wet_mixer_c1<NV>>;
 
-using dry_wet_mixer_t = control::xfader<dry_wet_mixer_multimod, faders::linear>;
+template <int NV>
+using dry_wet_mixer_t = control::xfader<dry_wet_mixer_multimod<NV>, 
+                                        faders::cosine>;
 
+template <int NV>
 using dry_path_t = container::chain<parameter::empty, 
-                                    wrap::fix<2, dry_wet_mixer_t>, 
-                                    core::gain>;
+                                    wrap::fix<2, dry_wet_mixer_t<NV>>, 
+                                    core::gain<NV>>;
 
 template <int NV>
 using wet_path_t = container::chain<parameter::empty, 
@@ -42,20 +46,20 @@ using wet_path_t = container::chain<parameter::empty,
                                     project::Distortion<NV>, 
                                     filters::one_pole<NV>, 
                                     filters::one_pole<NV>, 
-                                    core::gain>;
+                                    core::gain<NV>>;
 
 namespace dry_wet1_t_parameters
 {
 }
 
 template <int NV>
-using dry_wet1_t = container::split<parameter::plain<Waveshaper_impl::dry_wet_mixer_t, 0>, 
-                                    wrap::fix<2, dry_path_t>, 
+using dry_wet1_t = container::split<parameter::plain<Waveshaper_impl::dry_wet_mixer_t<NV>, 0>, 
+                                    wrap::fix<2, dry_path_t<NV>>, 
                                     wet_path_t<NV>>;
 
 namespace Waveshaper_t_parameters
 {
-// Parameter list for Waveshaper_impl::Waveshaper_t ----------------------------------------------
+// Parameter list for Waveshaper_impl::Waveshaper_t ------------------------------------------------
 
 DECLARE_PARAMETER_RANGE_STEP(AmountRange, 
                              0., 
@@ -101,7 +105,7 @@ template <int NV>
 using Waveshaper_t_ = container::chain<Waveshaper_t_parameters::Waveshaper_t_plist<NV>, 
                                        wrap::fix<2, dry_wet1_t<NV>>>;
 
-// ================================| Root node initialiser class |================================
+// =================================| Root node initialiser class |=================================
 
 template <int NV> struct instance: public Waveshaper_impl::Waveshaper_t_<NV>
 {
@@ -139,21 +143,21 @@ template <int NV> struct instance: public Waveshaper_impl::Waveshaper_t_<NV>
 	
 	instance()
 	{
-		// Node References -----------------------------------------------------------------------
+		// Node References -------------------------------------------------------------------------
 		
 		auto& dry_wet1 = this->getT(0);                      // Waveshaper_impl::dry_wet1_t<NV>
-		auto& dry_path = this->getT(0).getT(0);              // Waveshaper_impl::dry_path_t
-		auto& dry_wet_mixer = this->getT(0).getT(0).getT(0); // Waveshaper_impl::dry_wet_mixer_t
-		auto& dry_gain = this->getT(0).getT(0).getT(1);      // core::gain
+		auto& dry_path = this->getT(0).getT(0);              // Waveshaper_impl::dry_path_t<NV>
+		auto& dry_wet_mixer = this->getT(0).getT(0).getT(0); // Waveshaper_impl::dry_wet_mixer_t<NV>
+		auto& dry_gain = this->getT(0).getT(0).getT(1);      // core::gain<NV>
 		auto& wet_path = this->getT(0).getT(1);              // Waveshaper_impl::wet_path_t<NV>
 		auto& one_pole = this->getT(0).getT(1).getT(0);      // filters::one_pole<NV>
 		auto& one_pole1 = this->getT(0).getT(1).getT(1);     // filters::one_pole<NV>
 		auto& faust = this->getT(0).getT(1).getT(2);         // project::Distortion<NV>
 		auto& one_pole2 = this->getT(0).getT(1).getT(3);     // filters::one_pole<NV>
 		auto& one_pole3 = this->getT(0).getT(1).getT(4);     // filters::one_pole<NV>
-		auto& wet_gain = this->getT(0).getT(1).getT(5);      // core::gain
+		auto& wet_gain = this->getT(0).getT(1).getT(5);      // core::gain<NV>
 		
-		// Parameter Connections -----------------------------------------------------------------
+		// Parameter Connections -------------------------------------------------------------------
 		
 		dry_wet1.getParameterT(0).connectT(0, dry_wet_mixer); // DryWet -> dry_wet_mixer::Value
 		
@@ -171,13 +175,13 @@ template <int NV> struct instance: public Waveshaper_impl::Waveshaper_t_<NV>
 		
 		this->getParameterT(7).connectT(0, one_pole3); // posthp -> one_pole3::Frequency
 		
-		// Modulation Connections ----------------------------------------------------------------
+		// Modulation Connections ------------------------------------------------------------------
 		
 		auto& dry_wet_mixer_p = dry_wet_mixer.getWrappedObject().getParameter();
 		dry_wet_mixer_p.getParameterT(0).connectT(0, dry_gain); // dry_wet_mixer -> dry_gain::Gain
 		dry_wet_mixer_p.getParameterT(1).connectT(0, wet_gain); // dry_wet_mixer -> wet_gain::Gain
 		
-		// Default Values ------------------------------------------------------------------------
+		// Default Values --------------------------------------------------------------------------
 		
 		; // dry_wet1::DryWet is automated
 		
@@ -235,6 +239,8 @@ template <int NV> struct instance: public Waveshaper_impl::Waveshaper_t_<NV>
 	static constexpr bool isPolyphonic() { return NV > 1; };
 	
 	static constexpr bool hasTail() { return true; };
+	
+	static constexpr bool isSuspendedOnSilence() { return false; };
 };
 }
 
@@ -243,7 +249,7 @@ template <int NV> struct instance: public Waveshaper_impl::Waveshaper_t_<NV>
 #undef setParameterT
 #undef setParameterWT
 #undef getParameterT
-// =====================================| Public Definition |=====================================
+// ======================================| Public Definition |======================================
 
 namespace project
 {

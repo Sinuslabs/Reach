@@ -2,8 +2,8 @@
 author: "Oskar Schachtschneider Sinuslabs"
 name: "fuzz -- a simple distortion effect"
 version: "1.0"
-Code generated with Faust 2.50.6 (https://faust.grame.fr)
-Compilation options: -lang cpp -rui -cn _Distortion -scn ::faust::dsp -es 1 -mcd 16 -uim -single -ftz 0
+Code generated with Faust 2.69.3 (https://faust.grame.fr)
+Compilation options: -lang cpp -rui -nvi -ct 1 -cn _Distortion -scn ::faust::dsp -es 1 -mcd 16 -uim -single -ftz 0
 ------------------------------------------------------------ */
 
 #ifndef  ___Distortion_H__
@@ -45,10 +45,11 @@ class _Distortion final : public ::faust::dsp {
 	int fSampleRate;
 	
  public:
-	
+	_Distortion() {}
+
 	void metadata(Meta* m) { 
 		m->declare("author", "Oskar Schachtschneider Sinuslabs");
-		m->declare("compile_options", "-lang cpp -rui -cn _Distortion -scn ::faust::dsp -es 1 -mcd 16 -uim -single -ftz 0");
+		m->declare("compile_options", "-lang cpp -rui -nvi -ct 1 -cn _Distortion -scn ::faust::dsp -es 1 -mcd 16 -uim -single -ftz 0");
 		m->declare("filename", "Distortion.dsp");
 		m->declare("math.lib/author", "GRAME");
 		m->declare("math.lib/copyright", "GRAME");
@@ -87,8 +88,8 @@ class _Distortion final : public ::faust::dsp {
 	}
 	
 	void instanceResetUserInterface() {
-		fHslider0 = FAUSTFLOAT(12.0f);
-		fHslider1 = FAUSTFLOAT(2.0f);
+		fHslider0 = FAUSTFLOAT(2.0f);
+		fHslider1 = FAUSTFLOAT(12.0f);
 	}
 	
 	void instanceClear() {
@@ -98,6 +99,7 @@ class _Distortion final : public ::faust::dsp {
 		classInit(sample_rate);
 		instanceInit(sample_rate);
 	}
+	
 	void instanceInit(int sample_rate) {
 		instanceConstants(sample_rate);
 		instanceResetUserInterface();
@@ -114,8 +116,8 @@ class _Distortion final : public ::faust::dsp {
 	
 	void buildUserInterface(UI* ui_interface) {
 		ui_interface->openVerticalBox("dist");
-		ui_interface->addHorizontalSlider("distortion", &fHslider0, FAUSTFLOAT(12.0f), FAUSTFLOAT(0.0f), FAUSTFLOAT(1e+02f), FAUSTFLOAT(0.1f));
-		ui_interface->addHorizontalSlider("gain", &fHslider1, FAUSTFLOAT(2.0f), FAUSTFLOAT(-96.0f), FAUSTFLOAT(3.0f), FAUSTFLOAT(0.1f));
+		ui_interface->addHorizontalSlider("distortion", &fHslider1, FAUSTFLOAT(12.0f), FAUSTFLOAT(0.0f), FAUSTFLOAT(1e+02f), FAUSTFLOAT(0.1f));
+		ui_interface->addHorizontalSlider("gain", &fHslider0, FAUSTFLOAT(2.0f), FAUSTFLOAT(-96.0f), FAUSTFLOAT(3.0f), FAUSTFLOAT(0.1f));
 		ui_interface->closeBox();
 	}
 	
@@ -124,17 +126,17 @@ class _Distortion final : public ::faust::dsp {
 		FAUSTFLOAT* input1 = inputs[1];
 		FAUSTFLOAT* output0 = outputs[0];
 		FAUSTFLOAT* output1 = outputs[1];
-		float fSlow0 = std::max<float>(0.0f, std::min<float>(1e+02f, float(fHslider0)));
-		float fSlow1 = std::pow(1e+01f, 0.05f * fSlow0);
-		float fSlow2 = fSlow1 + -1.0f;
-		float fSlow3 = std::pow(1e+01f, 0.05f * std::max<float>(-96.0f, std::min<float>(3.0f, float(fHslider1)))) / std::sqrt(fSlow0 + 1.0f);
+		float fSlow0 = std::max<float>(0.0f, std::min<float>(1e+02f, float(fHslider1)));
+		float fSlow1 = std::pow(1e+01f, 0.05f * std::max<float>(-96.0f, std::min<float>(3.0f, float(fHslider0)))) / std::sqrt(fSlow0 + 1.0f);
+		float fSlow2 = std::pow(1e+01f, 0.05f * fSlow0);
+		float fSlow3 = fSlow2 + -1.0f;
 		for (int i0 = 0; i0 < count; i0 = i0 + 1) {
 			float fTemp0 = float(input0[i0]);
 			float fTemp1 = std::fabs(fTemp0);
-			output0[i0] = FAUSTFLOAT(fSlow3 * (fTemp0 * (fSlow1 + fTemp1) / (_Distortion_faustpower2_f(fTemp0) + fSlow2 * fTemp1 + 1.0f)));
+			output0[i0] = FAUSTFLOAT(fSlow1 * (fTemp0 * (fSlow2 + fTemp1) / (_Distortion_faustpower2_f(fTemp0) + fSlow3 * fTemp1 + 1.0f)));
 			float fTemp2 = float(input1[i0]);
 			float fTemp3 = std::fabs(fTemp2);
-			output1[i0] = FAUSTFLOAT(fSlow3 * (fTemp2 * (fSlow1 + fTemp3) / (_Distortion_faustpower2_f(fTemp2) + fSlow2 * fTemp3 + 1.0f)));
+			output1[i0] = FAUSTFLOAT(fSlow1 * (fTemp2 * (fSlow2 + fTemp3) / (_Distortion_faustpower2_f(fTemp2) + fSlow3 * fTemp3 + 1.0f)));
 		}
 	}
 
@@ -144,18 +146,18 @@ class _Distortion final : public ::faust::dsp {
 	
 	#define FAUST_FILE_NAME "Distortion.dsp"
 	#define FAUST_CLASS_NAME "_Distortion"
-	#define FAUST_COMPILATION_OPIONS "-lang cpp -rui -cn _Distortion -scn ::faust::dsp -es 1 -mcd 16 -uim -single -ftz 0"
+	#define FAUST_COMPILATION_OPIONS "-lang cpp -rui -nvi -ct 1 -cn _Distortion -scn ::faust::dsp -es 1 -mcd 16 -uim -single -ftz 0"
 	#define FAUST_INPUTS 2
 	#define FAUST_OUTPUTS 2
 	#define FAUST_ACTIVES 2
 	#define FAUST_PASSIVES 0
 
-	FAUST_ADDHORIZONTALSLIDER("dist/distortion", fHslider0, 12.0f, 0.0f, 1e+02f, 0.1f);
-	FAUST_ADDHORIZONTALSLIDER("dist/gain", fHslider1, 2.0f, -96.0f, 3.0f, 0.1f);
+	FAUST_ADDHORIZONTALSLIDER("dist/distortion", fHslider1, 12.0f, 0.0f, 1e+02f, 0.1f);
+	FAUST_ADDHORIZONTALSLIDER("dist/gain", fHslider0, 2.0f, -96.0f, 3.0f, 0.1f);
 
 	#define FAUST_LIST_ACTIVES(p) \
-		p(HORIZONTALSLIDER, distortion, "dist/distortion", fHslider0, 12.0f, 0.0f, 1e+02f, 0.1f) \
-		p(HORIZONTALSLIDER, gain, "dist/gain", fHslider1, 2.0f, -96.0f, 3.0f, 0.1f) \
+		p(HORIZONTALSLIDER, distortion, "dist/distortion", fHslider1, 12.0f, 0.0f, 1e+02f, 0.1f) \
+		p(HORIZONTALSLIDER, gain, "dist/gain", fHslider0, 2.0f, -96.0f, 3.0f, 0.1f) \
 
 	#define FAUST_LIST_PASSIVES(p) \
 

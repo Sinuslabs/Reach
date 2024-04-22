@@ -1,6 +1,5 @@
 #pragma once
 
-#include <JuceHeader.h>
 // These will improve the readability of the connection definition
 
 #define getT(Idx) template get<Idx>()
@@ -21,12 +20,13 @@ DECLARE_PARAMETER_RANGE_SKEW(pma_modRange,
                              0., 
                              5.42227);
 
-using pma_mod = parameter::from0To1<core::gain, 
+template <int NV>
+using pma_mod = parameter::from0To1<core::gain<NV>, 
                                     0, 
                                     pma_modRange>;
 
 template <int NV>
-using pma_t = control::pma<NV, pma_mod>;
+using pma_t = control::pma<NV, pma_mod<NV>>;
 template <int NV>
 using smoothed_parameter1_t = wrap::mod<parameter::plain<pma_t<NV>, 0>, 
                                         control::smoothed_parameter<NV, smoothers::linear_ramp<NV>>>;
@@ -56,18 +56,21 @@ using fix8_block_t_ = container::chain<parameter::empty,
 template <int NV>
 using fix8_block_t = wrap::fix_block<8, fix8_block_t_<NV>>;
 
-using dry_wet_mixer1_c0 = pma_mod;
+template <int NV> using dry_wet_mixer1_c0 = pma_mod<NV>;
 
-using dry_wet_mixer1_c1 = pma_mod;
+template <int NV> using dry_wet_mixer1_c1 = pma_mod<NV>;
 
-using dry_wet_mixer1_multimod = parameter::list<dry_wet_mixer1_c0, dry_wet_mixer1_c1>;
+template <int NV>
+using dry_wet_mixer1_multimod = parameter::list<dry_wet_mixer1_c0<NV>, dry_wet_mixer1_c1<NV>>;
 
-using dry_wet_mixer1_t = control::xfader<dry_wet_mixer1_multimod, 
-                                         faders::linear>;
+template <int NV>
+using dry_wet_mixer1_t = control::xfader<dry_wet_mixer1_multimod<NV>, 
+                                         faders::cosine_half>;
 
+template <int NV>
 using dry_path1_t = container::chain<parameter::empty, 
-                                     wrap::fix<2, dry_wet_mixer1_t>, 
-                                     core::gain>;
+                                     wrap::fix<2, dry_wet_mixer1_t<NV>>, 
+                                     core::gain<NV>>;
 using stereo_cable = cable::block<2>;
 
 using feedback_delay2_t_ = container::chain<parameter::empty, 
@@ -82,16 +85,16 @@ using wet_path1_t = container::chain<parameter::empty,
                                      wrap::fix<2, feedback_delay2_t>, 
                                      project::FaustReverb<NV>, 
                                      pma_t<NV>, 
-                                     core::gain, 
-                                     core::gain>;
+                                     core::gain<NV>, 
+                                     core::gain<NV>>;
 
 namespace dry_wet2_t_parameters
 {
 }
 
 template <int NV>
-using dry_wet2_t = container::split<parameter::plain<Reverb_impl::dry_wet_mixer1_t, 0>, 
-                                    wrap::fix<2, dry_path1_t>, 
+using dry_wet2_t = container::split<parameter::plain<Reverb_impl::dry_wet_mixer1_t<NV>, 0>, 
+                                    wrap::fix<2, dry_path1_t<NV>>, 
                                     wet_path1_t<NV>>;
 
 namespace Reverb_t_parameters
@@ -315,9 +318,9 @@ template <int NV> struct instance: public Reverb_impl::Reverb_t_<NV>
 		auto& smoothed_parameter1 = this->getT(0).getT(1);     // Reverb_impl::smoothed_parameter1_t<NV>
 		auto& bipolar = this->getT(0).getT(2);                 // Reverb_impl::bipolar_t<NV>
 		auto& dry_wet2 = this->getT(1);                        // Reverb_impl::dry_wet2_t<NV>
-		auto& dry_path1 = this->getT(1).getT(0);               // Reverb_impl::dry_path1_t
-		auto& dry_wet_mixer1 = this->getT(1).getT(0).getT(0);  // Reverb_impl::dry_wet_mixer1_t
-		auto& dry_gain1 = this->getT(1).getT(0).getT(1);       // core::gain
+		auto& dry_path1 = this->getT(1).getT(0);               // Reverb_impl::dry_path1_t<NV>
+		auto& dry_wet_mixer1 = this->getT(1).getT(0).getT(0);  // Reverb_impl::dry_wet_mixer1_t<NV>
+		auto& dry_gain1 = this->getT(1).getT(0).getT(1);       // core::gain<NV>
 		auto& wet_path1 = this->getT(1).getT(1);               // Reverb_impl::wet_path1_t<NV>
 		auto& feedback_delay2 = this->getT(1).getT(1).getT(0); // Reverb_impl::feedback_delay2_t
 		auto& fb_out1 = this->getT(1).getT(1).getT(0).getT(0); // routing::receive<stereo_cable>
@@ -325,8 +328,8 @@ template <int NV> struct instance: public Reverb_impl::Reverb_t_<NV>
 		auto& fb_in1 = this->getT(1).getT(1).getT(0).getT(2);  // routing::send<stereo_cable>
 		auto& faust = this->getT(1).getT(1).getT(1);           // project::FaustReverb<NV>
 		auto& pma = this->getT(1).getT(1).getT(2);             // Reverb_impl::pma_t<NV>
-		auto& gain = this->getT(1).getT(1).getT(3);            // core::gain
-		auto& wet_gain1 = this->getT(1).getT(1).getT(4);       // core::gain
+		auto& gain = this->getT(1).getT(1).getT(3);            // core::gain<NV>
+		auto& wet_gain1 = this->getT(1).getT(1).getT(4);       // core::gain<NV>
 		
 		// Parameter Connections -------------------------------------------------------------------
 		
@@ -441,10 +444,18 @@ template <int NV> struct instance: public Reverb_impl::Reverb_t_<NV>
 		this->setParameterT(15, 0.);
 		this->setExternalData({}, -1);
 	}
+	~instance() override
+	{
+		// Cleanup external data references --------------------------------------------------------
+		
+		this->setExternalData({}, -1);
+	}
 	
 	static constexpr bool isPolyphonic() { return NV > 1; };
 	
 	static constexpr bool hasTail() { return true; };
+	
+	static constexpr bool isSuspendedOnSilence() { return false; };
 	
 	void setExternalData(const ExternalData& b, int index)
 	{

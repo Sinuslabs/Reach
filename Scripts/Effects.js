@@ -8,6 +8,8 @@ namespace Effects {
 	// Flanger
 	const var knob_effects_flair = Content.getComponent("knob_effects_flair");
 	knob_effects_flair.setControlCallback(onknob_flair_flairControl);
+	knob_effects_flair.setLocalLookAndFeel(knb_laf);
+	
 	
 	const var displayButton_flanger_bypass = Content.getComponent("displayButton_flanger_bypass");
 	const var button_flanger_bypass = Content.getComponent("button_flanger_bypass");
@@ -81,6 +83,7 @@ namespace Effects {
 	// DEGRADE
 	const var knob_effects_degrade = Content.getComponent("knob_effects_degrade");
 	knob_effects_degrade.setControlCallback(onknob_degrade_mixControl);
+	knob_effects_degrade.setLocalLookAndFeel(knb_laf);
 	
 	const var displayButton_degrade_bypass = Content.getComponent("displayButton_degrade_bypass");
 	const var button_degrade_bypass = Content.getComponent("button_degrade_bypass")
@@ -160,6 +163,9 @@ namespace Effects {
 	
 	const var knob_effects_chorus = Content.getComponent("knob_effects_chorus");
 	knob_effects_chorus.setControlCallback(onknob_effects_chorusControl);
+	
+	knob_effects_chorus.setLocalLookAndFeel(knb_laf);
+	
 	Content.getComponent("displayKnob_chorus_rate").setControlCallback(ondisplayKnob_chorus_rateControl);
 	Content.getComponent("displayKnob_chorus_feedback").setControlCallback(ondisplayKnob_chorus_feedbackControl);
 	Content.getComponent("displayKnob_chorus_depth").setControlCallback(ondisplayKnob_chorus_depthControl);
@@ -228,6 +234,8 @@ namespace Effects {
 	
 	const var knob_effects_distortion = Content.getComponent("knob_effects_distortion");
 	knob_effects_distortion.setControlCallback(onknob_effects_distortionControl);	
+	
+	knob_effects_distortion.setLocalLookAndFeel(knb_laf);
 	
 	Content.getComponent("displayKnob_distort_amount").setControlCallback(ondisplayKnob_distort_amountControl);
 	Content.getComponent("displayKnob_distort_lowPass").setControlCallback(ondisplayKnob_distort_lowPassControl);

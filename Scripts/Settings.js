@@ -28,6 +28,7 @@ namespace UserSettings {
 			API.activateLicenseWithSerial(displayLabel_serialKey.get('text'));
 		}
 	};
+	displayButton_activateSerial.setLocalLookAndFeel(asyncButtonLaf);
 	
 	// router for settings screen
 	function displayShowSettings(route) {
@@ -79,7 +80,7 @@ namespace UserSettings {
 		 	activatePageRadio('thankyou');
 	 	}
 	 };
-	
+
 	
 	settingsButtons[3].setControlCallback(onbutton_settings_aboutControl);
 	inline function onbutton_settings_aboutControl(component, value)
@@ -103,6 +104,8 @@ namespace UserSettings {
 	
 	const var comboBox_zoom = Content.getComponent("ComboBox_zoom")
 	comboBox_zoom.setControlCallback(onComboBox_zoomControl);
+	
+	comboBox_zoom.setLocalLookAndFeel(popMenuLaf);
 	inline function onComboBox_zoomControl(component, value) {
 
 		if (value == 13.0) {
@@ -116,6 +119,7 @@ namespace UserSettings {
 	// Theme
 	const var comboBox_theme = Content.getComponent("ComboBox_theme");
 	comboBox_theme.setControlCallback(onComboBox1Control);
+	comboBox_theme.setLocalLookAndFeel(popMenuLaf);
 	inline function onComboBox1Control(component, value)
 	{
 		if (value == 1.0) {
@@ -162,6 +166,7 @@ namespace UserSettings {
 	
 	const var button_not_activated = Content.getComponent("button_not_activated");
 	button_not_activated.setControlCallback(onbutton_not_activatedControl);
+	button_not_activated.setLocalLookAndFeel(notActivatedLAF);
 	inline function onbutton_not_activatedControl(component, value)
 	{
 		if (value) {

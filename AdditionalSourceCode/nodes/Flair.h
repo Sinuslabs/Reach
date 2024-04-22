@@ -1,6 +1,5 @@
 #pragma once
 
-#include <JuceHeader.h>
 // These will improve the readability of the connection definition
 
 #define getT(Idx) template get<Idx>()
@@ -21,19 +20,24 @@ DECLARE_PARAMETER_RANGE_SKEW(dry_wet_mixer_c0Range,
                              0., 
                              5.42227);
 
-using dry_wet_mixer_c0 = parameter::from0To1<core::gain, 
+template <int NV>
+using dry_wet_mixer_c0 = parameter::from0To1<core::gain<NV>, 
                                              0, 
                                              dry_wet_mixer_c0Range>;
 
-using dry_wet_mixer_c1 = dry_wet_mixer_c0;
+template <int NV> using dry_wet_mixer_c1 = dry_wet_mixer_c0<NV>;
 
-using dry_wet_mixer_multimod = parameter::list<dry_wet_mixer_c0, dry_wet_mixer_c1>;
+template <int NV>
+using dry_wet_mixer_multimod = parameter::list<dry_wet_mixer_c0<NV>, dry_wet_mixer_c1<NV>>;
 
-using dry_wet_mixer_t = control::xfader<dry_wet_mixer_multimod, faders::linear>;
+template <int NV>
+using dry_wet_mixer_t = control::xfader<dry_wet_mixer_multimod<NV>, 
+                                        faders::cosine_half>;
 
+template <int NV>
 using dry_path_t = container::chain<parameter::empty, 
-                                    wrap::fix<2, dry_wet_mixer_t>, 
-                                    core::gain>;
+                                    wrap::fix<2, dry_wet_mixer_t<NV>>, 
+                                    core::gain<NV>>;
 
 using faust_multimod = parameter::list<parameter::empty>;
 
@@ -43,15 +47,15 @@ using faust_t = project::Flanger<NV, faust_multimod>;
 template <int NV>
 using wet_path_t = container::chain<parameter::empty, 
                                     wrap::fix<2, faust_t<NV>>, 
-                                    core::gain>;
+                                    core::gain<NV>>;
 
 namespace dry_wet1_t_parameters
 {
 }
 
 template <int NV>
-using dry_wet1_t = container::split<parameter::plain<Flair_impl::dry_wet_mixer_t, 0>, 
-                                    wrap::fix<2, dry_path_t>, 
+using dry_wet1_t = container::split<parameter::plain<Flair_impl::dry_wet_mixer_t<NV>, 0>, 
+                                    wrap::fix<2, dry_path_t<NV>>, 
                                     wet_path_t<NV>>;
 
 namespace Flair_t_parameters
@@ -153,12 +157,12 @@ template <int NV> struct instance: public Flair_impl::Flair_t_<NV>
 		// Node References -----------------------------------------------------------------------
 		
 		auto& dry_wet1 = this->getT(0);                      // Flair_impl::dry_wet1_t<NV>
-		auto& dry_path = this->getT(0).getT(0);              // Flair_impl::dry_path_t
-		auto& dry_wet_mixer = this->getT(0).getT(0).getT(0); // Flair_impl::dry_wet_mixer_t
-		auto& dry_gain = this->getT(0).getT(0).getT(1);      // core::gain
+		auto& dry_path = this->getT(0).getT(0);              // Flair_impl::dry_path_t<NV>
+		auto& dry_wet_mixer = this->getT(0).getT(0).getT(0); // Flair_impl::dry_wet_mixer_t<NV>
+		auto& dry_gain = this->getT(0).getT(0).getT(1);      // core::gain<NV>
 		auto& wet_path = this->getT(0).getT(1);              // Flair_impl::wet_path_t<NV>
 		auto& faust = this->getT(0).getT(1).getT(0);         // Flair_impl::faust_t<NV>
-		auto& wet_gain = this->getT(0).getT(1).getT(1);      // core::gain
+		auto& wet_gain = this->getT(0).getT(1).getT(1);      // core::gain<NV>
 		
 		// Parameter Connections -----------------------------------------------------------------
 		
@@ -218,6 +222,8 @@ template <int NV> struct instance: public Flair_impl::Flair_t_<NV>
 	static constexpr bool isPolyphonic() { return NV > 1; };
 	
 	static constexpr bool hasTail() { return true; };
+	
+	static constexpr bool isSuspendedOnSilence() { return false; };
 };
 }
 

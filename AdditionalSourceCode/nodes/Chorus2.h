@@ -1,6 +1,5 @@
 #pragma once
 
-#include <JuceHeader.h>
 // These will improve the readability of the connection definition
 
 #define getT(Idx) template get<Idx>()
@@ -21,79 +20,67 @@ DECLARE_PARAMETER_RANGE_SKEW(dry_wet_mixer_c0Range,
                              0., 
                              5.42227);
 
-using dry_wet_mixer_c0 = parameter::from0To1<core::gain, 
+template <int NV>
+using dry_wet_mixer_c0 = parameter::from0To1<core::gain<NV>, 
                                              0, 
                                              dry_wet_mixer_c0Range>;
 
-using dry_wet_mixer_c1 = dry_wet_mixer_c0;
+template <int NV> using dry_wet_mixer_c1 = dry_wet_mixer_c0<NV>;
 
-using dry_wet_mixer_multimod = parameter::list<dry_wet_mixer_c0, dry_wet_mixer_c1>;
+template <int NV>
+using dry_wet_mixer_multimod = parameter::list<dry_wet_mixer_c0<NV>, dry_wet_mixer_c1<NV>>;
 
-using dry_wet_mixer_t = control::xfader<dry_wet_mixer_multimod, faders::linear>;
+template <int NV>
+using dry_wet_mixer_t = control::xfader<dry_wet_mixer_multimod<NV>, 
+                                        faders::cosine_half>;
 
+template <int NV>
 using dry_path_t = container::chain<parameter::empty, 
-                                    wrap::fix<2, dry_wet_mixer_t>, 
-                                    core::gain>;
+                                    wrap::fix<2, dry_wet_mixer_t<NV>>, 
+                                    core::gain<NV>>;
 
+template <int NV>
 using wet_path_t = container::chain<parameter::empty, 
                                     wrap::fix<2, jdsp::jchorus>, 
-                                    core::gain>;
+                                    core::gain<NV>>;
 
 namespace dry_wet1_t_parameters
 {
 }
 
-using dry_wet1_t = container::split<parameter::plain<Chorus2_impl::dry_wet_mixer_t, 0>, 
-                                    wrap::fix<2, dry_path_t>, 
-                                    wet_path_t>;
+template <int NV>
+using dry_wet1_t = container::split<parameter::plain<Chorus2_impl::dry_wet_mixer_t<NV>, 0>, 
+                                    wrap::fix<2, dry_path_t<NV>>, 
+                                    wet_path_t<NV>>;
 
 namespace Chorus2_t_parameters
 {
 // Parameter list for Chorus2_impl::Chorus2_t ----------------------------------------------------
 
-DECLARE_PARAMETER_RANGE(CentreDelayRange, 
-                        0., 
-                        100.);
-
-using CentreDelay = parameter::from0To1<jdsp::jchorus, 
-                                        0, 
-                                        CentreDelayRange>;
-
-DECLARE_PARAMETER_RANGE(FeedbackRange, 
-                        -1., 
-                        1.);
-
-using Feedback = parameter::from0To1<jdsp::jchorus, 
-                                     2, 
-                                     FeedbackRange>;
-
-DECLARE_PARAMETER_RANGE_SKEW(RateRange, 
-                             0., 
-                             100., 
-                             0.30103);
-
-using Rate = parameter::from0To1<jdsp::jchorus, 
-                                 3, 
-                                 RateRange>;
-
 using Chorus = parameter::empty;
+using CentreDelay = parameter::plain<jdsp::jchorus, 0>;
 using Depth = parameter::plain<jdsp::jchorus, 1>;
-using Mix = parameter::plain<Chorus2_impl::dry_wet1_t, 
+using Feedback = parameter::plain<jdsp::jchorus, 2>;
+using Rate = parameter::plain<jdsp::jchorus, 3>;
+template <int NV>
+using Mix = parameter::plain<Chorus2_impl::dry_wet1_t<NV>, 
                              0>;
+template <int NV>
 using Chorus2_t_plist = parameter::list<Chorus, 
                                         CentreDelay, 
                                         Depth, 
                                         Feedback, 
                                         Rate, 
-                                        Mix>;
+                                        Mix<NV>>;
 }
 
-using Chorus2_t_ = container::chain<Chorus2_t_parameters::Chorus2_t_plist, 
-                                    wrap::fix<2, dry_wet1_t>>;
+template <int NV>
+using Chorus2_t_ = container::chain<Chorus2_t_parameters::Chorus2_t_plist<NV>, 
+                                    wrap::fix<2, dry_wet1_t<NV>>>;
 
 // ================================| Root node initialiser class |================================
 
-struct instance: public Chorus2_impl::Chorus2_t_
+template <int NV> struct instance: public Chorus2_impl::Chorus2_t_<NV>
 {
 	
 	struct metadata
@@ -111,13 +98,13 @@ struct instance: public Chorus2_impl::Chorus2_t_
 			0x005B, 0x0000, 0x4300, 0x6F68, 0x7572, 0x0073, 0x0000, 0x0000, 
             0x0000, 0x3F80, 0x0000, 0x3F80, 0x0000, 0x3F80, 0x0000, 0x0000, 
             0x015B, 0x0000, 0x4300, 0x6E65, 0x7274, 0x4465, 0x6C65, 0x7961, 
-            0x0000, 0x0000, 0x0000, 0x8000, 0x003F, 0x8000, 0x003F, 0x8000, 
+            0x0000, 0x0000, 0x0000, 0xC800, 0x0042, 0x8000, 0x003F, 0x8000, 
             0x003F, 0x0000, 0x5B00, 0x0002, 0x0000, 0x6544, 0x7470, 0x0068, 
             0x0000, 0x0000, 0x0000, 0x3F80, 0x0000, 0x3F80, 0x0000, 0x3F80, 
             0x0000, 0x0000, 0x035B, 0x0000, 0x4600, 0x6565, 0x6264, 0x6361, 
-            0x006B, 0x0000, 0x0000, 0x0000, 0x3F80, 0x0000, 0x3F80, 0x0000, 
+            0x006B, 0x0000, 0xBF80, 0x0000, 0x3F80, 0x0000, 0x3F80, 0x0000, 
             0x3F80, 0x0000, 0x0000, 0x045B, 0x0000, 0x5200, 0x7461, 0x0065, 
-            0x0000, 0x0000, 0x0000, 0x3F80, 0x0000, 0x3F80, 0x0000, 0x3F80, 
+            0x0000, 0x0000, 0x0000, 0x42C8, 0x0000, 0x3F80, 0x209B, 0x3E9A, 
             0x0000, 0x0000, 0x055B, 0x0000, 0x4D00, 0x7869, 0x0000, 0x0000, 
             0x0000, 0x8000, 0x003F, 0x8000, 0x003F, 0x8000, 0x003F, 0x0000, 
             0x0000, 0x0000
@@ -128,13 +115,13 @@ struct instance: public Chorus2_impl::Chorus2_t_
 	{
 		// Node References -----------------------------------------------------------------------
 		
-		auto& dry_wet1 = this->getT(0);                      // Chorus2_impl::dry_wet1_t
-		auto& dry_path = this->getT(0).getT(0);              // Chorus2_impl::dry_path_t
-		auto& dry_wet_mixer = this->getT(0).getT(0).getT(0); // Chorus2_impl::dry_wet_mixer_t
-		auto& dry_gain = this->getT(0).getT(0).getT(1);      // core::gain
-		auto& wet_path = this->getT(0).getT(1);              // Chorus2_impl::wet_path_t
+		auto& dry_wet1 = this->getT(0);                      // Chorus2_impl::dry_wet1_t<NV>
+		auto& dry_path = this->getT(0).getT(0);              // Chorus2_impl::dry_path_t<NV>
+		auto& dry_wet_mixer = this->getT(0).getT(0).getT(0); // Chorus2_impl::dry_wet_mixer_t<NV>
+		auto& dry_gain = this->getT(0).getT(0).getT(1);      // core::gain<NV>
+		auto& wet_path = this->getT(0).getT(1);              // Chorus2_impl::wet_path_t<NV>
 		auto& jchorus = this->getT(0).getT(1).getT(0);       // jdsp::jchorus
-		auto& wet_gain = this->getT(0).getT(1).getT(1);      // core::gain
+		auto& wet_gain = this->getT(0).getT(1).getT(1);      // core::gain<NV>
 		
 		// Parameter Connections -----------------------------------------------------------------
 		
@@ -184,7 +171,11 @@ struct instance: public Chorus2_impl::Chorus2_t_
 		this->setParameterT(5, 1.);
 	}
 	
+	static constexpr bool isPolyphonic() { return NV > 1; };
+	
 	static constexpr bool hasTail() { return true; };
+	
+	static constexpr bool isSuspendedOnSilence() { return false; };
 };
 }
 
@@ -197,7 +188,10 @@ struct instance: public Chorus2_impl::Chorus2_t_
 
 namespace project
 {
-using Chorus2 = wrap::node<Chorus2_impl::instance>;
+// polyphonic template declaration
+
+template <int NV>
+using Chorus2 = wrap::node<Chorus2_impl::instance<NV>>;
 }
 
 
