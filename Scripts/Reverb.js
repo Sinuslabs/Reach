@@ -17,21 +17,36 @@ namespace Reverb {
 	const var knob_reverb_damping = Content.getComponent("knob_reverb_damping");
 	const var knob_reverb_time = Content.getComponent("knob_reverb_time");
 	const var knob_reverb_mix = Content.getComponent("knob_reverb_mix");
-
+	
 	knob_reverb_space.setControlCallback(sizeControl);
 	knob_reverb_diffusion.setControlCallback(diffusionControl);
 	knob_reverb_damping.setControlCallback(dampingControl);
 	knob_reverb_time.setControlCallback(timeControl);
 	knob_reverb_mix.setControlCallback(onknob_reverb_mixControl);
 	
+	knob_reverb_space.setLocalLookAndFeel(knb_laf);
+	knob_reverb_diffusion.setLocalLookAndFeel(knb_laf);
+	knob_reverb_damping.setLocalLookAndFeel(knb_laf);
+	knob_reverb_time.setLocalLookAndFeel(knb_laf);
+	knob_reverb_mix.setLocalLookAndFeel(knb_laf);
+	
 	// Modulation
-	Content.getComponent("knob_modulation_depth").setControlCallback(depthControl);
-	Content.getComponent("knob_modulation_frequency").setControlCallback(frequencyControl);
+	const var knob_modulation_depth = Content.getComponent("knob_modulation_depth");
+	knob_modulation_depth.setControlCallback(depthControl);
+	knob_modulation_depth.setLocalLookAndFeel(knb_laf);
+	
+	const var knob_modulation_frequency = Content.getComponent("knob_modulation_frequency");
+	knob_modulation_frequency.setControlCallback(frequencyControl);
+	knob_modulation_frequency.setLocalLookAndFeel(knb_laf);
 	
 	// Cleanup
-	Content.getComponent("knob_cleanup_ducking").setControlCallback(onknob_cleanup_duckingControl);
-	Content.getComponent("knob_cleanup_preDelay").setControlCallback(preDelayControl);
+	const var knob_cleanup_ducking = Content.getComponent("knob_cleanup_ducking")
+	knob_cleanup_ducking.setControlCallback(onknob_cleanup_duckingControl);
+	knob_cleanup_ducking.setLocalLookAndFeel(knb_laf);
 	
+	const var knob_cleanup_preDelay = Content.getComponent("knob_cleanup_preDelay")
+	knob_cleanup_preDelay.setControlCallback(preDelayControl);
+	knob_cleanup_preDelay.setLocalLookAndFeel(knb_laf);
 	
 	// Display
     const var displayKnob_reverb_feedback = Content.getComponent("displayKnob_reverb_feedback");
@@ -55,6 +70,7 @@ namespace Reverb {
     displayKnob_reverb_hfgain.setControlCallback(disHFgainControl);
     
     // Custom LAF Bars
+    
     displayKnob_reverb_lowGain.setLocalLookAndFeel(barKnobLAF);
     displayKnob_reverb_midgain.setLocalLookAndFeel(barKnobLAF);
     displayKnob_reverb_hfgain.setLocalLookAndFeel(barKnobLAF);

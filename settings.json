@@ -1,7 +1,7 @@
 {
   "zoom": 1.0,
-  "animationEnabled": 1,
-  "startupAnimation": 1,
-  "theme": "Light",
+  "animationEnabled": true,
+  "startupAnimation": false,
+  "theme": "Dark",
   "wetOnlyGain": false
 }

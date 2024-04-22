@@ -191,8 +191,7 @@ asyncButtonLaf.registerFunction('drawToggleButton', function(g, obj) {
 	g.setFont(Fonts.secondaryFont, 19.0);
 	g.drawAlignedText(obj.text, a, 'centred');
 });
-button_active.setLocalLookAndFeel(asyncButtonLaf);
-UserSettings.displayButton_activateSerial.setLocalLookAndFeel(asyncButtonLaf);
+
 
 // Preset Browser Button
 const presetBrowserButtonLAF = Content.createLocalLookAndFeel();
@@ -214,7 +213,7 @@ presetBrowserButtonLAF.registerFunction('drawToggleButton', function(g, obj) {
 	g.setFont(Fonts.secondaryFont, 22);
 	g.drawAlignedText(obj.text, [a[0] + 5, a[1], a[2], a[3]], 'left');
 });
-presetBrowserButton.setLocalLookAndFeel(presetBrowserButtonLAF);
+
 
 // HEADER BUTTONS
 const headerButtonsLAF = Content.createLocalLookAndFeel();
@@ -245,9 +244,6 @@ headerButtonsLAF.registerFunction('drawToggleButton', function(g, obj){
 	g.fillPath(Paths.icons[obj.text], pa);
 });
 
-button_preset_rightArrow.setLocalLookAndFeel(headerButtonsLAF);
-button_preset_leftArrow.setLocalLookAndFeel(headerButtonsLAF);
-logoButton.setLocalLookAndFeel(headerButtonsLAF);
 
 // Title Button
 const headerTitleLAF = Content.createLocalLookAndFeel();
@@ -268,7 +264,6 @@ headerTitleLAF.registerFunction('drawToggleButton', function(g, obj){
 	g.setFont(Fonts.secondaryFont, 48);
 	g.drawAlignedText(obj.text, a, 'left');
 });
-button_title.setLocalLookAndFeel(headerTitleLAF);
 
 // NOT ACTIVATED BUTTON
 const notActivatedLAF = Content.createLocalLookAndFeel();
@@ -286,7 +281,6 @@ notActivatedLAF.registerFunction('drawToggleButton', function(g, obj){
 	g.drawAlignedText(obj.text, a, 'left');
 });
 
-UserSettings.button_not_activated.setLocalLookAndFeel(notActivatedLAF);
 
 
 // KNOBS LOOK AND FEEL
@@ -318,7 +312,9 @@ const SHADOW_PADDING = 5;
 const GLOW_RING_SIZE = 3;
 const GLOW_AMOUNT = 3;
 
-laf.registerFunction("drawRotarySlider", function(g, obj){
+const var knb_laf = Content.createLocalLookAndFeel();
+
+knb_laf.registerFunction("drawRotarySlider", function(g, obj){
 	
 	// Padding
 	var PADDING = 8;
@@ -618,7 +614,6 @@ inline function mixKnobLAF(g, obj) {
 	g.setColour(ARC_COLOUR);	
 	g.drawPath(arcPath, pathArea, stableSize * arcThickness );
 }
-knob_io_out.setLocalLookAndFeel(mixLAF);
 
 // CUSTOM KNOBS
 const var barKnobLAF = Content.createLocalLookAndFeel();
@@ -655,9 +650,6 @@ inline function barKnobGraphics(g, obj) {
 	g.drawAlignedText(text.toUpperCase(), lowerA, 'centred');
 }
 
-Reverb.displayKnob_reverb_lowGain.setLocalLookAndFeel(barKnobLAF);
-Reverb.displayKnob_reverb_midgain.setLocalLookAndFeel(barKnobLAF);
-Reverb.displayKnob_reverb_hfgain.setLocalLookAndFeel(barKnobLAF);
 
 const var freqKnobLAF = Content.createLocalLookAndFeel();
 freqKnobLAF.registerFunction('drawRotarySlider', freqKnobGraphics);
@@ -726,24 +718,7 @@ function themePanels() {
 	}
 }
 
-function themeMainPanel() {
-	panel_background.setPaintRoutine(function(g) {
-		var a = [0, 0, this.getWidth(), this.getHeight()];
-		g.setGradientFill([
-			PanelTheme.mainUpperGradientColour, 0.0, 0.0,
-			PanelTheme.mainLowerGradientColour, 0.5, 100.0]
-		);
-		g.fillRoundedRectangle(a, PANEL_BORDER_RADIUS);
-		g.addNoise({
-			alpha: 0.03,
-			monochromatic: true,
-			scaleFactor: 1.2,
-			area: a
-		});
-	});
-}
-themeMainPanel();
-themePanels();
+
 
 // override preset browser search bar to hide it
 laf.registerFunction("drawPresetBrowserSearchBar", function(g, obj){});
@@ -882,8 +857,7 @@ popMenuLaf.registerFunction("drawComboBox", function(g, obj)
 });
 
 popMenuLaf.registerFunction("getIdealPopupMenuItemSize", function(obj) { return 36; });
-comboBox_zoom.setLocalLookAndFeel(popMenuLaf);
-comboBox_theme.setLocalLookAndFeel(popMenuLaf);
+
 
 const var floatingLock_panel = Content.getComponent("floatingLock_panel");
 floatingLock_panel.setPaintRoutine(function(g) {

@@ -9,10 +9,10 @@
           <Node ID="dry_path" FactoryPath="container.chain" Bypassed="0">
             <Nodes>
               <Node ID="dry_wet_mixer" FactoryPath="control.xfader" Bypassed="0"
-                    NodeColour="4288243607" Folded="1">
+                    NodeColour="4288243607">
                 <Properties>
                   <Property ID="NumParameters" Value="2"/>
-                  <Property ID="Mode" Value="Linear"/>
+                  <Property ID="Mode" Value="Cosine Half"/>
                 </Properties>
                 <SwitchTargets>
                   <SwitchTarget>
@@ -27,14 +27,14 @@
                   </SwitchTarget>
                 </SwitchTargets>
                 <Parameters>
-                  <Parameter MinValue="0.0" MaxValue="1.0" ID="Value" Automated="1"/>
+                  <Parameter MinValue="0.0" MaxValue="1.0" ID="Value"/>
                 </Parameters>
               </Node>
               <Node ID="dry_gain" FactoryPath="core.gain" Bypassed="0" NodeColour="4288243607"
                     Folded="1">
                 <Parameters>
                   <Parameter MinValue="-100.0" MaxValue="0.0" StepSize="0.1000000014901161"
-                             SkewFactor="5.422270774841309" ID="Gain" Automated="1"/>
+                             SkewFactor="5.422270774841309" ID="Gain"/>
                   <Parameter MinValue="0.0" MaxValue="1000.0" StepSize="0.1000000014901161"
                              SkewFactor="0.3010300099849701" ID="Smoothing" Value="20.0"/>
                   <Parameter MinValue="-100.0" MaxValue="0.0" StepSize="0.1000000014901161"
@@ -60,7 +60,7 @@
                     Folded="1">
                 <Parameters>
                   <Parameter MinValue="-100.0" MaxValue="0.0" StepSize="0.1000000014901161"
-                             SkewFactor="5.422270774841309" ID="Gain" Automated="1"/>
+                             SkewFactor="5.422270774841309" ID="Gain"/>
                   <Parameter MinValue="0.0" MaxValue="1000.0" StepSize="0.1000000014901161"
                              SkewFactor="0.3010300099849701" ID="Smoothing" Value="20.0"/>
                   <Parameter MinValue="-100.0" MaxValue="0.0" StepSize="0.1000000014901161"
@@ -84,7 +84,7 @@
       <Parameter ID="Chorus" MinValue="0.0" MaxValue="1.0" Value="1.0">
         <Connections/>
       </Parameter>
-      <Parameter ID="CentreDelay" MinValue="0.0" MaxValue="1.0" Value="1.0">
+      <Parameter ID="CentreDelay" MinValue="0.0" MaxValue="100.0" Value="1.0">
         <Connections>
           <Connection NodeId="jchorus" ParameterId="CentreDelay"/>
         </Connections>
@@ -94,12 +94,12 @@
           <Connection NodeId="jchorus" ParameterId="Depth"/>
         </Connections>
       </Parameter>
-      <Parameter ID="Feedback" MinValue="0.0" MaxValue="1.0" Value="1.0">
+      <Parameter ID="Feedback" MinValue="-1.0" MaxValue="1.0" Value="1.0">
         <Connections>
           <Connection NodeId="jchorus" ParameterId="Feedback"/>
         </Connections>
       </Parameter>
-      <Parameter ID="Rate" MinValue="0.0" MaxValue="1.0" Value="1.0">
+      <Parameter ID="Rate" MinValue="0.0" MaxValue="100.0" Value="1.0" SkewFactor="0.3010300099849701">
         <Connections>
           <Connection NodeId="jchorus" ParameterId="Rate"/>
         </Connections>

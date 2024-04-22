@@ -38,7 +38,7 @@ namespace API {
 	}
 	
 	inline function loginCallback(status, data) {
-		const var token = data.token;
+		local token = data.token;
 		if (isDefined(token)) {
 			Server.setHttpHeader("Authorization: Bearer " + token);
 			Server.callWithPOST('/wp-json/wclm/v3/get-current-user-licenses', {}, checkLicense);
