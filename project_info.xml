@@ -2,7 +2,7 @@
 
 <ProjectSettings>
   <Name value="Reach"/>
-  <Version value="1.5.0"/>
+  <Version value="1.6.0"/>
   <Description value="Creative Reverb Plugin"/>
   <BundleIdentifier value="com.sinuslabs.reach"/>
   <PluginCode value="Reac"/>
@@ -33,4 +33,12 @@
   <AdminPermissions value="No"/>
   <EmbedUserPresets value="Yes"/>
   <EnableGlobalPreprocessor value="No"/>
+  <VST3Category value="Reverb"/>
+  <OverwriteOldUserPresets value="No"/>
+  <UseGlobalAppDataFolderWindows value="No"/>
+  <UseGlobalAppDataFolderMacOS value="No"/>
+  <DefaultUserPreset value="Creative/-INIT-.preset"/>
+  <CompileWithPerfetto value="No"/>
+  <CompileWithDebugSymbols value="No"/>
+  <IncludeLorisInFrontend value="No"/>
 </ProjectSettings>

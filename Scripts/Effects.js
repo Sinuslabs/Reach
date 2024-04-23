@@ -95,11 +95,21 @@ namespace Effects {
 	button_degrade_bypass.setControlCallback(ondisplayButton_degrade_bypassControl);
 	const var effectDisplay_Degrade = Content.getComponent("effectDisplay-Degrade");
 	
-	Content.getComponent("displayKnob_degrade_amount").setControlCallback(ondisplayKnob_degrade_amountControl);
 	Content.getComponent("displayKnob_degrade_depth").setControlCallback(ondisplayKnob_degrade_depthControl);	
 	Content.getComponent("displayKnob_degrade_frequency").setControlCallback(ondisplayKnob_degrade_frequencyControl);	
 	Content.getComponent("displayKnob_degrade_highcut").setControlCallback(ondisplayKnob_degrade_highcutControl);		
 	Content.getComponent("displayKnob_degrade_lowcut").setControlCallback(ondisplayKnob_degrade_lowcutControl);
+	
+	const var displayKnob_degrade_crushAmount = Content.getComponent("displayKnob_degrade_crushAmount");
+	displayKnob_degrade_crushAmount.setControlCallback(ondegrade_crushAmountControl);
+	
+	const var displayKnob_degrade_amount = Content.getComponent("displayKnob_degrade_amount");
+	displayKnob_degrade_amount.setControlCallback(ondisplayKnob_degrade_amountControl);
+				
+	const var degrade_selector = Content.getComponent("degrade_selector");
+	degrade_selector.setControlCallback(ondegrade_selectorControl);
+	
+	degrade_selector.setLocalLookAndFeel(popMenuLaf);
 	
 	inline function onknob_degrade_mixControl(component, value) {
 		Degrade.setAttribute(Degrade.Mix, value);
@@ -134,6 +144,35 @@ namespace Effects {
 		
 	inline function ondisplayKnob_degrade_lowcutControl(component, value) {
 		Degrade.setAttribute(Degrade.LowCut, value);
+	};
+	
+	inline function ondegrade_crushAmountControl(component, value)
+	{
+		Degrade.setAttribute(Degrade.BitDepth, value);
+
+	};
+	
+	inline function ondegrade_selectorControl(component, value)
+	{
+		if (value == 1.0) {
+			displayKnob_degrade_amount.showControl(true);
+			displayKnob_degrade_crushAmount.showControl(false);
+			Degrade.setAttribute(Degrade.CrushMode, 0);
+		}
+		if (value == 2.0) {
+			displayKnob_degrade_amount.showControl(false);
+			displayKnob_degrade_crushAmount.showControl(true);
+			Degrade.setAttribute(Degrade.CrushMode, 1);
+			Degrade.setAttribute(Degrade.BitcrushMode, 0);
+		}
+		if (value == 3.0) {
+			displayKnob_degrade_amount.showControl(false);
+			displayKnob_degrade_crushAmount.showControl(true);
+			Degrade.setAttribute(Degrade.CrushMode, 1);
+			Degrade.setAttribute(Degrade.BitcrushMode, 1);
+		}
+		
+
 	};
 	
 	inline function bypassDegrade(value) {
