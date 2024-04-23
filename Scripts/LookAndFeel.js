@@ -1,17 +1,11 @@
 // Icons
 const var icon_panel_logo = Content.getComponent("icon_panel_logo");
-const var icon_panel_heart = Content.getComponent("icon_panel_heart");
+//const var icon_panel_heart = Content.getComponent("icon_panel_heart");
 const var icon_panel_fullLogo = Content.getComponent('icon_panel_fullLogo');
-
-// custom Icons
-icon_panel_heart.setPaintRoutine(function(g) {
-	g.setColour('0xFF7A00');
-	g.fillPath(Paths.icons['heart'], [0, 0, 18, 18]);
-});
 
 icon_panel_logo.setPaintRoutine(function(g) {
 	g.setColour('0xffffff');
-	g.fillPath(Paths.icons['logo'], [0, 0, 48, 48]);
+	g.fillPath(Paths.icons['fullLogo'], [0, 0, 131, 17]);
 });
 
 icon_panel_fullLogo.setPaintRoutine(function(g) {
@@ -135,7 +129,7 @@ laf.registerFunction('drawToggleButton', function(g, obj) {
 	
 	if (obj.text.indexOf('switch') != -1) {
 		var switchPadding = 10;
-		var switchBorder = 3;
+		var switchBorder = 2;
 		
 		var SWITCH_COLOUR = DisplayTheme.buttonSelectedBackgroundColour;
 		
@@ -261,8 +255,10 @@ headerTitleLAF.registerFunction('drawToggleButton', function(g, obj){
 		g.setColour(SELECTED_TEXT_COLOUR) :
 		g.setColour(TEXT_COLOUR);
 	
-	g.setFont(Fonts.secondaryFont, 48);
-	g.drawAlignedText(obj.text, a, 'left');
+	//g.setFont(Fonts.secondaryFont, 48);
+	//g.drawAlignedText(obj.text, a, 'left');
+	
+	g.fillPath(Paths.icons.reachLogo, a);
 });
 
 // NOT ACTIVATED BUTTON
@@ -828,7 +824,8 @@ popMenuLaf.registerFunction("drawPopupMenuItem", function(g, obj)
     if(obj.isTicked)
     {
         g.setColour(Colours.white);
-        g.fillEllipse([a[0] + h/3, a[1] + h/3, h/3, h/3]);
+        g.setColour(0x22FFFFFF);
+        g.fillRoundedRectangle(a, 1);
     }
     
     if(obj.isHighlighted)
@@ -837,9 +834,9 @@ popMenuLaf.registerFunction("drawPopupMenuItem", function(g, obj)
         g.fillRect(obj.area);
     }
     
-    g.setFont(Fonts.secondaryFont, 23.0);
+    g.setFont(Fonts.secondaryFont, 20.0);
     g.setColour(Colours.white);
-    g.drawAlignedText(obj.text, [a[0] + h, a[1], a[2] - h, a[3]], "left");
+    g.drawAlignedText(obj.text, [a[0] + 5, a[1], a[2] - h, a[3]], "left");
 });
 
 popMenuLaf.registerFunction("drawComboBox", function(g, obj)
@@ -847,11 +844,11 @@ popMenuLaf.registerFunction("drawComboBox", function(g, obj)
     var a = obj.area;
 
     g.setColour(obj.bgColour);
-    g.fillRoundedRectangle([a[0], a[1], a[2], a[3]], 2.0);
+    g.drawRoundedRectangle([a[0], a[1], a[2], a[3]], 2.0, 2);
     g.setColour(Colours.withAlpha(obj.textColour, (obj.enabled && obj.active) ? 1.0 : 0.2));
-    g.setFont(Fonts.secondaryFont, 26.0);
+    g.setFont(Fonts.secondaryFont, 20.0);
    
-    g.drawAlignedText(obj.text, [a[0] + 30, a[1], a[2]-10, a[3]], "left");
+    g.drawAlignedText(obj.text, [a[0] + 5, a[1], a[2]-10, a[3]], "left");
     var h = a[3];
     g.fillTriangle([a[0] + a[2] - h/3 - 10, a[1] + h/3, h/3, h/3], Math.PI);
 });

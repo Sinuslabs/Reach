@@ -52,17 +52,56 @@ namespace Filter {
 
 
 	Filter.preFilterLaf.registerFunction("drawFilterDragHandle", function (g, obj) {
-		var SIZE = 20;
-		var area = [obj.handle[0], obj.handle[1], SIZE, SIZE];
+		var SIZE = 25;
+		var a = [obj.handle[0], obj.handle[1], SIZE, SIZE];
+		
+		var freqArea = [
+			a[0] + SIZE + 5,
+			a[1],
+			a[2] + 40,
+			a[3],
+		];
+		
+		if (obj.frequency >= 6000) {
+			freqArea = [
+				a[0] -  40 - SIZE - 5,
+				a[1],
+				a[2] + 40,
+				a[3],
+			];
+		}
+		
+		var labelArea = [
+			freqArea[0] + 5,
+			freqArea[1],
+			freqArea[2],
+			freqArea[3],
+		];
+
+
+		Console.print(trace(obj));
 
 		g.setColour(0XFFFFFFFF);
-		g.fillRoundedRectangle(area, 2);
+		g.fillRoundedRectangle(a, 2);
+
+		if (obj.hover) {
+			g.drawRoundedRectangle(freqArea, 1, 2);
+		}
 
 		g.setColour(0XFF000000);
-		g.drawRoundedRectangle(area, 2, 1);
+		g.drawRoundedRectangle(a, 2, 1);
+		
+		if (obj.hover) {
+			g.fillRoundedRectangle(freqArea, 1);
+		}
 
 		g.setFont(Fonts.secondaryFont, 17);
-		g.drawAlignedText(obj.index, area, "centred");
+		g.drawAlignedText(obj.index, a, "centred");
+
+		if (obj.hover) {
+			g.setColour(0XFFFFFFFF);
+			g.drawAlignedText(Math.round(obj.frequency) + 'Hz', labelArea, 'left');
+		}
 	});
 
 	preFilterLaf.registerFunction("drawFilterPath", function (g, obj) {

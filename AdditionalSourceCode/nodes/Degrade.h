@@ -49,32 +49,41 @@ using wet_path_t = container::chain<parameter::empty,
                                     filters::one_pole<NV>, 
                                     filters::one_pole<NV>, 
                                     core::gain<NV>>;
-template <int NV>
-using oscillator_t = wrap::no_data<core::oscillator<NV>>;
-
-DECLARE_PARAMETER_RANGE_STEP(pma_modRange, 
-                             40., 
-                             127., 
-                             1.);
 
 template <int NV>
-using pma_mod = parameter::from0To1<fx::sampleandhold<NV>, 
-                                    0, 
-                                    pma_modRange>;
+using ramp_t = wrap::no_data<core::ramp<NV, false>>;
+template <int NV>
+using converter_t = control::converter<parameter::plain<ramp_t<NV>, 0>, 
+                                       conversion_logic::freq2ms>;
 
 template <int NV>
-using pma_t = control::pma<NV, pma_mod<NV>>;
+using crush_t = control::pma_unscaled<NV, 
+                                      parameter::plain<fx::bitcrush<NV>, 0>>;
+
 template <int NV>
-using peak_t = wrap::mod<parameter::plain<pma_t<NV>, 0>, 
-                         wrap::no_data<core::peak>>;
+using samplehold_t = control::pma_unscaled<NV, 
+                                           parameter::plain<fx::sampleandhold<NV>, 0>>;
+
+template <int NV>
+using peak_mod = parameter::chain<ranges::Identity, 
+                                  parameter::plain<crush_t<NV>, 0>, 
+                                  parameter::plain<samplehold_t<NV>, 0>>;
+
+template <int NV>
+using peak_t = wrap::mod<peak_mod<NV>, 
+                         wrap::data<core::peak, data::external::displaybuffer<0>>>;
 
 template <int NV>
 using modchain_t_ = container::chain<parameter::empty, 
-                                     wrap::fix<1, oscillator_t<NV>>, 
+                                     wrap::fix<1, converter_t<NV>>, 
+                                     ramp_t<NV>, 
+                                     math::pi<NV>, 
+                                     math::sin<NV>, 
                                      math::mul<NV>, 
                                      math::sig2mod<NV>, 
                                      peak_t<NV>, 
-                                     pma_t<NV>>;
+                                     crush_t<NV>, 
+                                     samplehold_t<NV>>;
 
 template <int NV>
 using modchain_t = wrap::control_rate<modchain_t_<NV>>;
@@ -103,16 +112,17 @@ template <int NV> using LowCut = HighCut<NV>;
 template <int NV>
 using ModulationDepth = parameter::plain<math::mul<NV>, 0>;
 template <int NV>
-using ModulationSpeed = parameter::plain<Degrade_impl::oscillator_t<NV>, 
-                                         1>;
+using ModulationSpeed = parameter::plain<Degrade_impl::converter_t<NV>, 
+                                         0>;
 template <int NV>
-using Amount = parameter::plain<Degrade_impl::pma_t<NV>, 
+using Amount = parameter::plain<Degrade_impl::samplehold_t<NV>, 
                                 2>;
 template <int NV>
 using CrushMode = parameter::plain<Degrade_impl::branch_t<NV>, 
                                    0>;
 template <int NV>
-using BitDepth = parameter::plain<fx::bitcrush<NV>, 0>;
+using BitDepth = parameter::plain<Degrade_impl::crush_t<NV>, 
+                                  2>;
 template <int NV>
 using BitcrushMode = parameter::plain<fx::bitcrush<NV>, 1>;
 template <int NV>
@@ -143,7 +153,7 @@ template <int NV> struct instance: public Degrade_impl::Degrade_t_<NV>
 		static const int NumSliderPacks = 0;
 		static const int NumAudioFiles = 0;
 		static const int NumFilters = 0;
-		static const int NumDisplayBuffers = 0;
+		static const int NumDisplayBuffers = 1;
 		
 		SNEX_METADATA_ID(Degrade);
 		SNEX_METADATA_NUM_CHANNELS(2);
@@ -154,21 +164,21 @@ template <int NV> struct instance: public Degrade_impl::Degrade_t_<NV>
             0x5B00, 0x0001, 0x0000, 0x694D, 0x0078, 0x0000, 0x0000, 0x0000, 
             0x3F80, 0x0000, 0x3F80, 0x0000, 0x3F80, 0x0000, 0x0000, 0x025B, 
             0x0000, 0x4800, 0x6769, 0x4368, 0x7475, 0x0000, 0xA000, 0x0041, 
-            0x9C40, 0x6746, 0x83D5, 0x1A46, 0x6B6C, 0x003E, 0x0000, 0x5B00, 
+            0x9C40, 0x0046, 0x9C40, 0x1A46, 0x6B6C, 0x003E, 0x0000, 0x5B00, 
             0x0003, 0x0000, 0x6F4C, 0x4377, 0x7475, 0x0000, 0xA000, 0x0041, 
-            0x9C40, 0xBF46, 0x9B17, 0x1A45, 0x6B6C, 0x003E, 0x0000, 0x5B00, 
+            0x9C40, 0x0046, 0xA000, 0x1A41, 0x6B6C, 0x003E, 0x0000, 0x5B00, 
             0x0004, 0x0000, 0x6F4D, 0x7564, 0x616C, 0x6974, 0x6E6F, 0x6544, 
-            0x7470, 0x0068, 0x0000, 0x0000, 0x0000, 0x3F80, 0x0000, 0x3F80, 
+            0x7470, 0x0068, 0x0000, 0x0000, 0x0000, 0x3F80, 0x891F, 0x3E82, 
             0x0000, 0x3F80, 0x0000, 0x0000, 0x055B, 0x0000, 0x4D00, 0x646F, 
-            0x6C75, 0x7461, 0x6F69, 0x536E, 0x6570, 0x6465, 0x0000, 0x8000, 
-            0x003F, 0x4800, 0x0043, 0x8000, 0x1A3F, 0x6B6C, 0xCD3E, 0xCCCC, 
-            0x5B3D, 0x0006, 0x0000, 0x6D41, 0x756F, 0x746E, 0x0000, 0x8000, 
-            0x00BF, 0x8000, 0xD63F, 0x38F2, 0x003F, 0x8000, 0x003F, 0x0000, 
+            0x6C75, 0x7461, 0x6F69, 0x536E, 0x6570, 0x6465, 0x0000, 0x0000, 
+            0x0000, 0xF000, 0xEC41, 0x1851, 0x1A40, 0x6B6C, 0x0A3E, 0x23D7, 
+            0x5B3C, 0x0006, 0x0000, 0x6D41, 0x756F, 0x746E, 0x0000, 0x8000, 
+            0x003F, 0xC600, 0x6742, 0x1B03, 0x0042, 0x8000, 0x003F, 0x0000, 
             0x5B00, 0x0007, 0x0000, 0x7243, 0x7375, 0x4D68, 0x646F, 0x0065, 
             0x0000, 0x0000, 0x0000, 0x3F80, 0x0000, 0x3F80, 0x0000, 0x3F80, 
             0x0000, 0x3F80, 0x085B, 0x0000, 0x4200, 0x7469, 0x6544, 0x7470, 
-            0x0068, 0x0000, 0x4080, 0x0000, 0x4180, 0x0000, 0x4180, 0x0000, 
-            0x3F80, 0xCCCD, 0x3DCC, 0x095B, 0x0000, 0x4200, 0x7469, 0x7263, 
+            0x0068, 0x0000, 0x4080, 0x0000, 0x4180, 0x6666, 0x40B6, 0x0000, 
+            0x3F80, 0x0000, 0x0000, 0x095B, 0x0000, 0x4200, 0x7469, 0x7263, 
             0x7375, 0x4D68, 0x646F, 0x0065, 0x0000, 0x0000, 0x0000, 0x3F80, 
             0x0000, 0x3F80, 0x0000, 0x3F80, 0x0000, 0x3F80, 0x0000, 0x0000
 		};
@@ -190,11 +200,15 @@ template <int NV> struct instance: public Degrade_impl::Degrade_t_<NV>
 		auto& one_pole1 = this->getT(0).getT(1).getT(2);             // filters::one_pole<NV>
 		auto& wet_gain = this->getT(0).getT(1).getT(3);              // core::gain<NV>
 		auto& modchain = this->getT(0).getT(2);                      // Degrade_impl::modchain_t<NV>
-		auto& oscillator = this->getT(0).getT(2).getT(0);            // Degrade_impl::oscillator_t<NV>
-		auto& mul = this->getT(0).getT(2).getT(1);                   // math::mul<NV>
-		auto& sig2mod = this->getT(0).getT(2).getT(2);               // math::sig2mod<NV>
-		auto& peak = this->getT(0).getT(2).getT(3);                  // Degrade_impl::peak_t<NV>
-		auto& pma = this->getT(0).getT(2).getT(4);                   // Degrade_impl::pma_t<NV>
+		auto& converter = this->getT(0).getT(2).getT(0);             // Degrade_impl::converter_t<NV>
+		auto& ramp = this->getT(0).getT(2).getT(1);                  // Degrade_impl::ramp_t<NV>
+		auto& pi = this->getT(0).getT(2).getT(2);                    // math::pi<NV>
+		auto& sin = this->getT(0).getT(2).getT(3);                   // math::sin<NV>
+		auto& mul = this->getT(0).getT(2).getT(4);                   // math::mul<NV>
+		auto& sig2mod = this->getT(0).getT(2).getT(5);               // math::sig2mod<NV>
+		auto& peak = this->getT(0).getT(2).getT(6);                  // Degrade_impl::peak_t<NV>
+		auto& crush = this->getT(0).getT(2).getT(7);                 // Degrade_impl::crush_t<NV>
+		auto& samplehold = this->getT(0).getT(2).getT(8);            // Degrade_impl::samplehold_t<NV>
 		
 		// Parameter Connections -------------------------------------------------------------------
 		
@@ -208,23 +222,26 @@ template <int NV> struct instance: public Degrade_impl::Degrade_t_<NV>
 		
 		this->getParameterT(4).connectT(0, mul); // ModulationDepth -> mul::Value
 		
-		this->getParameterT(5).connectT(0, oscillator); // ModulationSpeed -> oscillator::Frequency
+		this->getParameterT(5).connectT(0, converter); // ModulationSpeed -> converter::Value
 		
-		this->getParameterT(6).connectT(0, pma); // Amount -> pma::Add
+		this->getParameterT(6).connectT(0, samplehold); // Amount -> samplehold::Add
 		
 		this->getParameterT(7).connectT(0, branch); // CrushMode -> branch::Index
 		
-		this->getParameterT(8).connectT(0, bitcrush); // BitDepth -> bitcrush::BitDepth
+		this->getParameterT(8).connectT(0, crush); // BitDepth -> crush::Add
 		
 		this->getParameterT(9).connectT(0, bitcrush); // BitcrushMode -> bitcrush::Mode
 		
 		// Modulation Connections ------------------------------------------------------------------
 		
 		auto& dry_wet_mixer_p = dry_wet_mixer.getWrappedObject().getParameter();
-		dry_wet_mixer_p.getParameterT(0).connectT(0, dry_gain);           // dry_wet_mixer -> dry_gain::Gain
-		dry_wet_mixer_p.getParameterT(1).connectT(0, wet_gain);           // dry_wet_mixer -> wet_gain::Gain
-		pma.getWrappedObject().getParameter().connectT(0, sampleandhold); // pma -> sampleandhold::Counter
-		peak.getParameter().connectT(0, pma);                             // peak -> pma::Value
+		dry_wet_mixer_p.getParameterT(0).connectT(0, dry_gain);                  // dry_wet_mixer -> dry_gain::Gain
+		dry_wet_mixer_p.getParameterT(1).connectT(0, wet_gain);                  // dry_wet_mixer -> wet_gain::Gain
+		converter.getWrappedObject().getParameter().connectT(0, ramp);           // converter -> ramp::PeriodTime
+		crush.getWrappedObject().getParameter().connectT(0, bitcrush);           // crush -> bitcrush::BitDepth
+		samplehold.getWrappedObject().getParameter().connectT(0, sampleandhold); // samplehold -> sampleandhold::Counter
+		peak.getParameter().connectT(0, crush);                                  // peak -> crush::Value
+		peak.getParameter().connectT(1, samplehold);                             // peak -> samplehold::Value
 		
 		// Default Values --------------------------------------------------------------------------
 		
@@ -261,30 +278,37 @@ template <int NV> struct instance: public Degrade_impl::Degrade_t_<NV>
 		wet_gain.setParameterT(1, 20.); // core::gain::Smoothing
 		wet_gain.setParameterT(2, 0.);  // core::gain::ResetValue
 		
-		oscillator.setParameterT(0, 0.); // core::oscillator::Mode
-		;                                // oscillator::Frequency is automated
-		oscillator.setParameterT(2, 1.); // core::oscillator::FreqRatio
-		oscillator.setParameterT(3, 1.); // core::oscillator::Gate
-		oscillator.setParameterT(4, 0.); // core::oscillator::Phase
-		oscillator.setParameterT(5, 1.); // core::oscillator::Gain
+		; // converter::Value is automated
+		
+		;                          // ramp::PeriodTime is automated
+		ramp.setParameterT(1, 0.); // core::ramp::LoopStart
+		ramp.setParameterT(2, 1.); // core::ramp::Gate
+		
+		pi.setParameterT(0, 2.); // math::pi::Value
+		
+		sin.setParameterT(0, 2.); // math::sin::Value
 		
 		; // mul::Value is automated
 		
 		sig2mod.setParameterT(0, 0.0176331); // math::sig2mod::Value
 		
-		;                         // pma::Value is automated
-		pma.setParameterT(1, 1.); // control::pma::Multiply
-		;                         // pma::Add is automated
+		;                           // crush::Value is automated
+		crush.setParameterT(1, 3.); // control::pma_unscaled::Multiply
+		;                           // crush::Add is automated
+		
+		;                                // samplehold::Value is automated
+		samplehold.setParameterT(1, 3.); // control::pma_unscaled::Multiply
+		;                                // samplehold::Add is automated
 		
 		this->setParameterT(0, 1.);
 		this->setParameterT(1, 1.);
-		this->setParameterT(2, 16874.7);
-		this->setParameterT(3, 4962.97);
-		this->setParameterT(4, 1.);
-		this->setParameterT(5, 1);
-		this->setParameterT(6, 0.722455);
+		this->setParameterT(2, 20000.);
+		this->setParameterT(3, 20.);
+		this->setParameterT(4, 0.254952);
+		this->setParameterT(5, 2.38);
+		this->setParameterT(6, 38.7533);
 		this->setParameterT(7, 1.);
-		this->setParameterT(8, 16.);
+		this->setParameterT(8, 5.7);
 		this->setParameterT(9, 1.);
 		this->setExternalData({}, -1);
 	}
@@ -297,8 +321,6 @@ template <int NV> struct instance: public Degrade_impl::Degrade_t_<NV>
 	
 	static constexpr bool isPolyphonic() { return NV > 1; };
 	
-	static constexpr bool isProcessingHiseEvent() { return true; };
-	
 	static constexpr bool hasTail() { return true; };
 	
 	static constexpr bool isSuspendedOnSilence() { return false; };
@@ -307,8 +329,8 @@ template <int NV> struct instance: public Degrade_impl::Degrade_t_<NV>
 	{
 		// External Data Connections ---------------------------------------------------------------
 		
-		this->getT(0).getT(2).getT(0).setExternalData(b, index); // Degrade_impl::oscillator_t<NV>
-		this->getT(0).getT(2).getT(3).setExternalData(b, index); // Degrade_impl::peak_t<NV>
+		this->getT(0).getT(2).getT(1).setExternalData(b, index); // Degrade_impl::ramp_t<NV>
+		this->getT(0).getT(2).getT(6).setExternalData(b, index); // Degrade_impl::peak_t<NV>
 	}
 };
 }

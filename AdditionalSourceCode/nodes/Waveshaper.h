@@ -32,7 +32,7 @@ using dry_wet_mixer_multimod = parameter::list<dry_wet_mixer_c0<NV>, dry_wet_mix
 
 template <int NV>
 using dry_wet_mixer_t = control::xfader<dry_wet_mixer_multimod<NV>, 
-                                        faders::cosine>;
+                                        faders::cosine_half>;
 
 template <int NV>
 using dry_path_t = container::chain<parameter::empty, 
