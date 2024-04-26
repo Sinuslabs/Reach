@@ -560,8 +560,7 @@
                    bgColour="16777215" itemColour="0" itemColour2="0" textColour="16777215">
           <Component type="ScriptPanel" id="dis-settings_general" x="5.0" y="-5.0"
                      width="495.0" height="250.0" parentComponent="panel_settings_content_container"
-                     itemColour="0" itemColour2="0" bgColour="16777215" textColour="16777215"
-                     visible="0">
+                     itemColour="0" itemColour2="0" bgColour="16777215" textColour="16777215">
             <Component type="ScriptLabel" id="label_theme" x="85.0" y="60.0" fontSize="19.0"
                        fontName="jetbrains-mono" text="THEME" alignment="left" parentComponent="dis-settings_general"
                        width="151.0" height="40.0" editable="0"/>
@@ -579,12 +578,12 @@
                        width="150.0" height="40.0" text="ANIMATIONS" fontSize="19.0"
                        fontName="jetbrains-mono" alignment="left" parentComponent="dis-settings_general"
                        editable="0"/>
-            <Component type="ScriptButton" id="button_animationToggle" x="290.0" y="105.0"
-                       height="40.0" text="switch" bgColour="3506438143" textColour="16777215"
-                       itemColour2="1118481" width="70.0" saveInPreset="0" parentComponent="dis-settings_general"
+            <Component type="ScriptButton" id="button_animationToggle" x="320.0" y="105.0"
+                       height="40" text="switch" bgColour="3506438143" textColour="16777215"
+                       itemColour2="1118481" width="40" saveInPreset="0" parentComponent="dis-settings_general"
                        defaultValue="1.0"/>
-            <Component type="ScriptButton" id="button_startupAnimationToggle" x="290.0"
-                       y="150.0" width="70.0" height="40.0" text="switch" parentComponent="dis-settings_general"
+            <Component type="ScriptButton" id="button_startupAnimationToggle" x="320.0"
+                       y="150.0" width="40" height="40" text="switch" parentComponent="dis-settings_general"
                        saveInPreset="0" defaultValue="1.0"/>
             <Component type="ScriptLabel" id="label_settings_startupAnimation" x="85.0"
                        y="150.0" width="151.0" height="40.0" text="SPLASH SCREEN" fontName="jetbrains-mono"
@@ -593,13 +592,13 @@
             <Component type="ScriptLabel" id="label_settings_routing_wet" x="85.0" y="195.0"
                        fontName="jetbrains-mono" alignment="left" text="WET GAIN ONLY"
                        width="151.0" height="40.0" fontSize="19.0" parentComponent="dis-settings_general"/>
-            <Component type="ScriptButton" id="button_wetGainToggle" x="290.0" y="195.0"
-                       width="70.0" height="40.0" text="switch" parentComponent="dis-settings_general"
+            <Component type="ScriptButton" id="button_wetGainToggle" x="320.0" y="195.0"
+                       width="40" height="40" text="switch" parentComponent="dis-settings_general"
                        saveInPreset="0" enableMidiLearn="0"/>
           </Component>
           <Component type="ScriptPanel" id="dis-settings_activate" x="0.0" y="0.0"
                      width="500.0" height="240.0" parentComponent="panel_settings_content_container"
-                     textColour="0" itemColour2="0" itemColour="0" bgColour="0">
+                     textColour="0" itemColour2="0" itemColour="0" bgColour="0" visible="0">
             <Component type="ScriptLabel" id="label_thank_you" x="50.0" y="110.0" text="Thank you for using REACH"
                        fontName="jetbrains-mono" width="240.0" height="30.0" fontSize="20.0"
                        parentComponent="dis-settings_activate" editable="0" visible="0"/>
