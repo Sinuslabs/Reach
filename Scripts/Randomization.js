@@ -6,6 +6,11 @@ namespace Randomization {
 	// get all components start with displayKnob_
 	const var displayKnobs = Content.getAllComponents('displayKnob_');
 	
+	const var randomPanelButton = Content.getComponent("randomPanelButton");
+	
+	randomPanelButton.setPaintRoutine(randomPanelRoutine);
+	randomPanelButton.setMouseCallback(onRandomPanel);
+	
 	// build meta array
 	const var allKnobsAndTabs = [];
 	allKnobsAndTabs.concat(panelKnobs);
@@ -28,58 +33,96 @@ namespace Randomization {
 		'displayKnob_reverb_hfgain'
 	];
 	
-	const var button_randomization = Content.getComponent("button_randomization");
+
 	
 	// modal floating button
 	const var button_floatingLock = Content.getComponent("button_floatingLock");
 	button_floatingLock.setControlCallback(onbutton_floatingLockControl);
 	
-	Content.getComponent("button_randomization").setControlCallback(onbutton_randomizationControl);
-	
-	inline function onbutton_randomizationControl(component, value) {
-		if (!value) return;	
-		randomizeParameters();
-	};
-	
 	inline function randomizeParameters() {
 		randomizeKnobs(panelKnobs);
 		randomizeKnobs(displayKnobs);
 		randomizeEffectsChain();
-		randomizeButton();
 		hideLockMenu();
 	}
 	
 	inline function randomizePanelKnobs() {
 		randomizeKnobs(panelKnobs);
-		randomizeButton();
 		hideLockMenu();
 	}
 	
 	inline function randomizeDisplayKnobs() {
 		randomizeKnobs(displayKnobs);
-		randomizeButton();
 		hideLockMenu();
 	}
 	
 	inline function randomizeEffects() {
 		randomizeEffectsChain();
-		randomizeButton();
 		hideLockMenu();
 	}
 	
-	// randomize the graphics of the randomize button
-	inline function randomizeButton() {
-		local randomIconIndex = getRandomInt(7);
-		local prevIndex = getPrevIndex(button_randomization.get('text'));
+	inline function randomPanelRoutine(g) {
 		
-		// regenerate when idx is the same as before
-		if (prevIndex == randomIconIndex) randomIconIndex = getRandomInt(7);
+		 local a = this.getLocalBounds(0);
+		 
+		 Console.print(trace(this.data));
+		 
+		 local width = a[2];
+		 local height = a[3];
 		
-		if (randomIconIndex == 0) randomIconIndex = 1;
+		 local cellWidth = width / 3;
+		 local cellHeight = height / 3;
 		
-		button_randomization.set('text', 'icon-random' + randomIconIndex);
+		 local smallSize = Math.min(cellWidth, cellHeight) * 0.5; // 50% of the smallest dimension of the cell
+		 local bigSize = Math.min(cellWidth, cellHeight) * 0.8; // 80% of the smallest dimension of the cell
+		
+		 
+		 local COLOUR = PanelTheme.selectedIconColour;
+		 
+		 if (this.data.mouseDown) {
+		 	COLOUR = COLOUR.replace('0x', '0x' + PanelTheme.hoverOpacity);
+		 }
+		 
+		 
+ 		 g.setColour(COLOUR);
+		 
+		 for(i = 0; i < 3; i++) {
+		     for(j = 0; j < 3; j++) {
+		         local centerX = (j + 0.5) * cellWidth;
+		         local centerY = (i + 0.5) * cellHeight;
+		
+		         local ellipseSize = Math.randInt(0, 2) == 0 ? smallSize : bigSize;
+		
+		         g.fillEllipse([
+		             centerX - ellipseSize / 2, 
+		             centerY - ellipseSize / 2, 
+		             ellipseSize, 
+		             ellipseSize
+		         ]);
+		     }
+		 }
+		
 	}
 	
+	inline function onRandomPanel(event) {
+
+		if (event.clicked && !event.mouseUp) {
+			
+			if (event.rightClick) {
+				RandomizerPopup.showControl(true);
+				return;
+			}
+		
+		randomizePanelKnobs();
+			
+		randomPanelButton.repaint();
+		randomPanelButton.repaint();
+		randomPanelButton.repaint();
+		randomPanelButton.changed();		
+			
+		}
+	}
+
 	inline function getRandomInt(upperBound) {
   		return parseInt(Math.floor(Math.random() * upperBound));
 	}
@@ -209,23 +252,74 @@ namespace Randomization {
 	
 	panelClickWatcher.addListener("RefreshFunction", "Hide randomization menu", function(component, event) {
 	   	if (!event.rightClick && event.clicked && !event.mouseUp) {
-			
 			hideLockMenu();
+			RandomizerPopup.showControl(false);
 	     }
 	   }
 	);
 	
+	const var RandomizerPopup = Content.getComponent("RandomizerPopup");
+	const var random_all = Content.getComponent("random_all");
+	const var random_display = Content.getComponent("random_display");
+	const var random_chain = Content.getComponent("random_chain");
+	const var random_panel = Content.getComponent("random_panel");
+	
+	random_all.setLocalLookAndFeel(randomLAF);
+	random_display.setLocalLookAndFeel(randomLAF);
+	random_chain.setLocalLookAndFeel(randomLAF);
+	random_panel.setLocalLookAndFeel(randomLAF);
+	
+	random_all.setControlCallback(onRandom_all);
+	random_display.setControlCallback(onRandom_display);
+	random_chain.setControlCallback(onRandom_chain);
+	random_panel.setControlCallback(onRandom_panel);
+	
+	inline function onRandom_all(component, value) {
+		
+		if (!value) return;
+	
+		randomizeParameters();
+	}
+	
+	inline function onRandom_display(component, value) {
+		
+		
+		if (!value) return;
+	
+		randomizeDisplayKnobs();
+	}
+	
+	inline function onRandom_chain(component, value) {
+		
+		
+		if (!value) return;
+	
+		randomizeEffectsChain();
+	}
+	
+	inline function onRandom_panel(component, value) {
+		
+		
+		if (!value) return;
+	
+		randomizePanelKnobs();
+	}
+	
 	// LOOK AND FEEL / GRAPHICS
 	const var floatingLock_panel = Content.getComponent("floatingLock_panel");
-	floatingLock_panel.setPaintRoutine(function(g) {
+	
+	RandomizerPopup.setPaintRoutine(floatingPanel);
+	floatingLock_panel.setPaintRoutine(floatingPanel);
+	
+	inline function floatingPanel(g) {
 		
 		// Colors
-		var BORDER_COLOUR = SliderTheme.arcColour;
-		var BACKGROUND_COLOUR = SliderTheme.lowerGradientColour;
+		local BORDER_COLOUR = SliderTheme.arcColour;
+		local BACKGROUND_COLOUR = SliderTheme.lowerGradientColour;
 		
-		var PADDING = 1;
-		var a = [ 0, 0, this.getWidth(), this.getHeight()];
-		var paddingA = [
+		local PADDING = 1;
+		local a = [ 0, 0, this.getWidth(), this.getHeight()];
+		local paddingA = [
 			PADDING,
 			PADDING,
 			this.getWidth() - PADDING * 2,
@@ -235,7 +329,7 @@ namespace Randomization {
 		g.fillRoundedRectangle(a, 3);
 		g.setColour(BACKGROUND_COLOUR);
 		g.fillRoundedRectangle(paddingA, 2);
-	});
+	};
 	
 	const var floatButtonLAF = Content.createLocalLookAndFeel();
 	floatButtonLAF.registerFunction('drawToggleButton', floatButtonGraphics);

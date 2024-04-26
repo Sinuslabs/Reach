@@ -164,12 +164,12 @@
           <Connection NodeId="dry_wet1" ParameterId="DryWet"/>
         </Connections>
       </Parameter>
-      <Parameter ID="Amount" MinValue="0.0" MaxValue="1.0" Value="0.2799999999999999">
+      <Parameter ID="Amount" MinValue="0.0" MaxValue="100.0" Value="0.0" StepSize="0.1000000014901161">
         <Connections>
           <Connection NodeId="faust" ParameterId="distortion"/>
         </Connections>
       </Parameter>
-      <Parameter ID="Gain" MinValue="0.0" MaxValue="1.0" Value="1.0">
+      <Parameter ID="Gain" MinValue="-96.0" MaxValue="3.0" Value="1.0" StepSize="0.1000000014901161">
         <Connections>
           <Connection NodeId="faust" ParameterId="gain"/>
         </Connections>

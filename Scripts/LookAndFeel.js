@@ -128,8 +128,9 @@ laf.registerFunction('drawToggleButton', function(g, obj) {
 	}
 	
 	if (obj.text.indexOf('switch') != -1) {
-		var switchPadding = 10;
-		var switchBorder = 2;
+		var switchPadding = 5;
+		var switchBorder = 1;
+		var border_radius = 1;
 		
 		var SWITCH_COLOUR = DisplayTheme.buttonSelectedBackgroundColour;
 		
@@ -138,24 +139,24 @@ laf.registerFunction('drawToggleButton', function(g, obj) {
 		}
 		
 		g.setColour(SWITCH_COLOUR);
-		g.drawRect(a, switchBorder);
+		g.drawRoundedRectangle(a, switchBorder, border_radius);
 		g.setFont(Fonts.secondaryFont, 18.0);
 		
 		if (!obj.value) {
-			g.fillRect([
+			g.fillRoundedRectangle([
 				a[2] / 2,
 				switchPadding,
 				a[2] / 2 - switchPadding,
 				a[3] - switchPadding * 2
-			]);		
+			], border_radius);		
 			g.drawAlignedText('ON', [0, 0, a[2] / 2, a[3]], 'centred');
 		} else {	
-			g.fillRect([
+			g.drawRoundedRectangle([
 				switchPadding,
 				switchPadding,
 				a[2] / 2 - switchPadding,
 				a[3] - switchPadding * 2
-			]);
+			], border_radius, switchBorder);
 			g.drawAlignedText('OFF', [a[2] / 2, 0, a[2] / 2, a[3]], 'centred');
 		}
 	}
@@ -909,6 +910,28 @@ inline function floatButtonGraphics(g, obj) {
 }
 	
 button_floatingLock.setLocalLookAndFeel(floatButtonLAF);
+
+// Menu Button
+
+const var randomLAF = Content.createLocalLookAndFeel();
+
+randomLAF.registerFunction('drawToggleButton', menuButton);
+
+inline function menuButton(g, obj) {
+	
+	local a = obj.area; 
+	
+	local COLOUR = PanelTheme.selectedIconColour;
+	
+	if (obj.over == 1) {
+		COLOUR = COLOUR.replace('0x', '0x' + PanelTheme.hoverOpacity);
+	}
+	
+	g.setColour(COLOUR);
+	g.setFont(Fonts.secondaryFont, 14);
+	g.drawAlignedText(obj.text, a, 'left');
+
+}
 
 
 

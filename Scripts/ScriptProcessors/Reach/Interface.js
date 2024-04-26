@@ -33,7 +33,7 @@ Globals.parameter = 'NONE';
 Globals.freezeMode = false;
 
 // DEBUG
-Globals.activated = true;
+Globals.activated = false;
 Globals.presetBrowserOpen = false;
 Globals.settingsOpen = false;
 Globals.effectsOpen = false;
@@ -69,7 +69,7 @@ const var label_thank_you = Content.getComponent("label_thank_you");
 // Check License
 getActivationStatus();
 
-API.label_not_found.set('visible', false);
+//API.label_not_found.set('visible', false);
 UserSettings.button_not_activated.set('visible', !Globals.activated);
 button_buy_reach.set('visible', !Globals.activated);
 label_thank_you.set('visible', Globals.activated);

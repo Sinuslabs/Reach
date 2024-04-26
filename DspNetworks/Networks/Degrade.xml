@@ -53,12 +53,94 @@
                       <Parameter MinValue="1.0" MaxValue="99.0" StepSize="1" ID="Counter" Automated="1"/>
                     </Parameters>
                   </Node>
-                  <Node ID="bitcrush" FactoryPath="fx.bitcrush" Bypassed="0">
-                    <Parameters>
-                      <Parameter MinValue="4.0" MaxValue="16.0" StepSize="0.1000000014901161"
-                                 ID="BitDepth" Automated="1"/>
-                      <Parameter MinValue="0.0" MaxValue="1.0" StepSize="1.0" ID="Mode" Automated="1"/>
-                    </Parameters>
+                  <Node ID="chain" FactoryPath="container.chain" Bypassed="0">
+                    <Nodes>
+                      <Node ID="envelope_follower" FactoryPath="dynamics.envelope_follower"
+                            Bypassed="0">
+                        <ModulationTargets>
+                          <Connection NodeId="pma" ParameterId="Value"/>
+                        </ModulationTargets>
+                        <ComplexData>
+                          <DisplayBuffers>
+                            <DisplayBuffer Index="-1"/>
+                          </DisplayBuffers>
+                        </ComplexData>
+                        <Parameters>
+                          <Parameter MinValue="0.0" MaxValue="1000.0" StepSize="0.1000000014901161"
+                                     SkewFactor="0.2313782125711441" ID="Attack" Value="0.0"/>
+                          <Parameter MinValue="0.0" MaxValue="1000.0" StepSize="0.1000000014901161"
+                                     SkewFactor="0.2313782125711441" ID="Release" Value="525.7000078335404"/>
+                          <Parameter MinValue="0.0" MaxValue="1.0" ID="ProcessSignal" Value="0.0"/>
+                        </Parameters>
+                      </Node>
+                      <Node ID="pma" FactoryPath="control.pma" Bypassed="0">
+                        <ModulationTargets>
+                          <Connection NodeId="cable_table" ParameterId="Value"/>
+                        </ModulationTargets>
+                        <Parameters>
+                          <Parameter MinValue="0.0" MaxValue="1.0" ID="Value" Automated="1"/>
+                          <Parameter MinValue="1.0" MaxValue="10.0" ID="Multiply" Value="7.437966308593749"/>
+                          <Parameter MinValue="-1.0" MaxValue="1.0" ID="Add" Value="0.4483940429687501"/>
+                        </Parameters>
+                      </Node>
+                      <Node ID="cable_table" FactoryPath="control.cable_table" Bypassed="0">
+                        <ModulationTargets>
+                          <Connection NodeId="smoothed_parameter" ParameterId="Value"/>
+                        </ModulationTargets>
+                        <ComplexData>
+                          <Tables>
+                            <Table Index="-1" EmbeddedData="48...............vO..f+9.........vO..n.+PLGl8C...vO...f+....9C...vO"/>
+                          </Tables>
+                        </ComplexData>
+                        <Parameters>
+                          <Parameter MinValue="0.0" MaxValue="1.0" ID="Value" Automated="1"/>
+                        </Parameters>
+                      </Node>
+                      <Node ID="smoothed_parameter" FactoryPath="control.smoothed_parameter"
+                            Bypassed="0">
+                        <Properties>
+                          <Property ID="Mode" Value="Linear Ramp"/>
+                        </Properties>
+                        <ModulationTargets>
+                          <Connection NodeId="converter1" ParameterId="Value"/>
+                        </ModulationTargets>
+                        <Parameters>
+                          <Parameter MinValue="0.0" MaxValue="1.0" ID="Value" Automated="1"/>
+                          <Parameter MinValue="0.1000000014901161" MaxValue="1000.0" StepSize="0.1000000014901161"
+                                     ID="SmoothingTime" Value="0.1000000014901161"/>
+                          <Parameter MinValue="0.0" MaxValue="1.0" StepSize="1.0" ID="Enabled" Value="1.0"/>
+                        </Parameters>
+                      </Node>
+                      <Node ID="converter1" FactoryPath="control.converter" Bypassed="0">
+                        <Properties>
+                          <Property ID="Mode" Value="Gain2dB"/>
+                        </Properties>
+                        <ModulationTargets>
+                          <Connection NodeId="gain" ParameterId="Gain"/>
+                        </ModulationTargets>
+                        <Parameters>
+                          <Parameter MinValue="0.0" MaxValue="1.0" ID="Value" Automated="1"/>
+                        </Parameters>
+                      </Node>
+                      <Node ID="bitcrush" FactoryPath="fx.bitcrush" Bypassed="0">
+                        <Parameters>
+                          <Parameter MinValue="4.0" MaxValue="16.0" StepSize="0.1000000014901161"
+                                     ID="BitDepth" Automated="1"/>
+                          <Parameter MinValue="0.0" MaxValue="1.0" StepSize="1.0" ID="Mode" Automated="1"/>
+                        </Parameters>
+                      </Node>
+                      <Node ID="gain" FactoryPath="core.gain" Bypassed="0">
+                        <Parameters>
+                          <Parameter MinValue="-100.0" MaxValue="0.0" StepSize="0.1000000014901161"
+                                     SkewFactor="5.422270774841309" ID="Gain" Automated="1"/>
+                          <Parameter MinValue="0.0" MaxValue="1000.0" StepSize="0.1000000014901161"
+                                     SkewFactor="0.3010300099849701" ID="Smoothing" Value="20.0"/>
+                          <Parameter MinValue="-100.0" MaxValue="0.0" StepSize="0.1000000014901161"
+                                     SkewFactor="5.422270774841309" ID="ResetValue" Value="0.0"/>
+                        </Parameters>
+                      </Node>
+                    </Nodes>
+                    <Parameters/>
                   </Node>
                 </Nodes>
                 <Parameters>
@@ -229,18 +311,18 @@
           <Connection NodeId="one_pole1" ParameterId="Frequency"/>
         </Connections>
       </Parameter>
-      <Parameter ID="Modulation Depth" MinValue="0.0" MaxValue="1.0" Value="0.254952392578125">
+      <Parameter ID="Modulation Depth" MinValue="0.0" MaxValue="1.0" Value="0.0">
         <Connections>
           <Connection NodeId="mul" ParameterId="Value"/>
         </Connections>
       </Parameter>
-      <Parameter ID="Modulation Speed" MinValue="0.0" MaxValue="30.0" Value="2.38"
+      <Parameter ID="Modulation Speed" MinValue="0.0" MaxValue="30.0" Value="0.42"
                  StepSize="0.01" SkewFactor="0.2299045584686382">
         <Connections>
           <Connection NodeId="converter" ParameterId="Value"/>
         </Connections>
       </Parameter>
-      <Parameter ID="Amount" MinValue="1.0" MaxValue="99.0" Value="38.75332275390625">
+      <Parameter ID="Amount" MinValue="1.0" MaxValue="99.0" Value="23.08067993164062">
         <Connections>
           <Connection NodeId="sample hold" ParameterId="Add"/>
         </Connections>
@@ -250,7 +332,7 @@
           <Connection NodeId="branch" ParameterId="Index"/>
         </Connections>
       </Parameter>
-      <Parameter ID="BitDepth" MinValue="4.0" MaxValue="16.0" Value="5.700000025331974">
+      <Parameter ID="BitDepth" MinValue="4.0" MaxValue="16.0" Value="8.818349731445313">
         <Connections>
           <Connection NodeId="crush" ParameterId="Add"/>
         </Connections>

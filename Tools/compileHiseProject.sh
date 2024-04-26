@@ -2,11 +2,11 @@
 
 project_name="Reach"
 project_dir="/Users/oskarsh/Documents/GitHub/Reach"
-hise_source="/Users/oskarsh/Documents"
+hise_source="/Users/oskarsh/Documents/GitHub/HISE"
 hise_path=$hise_source"/projects/standalone/Builds/MacOSX/build/Release/HISE.app/Contents/MacOS/HISE"
 projucer_path=$hise_source"/tools/projucer/Projucer.app/Contents/MacOS/Projucer"
 
-output="/Users/oskarsh/Desktop/plugins"
+output="/Users/oskarsh/Documents/Plugins/Reach/"
 echo =========================================
 echo =========================================
 echo Build the binaries
@@ -16,6 +16,12 @@ echo =========================================
 "$hise_path" set_project_folder -p:"$project_dir"
 
 chmod +x "$projucer_path"
+
+echo =========================================
+echo Clean Build Folder
+echo =========================================
+"$hise_path" clean -p:$project_dir --all
+
 
 # echo =========================================
 # echo Building the standalone app
@@ -31,6 +37,11 @@ chmod +x "$projucer_path"
 # "$hise_path" export_ci "XmlPresetBackups/$project_name.xml" -t:instrument -p:VST2
 # chmod +x "$project_dir/Binaries/batchCompileOSX"
 # sh "$project_dir/Binaries/batchCompileOSX"
+
+echo =========================================
+echo Compiling Networks
+echo =========================================
+"$hise_path" compile_networks -c:Release
 
 echo =========================================
 echo Building VST3 plugin
@@ -62,8 +73,6 @@ echo =========================================
 cp -R "$project_dir/Binaries/Builds/MacOSX/build/Release/$project_name.vst3" "$output/$project_name.vst3"
 # cp -R "$project_dir/Binaries/Builds/MacOSX/build/Release/$project_name.aaxplugin" "$output/$project_name.aaxplugin"
 # cp -R "$project_dir/Binaries/Builds/MacOSX/build/Release/$project_name.component" "$output/$project_name.component"
-
-
 
 # Notification
 osascript -e 'display notification "Build process completed successfully!" with title "HISE Build Notification"'
