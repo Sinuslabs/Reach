@@ -11,7 +11,6 @@ namespace UserSettings {
 	logoButton.setControlCallback(onbutton_logoControl);
 	inline function onbutton_logoControl(component, value) { 
 		if (value) {
-			settingsButtonsRadio(0);
 			displayShowSettings('general');
 			Globals.settingsOpen = true;
 		} else {
@@ -44,56 +43,6 @@ namespace UserSettings {
 				settingsScreen.set('visible', false);
 			}
 		}
-	}
-	
-	const var settingsButtons = [
-		Content.getComponent('button_settings_general'),
-		Content.getComponent('button_settings_routing'),
-		Content.getComponent('button_settings_activate'),
-		Content.getComponent('button_settings_about')
-	];
-	
-	settingsButtons[0].setControlCallback(onbutton_settings_generalControl);
-	 inline function onbutton_settings_generalControl(component, value)
-	 {
-	 	settingsButtonsRadio(0);
-	 	displayShowSettings('general');
-	 };
-	 
-	 settingsButtons[1].setControlCallback(onbutton_settings_routingControl);
-	 inline function onbutton_settings_routingControl(component, value)
-	 {
-	 	settingsButtonsRadio(1);
-	 	displayShowSettings('routing');
-
-	 };
-	
-	 settingsButtons[2].setControlCallback(onbutton_settings_activateControl);
-	 inline function onbutton_settings_activateControl(component, value)
-	 {
-	 	settingsButtonsRadio(2);
-	 	displayShowSettings('activate');
-	 	if (!Globals.activated) {
-	 		settingsButtonsRadio(2);				
-	 		activatePageRadio('serial');
-	 	} else {
-		 	activatePageRadio('thankyou');
-	 	}
-	 };
-
-	
-	settingsButtons[3].setControlCallback(onbutton_settings_aboutControl);
-	inline function onbutton_settings_aboutControl(component, value)
-	{
-		settingsButtonsRadio(3);
-		displayShowSettings('about');
-	};
-	
-	function settingsButtonsRadio(idx) {
-		for (var i=0; i<settingsButtons.length; i++) {
-			settingsButtons[i].setValue(0);
-		}
-		settingsButtons[idx].setValue(1);
 	}
 	
 	
@@ -173,7 +122,6 @@ namespace UserSettings {
 			displayShowSettings('activate');
 			Globals.settingsOpen = true;
 			if (!Globals.activated) {
-				settingsButtonsRadio(2);				
 				activatePageRadio('serial');
 			}
 		}
@@ -185,54 +133,21 @@ namespace UserSettings {
 	inline function onpanel_githubControl(component, value) {
 		if (value) Engine.openWebsite('https://sinuslabs.io/product/reach');
 	};
-	
-	// Account License Panel
-	const var displayPanel_login = Content.getComponent("displayPanel_login");
+
 	const var displayPanel_serial = Content.getComponent("displayPanel_serial");
 	
 	const settingsDir = FileSystem.getFolder(FileSystem.UserPresets).getParentDirectory();
 	const settingsFile = settingsDir.getChildFile('settings.json');
 	
-	// Activate Serial Panel
-	
-	const var displayButton_serial = Content.getComponent("displayButton_serial");
-	displayButton_serial.setControlCallback(ondisplayButton_serialControl);
-	inline function ondisplayButton_serialControl(component, value)	{
-		activatePageRadio('serial');
-	};
-	
-	const var displayButton_login = Content.getComponent("displayButton_login");
-	displayButton_login.setControlCallback(ondisplayButton_loginControl);
-	inline function ondisplayButton_loginControl(component, value) {
-		activatePageRadio('login');
-	};
-	
 	inline function activatePageRadio(route) {
 		switch(route) {
 			case 'serial':
 				displayPanel_serial.set('visible', true);
-				displayPanel_login.set('visible', false);
 				label_thank_you.set('visible', false);
-				displayButton_serial.set('visible', true);
-				displayButton_login.set('visible', true);
-				displayButton_serial.setValue(true);
-				displayButton_login.setValue(false);
-				break;
-			case 'login':
-				displayPanel_login.set('visible', true);
-				displayPanel_serial.set('visible', false);
-				label_thank_you.set('visible', false);
-				displayButton_serial.set('visible', true);
-				displayButton_login.set('visible', true);
-				displayButton_serial.setValue(false);
-				displayButton_login.setValue(true);
 				break;
 			case 'thankyou':
-				displayPanel_login.set('visible', false);
 				displayPanel_serial.set('visible', false);
 				label_thank_you.set('visible', true);
-				displayButton_serial.set('visible', false);
-				displayButton_login.set('visible', false);
 				break;
 			default:
 				break

@@ -47,7 +47,7 @@ const var logoButton = Content.getComponent('button_logo');
 logoButton.setControlCallback(onbutton_logoControl);
 inline function onbutton_logoControl(component, value) {
 	if (value) {
-		UserSettings.settingsButtonsRadio(0);
+		//UserSettings.settingsButtonsRadio(0);
 		displayShowSettings('general');
 		Globals.settingsOpen = true;
 	} else {
@@ -101,21 +101,6 @@ button_animationToggle.setControlCallback(onbutton_animationToggleControl);
 inline function onbutton_animationToggleControl(component, value) {
 	UserSettings.enableAnimations = !value;
 	UserSettings.saveSettings();
-};
-
-// Activate Button
-const var button_active = Content.getComponent("button_activate")
-const var email = Content.getComponent("label_email");
-const var password = Content.getComponent("label_password");
-
-button_active.setControlCallback(onbutton_activateControl);
-inline function onbutton_activateControl(component, value) {
-
-	if (value) {
-		local usermail = email.get('text');
-		local userpw = password.get('text');
-		API.activateLicense(usermail, userpw);
-	}
 };
 
 // Buy Reach Button
@@ -175,8 +160,6 @@ presetBrowserWatcher.addListener("RefreshFunction", "Delays the closing of the P
 
 Content.getComponent("onPresetLoad").setControlCallback(onPresetLoad);
 inline function onPresetLoad(component, value) {
-	Console.print('onload');
-
 	// Dynamically get the effects
 	Effects.Flanger = getHardcodedEffect('Flanger');
 	Effects.Degrade = getHardcodedEffect('Degrade');
@@ -276,9 +259,6 @@ knob_io_in.setControlCallback(onknob_io_inControl);
 knob_io_in.setLocalLookAndFeel(knb_laf);
 
 inline function onknob_io_inControl(component, value) {
-	Console.print(' Settings Gain: ' + UserSettings.wetOnlyGain);
-
-	Console.print(typeof value);
 	UserSettings.wetOnlyGain
 		? WetOnlyGain.setAttribute(WetOnlyGain.Gain, value)
 		: Gain.setAttribute(Gain.Gain, value);

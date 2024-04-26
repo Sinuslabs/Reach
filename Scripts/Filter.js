@@ -78,9 +78,6 @@ namespace Filter {
 			freqArea[3],
 		];
 
-
-		Console.print(trace(obj));
-
 		g.setColour(0XFFFFFFFF);
 		g.fillRoundedRectangle(a, 2);
 
@@ -147,9 +144,6 @@ namespace Filter {
 			freqArea[2],
 			freqArea[3],
 		];
-
-
-		Console.print(trace(obj));
 
 		g.setColour(0XFFFFFFFF);
 		g.fillRoundedRectangle(a, 2);

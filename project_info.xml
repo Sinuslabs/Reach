@@ -34,7 +34,7 @@
   <EmbedUserPresets value="Yes"/>
   <EnableGlobalPreprocessor value="No"/>
   <VST3Category value="Reverb"/>
-  <OverwriteOldUserPresets value="No"/>
+  <OverwriteOldUserPresets value="1"/>
   <UseGlobalAppDataFolderWindows value="No"/>
   <UseGlobalAppDataFolderMacOS value="No"/>
   <DefaultUserPreset value="Creative/-INIT-.preset"/>

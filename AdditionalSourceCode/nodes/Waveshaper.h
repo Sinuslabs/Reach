@@ -61,30 +61,16 @@ namespace Waveshaper_t_parameters
 {
 // Parameter list for Waveshaper_impl::Waveshaper_t ------------------------------------------------
 
-DECLARE_PARAMETER_RANGE_STEP(AmountRange, 
-                             0., 
-                             100., 
-                             0.1);
-
-template <int NV>
-using Amount = parameter::from0To1<project::Distortion<NV>, 
-                                   0, 
-                                   AmountRange>;
-
-DECLARE_PARAMETER_RANGE_STEP(GainRange, 
-                             -96., 
-                             3., 
-                             0.1);
-
-template <int NV>
-using Gain = parameter::from0To1<project::Distortion<NV>, 
-                                 1, 
-                                 GainRange>;
-
 using Distort = parameter::empty;
 template <int NV>
 using Mix = parameter::plain<Waveshaper_impl::dry_wet1_t<NV>, 
                              0>;
+template <int NV>
+using Amount = parameter::plain<project::Distortion<NV>, 
+                                0>;
+template <int NV>
+using Gain = parameter::plain<project::Distortion<NV>, 
+                              1>;
 template <int NV>
 using lp = parameter::plain<filters::one_pole<NV>, 0>;
 template <int NV> using hp = lp<NV>;
@@ -127,9 +113,9 @@ template <int NV> struct instance: public Waveshaper_impl::Waveshaper_t_<NV>
             0x5B00, 0x0001, 0x0000, 0x694D, 0x0078, 0x0000, 0x0000, 0x0000, 
             0x3F80, 0x0000, 0x3F80, 0x0000, 0x3F80, 0x0000, 0x0000, 0x025B, 
             0x0000, 0x4100, 0x6F6D, 0x6E75, 0x0074, 0x0000, 0x0000, 0x0000, 
-            0x3F80, 0x5C29, 0x3E8F, 0x0000, 0x3F80, 0x0000, 0x0000, 0x035B, 
-            0x0000, 0x4700, 0x6961, 0x006E, 0x0000, 0x0000, 0x0000, 0x3F80, 
-            0x0000, 0x3F80, 0x0000, 0x3F80, 0x0000, 0x0000, 0x045B, 0x0000, 
+            0x42C8, 0x0000, 0x0000, 0x0000, 0x3F80, 0xCCCD, 0x3DCC, 0x035B, 
+            0x0000, 0x4700, 0x6961, 0x006E, 0x0000, 0xC2C0, 0x0000, 0x4040, 
+            0x0000, 0x3F80, 0x0000, 0x3F80, 0xCCCD, 0x3DCC, 0x045B, 0x0000, 
             0x6C00, 0x0070, 0x0000, 0x41A0, 0x4000, 0x469C, 0x12C1, 0x45E8, 
             0x6C1A, 0x3E6B, 0x0000, 0x0000, 0x055B, 0x0000, 0x6800, 0x0070, 
             0x0000, 0x41A0, 0x4000, 0x469C, 0x0000, 0x41A0, 0x6C1A, 0x3E6B, 
@@ -228,7 +214,7 @@ template <int NV> struct instance: public Waveshaper_impl::Waveshaper_t_<NV>
 		
 		this->setParameterT(0, 1.);
 		this->setParameterT(1, 1.);
-		this->setParameterT(2, 0.28);
+		this->setParameterT(2, 0.);
 		this->setParameterT(3, 1.);
 		this->setParameterT(4, 7426.34);
 		this->setParameterT(5, 20.);

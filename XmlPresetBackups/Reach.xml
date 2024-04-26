@@ -39,12 +39,12 @@
             <Control type="ScriptSlider" id="displayKnob_reverb_midgain" value="1.0"/>
             <Control type="ScriptButton" id="displayButton_reverb_panic" value="0.0"/>
             <Control type="ScriptButton" id="displayButton_reverb_bypass" value="1.0"/>
-            <Control type="ScriptComboBox" id="degrade_selector" value="1.0"/>
+            <Control type="ScriptComboBox" id="degrade_selector" value="2.0"/>
             <Control type="ScriptSlider" id="displayKnob_degrade_highcut" value="16418.0"/>
             <Control type="ScriptSlider" id="displayKnob_degrade_lowcut" value="22.0"/>
             <Control type="ScriptSlider" id="displayKnob_degrade_depth" value="0.0"/>
             <Control type="ScriptSlider" id="displayKnob_degrade_frequency" value="0.0"/>
-            <Control type="ScriptSlider" id="displayKnob_degrade_amount" value="26.04000091552734"/>
+            <Control type="ScriptSlider" id="displayKnob_degrade_amount" value="5.0"/>
             <Control type="ScriptSlider" id="displayKnob_degrade_crushAmount" value="16.0"/>
             <Control type="ScriptButton" id="displayButton_degrade_bypass" value="1.0"/>
             <Control type="ScriptSlider" id="displayKnob_flanger_speed" value="0.05000000074505806"/>
@@ -111,7 +111,7 @@
         </Processor>
         <Processor Type="SlotFX" ID="Effect Slot1" Bypassed="0">
           <ChildProcessors>
-            <Processor Type="Hardcoded Master FX" ID="Effect Slot5_Hardcoded Master FX"
+            <Processor Type="Hardcoded Master FX" ID="Effect Slot1_Hardcoded Master FX"
                        Bypassed="0" Network="Reverb" Reverb="1.0" Damping="0.5" Diffusion="1.0"
                        HFGain="1.0" HighCrossover="3392.0" LFGain="1.0" LowCrossover="377.0"
                        MidGain="1.0" ModDepth="0.0" ModFrequency="0.0" ReverbTime="1.0"
@@ -125,10 +125,10 @@
         </Processor>
         <Processor Type="SlotFX" ID="Effect Slot2" Bypassed="0">
           <ChildProcessors>
-            <Processor Type="Hardcoded Master FX" ID="Effect Slot1_Hardcoded Master FX"
+            <Processor Type="Hardcoded Master FX" ID="Effect Slot2_Hardcoded Master FX"
                        Bypassed="0" Network="Degrade" Degrade="1.0" Mix="0.0" HighCut="16418.0"
-                       LowCut="22.0" ModulationDepth="0.0" ModulationSpeed="0.0" Amount="26.04000091552734"
-                       CrushMode="0.0" BitDepth="16.0" BitcrushMode="1.0">
+                       LowCut="22.0" ModulationDepth="0.0" ModulationSpeed="0.0" Amount="5.0"
+                       CrushMode="1.0" BitDepth="16.0" BitcrushMode="0.0">
               <ChildProcessors/>
               <RoutingMatrix NumSourceChannels="2" Channel0="0" Send0="-1" Channel1="1" Send1="-1"/>
             </Processor>
@@ -138,7 +138,7 @@
         </Processor>
         <Processor Type="SlotFX" ID="Effect Slot3" Bypassed="0">
           <ChildProcessors>
-            <Processor Type="Hardcoded Master FX" ID="Effect Slot2_Hardcoded Master FX"
+            <Processor Type="Hardcoded Master FX" ID="Effect Slot3_Hardcoded Master FX"
                        Bypassed="0" Network="Flair" Flanger="1.0" Speed="0.05000000074505806"
                        Depth="0.9800000190734863" Feedback="0.9300000071525574" Delay="0.7599999904632568"
                        Offset="0.8899999856948853" Mix="0.0">
@@ -151,7 +151,7 @@
         </Processor>
         <Processor Type="SlotFX" ID="Effect Slot4" Bypassed="0">
           <ChildProcessors>
-            <Processor Type="Hardcoded Master FX" ID="Effect Slot3_Hardcoded Master FX"
+            <Processor Type="Hardcoded Master FX" ID="Effect Slot4_Hardcoded Master FX"
                        Bypassed="0" Network="Chorus2" Chorus="1.0" CentreDelay="0.1899999976158142"
                        Depth="0.9200000166893005" Feedback="0.7300000190734863" Rate="0.1899999976158142"
                        Mix="0.0">
@@ -164,7 +164,7 @@
         </Processor>
         <Processor Type="SlotFX" ID="Effect Slot5" Bypassed="0">
           <ChildProcessors>
-            <Processor Type="Hardcoded Master FX" ID="Effect Slot4_Hardcoded Master FX"
+            <Processor Type="Hardcoded Master FX" ID="Effect Slot5_Hardcoded Master FX"
                        Bypassed="0" Network="Waveshaper" Distort="1.0" Mix="0.0" Amount="0.3100000023841858"
                        Gain="1.0" lp="5255.0" hp="140.0" postlp="8827.0" posthp="27.0">
               <ChildProcessors/>
@@ -268,13 +268,13 @@
           <RoutingMatrix NumSourceChannels="4" Channel0="0" Send0="-1" Channel1="1" Send1="-1"
                          Channel2="-1" Send2="-1" Channel3="-1" Send3="-1"/>
         </Processor>
-        <Processor Type="ScriptFX" ID="Script FX1" Bypassed="1" NumDisplayBuffers="1">
+        <Processor Type="ScriptFX" ID="Script FX1" Bypassed="0" NumDisplayBuffers="1">
           <ChildProcessors/>
           <RoutingMatrix NumSourceChannels="4" Channel0="0" Send0="-1" Channel1="1" Send1="-1"
                          Channel2="-1" Send2="-1" Channel3="-1" Send3="-1"/>
           <Content/>
           <Networks>
-            <Network ID="Waveshaper" Version="0.0.0" AllowCompilation="1"/>
+            <Network ID="Degrade" Version="0.0.0" AllowCompilation="1"/>
           </Networks>
           <UIData>
             <ContentProperties DeviceType="Desktop"/>
@@ -282,7 +282,7 @@
         </Processor>
       </ChildProcessors>
     </Processor>
-    <Processor Type="WaveSynth" ID="Waveform Generator1" Bypassed="0" Gain="0.25"
+    <Processor Type="WaveSynth" ID="Waveform Generator1" Bypassed="0" Gain="1.0"
                Balance="0.0" VoiceLimit="256.0" KillFadeTime="20.0" IconColour="0"
                OctaveTranspose1="0.0" OctaveTranspose2="0.0" Detune1="0.0" Detune2="0.0"
                WaveForm1="3.0" WaveForm2="3.0" Pan1="0.0" Pan2="0.0" Mix="0.5"
@@ -295,8 +295,7 @@
         <Processor Type="ModulatorChain" ID="GainModulation" Bypassed="0" Intensity="1.0">
           <ChildProcessors>
             <Processor Type="SimpleEnvelope" ID="DefaultEnvelope1" Bypassed="0" Monophonic="0.0"
-                       Retrigger="1.0" Intensity="1.0" Attack="0.0" Release="1412.0"
-                       LinearMode="1.0">
+                       Retrigger="1.0" Intensity="1.0" Attack="5.0" Release="10.0" LinearMode="1.0">
               <ChildProcessors>
                 <Processor Type="ModulatorChain" ID="Attack Time Modulation" Bypassed="0"
                            Intensity="1.0">
@@ -310,38 +309,7 @@
           <ChildProcessors/>
         </Processor>
         <Processor Type="EffectChain" ID="FX" Bypassed="0">
-          <ChildProcessors>
-            <Processor Type="PolyphonicFilter" ID="Filter1" Bypassed="0" Gain="0.0"
-                       Frequency="137.4199981689453" Q="0.6100000143051147" Mode="6.0"
-                       Quality="1.66366e8" BipolarIntensity="0.0">
-              <ChildProcessors>
-                <Processor Type="ModulatorChain" ID="Frequency Modulation" Bypassed="0"
-                           Intensity="1.0">
-                  <ChildProcessors>
-                    <Processor Type="SimpleEnvelope" ID="Simple Envelope1" Bypassed="0" Monophonic="0.0"
-                               Retrigger="1.0" Intensity="1.0" Attack="1.0" Release="17.0" LinearMode="1.0">
-                      <ChildProcessors>
-                        <Processor Type="ModulatorChain" ID="Attack Time Modulation" Bypassed="0"
-                                   Intensity="1.0">
-                          <ChildProcessors/>
-                        </Processor>
-                      </ChildProcessors>
-                    </Processor>
-                  </ChildProcessors>
-                </Processor>
-                <Processor Type="ModulatorChain" ID="Gain Modulation" Bypassed="0" Intensity="1.0">
-                  <ChildProcessors/>
-                </Processor>
-                <Processor Type="ModulatorChain" ID="Bipolar Freq Modulation" Bypassed="0"
-                           Intensity="1.0">
-                  <ChildProcessors/>
-                </Processor>
-                <Processor Type="ModulatorChain" ID="Q Modulation" Bypassed="0" Intensity="1.0">
-                  <ChildProcessors/>
-                </Processor>
-              </ChildProcessors>
-            </Processor>
-          </ChildProcessors>
+          <ChildProcessors/>
         </Processor>
         <Processor Type="ModulatorChain" ID="Mix Modulation" Bypassed="0" Intensity="1.0">
           <ChildProcessors/>

@@ -3,9 +3,6 @@ namespace API {
 	Server.setBaseURL("https://www.sinuslabs.io");
 	Server.setServerCallback(serverActivity);
 	
-	// NOT FOUND LABEL
-	const var label_not_found = Content.getComponent("label_not_found");
-	
 	function getActivationStatus() {
 		var license = getLocalLicense();
 		if (license) Globals.activated = true;
@@ -80,13 +77,7 @@ namespace API {
 	
 	
 	inline function serverActivity(isWaiting) {		
-		if (isWaiting) {
-			button_active.set('text', 'loading');
-			UserSettings.displayButton_activateSerial.set('text', 'loading');
-		} else {
-			button_active.set('text', 'ACTIVATE');
-			UserSettings.displayButton_activateSerial.set('text', 'ACTIVATE');
-		}
+
 	}
 	
 	function getLocalLicense() {

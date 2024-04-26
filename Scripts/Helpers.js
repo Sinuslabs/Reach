@@ -14,6 +14,8 @@ function repaintAllPanels() {
 	for (panel in themeablePanels) {
 		panel.repaint();
 	}
+	
+	Randomization.randomPanelButton.repaint();
 	floatingLock_panel.repaint();
 }
 
