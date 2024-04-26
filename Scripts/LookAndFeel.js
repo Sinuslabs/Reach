@@ -138,26 +138,21 @@ laf.registerFunction('drawToggleButton', function(g, obj) {
 			SWITCH_COLOUR = SWITCH_COLOUR.replace('0x', '0x' + DisplayTheme.hoverOpacity);
 		}
 		
+		var innerArea = [
+			a[0] + switchPadding,
+			a[1] + switchPadding,
+			a[2] - switchPadding * 2,
+			a[3] - switchPadding * 2
+		];
+		
 		g.setColour(SWITCH_COLOUR);
 		g.drawRoundedRectangle(a, switchBorder, border_radius);
 		g.setFont(Fonts.secondaryFont, 18.0);
 		
 		if (!obj.value) {
-			g.fillRoundedRectangle([
-				a[2] / 2,
-				switchPadding,
-				a[2] / 2 - switchPadding,
-				a[3] - switchPadding * 2
-			], border_radius);		
-			g.drawAlignedText('ON', [0, 0, a[2] / 2, a[3]], 'centred');
+			g.fillRoundedRectangle(innerArea, border_radius);		
 		} else {	
-			g.drawRoundedRectangle([
-				switchPadding,
-				switchPadding,
-				a[2] / 2 - switchPadding,
-				a[3] - switchPadding * 2
-			], border_radius, switchBorder);
-			g.drawAlignedText('OFF', [a[2] / 2, 0, a[2] / 2, a[3]], 'centred');
+			g.drawRoundedRectangle(innerArea, border_radius, switchBorder);
 		}
 	}
 });
