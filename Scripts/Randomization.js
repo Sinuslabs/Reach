@@ -65,8 +65,6 @@ namespace Randomization {
 		
 		 local a = this.getLocalBounds(0);
 		 
-		 Console.print(trace(this.data));
-		 
 		 local width = a[2];
 		 local height = a[3];
 		
