@@ -83,8 +83,8 @@ inline function onComboBox_zoomControl(component, value) {
 };
 
 // Theme
-const var comboBox_theme = Content.getComponent("ComboBox_theme");
-comboBox_theme.setControlCallback(onComboBox1Control);
+//const var comboBox_theme = Content.getComponent("ComboBox_theme");
+//comboBox_theme.setControlCallback(onComboBox1Control);
 inline function onComboBox1Control(component, value) {
 	if (value == 1.0) {
 		Theme.setTheme('Light');

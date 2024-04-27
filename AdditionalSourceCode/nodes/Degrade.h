@@ -15,6 +15,44 @@ namespace Degrade_impl
 {
 // ==============================| Node & Parameter type declarations |==============================
 
+template <int NV>
+using ramp_t = wrap::no_data<core::ramp<NV, false>>;
+template <int NV>
+using converter_t = control::converter<parameter::plain<ramp_t<NV>, 0>, 
+                                       conversion_logic::freq2ms>;
+
+template <int NV>
+using crush_t = control::pma_unscaled<NV, 
+                                      parameter::plain<fx::bitcrush<NV>, 0>>;
+
+template <int NV>
+using samplehold_t = control::pma_unscaled<NV, 
+                                           parameter::plain<fx::sampleandhold<NV>, 0>>;
+
+template <int NV>
+using peak_mod = parameter::chain<ranges::Identity, 
+                                  parameter::plain<crush_t<NV>, 0>, 
+                                  parameter::plain<samplehold_t<NV>, 0>>;
+
+template <int NV>
+using peak_t = wrap::mod<peak_mod<NV>, 
+                         wrap::data<core::peak, data::external::displaybuffer<0>>>;
+
+template <int NV>
+using modchain_t_ = container::chain<parameter::empty, 
+                                     wrap::fix<1, converter_t<NV>>, 
+                                     ramp_t<NV>, 
+                                     math::pi<NV>, 
+                                     math::sin<NV>, 
+                                     math::mul<NV>, 
+                                     math::sig2mod<NV>, 
+                                     peak_t<NV>, 
+                                     crush_t<NV>, 
+                                     samplehold_t<NV>>;
+
+template <int NV>
+using modchain_t = wrap::control_rate<modchain_t_<NV>>;
+
 DECLARE_PARAMETER_RANGE_SKEW(dry_wet_mixer_c0Range, 
                              -100., 
                              0., 
@@ -170,44 +208,6 @@ using wet_path_t = container::chain<parameter::empty,
                                     filters::one_pole<NV>, 
                                     core::gain<NV>>;
 
-template <int NV>
-using ramp_t = wrap::no_data<core::ramp<NV, false>>;
-template <int NV>
-using converter_t = control::converter<parameter::plain<ramp_t<NV>, 0>, 
-                                       conversion_logic::freq2ms>;
-
-template <int NV>
-using crush_t = control::pma_unscaled<NV, 
-                                      parameter::plain<fx::bitcrush<NV>, 0>>;
-
-template <int NV>
-using samplehold_t = control::pma_unscaled<NV, 
-                                           parameter::plain<fx::sampleandhold<NV>, 0>>;
-
-template <int NV>
-using peak_mod = parameter::chain<ranges::Identity, 
-                                  parameter::plain<crush_t<NV>, 0>, 
-                                  parameter::plain<samplehold_t<NV>, 0>>;
-
-template <int NV>
-using peak_t = wrap::mod<peak_mod<NV>, 
-                         wrap::data<core::peak, data::external::displaybuffer<0>>>;
-
-template <int NV>
-using modchain_t_ = container::chain<parameter::empty, 
-                                     wrap::fix<1, converter_t<NV>>, 
-                                     ramp_t<NV>, 
-                                     math::pi<NV>, 
-                                     math::sin<NV>, 
-                                     math::mul<NV>, 
-                                     math::sig2mod<NV>, 
-                                     peak_t<NV>, 
-                                     crush_t<NV>, 
-                                     samplehold_t<NV>>;
-
-template <int NV>
-using modchain_t = wrap::control_rate<modchain_t_<NV>>;
-
 namespace dry_wet1_t_parameters
 {
 }
@@ -215,8 +215,7 @@ namespace dry_wet1_t_parameters
 template <int NV>
 using dry_wet1_t = container::split<parameter::plain<Degrade_impl::dry_wet_mixer_t<NV>, 0>, 
                                     wrap::fix<2, dry_path_t<NV>>, 
-                                    wet_path_t<NV>, 
-                                    modchain_t<NV>>;
+                                    wet_path_t<NV>>;
 
 namespace Degrade_t_parameters
 {
@@ -260,7 +259,8 @@ using Degrade_t_plist = parameter::list<Degrade,
 
 template <int NV>
 using Degrade_t_ = container::chain<Degrade_t_parameters::Degrade_t_plist<NV>, 
-                                    wrap::fix<2, dry_wet1_t<NV>>>;
+                                    wrap::fix<2, modchain_t<NV>>, 
+                                    dry_wet1_t<NV>>;
 
 // =================================| Root node initialiser class |=================================
 
@@ -308,34 +308,34 @@ template <int NV> struct instance: public Degrade_impl::Degrade_t_<NV>
 	{
 		// Node References -------------------------------------------------------------------------
 		
-		auto& dry_wet1 = this->getT(0);                                           // Degrade_impl::dry_wet1_t<NV>
-		auto& dry_path = this->getT(0).getT(0);                                   // Degrade_impl::dry_path_t<NV>
-		auto& dry_wet_mixer = this->getT(0).getT(0).getT(0);                      // Degrade_impl::dry_wet_mixer_t<NV>
-		auto& dry_gain = this->getT(0).getT(0).getT(1);                           // core::gain<NV>
-		auto& wet_path = this->getT(0).getT(1);                                   // Degrade_impl::wet_path_t<NV>
-		auto& branch = this->getT(0).getT(1).getT(0);                             // Degrade_impl::branch_t<NV>
-		auto& sampleandhold = this->getT(0).getT(1).getT(0).getT(0);              // fx::sampleandhold<NV>
-		auto& chain = this->getT(0).getT(1).getT(0).getT(1);                      // Degrade_impl::chain_t<NV>
-		auto& envelope_follower = this->getT(0).getT(1).getT(0).getT(1).getT(0);  // Degrade_impl::envelope_follower_t<NV>
-		auto& pma = this->getT(0).getT(1).getT(0).getT(1).getT(1);                // Degrade_impl::pma_t<NV>
-		auto& cable_table = this->getT(0).getT(1).getT(0).getT(1).getT(2);        // Degrade_impl::cable_table_t<NV>
-		auto& smoothed_parameter = this->getT(0).getT(1).getT(0).getT(1).getT(3); // Degrade_impl::smoothed_parameter_t<NV>
-		auto& converter1 = this->getT(0).getT(1).getT(0).getT(1).getT(4);         // Degrade_impl::converter1_t<NV>
-		auto& bitcrush = this->getT(0).getT(1).getT(0).getT(1).getT(5);           // fx::bitcrush<NV>
-		auto& gain = this->getT(0).getT(1).getT(0).getT(1).getT(6);               // core::gain<NV>
-		auto& one_pole = this->getT(0).getT(1).getT(1);                           // filters::one_pole<NV>
-		auto& one_pole1 = this->getT(0).getT(1).getT(2);                          // filters::one_pole<NV>
-		auto& wet_gain = this->getT(0).getT(1).getT(3);                           // core::gain<NV>
-		auto& modchain = this->getT(0).getT(2);                                   // Degrade_impl::modchain_t<NV>
-		auto& converter = this->getT(0).getT(2).getT(0);                          // Degrade_impl::converter_t<NV>
-		auto& ramp = this->getT(0).getT(2).getT(1);                               // Degrade_impl::ramp_t<NV>
-		auto& pi = this->getT(0).getT(2).getT(2);                                 // math::pi<NV>
-		auto& sin = this->getT(0).getT(2).getT(3);                                // math::sin<NV>
-		auto& mul = this->getT(0).getT(2).getT(4);                                // math::mul<NV>
-		auto& sig2mod = this->getT(0).getT(2).getT(5);                            // math::sig2mod<NV>
-		auto& peak = this->getT(0).getT(2).getT(6);                               // Degrade_impl::peak_t<NV>
-		auto& crush = this->getT(0).getT(2).getT(7);                              // Degrade_impl::crush_t<NV>
-		auto& samplehold = this->getT(0).getT(2).getT(8);                         // Degrade_impl::samplehold_t<NV>
+		auto& modchain = this->getT(0);                                           // Degrade_impl::modchain_t<NV>
+		auto& converter = this->getT(0).getT(0);                                  // Degrade_impl::converter_t<NV>
+		auto& ramp = this->getT(0).getT(1);                                       // Degrade_impl::ramp_t<NV>
+		auto& pi = this->getT(0).getT(2);                                         // math::pi<NV>
+		auto& sin = this->getT(0).getT(3);                                        // math::sin<NV>
+		auto& mul = this->getT(0).getT(4);                                        // math::mul<NV>
+		auto& sig2mod = this->getT(0).getT(5);                                    // math::sig2mod<NV>
+		auto& peak = this->getT(0).getT(6);                                       // Degrade_impl::peak_t<NV>
+		auto& crush = this->getT(0).getT(7);                                      // Degrade_impl::crush_t<NV>
+		auto& samplehold = this->getT(0).getT(8);                                 // Degrade_impl::samplehold_t<NV>
+		auto& dry_wet1 = this->getT(1);                                           // Degrade_impl::dry_wet1_t<NV>
+		auto& dry_path = this->getT(1).getT(0);                                   // Degrade_impl::dry_path_t<NV>
+		auto& dry_wet_mixer = this->getT(1).getT(0).getT(0);                      // Degrade_impl::dry_wet_mixer_t<NV>
+		auto& dry_gain = this->getT(1).getT(0).getT(1);                           // core::gain<NV>
+		auto& wet_path = this->getT(1).getT(1);                                   // Degrade_impl::wet_path_t<NV>
+		auto& branch = this->getT(1).getT(1).getT(0);                             // Degrade_impl::branch_t<NV>
+		auto& sampleandhold = this->getT(1).getT(1).getT(0).getT(0);              // fx::sampleandhold<NV>
+		auto& chain = this->getT(1).getT(1).getT(0).getT(1);                      // Degrade_impl::chain_t<NV>
+		auto& envelope_follower = this->getT(1).getT(1).getT(0).getT(1).getT(0);  // Degrade_impl::envelope_follower_t<NV>
+		auto& pma = this->getT(1).getT(1).getT(0).getT(1).getT(1);                // Degrade_impl::pma_t<NV>
+		auto& cable_table = this->getT(1).getT(1).getT(0).getT(1).getT(2);        // Degrade_impl::cable_table_t<NV>
+		auto& smoothed_parameter = this->getT(1).getT(1).getT(0).getT(1).getT(3); // Degrade_impl::smoothed_parameter_t<NV>
+		auto& converter1 = this->getT(1).getT(1).getT(0).getT(1).getT(4);         // Degrade_impl::converter1_t<NV>
+		auto& bitcrush = this->getT(1).getT(1).getT(0).getT(1).getT(5);           // fx::bitcrush<NV>
+		auto& gain = this->getT(1).getT(1).getT(0).getT(1).getT(6);               // core::gain<NV>
+		auto& one_pole = this->getT(1).getT(1).getT(1);                           // filters::one_pole<NV>
+		auto& one_pole1 = this->getT(1).getT(1).getT(2);                          // filters::one_pole<NV>
+		auto& wet_gain = this->getT(1).getT(1).getT(3);                           // core::gain<NV>
 		
 		// Parameter Connections -------------------------------------------------------------------
 		
@@ -361,6 +361,11 @@ template <int NV> struct instance: public Degrade_impl::Degrade_t_<NV>
 		
 		// Modulation Connections ------------------------------------------------------------------
 		
+		converter.getWrappedObject().getParameter().connectT(0, ramp);           // converter -> ramp::PeriodTime
+		crush.getWrappedObject().getParameter().connectT(0, bitcrush);           // crush -> bitcrush::BitDepth
+		samplehold.getWrappedObject().getParameter().connectT(0, sampleandhold); // samplehold -> sampleandhold::Counter
+		peak.getParameter().connectT(0, crush);                                  // peak -> crush::Value
+		peak.getParameter().connectT(1, samplehold);                             // peak -> samplehold::Value
 		auto& dry_wet_mixer_p = dry_wet_mixer.getWrappedObject().getParameter();
 		dry_wet_mixer_p.getParameterT(0).connectT(0, dry_gain);                        // dry_wet_mixer -> dry_gain::Gain
 		dry_wet_mixer_p.getParameterT(1).connectT(0, wet_gain);                        // dry_wet_mixer -> wet_gain::Gain
@@ -369,13 +374,30 @@ template <int NV> struct instance: public Degrade_impl::Degrade_t_<NV>
 		cable_table.getWrappedObject().getParameter().connectT(0, smoothed_parameter); // cable_table -> smoothed_parameter::Value
 		pma.getWrappedObject().getParameter().connectT(0, cable_table);                // pma -> cable_table::Value
 		envelope_follower.getParameter().connectT(0, pma);                             // envelope_follower -> pma::Value
-		converter.getWrappedObject().getParameter().connectT(0, ramp);                 // converter -> ramp::PeriodTime
-		crush.getWrappedObject().getParameter().connectT(0, bitcrush);                 // crush -> bitcrush::BitDepth
-		samplehold.getWrappedObject().getParameter().connectT(0, sampleandhold);       // samplehold -> sampleandhold::Counter
-		peak.getParameter().connectT(0, crush);                                        // peak -> crush::Value
-		peak.getParameter().connectT(1, samplehold);                                   // peak -> samplehold::Value
 		
 		// Default Values --------------------------------------------------------------------------
+		
+		; // converter::Value is automated
+		
+		;                          // ramp::PeriodTime is automated
+		ramp.setParameterT(1, 0.); // core::ramp::LoopStart
+		ramp.setParameterT(2, 1.); // core::ramp::Gate
+		
+		pi.setParameterT(0, 2.); // math::pi::Value
+		
+		sin.setParameterT(0, 2.); // math::sin::Value
+		
+		; // mul::Value is automated
+		
+		sig2mod.setParameterT(0, 0.0176331); // math::sig2mod::Value
+		
+		;                           // crush::Value is automated
+		crush.setParameterT(1, 3.); // control::pma_unscaled::Multiply
+		;                           // crush::Add is automated
+		
+		;                                // samplehold::Value is automated
+		samplehold.setParameterT(1, 3.); // control::pma_unscaled::Multiply
+		;                                // samplehold::Add is automated
 		
 		; // dry_wet1::DryWet is automated
 		
@@ -430,28 +452,6 @@ template <int NV> struct instance: public Degrade_impl::Degrade_t_<NV>
 		wet_gain.setParameterT(1, 20.); // core::gain::Smoothing
 		wet_gain.setParameterT(2, 0.);  // core::gain::ResetValue
 		
-		; // converter::Value is automated
-		
-		;                          // ramp::PeriodTime is automated
-		ramp.setParameterT(1, 0.); // core::ramp::LoopStart
-		ramp.setParameterT(2, 1.); // core::ramp::Gate
-		
-		pi.setParameterT(0, 2.); // math::pi::Value
-		
-		sin.setParameterT(0, 2.); // math::sin::Value
-		
-		; // mul::Value is automated
-		
-		sig2mod.setParameterT(0, 0.0176331); // math::sig2mod::Value
-		
-		;                           // crush::Value is automated
-		crush.setParameterT(1, 3.); // control::pma_unscaled::Multiply
-		;                           // crush::Add is automated
-		
-		;                                // samplehold::Value is automated
-		samplehold.setParameterT(1, 3.); // control::pma_unscaled::Multiply
-		;                                // samplehold::Add is automated
-		
 		this->setParameterT(0, 1.);
 		this->setParameterT(1, 1.);
 		this->setParameterT(2, 20000.);
@@ -481,10 +481,10 @@ template <int NV> struct instance: public Degrade_impl::Degrade_t_<NV>
 	{
 		// External Data Connections ---------------------------------------------------------------
 		
-		this->getT(0).getT(1).getT(0).getT(1).getT(0).setExternalData(b, index); // Degrade_impl::envelope_follower_t<NV>
-		this->getT(0).getT(1).getT(0).getT(1).getT(2).setExternalData(b, index); // Degrade_impl::cable_table_t<NV>
-		this->getT(0).getT(2).getT(1).setExternalData(b, index);                 // Degrade_impl::ramp_t<NV>
-		this->getT(0).getT(2).getT(6).setExternalData(b, index);                 // Degrade_impl::peak_t<NV>
+		this->getT(0).getT(1).setExternalData(b, index);                         // Degrade_impl::ramp_t<NV>
+		this->getT(0).getT(6).setExternalData(b, index);                         // Degrade_impl::peak_t<NV>
+		this->getT(1).getT(1).getT(0).getT(1).getT(0).setExternalData(b, index); // Degrade_impl::envelope_follower_t<NV>
+		this->getT(1).getT(1).getT(0).getT(1).getT(2).setExternalData(b, index); // Degrade_impl::cable_table_t<NV>
 	}
 };
 }

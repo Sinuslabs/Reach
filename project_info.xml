@@ -3,7 +3,7 @@
 <ProjectSettings>
   <Name value="Reach"/>
   <Version value="1.6.0"/>
-  <Description value="Creative Reverb Plugin"/>
+  <Description value="Spaced Out Reverb"/>
   <BundleIdentifier value="com.sinuslabs.reach"/>
   <PluginCode value="Reac"/>
   <EmbedAudioFiles value="1"/>
