@@ -11,6 +11,7 @@ include("EffectCustomizer.js");
 include("Reverb.js");
 include("ZoomHandler.js");
 include("Router.js");
+include("ThankYou.js");
 include("Server.js");
 include("Display.js");
 include("ReverbAnimation.js");
@@ -132,15 +133,8 @@ themeMainPanel();
 themePanels();
 
 
-const allC = Content.getAllComponents('');
 
-for (c in allC) {
-	
-	if (c.get('itemColour') == 0) {
-		Console.print(c.getId());
-	}
-	
-}
+
 function onNoteOn()
 {
 	

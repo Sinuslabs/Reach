@@ -3,6 +3,10 @@ namespace API {
 	Server.setBaseURL("https://www.sinuslabs.io");
 	Server.setServerCallback(serverActivity);
 	
+	const var serial_error_label = Content.getComponent("serial_error_label");
+	
+	serial_error_label.set('text', '');
+	
 	function getActivationStatus() {
 		var license = getLocalLicense();
 		if (license) Globals.activated = true;
@@ -18,9 +22,16 @@ namespace API {
 	}
 	
 	inline function checkSerialLicense(status, data) {
+		Console.print('ERROR');
 		Console.print(trace(data));
+		Console.print(trace(status));
 		if (data['product_id'] == '62') {
 			setActivate();
+			return;
+		}
+		
+		if (data.contains('ERROR')) {
+			serial_error_label.set('text', data);
 		}
 	}
 	

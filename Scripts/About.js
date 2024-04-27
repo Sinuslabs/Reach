@@ -5,11 +5,19 @@ namespace About {
 	const INFO = {
 		
 		name: 'REACH',
+		website: 'https://sinuslabs.io/product/reach/'
 		
 	};
-	about_info.setPaintRoutine(aboutRoutine);
 	
-	Console.print(Engine.getVersion());
+	about_info.setMouseCallback(function (event) {
+		
+		if (event.clicked) {
+			Engine.openWebsite(INFO.website);
+		}
+		
+	});
+	
+	about_info.setPaintRoutine(aboutRoutine);
 	
 	inline function aboutRoutine(g) {
 		
@@ -24,7 +32,7 @@ namespace About {
 		local versionArea = [textArea[0], a[1] + textHeight, 60, textHeight];
 		local buildArea = [textArea[0], a[1] + textHeight * 2, a[2], textHeight];
 		
-		g.setColour(Colours.white);
+		g.setColour(DisplayTheme.buttonSelectedBackgroundColour);
 		g.fillPath(Paths.icons.reachLogo, logoArea);
 		
 		g.setFont(Fonts.mainFont, 20);
@@ -34,12 +42,11 @@ namespace About {
 		g.fillRoundedRectangle(versionArea, 2);
 		
 		g.setColour(Colours.black);
-		g.drawAlignedText(Engine.getVersion(), versionArea, 'centred');
+		g.drawAlignedText('V'+Engine.getVersion(), versionArea, 'centred');
 		
-		g.setColour(Colours.white);
+		g.setColour(DisplayTheme.buttonSelectedBackgroundColour);
 		g.setFont(Fonts.secondaryFont, 14);
 		g.drawAlignedText(getDate(), buildArea, 'left');
-		
 	}
 	
 	inline function getDate() {
