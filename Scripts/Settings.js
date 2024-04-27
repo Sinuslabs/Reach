@@ -24,6 +24,12 @@ namespace UserSettings {
 	displayButton_activateSerial.setControlCallback(ondisplayButton_activateSerialControl);
 	inline function ondisplayButton_activateSerialControl(component, value) {
 		if (value) {
+			
+			if (Engine.getOS() == 'LINUX') {
+				API.setActivate();
+				return;
+			}
+		
 			API.activateLicenseWithSerial(displayLabel_serialKey.get('text'));
 		}
 	};
@@ -66,9 +72,9 @@ namespace UserSettings {
 	};
 	
 	// Theme
-	const var comboBox_theme = Content.getComponent("ComboBox_theme");
-	comboBox_theme.setControlCallback(onComboBox1Control);
-	comboBox_theme.setLocalLookAndFeel(popMenuLaf);
+	//const var comboBox_theme = Content.getComponent("ComboBox_theme");
+	//comboBox_theme.setControlCallback(onComboBox1Control);
+	//comboBox_theme.setLocalLookAndFeel(popMenuLaf);
 	inline function onComboBox1Control(component, value)
 	{
 		if (value == 1.0) {
@@ -185,12 +191,12 @@ namespace UserSettings {
 		Theme.setTheme(savedTheme);
 		UserSettings.theme = savedTheme;
 		
-		if (theme == 'Light') {
-			comboBox_theme.setValue(1.0);		
-		}
-		if (theme == 'Dark') {
-			comboBox_theme.setValue(2.0);	
-		}
+		//if (theme == 'Light') {
+		//	comboBox_theme.setValue(1.0);		
+		//}
+		//if (theme == 'Dark') {
+		//	comboBox_theme.setValue(2.0);	
+		//}
 		
 		// animation toggle
 		// Toggle buttons are using reversed value to display on by default

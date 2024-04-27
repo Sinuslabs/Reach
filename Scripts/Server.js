@@ -22,9 +22,6 @@ namespace API {
 	}
 	
 	inline function checkSerialLicense(status, data) {
-		Console.print('ERROR');
-		Console.print(trace(data));
-		Console.print(trace(status));
 		if (data['product_id'] == '62') {
 			setActivate();
 			return;
@@ -72,6 +69,8 @@ namespace API {
 			
 		UserSettings.button_not_activated.set('visible', !Globals.activated);
 		UserSettings.activatePageRadio('thankyou');
+		
+		ThankYou.thankyou_panel.showControl(true);
 		
 	}
 	
