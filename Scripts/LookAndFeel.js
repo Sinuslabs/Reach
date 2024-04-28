@@ -800,14 +800,16 @@ laf.registerFunction("drawPresetBrowserListItem", function(g, obj)
     if(obj.selected)
     {
         g.setColour('0xFFDDDDDD');
-        g.fillRoundedRectangle(a, 0);
+        g.fillRoundedRectangle(a, 2);
         g.setColour('0x#FF000000');
     } else {
-    	g.setColour(obj.textColour);	    
+	    
+    
+    	g.setColour(Colours.withAlpha(obj.textColour, 0.75));	    
     }
    
    	g.setFont(Fonts.secondaryFont, 18.0);
-    g.drawAlignedText(obj.text, [5, a[1], a[2], a[3]], "left");
+    g.drawAlignedText(obj.text, [10, a[1], a[2], a[3]], "left");
 });
 
 const popMenuLaf = Content.createLocalLookAndFeel();
