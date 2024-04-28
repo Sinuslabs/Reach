@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<installer-script authoringTool="Packages" authoringToolVersion="1.1.3" authoringToolBuild="2B112" minSpecVersion="1.0">
+    <options/>
+    <!--+==========================+
+        |       Presentation       |
+        +==========================+-->
+    <title>DISTRIBUTION_TITLE</title>
+    <background file="background" scaling="tofit" alignment="center"/>
+    <welcome file="welcome.rtf"/>
+    <license file="license.rtf"/>
+    <!--+==========================+
+        |         Installer        |
+        +==========================+-->
+    <choices-outline>
+        <line choice="installer_choice_2"/>
+        <line choice="installer_choice_4"/>
+    </choices-outline>
+    <choice id="installer_choice_2" title="Reach AU" description="">
+        <pkg-ref id="com.sinuslabs.pkg.AU"/>
+    </choice>
+    </choice>
+    <choice id="installer_choice_4" title="Reach VST3" description="">
+        <pkg-ref id="com.sinuslabs.pkg.VST3"/>
+    </choice>
+    <!--+==========================+
+        |    Package References    |
+        +==========================+-->
+    <pkg-ref id="com.sinuslabs.pkg.VST3" version="1.6.0" auth="Root" installKBytes="9320">Discord4_VST3.pkg</pkg-ref>
+	<pkg-ref id="com.sinuslabs.pkg.AU" version="1.6.0" auth="Root" installKBytes="9295">Discord4_AU.pkg</pkg-ref>
+    <!--+==========================+
+        |    JavaScript Scripts    |
+        +==========================+-->
+</installer-script>
