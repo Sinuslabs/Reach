@@ -12,9 +12,15 @@ if [ -z "$NAME" ] || [ -z "$VERSION" ] || [ -z "$USERNAME" ] || [ -z "$PASSWORD"
     exit 1
 fi
 
-# Zipping plugins
 echo "Zipping Plugins ..."
-zip -r "${project_root}/build/${OS}/${NAME}.zip" "${project_root}/build/${OS}/${NAME}.vst3" "${project_root}/build/${OS}/${NAME}.component"
+# Change directory to the specific OS build directory
+cd "${project_root}/build/${OS}"
+# Zip the files from the current directory
+zip -r "${NAME}.zip" "${NAME}.vst3" "${NAME}.component"
+# Move the zip file to a desired location if necessary
+mv "${NAME}.zip" "${project_root}/build/${OS}/"
+# Return to the original script directory or any other needed directory
+cd -
 
 echo "Uploading to Storage ..."
 curl --progress-bar -k -u "${USERNAME}:${PASSWORD}" -T "${project_root}/build/${OS}/${NAME}.pkg" "${UPLOAD_LOCATION}/builds/${NAME}/${VERSION}/${NAME}.pkg"

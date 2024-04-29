@@ -52,7 +52,7 @@ fi
         echo "Copying ${NAME}.vst3 to $output..."
         cp -r "$source_vst3" "$output"
     else
-        echo "Reach.vst3 not found, skipping copy."
+        echo "${NAME}.vst3 not found, skipping copy."
     fi
 fi
 
