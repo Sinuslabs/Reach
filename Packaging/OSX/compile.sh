@@ -6,19 +6,19 @@ overall_start=$(date +%s.%N)
 source ../../info.env
 
 config="Release"
-clean=true
+optimization=false
+clean=false
 build=true
 copy=true
 # ('VST'  | 'AU'   | 'VST_AU' | 'AAX' |)
 # 'ALL'  | 'VST2' | 'VST3'   | 'VST23AU')
 plugin_type=VST_AU
-optimization=true
 project=$NAME
 script_root=$PWD
 project_root=$(cd "$script_root"/../.. && pwd)
 projucer_path=~$HISE_PATH/tools/projucer/Projucer
 hise=$HISE_PATH/projects/standalone/Builds/MacOSX/build/Release/HISE.app/Contents/MacOS/HISE
-output=$project_root/build/
+output=$project_root/build/MacOS/
 source_component="$project_root/Binaries/Builds/MacOSX/build/Release/Reach.component"
 source_vst3="$project_root/Binaries/Builds/MacOSX/build/Release/Reach.vst3"
 

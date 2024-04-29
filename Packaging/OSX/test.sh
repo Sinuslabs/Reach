@@ -6,7 +6,9 @@ pluginval=/Applications/Pluginval.app/Contents/MacOS/Pluginval
 project=$NAME
 script_root=$PWD
 project_root=$(cd "$script_root"/../.. && pwd)
-plugin_path=$project_root/build/$NAME.vst3
+plugin_path_vst3=$project_root/build/MacOS/$NAME.vst3
+plugin_path_au=$project_root/build/MacOS/$NAME.component
+home_au_path=~/Library/Audio/Plug-ins/components
 
 # Log directory
 log_dir="logs"
@@ -15,7 +17,12 @@ mkdir -p "$log_dir"
 
 # Command to run pluginval
 echo "Starting plugin validation..."
-$pluginval --validate "$plugin_path" --strictness-level 8 --output-dir "$log_dir" --verbose
+$pluginval --validate "$plugin_path_vst3" --strictness-level 10 --output-dir "$log_dir" --verbose
+
+# registering AU Component at system registry
+cp -r $plugin_path_au $home_au_path/$NAME.component
+killall -9 AudioComponentRegistrar
+$pluginval --validate "$home_au_path/$NAME.component" --strictness-level 10 --output-dir "$log_dir" --verbose
 
 # Check for success or failure
 if [ $? -eq 0 ]; then
