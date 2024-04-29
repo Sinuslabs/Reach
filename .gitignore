@@ -7,3 +7,4 @@ Scripts/Config.js
 build/
 logs/
 **/.DS_Store
+.env
