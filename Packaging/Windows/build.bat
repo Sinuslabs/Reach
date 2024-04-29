@@ -27,12 +27,6 @@ if %clean_project%==1 (
 	%hise_path% clean -p:%workspace% --all
 )
 
-if %build_standalone%==1 (
-	echo Exporting %plugin_name% Standalone
-	%hise_path% export_ci XmlPresetBackups/%xmlFile%.xml -t:standalone -a:x86x64
-	call %workspace%/Binaries/batchCompile.bat
-)
-
 if %build_plugin%==1 (
 	echo Exporting %plugin_name% Plugins
 	%hise_path% export_ci XmlPresetBackups/%xmlFile%.xml -t:effect -p:VST -a:x86x64

@@ -21,7 +21,7 @@
             <Control type="ScriptSlider" id="knob_modulation_depth" value="0.0"/>
             <Control type="ScriptSlider" id="knob_modulation_frequency" value="0.0"/>
             <Control type="ScriptButton" id="button_degrade_bypass" value="1.0"/>
-            <Control type="ScriptSlider" id="knob_effects_degrade" value="1.0"/>
+            <Control type="ScriptSlider" id="knob_effects_degrade" value="0.0"/>
             <Control type="ScriptButton" id="button_flanger_bypass" value="1.0"/>
             <Control type="ScriptSlider" id="knob_effects_flair" value="0.0"/>
             <Control type="ScriptButton" id="button_chorus_bypass" value="1.0"/>
@@ -29,7 +29,7 @@
             <Control type="ScriptButton" id="button_distort_bypass" value="1.0"/>
             <Control type="ScriptSlider" id="knob_effects_distortion" value="0.0"/>
             <Control type="ScriptSlider" id="knob_io_in" value="0.0"/>
-            <Control type="ScriptSlider" id="knob_io_out" value="0.9399999976158142"/>
+            <Control type="ScriptSlider" id="knob_io_out" value="0.5"/>
             <Control type="ScriptButton" id="button_not_activated" value="0.0"/>
             <Control type="ScriptSlider" id="displayKnob_reverb_feedback" value="0.0"/>
             <Control type="ScriptSlider" id="displayKnob_reverb_hfgain" value="1.0"/>
@@ -55,7 +55,7 @@
             <Control type="ScriptButton" id="displayButton_flanger_bypass" value="1.0"/>
             <Control type="ScriptSlider" id="displayKnob_distort_lowPass" value="5255.0"/>
             <Control type="ScriptSlider" id="displayKnob_distort_highpass" value="140.0"/>
-            <Control type="ScriptSlider" id="displayKnob_distort_amount" value="0.3100000023841858"/>
+            <Control type="ScriptSlider" id="displayKnob_distort_amount" value="3000.0"/>
             <Control type="ScriptSlider" id="displayKnob_distort_postlowcut" value="8827.0"/>
             <Control type="ScriptSlider" id="displayKnob_distort_posthighcut" value="27.0"/>
             <Control type="ScriptButton" id="displayButton_distort_bypass" value="1.0"/>
@@ -90,7 +90,7 @@
           <RoutingMatrix NumSourceChannels="4" Channel0="0" Send0="2" Channel1="1" Send1="3"
                          Channel2="-1" Send2="-1" Channel3="-1" Send3="-1"/>
         </Processor>
-        <Processor Type="SimpleGain" ID="DryGain" Bypassed="0" Gain="-24.43697738647461"
+        <Processor Type="SimpleGain" ID="DryGain" Bypassed="0" Gain="-6.020600318908691"
                    Delay="0.0" Width="100.0" Balance="0.0" InvertPolarity="0.0">
           <ChildProcessors>
             <Processor Type="ModulatorChain" ID="Gain Modulation" Bypassed="0" Intensity="1.0">
@@ -126,7 +126,7 @@
         <Processor Type="SlotFX" ID="Effect Slot2" Bypassed="0">
           <ChildProcessors>
             <Processor Type="Hardcoded Master FX" ID="Effect Slot2_Hardcoded Master FX"
-                       Bypassed="0" Network="Degrade" Degrade="1.0" Mix="1.0" HighCut="16418.0"
+                       Bypassed="0" Network="Degrade" Degrade="1.0" Mix="0.0" HighCut="16418.0"
                        LowCut="22.0" ModulationDepth="0.0" ModulationSpeed="0.0" Amount="5.0"
                        CrushMode="1.0" BitDepth="6.0" BitcrushMode="0.0">
               <ChildProcessors/>
@@ -165,7 +165,7 @@
         <Processor Type="SlotFX" ID="Effect Slot5" Bypassed="0">
           <ChildProcessors>
             <Processor Type="Hardcoded Master FX" ID="Effect Slot5_Hardcoded Master FX"
-                       Bypassed="0" Network="Waveshaper" Distort="1.0" Mix="0.0" Amount="0.3100000023841858"
+                       Bypassed="0" Network="Waveshaper" Distort="1.0" Mix="0.0" Amount="3000.0"
                        Gain="1.0" lp="5255.0" hp="140.0" postlp="8827.0" posthp="27.0">
               <ChildProcessors/>
               <RoutingMatrix NumSourceChannels="2" Channel0="0" Send0="-1" Channel1="1" Send1="-1"/>
@@ -181,7 +181,7 @@
           <RoutingMatrix NumSourceChannels="4" Channel0="-1" Send0="-1" Channel1="-1"
                          Send1="-1" Channel2="2" Send2="-1" Channel3="3" Send3="-1"/>
         </Processor>
-        <Processor Type="SimpleGain" ID="WetGain" Bypassed="0" Gain="-0.5374429225921631"
+        <Processor Type="SimpleGain" ID="WetGain" Bypassed="0" Gain="-6.020600318908691"
                    Delay="0.0" Width="100.0" Balance="0.0" InvertPolarity="0.0">
           <ChildProcessors>
             <Processor Type="ModulatorChain" ID="Gain Modulation" Bypassed="0" Intensity="1.0">
