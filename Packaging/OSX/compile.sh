@@ -6,13 +6,13 @@ overall_start=$(date +%s.%N)
 source ../../info.env
 
 config="Release"
-clean=true
+clean=false
 build=true
 copy=true
 # ('VST'  | 'AU'   | 'VST_AU' | 'AAX' |)
 # 'ALL'  | 'VST2' | 'VST3'   | 'VST23AU')
 plugin_type=VST_AU
-optimization=true
+optimization=false
 project=$NAME
 script_root=$PWD
 project_root=$(cd "$script_root"/../.. && pwd)
