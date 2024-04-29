@@ -31,6 +31,3 @@ rm -r "./vst3"
 rm -r "./au"
 
 mv "${NAME}_${VERSION}.pkg" "$project_root/build"
-
-# Notify the user that the package has been built
-osascript -e "display notification \"${NAME} ${VERSION} has been successfully built.\" with title \"Build Complete\" sound name \"Submarine\""
