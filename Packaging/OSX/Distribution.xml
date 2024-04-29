@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<installer-script authoringTool="Packages" authoringToolVersion="1.1.3" authoringToolBuild="2B112" minSpecVersion="1.0">
+    
+    <options customize="always" allow-external-scripts="no"/>
+
+    <!--+==========================+
+        |       Presentation       |
+        +==========================+-->
+    <title>REACH</title>
+    <background file="LightBackground.jpg" mime-type="image/jpg" alignment="bottomleft" scaling="none"/>
+    <background-darkAqua file="DarkBackground.jpg" mime-type="image/jpg" alignment="bottomleft" scaling="none"/>
+
+    <!-- <welcome file="welcome.txt"/> -->
+    <license file="license.txt"/>
+    <!--+==========================+
+        |         Installer        |
+        +==========================+-->
+    <choices-outline>
+        <line choice="installer_choice_1"/>
+        <line choice="installer_choice_2"/>
+    </choices-outline>
+
+    <choice id="installer_choice_1" title="Reach VST3" description="">
+        <pkg-ref id="com.sinuslabs.pkg.VST3"/>
+    </choice>
+    <choice id="installer_choice_2" title="Reach AU" description="">
+        <pkg-ref id="com.sinuslabs.pkg.AU"/>
+    </choice>
+    <!--+==========================+
+        |    Package References    |
+        +==========================+-->
+    <pkg-ref id="com.sinuslabs.pkg.VST3" version="1.6.0" auth="Root" installKBytes="9320">Reach_VST3.pkg</pkg-ref>
+	<pkg-ref id="com.sinuslabs.pkg.AU" version="1.6.0" auth="Root" installKBytes="9295">Reach_AU.pkg</pkg-ref>
+</installer-script>
