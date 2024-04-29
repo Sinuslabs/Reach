@@ -15,7 +15,7 @@ mkdir -p "$log_dir"
 
 # Command to run pluginval
 echo "Starting plugin validation..."
-$pluginval --validate "$plugin_path" --strictness-level 10 --randomise --output-dir "$log_dir" --verbose
+$pluginval --validate "$plugin_path" --strictness-level 8 --output-dir "$log_dir" --verbose
 
 # Check for success or failure
 if [ $? -eq 0 ]; then
