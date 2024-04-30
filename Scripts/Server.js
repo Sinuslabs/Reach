@@ -6,6 +6,7 @@ namespace API {
 	const var serial_error_label = Content.getComponent("serial_error_label");
 	
 	serial_error_label.set('text', '');
+	UserSettings.displayButton_activateSerial.set('text', 'ACTIVATE');
 	
 	function getActivationStatus() {
 		var license = getLocalLicense();
@@ -86,8 +87,12 @@ namespace API {
 	}
 	
 	
-	inline function serverActivity(isWaiting) {		
-
+	inline function serverActivity(isWaiting) {
+		if (!isWaiting) {
+			UserSettings.displayButton_activateSerial.set('text', 'ACTIVATE');
+		} else {
+			UserSettings.displayButton_activateSerial.set('text', 'loading...');
+		}
 	}
 	
 	function getLocalLicense() {

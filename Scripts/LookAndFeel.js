@@ -722,25 +722,25 @@ laf.registerFunction("drawPresetBrowserDialog", function(g, obj)
 	var PADDING = 5;
 	var a = obj.area;
 	
-	var pa = [a[0] - PADDING, a[1] - PADDING, a[2] + PADDING * 2, a[3] + PADDING * 2];
+	var pa = [a[0] - PADDING, a[1] - PADDING, a[2] + PADDING * 2, a[3] + PADDING * 3];
 	
 	obj.labelArea = [obj.labelArea[0], obj.labelArea[1], obj.labelArea[2], obj.labelArea[3] + 20];
 	
-   g.setColour(Colours.black);
+   g.setColour(Theme.DisplayTheme.buttonSelectedTextColour);
    g.fillRoundedRectangle(pa, 5.0);
-   g.setColour(Colours.white);
+   g.setColour(Theme.DisplayTheme.buttonSelectedBackgroundColour);
    g.drawRoundedRectangle(pa, 5, 2);
    g.setFont(Fonts.secondaryFont, 28.0);
    obj.text = obj.text.replace('Are you sure you want to replace the file', 'Replace');
    obj.text = obj.text.replace('Are you sure you want to delete the file ?', 'Delete Preset?');
-   g.drawAlignedText(obj.text, [pa[0], pa[1] + PADDING, pa[2], pa[3]], "centredTop");
+   g.drawAlignedText(obj.text, [pa[0], pa[1] + PADDING + TOP_PADDING, pa[2], pa[3]], "centredTop");
     
 });
 
 laf.registerFunction("drawDialogButton", function(g, obj){	
 
-	var WIDTH = 12;
-	var PADDING = 5;
+	var WIDTH = 17;
+	var PADDING = 1;
 	var a = obj.area;
 	var pa = [
 		(a[2] / 2 - WIDTH / 2) + PADDING,
@@ -748,6 +748,24 @@ laf.registerFunction("drawDialogButton", function(g, obj){
 		WIDTH,
 		a[3] - PADDING * 2
 	];
+	
+	var SAVE_PADDING = 1;
+	
+	var save_area = [
+		a[0] + SAVE_PADDING,
+		a[1] + SAVE_PADDING,
+		80,
+		a[3] - SAVE_PADDING * 2
+	];
+	
+	var dialogButtonPadding = 1;
+	var dialogButtonPadding = [
+		a[0] + dialogButtonPadding,
+		a[1] + dialogButtonPadding,
+		a[2] - dialogButtonPadding * 2,
+		a[3] - dialogButtonPadding * 2
+	];
+	
 	var ICON_COLOUR = DisplayTheme.iconColour;	
 	
 	if (obj.over) {
@@ -756,60 +774,64 @@ laf.registerFunction("drawDialogButton", function(g, obj){
 	
 	g.setColour(ICON_COLOUR);
 	
+	if (obj.text == 'OK' || obj.text == 'Cancel') {
+		if (obj.over) {
+			g.setColour(Colours.withAlpha(DisplayTheme.buttonSelectedBackgroundColour, 0.75));
+		} else {
+			g.setColour(DisplayTheme.buttonSelectedBackgroundColour);	
+		}
+		g.drawRoundedRectangle(dialogButtonPadding, 4, 2);
+		g.drawAlignedText(obj.text, a, 'centred');
+		
+		return;
+	}
+	
+	
 	if (obj.text == 'More') {
 		g.drawPath(Paths.icons['menu'], pa, 2);
 		return;
 	}
 	
-	if (obj.text == 'Add') {
-		g.drawPath(Paths.icons['add'], pa, 2);
-		return;
-	}
-	
-	if (obj.text == 'Rename') {
-		g.fillPath(Paths.icons['edit'], pa);
-		return;
-	}
-	
-	if (obj.text == 'Delete') {
-		g.drawPath(Paths.icons['delete'], pa, 2);
-		return;
-	}
-	
 	if (obj.text == 'Save Preset') {
-		g.drawPath(Paths.icons['save'], [a[0], pa[1], 14, pa[3]], 2);
-		g.setFont(Fonts.secondaryFont, 19.0);
-		g.drawAlignedText('SAVE', [30, a[1], a[2], a[3]], 'left');
+		g.setFont(Fonts.mainFontRegular, 20.0);
+		g.drawRoundedRectangle(save_area, 2, 1 );
+		g.drawAlignedText('SAVE', [ 20 + a[0], a[1], 120, a[3]], 'left');
 		return;
 	}
-	g.setColour(ICON_COLOUR);
-	g.drawRoundedRectangle(a, 4, 2);
-	if (obj.over) {
-		g.fillRoundedRectangle(a, 4);
-		g.setColour(Colours.black);
-	}
 	
-	g.setFont(Fonts.secondaryFont, 30.0);
+	g.setFont(Fonts.mainFontRegular, 14);
 	g.drawAlignedText(obj.text, a, 'centred');
+	
 });
 
 laf.registerFunction("drawPresetBrowserListItem", function(g, obj)
 {
 	var a = obj.area;
+	var padding = 2;
+	a = [
+		a[0] + padding,
+		a[1] + padding,
+		a[2] - padding * 2,
+		a[3] - padding * 2
+	];
 
     if(obj.selected)
     {
-        g.setColour('0xFFDDDDDD');
-        g.fillRoundedRectangle(a, 2);
-        g.setColour('0x#FF000000');
+        g.setColour(Theme.DisplayTheme.buttonSelectedBackgroundColour);
+       	g.fillRoundedRectangle(a, 3);
+        g.setColour(Theme.DisplayTheme.buttonSelectedTextColour);
     } else {
 	    
+       	g.setColour(Colours.withAlpha(obj.textColour, 0.75));	    
     
-    	g.setColour(Colours.withAlpha(obj.textColour, 0.75));	    
+	    if (obj.hover) {
+			g.drawRoundedRectangle(a, 3, 1);
+	    }
+	    
     }
    
-   	g.setFont(Fonts.secondaryFont, 18.0);
-    g.drawAlignedText(obj.text, [10, a[1], a[2], a[3]], "left");
+   	g.setFont(Fonts.mainFontRegular, 22.0);
+    g.drawAlignedText(obj.text, [15, a[1], a[2], a[3]], "left");
 });
 
 const popMenuLaf = Content.createLocalLookAndFeel();
