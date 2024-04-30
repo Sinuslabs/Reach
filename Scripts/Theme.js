@@ -2,6 +2,7 @@ const LIGHT_THEME = {
 	name: 'Light',
 	FONT: {
 		MAIN: 'inter-semi',
+		REGULAR_MAIN: 'inter-reg',
 		SECONDARY: 'jetbrains-mono'
 	},
 	SLIDER: {
@@ -62,6 +63,7 @@ const DARK_THEME = {
 	name: 'Dark',
 	FONT: {
 		MAIN: 'inter-semi',
+		REGULAR_MAIN: 'inter-reg',
 		SECONDARY: 'jetbrains-mono'
 	},
 	SLIDER: {
@@ -151,10 +153,12 @@ namespace Theme {
 
 namespace Fonts {
 	reg mainFont = '';
+	reg mainFontRegular = '';
 	reg secondaryFont = '';
 	
 	inline function load(theme) {
 		mainFont = theme['MAIN'];
+		mainFontRegular = theme['REGULAR_MAIN'];
 		secondaryFont = theme['SECONDARY'];
 	}
 }

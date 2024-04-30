@@ -24,6 +24,8 @@ $pluginval --validate "$plugin_path_vst3" --strictness-level 10 --output-dir "$l
 killall -9 AudioComponentRegistrar
 $pluginval --validate "$home_au_path/$NAME.component" --strictness-level 9 --output-dir "$log_dir" --verbose
 
+rm -rf $home_au_path/$NAME.component
+
 # Check for success or failure
 if [ $? -eq 0 ]; then
     echo "Plugin validation succeeded."
