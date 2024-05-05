@@ -60,19 +60,7 @@ copy_file_with_confirmation() {
     fi
 }
 
-check_compatibility() {
-    if ldd plugin.so 2>&1 | grep -q 'not found'; then
-        echo "Missing required dependencies"
-        exit 1
-    fi
-    if ! (ldconfig -p | grep -q 'libcurl.so.4'); then
-        echo "Missing libcurl4. Install it using your package manager and rerun the installer."
-        exit 1
-    fi
-}
-
 choose_installation() {
-    check_compatibility
     echo
     echo Please choose a installation method
     echo "Default -> $DEFAULT_PLUGIN_PATH"
