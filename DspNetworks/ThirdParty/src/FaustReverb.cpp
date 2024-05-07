@@ -996,9 +996,9 @@ class _FaustReverb final : public ::faust::dsp {
 		ui_interface->addHorizontalSlider("Diffusion", &fHslider0, FAUSTFLOAT(0.707f), FAUSTFLOAT(0.0f), FAUSTFLOAT(1.0f), FAUSTFLOAT(0.01f));
 		ui_interface->addHorizontalSlider("HF Gain", &fHslider6, FAUSTFLOAT(1.0f), FAUSTFLOAT(0.0f), FAUSTFLOAT(1.0f), FAUSTFLOAT(0.01f));
 		ui_interface->addHorizontalSlider("High Crossover", &fHslider7, FAUSTFLOAT(5e+03f), FAUSTFLOAT(1e+03f), FAUSTFLOAT(1e+04f), FAUSTFLOAT(1.0f));
-		ui_interface->addHorizontalSlider("LF Gain", &fHslider9, FAUSTFLOAT(1.0f), FAUSTFLOAT(0.0f), FAUSTFLOAT(1.0f), FAUSTFLOAT(0.01f));
+		ui_interface->addHorizontalSlider("LF Gain", &fHslider10, FAUSTFLOAT(1.0f), FAUSTFLOAT(0.0f), FAUSTFLOAT(1.0f), FAUSTFLOAT(0.01f));
 		ui_interface->addHorizontalSlider("Low Crossover", &fHslider8, FAUSTFLOAT(6e+02f), FAUSTFLOAT(1e+02f), FAUSTFLOAT(6e+03f), FAUSTFLOAT(1.0f));
-		ui_interface->addHorizontalSlider("MID Gain", &fHslider10, FAUSTFLOAT(1.0f), FAUSTFLOAT(0.0f), FAUSTFLOAT(1.0f), FAUSTFLOAT(0.01f));
+		ui_interface->addHorizontalSlider("MID Gain", &fHslider9, FAUSTFLOAT(1.0f), FAUSTFLOAT(0.0f), FAUSTFLOAT(1.0f), FAUSTFLOAT(0.01f));
 		ui_interface->addHorizontalSlider("Mod Depth", &fHslider2, FAUSTFLOAT(0.1f), FAUSTFLOAT(0.0f), FAUSTFLOAT(1.0f), FAUSTFLOAT(0.01f));
 		ui_interface->addHorizontalSlider("Mod Frequency", &fHslider3, FAUSTFLOAT(0.1f), FAUSTFLOAT(0.0f), FAUSTFLOAT(1e+01f), FAUSTFLOAT(0.01f));
 		ui_interface->addHorizontalSlider("ReverbTime", &fHslider5, FAUSTFLOAT(4.2f), FAUSTFLOAT(0.1f), FAUSTFLOAT(12.0f), FAUSTFLOAT(0.1f));
@@ -1089,15 +1089,15 @@ class _FaustReverb final : public ::faust::dsp {
 		float fSlow75 = _FaustReverb_faustpower2_f(fSlow71);
 		float fSlow76 = 2.0f * (1.0f - 1.0f / fSlow75);
 		float fSlow77 = 1.0f / ((fSlow72 + 0.618034f) / fSlow71 + 1.0f);
-		float fSlow78 = std::max<float>(0.0f, std::min<float>(1.0f, float(fHslider9)));
+		float fSlow78 = std::max<float>(0.0f, std::min<float>(1.0f, float(fHslider9))) / fSlow75;
 		float fSlow79 = (fSlow72 + 1.618034f) / fSlow71 + 1.0f;
-		float fSlow80 = 1.0f / fSlow79;
+		float fSlow80 = 1.0f / (fSlow75 * fSlow79);
 		float fSlow81 = 1.0f / (fSlow72 + 1.0f);
 		float fSlow82 = 1.0f - fSlow72;
-		float fSlow83 = (fSlow72 + -1.618034f) / fSlow71 + 1.0f;
-		float fSlow84 = (fSlow72 + -0.618034f) / fSlow71 + 1.0f;
-		float fSlow85 = std::max<float>(0.0f, std::min<float>(1.0f, float(fHslider10))) / fSlow75;
-		float fSlow86 = 1.0f / (fSlow75 * fSlow79);
+		float fSlow83 = 1.0f / fSlow79;
+		float fSlow84 = (fSlow72 + -1.618034f) / fSlow71 + 1.0f;
+		float fSlow85 = (fSlow72 + -0.618034f) / fSlow71 + 1.0f;
+		float fSlow86 = std::max<float>(0.0f, std::min<float>(1.0f, float(fHslider10)));
 		float fSlow87 = std::sin(fSlow0);
 		int iSlow88 = itbl0_FaustReverbSIG0[int(34.0f * fSlow8)];
 		float fSlow89 = 0.005f * float(iSlow88);
@@ -1155,7 +1155,7 @@ class _FaustReverb final : public ::faust::dsp {
 			float fTemp29 = fVec5[(IOTA0 - std::min<int>(8192, std::max<int>(0, int(fTemp28)))) & 16383];
 			fVec6[0] = fTemp29;
 			float fTemp30 = std::floor(fTemp28);
-			fRec49[0] = fVec6[1] + (fTemp30 + (2.0f - fRec56[0])) * (fTemp29 - fRec49[1]) / (fRec56[0] - fTemp30);
+			fRec49[0] = fVec6[1] - (fTemp30 + (2.0f - fRec56[0])) * (fRec49[1] - fTemp29) / (fRec56[0] - fTemp30);
 			fRec47[0] = fRec49[0];
 			fVec7[IOTA0 & 16383] = 0.70710677f * fTemp24 + 0.70710677f * (fTemp27 - fTemp25);
 			fRec58[0] = 0.9999f * (fRec58[1] + float(iTemp0 * iSlow25)) + fSlow26;
@@ -1163,7 +1163,7 @@ class _FaustReverb final : public ::faust::dsp {
 			float fTemp32 = fVec7[(IOTA0 - std::min<int>(8192, std::max<int>(0, int(fTemp31)))) & 16383];
 			fVec8[0] = fTemp32;
 			float fTemp33 = std::floor(fTemp31);
-			fRec57[0] = fVec8[1] + (fTemp33 + (2.0f - fRec58[0])) * (fTemp32 - fRec57[1]) / (fRec58[0] - fTemp33);
+			fRec57[0] = fVec8[1] - (fTemp33 + (2.0f - fRec58[0])) * (fRec57[1] - fTemp32) / (fRec58[0] - fTemp33);
 			fRec48[0] = fRec57[0];
 			float fTemp34 = 0.760314f * fRec47[1] + 0.64955574f * fTemp23;
 			float fTemp35 = 0.760314f * fTemp34 - 0.64955574f * fRec44[1];
@@ -1176,7 +1176,7 @@ class _FaustReverb final : public ::faust::dsp {
 			float fTemp40 = fVec9[(IOTA0 - std::min<int>(8192, std::max<int>(0, int(fTemp39)))) & 16383];
 			fVec10[0] = fTemp40;
 			float fTemp41 = std::floor(fTemp39);
-			fRec46[0] = fVec10[1] + (fTemp41 + (2.0f - fRec59[0])) * (fTemp40 - fRec46[1]) / (fRec59[0] - fTemp41);
+			fRec46[0] = fVec10[1] - (fTemp41 + (2.0f - fRec59[0])) * (fRec46[1] - fTemp40) / (fRec59[0] - fTemp41);
 			fRec44[0] = fRec46[0];
 			fVec11[IOTA0 & 16383] = 0.70710677f * fTemp35 + 0.70710677f * (fTemp38 - fTemp36);
 			fRec61[0] = 0.9999f * (fRec61[1] + float(iTemp0 * iSlow29)) + fSlow30;
@@ -1250,25 +1250,25 @@ class _FaustReverb final : public ::faust::dsp {
 			fRec37[0] = fVec23[1] + (fTemp81 + (2.0f - fRec68[0])) * (fTemp80 - fRec37[1]) / (fRec68[0] - fTemp81);
 			float fTemp82 = 0.760314f * fRec37[0] - 0.64955574f * fRec34[1];
 			float fTemp83 = 0.64955574f * fRec35[1];
-			float fTemp84 = fSlow4 * (1.0f - fRec16[0]);
-			float fTemp85 = fTemp84 + 3.500005f;
-			float fTemp86 = std::floor(fTemp85);
-			float fTemp87 = fTemp84 + (2.0f - fTemp86);
-			float fTemp88 = fTemp84 + (3.0f - fTemp86);
+			float fTemp84 = fSlow4 * (fRec16[0] + -1.0f);
+			float fTemp85 = 3.500005f - fTemp84;
+			float fTemp86 = fTemp84 + std::floor(fTemp85);
+			float fTemp87 = 2.0f - fTemp86;
+			float fTemp88 = 3.0f - fTemp86;
 			float fTemp89 = 0.760314f * fRec39[1] + 0.64955574f * fTemp59;
 			fVec24[IOTA0 & 1023] = fTemp89;
 			int iTemp90 = int(fTemp85);
-			float fTemp91 = fTemp84 + (4.0f - fTemp86);
-			float fTemp92 = fTemp84 + (5.0f - fTemp86);
+			float fTemp91 = 4.0f - fTemp86;
+			float fTemp92 = 5.0f - fTemp86;
 			float fTemp93 = fTemp92 * fTemp91;
 			float fTemp94 = fTemp93 * fTemp88;
-			fVec25[IOTA0 & 16383] = (fTemp84 + (1.0f - fTemp86)) * (fTemp87 * (fTemp88 * (0.041666668f * fVec24[(IOTA0 - std::min<int>(512, std::max<int>(0, iTemp90))) & 1023] * fTemp91 - 0.16666667f * fTemp92 * fVec24[(IOTA0 - std::min<int>(512, std::max<int>(0, iTemp90 + 1))) & 1023]) + 0.25f * fTemp93 * fVec24[(IOTA0 - std::min<int>(512, std::max<int>(0, iTemp90 + 2))) & 1023]) - 0.16666667f * fTemp94 * fVec24[(IOTA0 - std::min<int>(512, std::max<int>(0, iTemp90 + 3))) & 1023]) + 0.041666668f * fTemp94 * fTemp87 * fVec24[(IOTA0 - std::min<int>(512, std::max<int>(0, iTemp90 + 4))) & 1023];
+			fVec25[IOTA0 & 16383] = (1.0f - fTemp86) * (fTemp87 * (fTemp88 * (0.041666668f * fVec24[(IOTA0 - std::min<int>(512, std::max<int>(0, iTemp90))) & 1023] * fTemp91 - 0.16666667f * fTemp92 * fVec24[(IOTA0 - std::min<int>(512, std::max<int>(0, iTemp90 + 1))) & 1023]) + 0.25f * fTemp93 * fVec24[(IOTA0 - std::min<int>(512, std::max<int>(0, iTemp90 + 2))) & 1023]) - 0.16666667f * fTemp94 * fVec24[(IOTA0 - std::min<int>(512, std::max<int>(0, iTemp90 + 3))) & 1023]) + 0.041666668f * fTemp94 * fTemp87 * fVec24[(IOTA0 - std::min<int>(512, std::max<int>(0, iTemp90 + 4))) & 1023];
 			fRec70[0] = 0.995f * (fRec70[1] + float(iTemp0 * iSlow41)) + fSlow42;
 			float fTemp95 = fRec70[0] + -1.49999f;
 			float fTemp96 = fVec25[(IOTA0 - std::min<int>(8192, std::max<int>(0, int(fTemp95)))) & 16383];
 			fVec26[0] = fTemp96;
 			float fTemp97 = std::floor(fTemp95);
-			fRec69[0] = fVec26[1] + (fTemp97 + (2.0f - fRec70[0])) * (fTemp96 - fRec69[1]) / (fRec70[0] - fTemp97);
+			fRec69[0] = fVec26[1] - (fTemp97 + (2.0f - fRec70[0])) * (fRec69[1] - fTemp96) / (fRec70[0] - fTemp97);
 			float fTemp98 = 0.760314f * fRec69[0];
 			fVec27[IOTA0 & 16383] = 0.70710677f * fTemp82 + 0.70710677f * (fTemp83 - fTemp98);
 			fRec71[0] = 0.9999f * (fRec71[1] + float(iTemp0 * iSlow43)) + fSlow44;
@@ -1332,7 +1332,7 @@ class _FaustReverb final : public ::faust::dsp {
 			float fTemp130 = std::floor(fTemp127);
 			float fTemp131 = fTemp130 + (2.0f - fRec79[0]);
 			float fTemp132 = fRec79[0] - fTemp130;
-			fRec78[0] = fVec38[1] + fTemp131 * (fTemp129 - fRec78[1]) / fTemp132;
+			fRec78[0] = fVec38[1] - fTemp131 * (fRec78[1] - fTemp129) / fTemp132;
 			fRec29[0] = fRec78[0];
 			float fTemp133 = 0.760314f * fRec28[1] + 0.64955574f * fTemp119;
 			float fTemp134 = 0.760314f * fTemp133 - 0.64955574f * fRec25[1];
@@ -1414,30 +1414,30 @@ class _FaustReverb final : public ::faust::dsp {
 			fRec90[0] = fSlow66 * (fRec91[2] + fRec91[0] + 2.0f * fRec91[1]) - fSlow69 * (fSlow70 * fRec90[2] + fSlow68 * fRec90[1]);
 			float fTemp179 = fSlow69 * (fRec90[2] + fRec90[0] + 2.0f * fRec90[1]);
 			fVec50[0] = fTemp179;
-			fRec89[0] = -(fSlow81 * (fSlow82 * fRec89[1] - (fTemp179 + fVec50[1])));
-			fRec88[0] = fRec89[0] - fSlow80 * (fSlow83 * fRec88[2] + fSlow76 * fRec88[1]);
-			fRec87[0] = fSlow80 * (fRec88[2] + fRec88[0] + 2.0f * fRec88[1]) - fSlow77 * (fSlow84 * fRec87[2] + fSlow76 * fRec87[1]);
-			fRec95[0] = fSlow81 * (fSlow72 * (fTemp179 - fVec50[1]) - fSlow82 * fRec95[1]);
-			fRec94[0] = fRec95[0] - fSlow80 * (fSlow83 * fRec94[2] + fSlow76 * fRec94[1]);
-			fRec93[0] = fSlow86 * (fRec94[2] + (fRec94[0] - 2.0f * fRec94[1])) - fSlow77 * (fSlow84 * fRec93[2] + fSlow76 * fRec93[1]);
-			float fTemp180 = float(input0[i0]) + fSlow9 * (fSlow10 * (fRec17[2] + fSlow73 * (fTemp178 + fSlow74 * fRec17[0])) + fSlow77 * (fSlow78 * (fRec87[2] + fRec87[0] + 2.0f * fRec87[1]) + fSlow85 * (fRec93[2] + (fRec93[0] - 2.0f * fRec93[1]))));
+			fRec89[0] = -(fSlow81 * (fSlow82 * fRec89[1] - fSlow72 * (fTemp179 - fVec50[1])));
+			fRec88[0] = fRec89[0] - fSlow83 * (fSlow84 * fRec88[2] + fSlow76 * fRec88[1]);
+			fRec87[0] = fSlow80 * (fRec88[2] + (fRec88[0] - 2.0f * fRec88[1])) - fSlow77 * (fSlow85 * fRec87[2] + fSlow76 * fRec87[1]);
+			fRec95[0] = -(fSlow81 * (fSlow82 * fRec95[1] - (fTemp179 + fVec50[1])));
+			fRec94[0] = fRec95[0] - fSlow83 * (fSlow84 * fRec94[2] + fSlow76 * fRec94[1]);
+			fRec93[0] = fSlow83 * (fRec94[2] + fRec94[0] + 2.0f * fRec94[1]) - fSlow77 * (fSlow85 * fRec93[2] + fSlow76 * fRec93[1]);
+			float fTemp180 = float(input0[i0]) + fSlow9 * (fSlow10 * (fRec17[2] + fSlow73 * (fTemp178 + fSlow74 * fRec17[0])) + fSlow77 * (fSlow78 * (fRec87[2] + (fRec87[0] - 2.0f * fRec87[1])) + fSlow86 * (fRec93[2] + fRec93[0] + 2.0f * fRec93[1])));
 			fVec51[IOTA0 & 1023] = fTemp180;
 			fRec14[0] = fSlow3 * (fTemp4 * (fTemp5 * (fTemp6 * (0.041666668f * fTemp7 * fVec51[(IOTA0 - std::min<int>(512, iTemp166)) & 1023] - 0.16666667f * fTemp167 * fVec51[(IOTA0 - std::min<int>(512, iTemp168)) & 1023]) + 0.25f * fTemp169 * fVec51[(IOTA0 - std::min<int>(512, iTemp170)) & 1023]) - 0.16666667f * fTemp171 * fVec51[(IOTA0 - std::min<int>(512, iTemp172)) & 1023]) + 0.041666668f * fTemp173 * fVec51[(IOTA0 - std::min<int>(512, iTemp174)) & 1023]) + fSlow2 * fRec14[1];
 			float fTemp181 = fSlow1 * fRec14[0] - fSlow87 * fRec11[1];
 			float fTemp182 = fSlow87 * fRec12[1];
-			float fTemp183 = fSlow4 * (1.0f - fRec15[0]);
-			float fTemp184 = fTemp183 + 3.500005f;
-			float fTemp185 = std::floor(fTemp184);
-			float fTemp186 = fTemp183 + (2.0f - fTemp185);
-			float fTemp187 = fTemp183 + (3.0f - fTemp185);
+			float fTemp183 = fSlow4 * (fRec15[0] + -1.0f);
+			float fTemp184 = 3.500005f - fTemp183;
+			float fTemp185 = fTemp183 + std::floor(fTemp184);
+			float fTemp186 = 2.0f - fTemp185;
+			float fTemp187 = 3.0f - fTemp185;
 			float fTemp188 = 0.760314f * fRec23[1] + 0.64955574f * fTemp153;
 			fVec52[IOTA0 & 16383] = fTemp188;
 			int iTemp189 = int(fTemp184);
-			float fTemp190 = fTemp183 + (4.0f - fTemp185);
-			float fTemp191 = fTemp183 + (5.0f - fTemp185);
+			float fTemp190 = 4.0f - fTemp185;
+			float fTemp191 = 5.0f - fTemp185;
 			float fTemp192 = fTemp191 * fTemp190;
 			float fTemp193 = fTemp192 * fTemp187;
-			fVec53[IOTA0 & 16383] = (fTemp183 + (1.0f - fTemp185)) * (fTemp186 * (fTemp187 * (0.041666668f * fVec52[(IOTA0 - std::min<int>(8192, std::max<int>(0, iTemp189))) & 16383] * fTemp190 - 0.16666667f * fTemp191 * fVec52[(IOTA0 - std::min<int>(8192, std::max<int>(0, iTemp189 + 1))) & 16383]) + 0.25f * fTemp192 * fVec52[(IOTA0 - std::min<int>(8192, std::max<int>(0, iTemp189 + 2))) & 16383]) - 0.16666667f * fTemp193 * fVec52[(IOTA0 - std::min<int>(8192, std::max<int>(0, iTemp189 + 3))) & 16383]) + 0.041666668f * fTemp193 * fTemp186 * fVec52[(IOTA0 - std::min<int>(8192, std::max<int>(0, iTemp189 + 4))) & 16383];
+			fVec53[IOTA0 & 16383] = (1.0f - fTemp185) * (fTemp186 * (fTemp187 * (0.041666668f * fVec52[(IOTA0 - std::min<int>(8192, std::max<int>(0, iTemp189))) & 16383] * fTemp190 - 0.16666667f * fTemp191 * fVec52[(IOTA0 - std::min<int>(8192, std::max<int>(0, iTemp189 + 1))) & 16383]) + 0.25f * fTemp192 * fVec52[(IOTA0 - std::min<int>(8192, std::max<int>(0, iTemp189 + 2))) & 16383]) - 0.16666667f * fTemp193 * fVec52[(IOTA0 - std::min<int>(8192, std::max<int>(0, iTemp189 + 3))) & 16383]) + 0.041666668f * fTemp193 * fTemp186 * fVec52[(IOTA0 - std::min<int>(8192, std::max<int>(0, iTemp189 + 4))) & 16383];
 			fRec102[0] = 0.995f * (fRec102[1] + float(iTemp0 * iSlow88)) + fSlow89;
 			float fTemp194 = fRec102[0] + -1.49999f;
 			float fTemp195 = fVec53[(IOTA0 - std::min<int>(8192, std::max<int>(0, int(fTemp194)))) & 16383];
@@ -1454,13 +1454,13 @@ class _FaustReverb final : public ::faust::dsp {
 			fRec106[0] = fSlow66 * (fRec107[2] + fRec107[0] + 2.0f * fRec107[1]) - fSlow69 * (fSlow70 * fRec106[2] + fSlow68 * fRec106[1]);
 			float fTemp198 = fSlow69 * (fRec106[2] + fRec106[0] + 2.0f * fRec106[1]);
 			fVec55[0] = fTemp198;
-			fRec105[0] = fSlow81 * (fSlow72 * (fTemp198 - fVec55[1]) - fSlow82 * fRec105[1]);
-			fRec104[0] = fRec105[0] - fSlow80 * (fSlow83 * fRec104[2] + fSlow76 * fRec104[1]);
-			fRec103[0] = fSlow86 * (fRec104[2] + (fRec104[0] - 2.0f * fRec104[1])) - fSlow77 * (fSlow84 * fRec103[2] + fSlow76 * fRec103[1]);
+			fRec105[0] = -(fSlow81 * (fSlow82 * fRec105[1] - fSlow72 * (fTemp198 - fVec55[1])));
+			fRec104[0] = fRec105[0] - fSlow83 * (fSlow84 * fRec104[2] + fSlow76 * fRec104[1]);
+			fRec103[0] = fSlow80 * (fRec104[2] + (fRec104[0] - 2.0f * fRec104[1])) - fSlow77 * (fSlow85 * fRec103[2] + fSlow76 * fRec103[1]);
 			fRec111[0] = -(fSlow81 * (fSlow82 * fRec111[1] - (fTemp198 + fVec55[1])));
-			fRec110[0] = fRec111[0] - fSlow80 * (fSlow83 * fRec110[2] + fSlow76 * fRec110[1]);
-			fRec109[0] = fSlow80 * (fRec110[2] + fRec110[0] + 2.0f * fRec110[1]) - fSlow77 * (fSlow84 * fRec109[2] + fSlow76 * fRec109[1]);
-			float fTemp199 = float(input1[i0]) + fSlow9 * (fSlow10 * (fRec97[2] + fSlow73 * (fTemp197 + fSlow74 * fRec97[0])) + fSlow77 * (fSlow85 * (fRec103[2] + (fRec103[0] - 2.0f * fRec103[1])) + fSlow78 * (fRec109[2] + fRec109[0] + 2.0f * fRec109[1])));
+			fRec110[0] = fRec111[0] - fSlow83 * (fSlow84 * fRec110[2] + fSlow76 * fRec110[1]);
+			fRec109[0] = fSlow83 * (fRec110[2] + fRec110[0] + 2.0f * fRec110[1]) - fSlow77 * (fSlow85 * fRec109[2] + fSlow76 * fRec109[1]);
+			float fTemp199 = float(input1[i0]) + fSlow9 * (fSlow10 * (fRec97[2] + fSlow73 * (fTemp197 + fSlow74 * fRec97[0])) + fSlow77 * (fSlow78 * (fRec103[2] + (fRec103[0] - 2.0f * fRec103[1])) + fSlow86 * (fRec109[2] + fRec109[0] + 2.0f * fRec109[1])));
 			fVec56[IOTA0 & 1023] = fTemp199;
 			fRec96[0] = fSlow3 * (fTemp11 * (fTemp12 * (fTemp13 * (0.041666668f * fTemp70 * fVec56[(IOTA0 - iTemp69) & 1023] - 0.16666667f * fTemp71 * fVec56[(IOTA0 - iTemp72) & 1023]) + 0.25f * fTemp73 * fVec56[(IOTA0 - iTemp74) & 1023]) - 0.16666667f * fTemp75 * fVec56[(IOTA0 - iTemp76) & 1023]) + 0.041666668f * fTemp77 * fVec56[(IOTA0 - iTemp78) & 1023]) + fSlow2 * fRec96[1];
 			float fTemp200 = fSlow1 * fRec96[0];
@@ -1526,7 +1526,7 @@ class _FaustReverb final : public ::faust::dsp {
 			fVec71[IOTA0 & 16383] = 0.70710677f * fTemp222 + 0.70710677f * (fTemp225 - fTemp223);
 			float fTemp229 = fVec71[(IOTA0 - iTemp159) & 16383];
 			fVec72[0] = fTemp229;
-			fRec118[0] = fVec72[1] + fTemp162 * (fTemp229 - fRec118[1]) / fTemp163;
+			fRec118[0] = fVec72[1] - fTemp162 * (fRec118[1] - fTemp229) / fTemp163;
 			fRec3[0] = fRec118[0];
 			fRec0[0] = fSlow1 * fRec2[1] + fSlow87 * fTemp221;
 			fRec1[0] = fSlow1 * fRec3[1] + fSlow87 * fTemp224;
@@ -1724,9 +1724,9 @@ class _FaustReverb final : public ::faust::dsp {
 	FAUST_ADDHORIZONTALSLIDER("Diffusion", fHslider0, 0.707f, 0.0f, 1.0f, 0.01f);
 	FAUST_ADDHORIZONTALSLIDER("HF Gain", fHslider6, 1.0f, 0.0f, 1.0f, 0.01f);
 	FAUST_ADDHORIZONTALSLIDER("High Crossover", fHslider7, 5e+03f, 1e+03f, 1e+04f, 1.0f);
-	FAUST_ADDHORIZONTALSLIDER("LF Gain", fHslider9, 1.0f, 0.0f, 1.0f, 0.01f);
+	FAUST_ADDHORIZONTALSLIDER("LF Gain", fHslider10, 1.0f, 0.0f, 1.0f, 0.01f);
 	FAUST_ADDHORIZONTALSLIDER("Low Crossover", fHslider8, 6e+02f, 1e+02f, 6e+03f, 1.0f);
-	FAUST_ADDHORIZONTALSLIDER("MID Gain", fHslider10, 1.0f, 0.0f, 1.0f, 0.01f);
+	FAUST_ADDHORIZONTALSLIDER("MID Gain", fHslider9, 1.0f, 0.0f, 1.0f, 0.01f);
 	FAUST_ADDHORIZONTALSLIDER("Mod Depth", fHslider2, 0.1f, 0.0f, 1.0f, 0.01f);
 	FAUST_ADDHORIZONTALSLIDER("Mod Frequency", fHslider3, 0.1f, 0.0f, 1e+01f, 0.01f);
 	FAUST_ADDHORIZONTALSLIDER("ReverbTime", fHslider5, 4.2f, 0.1f, 12.0f, 0.1f);
@@ -1737,9 +1737,9 @@ class _FaustReverb final : public ::faust::dsp {
 		p(HORIZONTALSLIDER, Diffusion, "Diffusion", fHslider0, 0.707f, 0.0f, 1.0f, 0.01f) \
 		p(HORIZONTALSLIDER, HF_Gain, "HF Gain", fHslider6, 1.0f, 0.0f, 1.0f, 0.01f) \
 		p(HORIZONTALSLIDER, High_Crossover, "High Crossover", fHslider7, 5e+03f, 1e+03f, 1e+04f, 1.0f) \
-		p(HORIZONTALSLIDER, LF_Gain, "LF Gain", fHslider9, 1.0f, 0.0f, 1.0f, 0.01f) \
+		p(HORIZONTALSLIDER, LF_Gain, "LF Gain", fHslider10, 1.0f, 0.0f, 1.0f, 0.01f) \
 		p(HORIZONTALSLIDER, Low_Crossover, "Low Crossover", fHslider8, 6e+02f, 1e+02f, 6e+03f, 1.0f) \
-		p(HORIZONTALSLIDER, MID_Gain, "MID Gain", fHslider10, 1.0f, 0.0f, 1.0f, 0.01f) \
+		p(HORIZONTALSLIDER, MID_Gain, "MID Gain", fHslider9, 1.0f, 0.0f, 1.0f, 0.01f) \
 		p(HORIZONTALSLIDER, Mod_Depth, "Mod Depth", fHslider2, 0.1f, 0.0f, 1.0f, 0.01f) \
 		p(HORIZONTALSLIDER, Mod_Frequency, "Mod Frequency", fHslider3, 0.1f, 0.0f, 1e+01f, 0.01f) \
 		p(HORIZONTALSLIDER, ReverbTime, "ReverbTime", fHslider5, 4.2f, 0.1f, 12.0f, 0.1f) \
