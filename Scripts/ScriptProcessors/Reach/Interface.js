@@ -145,7 +145,7 @@ namespace PresetBrowserLogic {
 		
 		if (value) {
 			
-			Engine.loadUserPreset('Creative/-INIT-.preset');
+			Engine.loadUserPreset('Creative/INIT.preset');
 			
 		}
 		

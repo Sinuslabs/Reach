@@ -126,18 +126,6 @@
         <Processor Type="SlotFX" ID="Effect Slot2" Bypassed="0">
           <ChildProcessors>
             <Processor Type="Hardcoded Master FX" ID="Effect Slot2_Hardcoded Master FX"
-                       Bypassed="0" Network="Waveshaper" Distort="1.0" Mix="0.0" Amount="30.0"
-                       Gain="1.0" lp="5255.0" hp="140.0" postlp="8827.0" posthp="27.0">
-              <ChildProcessors/>
-              <RoutingMatrix NumSourceChannels="2" Channel0="0" Send0="-1" Channel1="1" Send1="-1"/>
-            </Processor>
-          </ChildProcessors>
-          <RoutingMatrix NumSourceChannels="4" Channel0="-1" Send0="-1" Channel1="-1"
-                         Send1="-1" Channel2="2" Send2="-1" Channel3="3" Send3="-1"/>
-        </Processor>
-        <Processor Type="SlotFX" ID="Effect Slot3" Bypassed="0">
-          <ChildProcessors>
-            <Processor Type="Hardcoded Master FX" ID="Effect Slot3_Hardcoded Master FX"
                        Bypassed="0" Network="Degrade" Degrade="1.0" Mix="0.0" HighCut="16418.0"
                        LowCut="22.0" ModulationDepth="0.0" ModulationSpeed="0.0" Amount="5.0"
                        CrushMode="1.0" BitDepth="6.0" BitcrushMode="0.0">
@@ -148,9 +136,9 @@
           <RoutingMatrix NumSourceChannels="4" Channel0="-1" Send0="-1" Channel1="-1"
                          Send1="-1" Channel2="2" Send2="-1" Channel3="3" Send3="-1"/>
         </Processor>
-        <Processor Type="SlotFX" ID="Effect Slot4" Bypassed="0">
+        <Processor Type="SlotFX" ID="Effect Slot3" Bypassed="0">
           <ChildProcessors>
-            <Processor Type="Hardcoded Master FX" ID="Effect Slot4_Hardcoded Master FX"
+            <Processor Type="Hardcoded Master FX" ID="Effect Slot3_Hardcoded Master FX"
                        Bypassed="0" Network="Flair" Flanger="1.0" Speed="0.1499999910593033"
                        Depth="0.5" Feedback="0.8399999737739563" Delay="0.5" Offset="1.0"
                        Mix="0.0">
@@ -161,11 +149,23 @@
           <RoutingMatrix NumSourceChannels="4" Channel0="-1" Send0="-1" Channel1="-1"
                          Send1="-1" Channel2="2" Send2="-1" Channel3="3" Send3="-1"/>
         </Processor>
+        <Processor Type="SlotFX" ID="Effect Slot4" Bypassed="0">
+          <ChildProcessors>
+            <Processor Type="Hardcoded Master FX" ID="Effect Slot4_Hardcoded Master FX"
+                       Bypassed="0" Network="Chorus2" Chorus="1.0" CentreDelay="0.2199999988079071"
+                       Depth="0.5" Feedback="0.0" Rate="0.0" Mix="0.0">
+              <ChildProcessors/>
+              <RoutingMatrix NumSourceChannels="2" Channel0="0" Send0="-1" Channel1="1" Send1="-1"/>
+            </Processor>
+          </ChildProcessors>
+          <RoutingMatrix NumSourceChannels="4" Channel0="-1" Send0="-1" Channel1="-1"
+                         Send1="-1" Channel2="2" Send2="-1" Channel3="3" Send3="-1"/>
+        </Processor>
         <Processor Type="SlotFX" ID="Effect Slot5" Bypassed="0">
           <ChildProcessors>
             <Processor Type="Hardcoded Master FX" ID="Effect Slot5_Hardcoded Master FX"
-                       Bypassed="0" Network="Chorus2" Chorus="1.0" CentreDelay="0.2199999988079071"
-                       Depth="0.5" Feedback="0.0" Rate="0.0" Mix="0.0">
+                       Bypassed="0" Network="Waveshaper" Distort="1.0" Mix="0.0" Amount="30.0"
+                       Gain="1.0" lp="5255.0" hp="140.0" postlp="8827.0" posthp="27.0">
               <ChildProcessors/>
               <RoutingMatrix NumSourceChannels="2" Channel0="0" Send0="-1" Channel1="1" Send1="-1"/>
             </Processor>

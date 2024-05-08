@@ -168,7 +168,7 @@ inline function onPresetLoad(component, value) {
 	Reverb.JPVerb = getHardcodedEffect('Reverb');
 
 	if (Engine.getCurrentUserPresetName() == '') {
-		presetBrowserButton.set('text', '- INIT -');
+		presetBrowserButton.set('text', 'INIT');
 	} else {
 		presetBrowserButton.set('text', Engine.getCurrentUserPresetName());
 	}
