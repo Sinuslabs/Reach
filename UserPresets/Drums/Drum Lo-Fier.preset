@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<Preset Version="1.6.0">
+<Preset Version="1.4.0">
   <Content Processor="Interface">
     <Control type="ScriptSlider" id="header_vumeter_ch1" value="0.5142117978277428"/>
     <Control type="ScriptSlider" id="header_vumeter_ch2" value="0.4938102904435844"/>
