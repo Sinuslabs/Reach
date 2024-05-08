@@ -16,10 +16,10 @@ plugin_type=VST3
 project=$NAME
 script_root=$PWD
 project_root=$(cd "$script_root"/../.. && pwd)
-projucer_path=~$HISE_PATH/tools/projucer/Projucer
+projucer_path=$HISE_PATH/tools/projucer/Projucer
 hise=$HISE_PATH/projects/standalone/Builds/LinuxMakefile/build/HISE\ Standalone
 output=$project_root/build/Linux/
-source_vst3="$project_root/Binaries/Builds/LinuxMakefile/build/"${NAME}".so"
+source_vst3="$project_root/Binaries/Builds/LinuxMakefile/build/${NAME}.vst3"
 
 echo "Project root: $project_root"
 
@@ -31,29 +31,29 @@ if [[ "$clean" = true ]]; then
     rm -rf $project_root/Binaries
 fi
 
-# Building the plugins
+# Building thesource_vst3 plugins
 if [[ "$build" = true ]]; then
     echo "Starting plugin build..."
     chmod +x "$projucer_path"
-    "$hise" compile_networks -c:$config
+    # "$hise" compile_networks -c:$config
 
     if [[ "$optimization" = true ]]; then
         "$hise" export_ci XmlPresetBackups/${NAME}.xml -t:'effect' -p:"$plugin_type"
     else
         "$hise" export_ci XmlPresetBackups/${NAME}.xml -t:'effect' -p:"$plugin_type" -nolto
     fi
-
-    chmod +x "$project_root"/Binaries/batchCompileLinux
-    sh "$project_root"/Binaries/batchCompileLinux
+    #sleep 2
+    cd "$project_root"/Binaries/
+    chmod +x ./batchCompileLinux.sh
+    sh ./batchCompileLinux.sh
 fi
 
-    # Check and copy the .vst3 file if it exists
-    if [ -d "$source_vst3" ]; then
-        echo "Copying ${NAME}.vst3 to $output..."
-        cp -r "$source_vst3" "$output"
-    else
-        echo "${NAME}.vst3 not found, skipping copy."
-    fi
+# Check and copy the .vst3 file if it exists
+if [ -d "$source_vst3" ]; then
+    echo "Copying ${NAME} to $output..."
+    cp -r "$source_vst3" "$output"
+else
+    echo "${NAME} not found, skipping copy."
 fi
 
 # Check for build success

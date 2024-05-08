@@ -2,11 +2,11 @@
 
 #
 # Description: Installs Sinuslabs Plugins
-# Author: Oskar Schachtschneider - hello@sinuslabs.io
+# Author: Sinuslabs - hello@sinuslabs.io
 #
 
 if [ "$BASH_VERSION" = '' ]; then
-    echo "Please run the installer by using ./reach-installer.sh"
+    echo "Please run the installer by using ./installer.sh"
     ./reach-installer.sh
     exit
 fi
@@ -50,8 +50,7 @@ copy_file_with_confirmation() {
         echo
         echo "Successfully installed $PLUGIN into $path"
         echo
-        echo SINUSLABS
-        echo "from Berlin with <3"
+        echo "SINUSLABS - from Berlin with <3"
         echo
     else
         echo
