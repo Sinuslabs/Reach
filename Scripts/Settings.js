@@ -19,21 +19,57 @@ namespace UserSettings {
 		}
 	};
 	
+	// ACTIVATE SECTION
+	
+
+	
+	const var displayButton_paste = Content.getComponent("displayButton-paste");
+	displayButton_paste.setControlCallback(onPaste);
+	
+	const var serial_error_label = Content.getComponent("serial_error_label");
+	serial_error_label.set('text', '');
+	
 	const var displayButton_activateSerial = Content.getComponent("displayButton_activateSerial");
 	const var displayLabel_serialKey = Content.getComponent("displayLabel_serialKey");
+	
+	displayLabel_serialKey.set('text', '');
+
 	displayButton_activateSerial.setControlCallback(ondisplayButton_activateSerialControl);
+	displayButton_activateSerial.setLocalLookAndFeel(asyncButtonLaf);
+	
 	inline function ondisplayButton_activateSerialControl(component, value) {
 		if (value) {
-			
 			if (Engine.getOS() == 'LINUX') {
-				API.setActivate();
+				Gumroad.unlockProduct();
 				return;
 			}
-		
-			API.activateLicenseWithSerial(displayLabel_serialKey.get('text'));
+			Gumroad.activate(displayLabel_serialKey.get('text'));
 		}
 	};
-	displayButton_activateSerial.setLocalLookAndFeel(asyncButtonLaf);
+	
+	
+	inline function onPaste(component, value) {
+		
+		if (!value) { return; }
+		
+		local clipboard = Engine.getClipboardContent();
+		displayLabel_serialKey.set('text', clipboard);		
+	}
+	
+	inline function setError(error) {
+		
+		
+	}
+	
+	inline function unlockDemoLimitations() {
+		// Disable gain reduction
+		GainReduction.setBypassed(true);
+		GainReductionTimer.stopTimer();
+		button_buy_reach.set('visible', false);
+		UserSettings.button_not_activated.set('visible', !Globals.activated);
+		UserSettings.activatePageRadio('thankyou');
+		ThankYou.thankyou_panel.showControl(true);
+	}
 	
 	// router for settings screen
 	function displayShowSettings(route) {
