@@ -105,6 +105,12 @@ namespace Reverb {
 		JPVerb.setAttribute(JPVerb.ReverbTime, value);
 		showTempScreen('reverb');
 		
+		if (value <= 1) {
+			component.set('stepSize', 0.001);
+		} else {
+			component.set('stepSize', 0.01);
+		}
+		
 		ReverbAnimation.setZoom(component.getValueNormalized());
 		ReverbAnimation.AnimationPanel.repaintImmediately();
 	};
