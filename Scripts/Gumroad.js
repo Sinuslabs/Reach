@@ -3,7 +3,6 @@
 
 namespace Gumroad {
 
-    Server.setBaseURL("https://api.gumroad.com/v2");
     Server.setServerCallback(serverActivity);
 	
 	inline function activate(license_key) {
@@ -12,6 +11,8 @@ namespace Gumroad {
             Console.print('Already activated');
             return;
         }
+
+        Server.setBaseURL("https://api.gumroad.com/v2");
 
         Server.callWithPOST("/licenses/verify", {
             'product_id': Config.API_KEY,

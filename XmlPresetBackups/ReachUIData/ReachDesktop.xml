@@ -87,7 +87,8 @@
       <Component type="ScriptSlider" id="knob_reverb_time" x="48.0" y="36.0" parentComponent="themeablePanel_reverb"
                  width="70.0" height="100.0" mouseSensitivity="2.0" max="12.0"
                  middlePosition="6.0" suffix=" ms" pluginParameterName="Time"
-                 isPluginParameter="1" text="TIME" enableMidiLearn="0" defaultValue="1.0"/>
+                 isPluginParameter="1" text="TIME" enableMidiLearn="0" defaultValue="1.0"
+                 stepSize="0.001"/>
     </Component>
     <Component type="ScriptPanel" id="themeablePanel_cleanup" x="576.0" y="330.0"
                width="246.0" height="162.0" parentComponent="panel_background"
@@ -234,6 +235,9 @@
         <Component type="ScriptPanel" id="display_main_waveform" x="0.0" y="0.0"
                    width="510.0" height="198.0" parentComponent="display_main" itemColour="0"
                    itemColour2="0" bgColour="16777215" textColour="0" visible="0">
+          <Component type="ScriptButton" id="displayIcon-doubleUp" x="493" y="8" width="10"
+                     height="15" isMomentary="1" enableMidiLearn="0" parentComponent="display_main_waveform"
+                     saveInPreset="0" visible="0"/>
           <Component type="ScriptFloatingTile" id="FloatingTile1" x="8.0" y="38.79999923706055"
                      width="490.0" height="160.0" ContentType="AudioAnalyser" bgColour="16769505"
                      itemColour="4294967295" itemColour2="16711680" textColour="4294901760"
@@ -253,7 +257,7 @@
           <Component type="ScriptPanel" id="panel_animation_flair1" x="135.0" y="30.0"
                      width="240.0" height="160.0" parentComponent="display_main_flair"/>
         </Component>
-        <Component type="ScriptButton" id="button_not_activated" x="358.0" y="8.0"
+        <Component type="ScriptButton" id="button_not_activated" x="338.0" y="3.0"
                    parentComponent="display_main" width="140.0" height="30.0" isMomentary="1"
                    text="NOT ACTIVATED" enableMidiLearn="0"/>
       </Component>
@@ -525,11 +529,12 @@
         <Component type="ScriptFloatingTile" id="preFilter" x="0.0" y="30.0" width="510.0"
                    height="210.0" ContentType="DraggableFilterPanel" bgColour="11944257"
                    itemColour="2197749760" itemColour2="4294901760" Data="{&#10;  &quot;ProcessorId&quot;: &quot;preFilter&quot;,&#10;  &quot;Index&quot;: -1,&#10;  &quot;FollowWorkspace&quot;: false&#10;}"
-                   parentComponent="display_filter" Font="jetbrains-mono" visible="0"/>
+                   parentComponent="display_filter" Font="jetbrains-mono"/>
         <Component type="ScriptFloatingTile" id="postFilter" x="0.0" y="30.0" width="510.0"
                    height="210.0" parentComponent="display_filter" ContentType="DraggableFilterPanel"
                    bgColour="0" itemColour="2164260863" itemColour2="855638016"
-                   Data="{&#10;  &quot;ProcessorId&quot;: &quot;postFilter&quot;,&#10;  &quot;Index&quot;: -1,&#10;  &quot;FollowWorkspace&quot;: false,&#10;  &quot;AllowDynamicSpectrumAnalyser&quot;: 0&#10;}"/>
+                   Data="{&#10;  &quot;ProcessorId&quot;: &quot;postFilter&quot;,&#10;  &quot;Index&quot;: -1,&#10;  &quot;FollowWorkspace&quot;: false,&#10;  &quot;AllowDynamicSpectrumAnalyser&quot;: 0&#10;}"
+                   visible="0"/>
         <Component type="ScriptButton" id="button_filters_post" x="430.0" y="0.0"
                    width="66.0" height="30.0" text="displayButton-POST" parentComponent="display_filter"
                    saveInPreset="0"/>
@@ -546,15 +551,22 @@
                  height="252.0" parentComponent="panelDisplay_display" itemColour2="4278190080"
                  itemColour="4278190080" textColour="16777215" bgColour="16777215"
                  visible="0">
+        <Component type="ScriptLabel" id="about_check_downloads_label" x="148" y="168"
+                   editable="0" fontName="inter-reg" text="Check your Downloads and install Reach"
+                   width="225" height="35" parentComponent="display_about" visible="0"/>
+        <Component type="ScriptButton" id="displayButton-updateAvailable" x="158.0"
+                   y="163.0" width="205" height="40" text="displayButton-UPDATE"
+                   parentComponent="display_about" enableMidiLearn="0" saveInPreset="0"
+                   defaultValue="1" isMomentary="1" visible="0"/>
         <Component type="ScriptLabel" id="label_name1" x="8.0" y="223.0" width="180.0"
                    height="20.0" text="Oskar Schachtschneider" fontSize="18.0" fontName="jetbrains-mono"
                    parentComponent="display_about" editable="0"/>
         <Component type="ScriptButton" id="button_x1" x="486.0" y="12.0" text="displayIcon-outline-x"
                    itemColour="4294967295" width="12.0" height="12.0" parentComponent="display_about"
                    itemColour2="4222331819" saveInPreset="0" isMomentary="1"/>
-        <Component type="ScriptPanel" id="icon_panel_logo" x="363.0" y="223.0" width="140.0"
-                   height="20.0" parentComponent="display_about"/>
-        <Component type="ScriptLabel" id="label_made_in" x="133.0" y="123.0" parentComponent="display_about"
+        <Component type="ScriptPanel" id="icon_panel_logo" x="363.0" y="228.0" width="145"
+                   height="20" parentComponent="display_about" allowCallbacks="Clicks Only"/>
+        <Component type="ScriptLabel" id="label_made_in" x="133.0" y="118.0" parentComponent="display_about"
                    width="260.0" height="40.0" text="FROM BERLIN WITH &lt;3" fontSize="18.0"
                    fontName="jetbrains-mono" editable="0"/>
         <Component type="ScriptPanel" id="about_info" x="193.0" y="33.0" parentComponent="display_about"
@@ -603,7 +615,8 @@
                      width="500.0" height="240.0" parentComponent="panel_settings_content_container"
                      textColour="0" itemColour2="0" itemColour="0" bgColour="0">
             <Component type="ScriptPanel" id="thankyou_panel" x="165.0" y="45.0" width="165.0"
-                       height="100.0" parentComponent="dis-settings_activate" visible="0"/>
+                       height="100.0" parentComponent="dis-settings_activate" allowCallbacks="Clicks Only"
+                       visible="0"/>
             <Component type="ScriptLabel" id="label_thank_you" x="130.0" y="155.0" text="Thank you for using REACH"
                        fontName="jetbrains-mono" width="240.0" height="30.0" fontSize="20.0"
                        parentComponent="dis-settings_activate" editable="0" visible="0"/>

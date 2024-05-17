@@ -3,6 +3,7 @@ include("Paths.js");
 include("Helpers.js");
 include("Filter.js");
 include("Config.js");
+include("UpdateChecker.js");
 include("LookAndFeel.js");
 include("Settings.js");
 include("Handler.js");
@@ -74,7 +75,6 @@ const var label_thank_you = Content.getComponent("label_thank_you");
 // Check License
 getActivationStatus();
 
-//API.label_not_found.set('visible', false);
 UserSettings.button_not_activated.set('visible', !Globals.activated);
 button_buy_reach.set('visible', !Globals.activated);
 label_thank_you.set('visible', Globals.activated);
@@ -87,6 +87,7 @@ MainDisplayTimer.startTimer(20);
 inline function showMainOnInit() {
 
 	showMain();
+	//displayShow('about');
 	Globals.screenLock = false;
 	MainDisplayTimer.stopTimer();
 }
@@ -134,6 +135,7 @@ function themeMainPanel() {
 }
 themeMainPanel();
 themePanels();
+
 
 
 

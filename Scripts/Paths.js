@@ -233,5 +233,8 @@ namespace Paths {
 
 	icons.reachLogo = Content.createPath();
 	icons.reachLogo.loadFromData(svgData);
-
+	
+	svgData = "344.t0VoY8CQlASkCI1WtBDQ.m8kCkq0BQDvYe4PxsBQDYFLUNjX..XQDYwgRND..VDQ0YiiCI2JDQDIMt3PrUM5nPDKPnxPh0BkmPjd8RxPbuVIDoWujLDMWPBQr.gJCwVqTi.Qjz3hCIF..d.Q0YiiCA.fGPjEGJ4PsRMBDYFLUNjXUkhBDAb1WNjoQw.Q.m8kC4joMPjYvT4PrQ.flPDA5azPrUZV+PjYvT4Pi0VoY8CQofu4CI1WtBDQDEZ5Ckq0BQDQgl9PxsBQDkB9lOjX..XQDUqSjOD..VDQA3+2CI2JDQjiT08PrUM5nPDqOa5Ph0BkmPjTlP5PbuVIDIkIjNDMWPBQr9roCwVqTi.QNRU2CIF..d.QA3+2CA.fGPTsNQ9PsRMBDkB9lOjXUkhBDQTnoOjoQw.QDEZ5C4joMPTJ3a9PrQ.flPDlDU6PrUZV+PTJ3a9PiUF";
+	icons.doubleUp = Content.createPath();
+	icons.doubleUp.loadFromData(svgData);
 }
