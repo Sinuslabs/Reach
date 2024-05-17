@@ -18,7 +18,7 @@ cd "${project_root}/build/${OS}"
 # Zip the files from the current directory
 zip -r "${NAME}.zip" "${NAME}.vst3" "${NAME}.component"
 # Move the zip file to a desired location if necessary
-mv "${NAME}.zip" "${project_root}/build/${OS}/"
+mv -f "${NAME}.zip" "${project_root}/build/${OS}/"
 # Return to the original script directory or any other needed directory
 cd -
 
