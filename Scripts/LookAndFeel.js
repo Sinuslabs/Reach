@@ -1,17 +1,14 @@
 // Icons
 const var icon_panel_logo = Content.getComponent("icon_panel_logo");
 //const var icon_panel_heart = Content.getComponent("icon_panel_heart");
-const var icon_panel_fullLogo = Content.getComponent('icon_panel_fullLogo');
+
 
 icon_panel_logo.setPaintRoutine(function(g) {
 	g.setColour('0xffffff');
 	g.fillPath(Paths.icons['fullLogo'], [0, 0, 131, 17]);
 });
 
-icon_panel_fullLogo.setPaintRoutine(function(g) {
-	g.setColour('0xffffff');
-	g.fillPath(Paths.icons['fullLogo'], [0, 0, 220, 30]);
-});
+
 
 // LABELS
 const var themeableLabels = Content.getAllComponents('themeAble_label');
