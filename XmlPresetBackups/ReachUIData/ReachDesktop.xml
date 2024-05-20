@@ -235,9 +235,9 @@
         <Component type="ScriptPanel" id="display_main_waveform" x="0.0" y="0.0"
                    width="510.0" height="198.0" parentComponent="display_main" itemColour="0"
                    itemColour2="0" bgColour="16777215" textColour="0" visible="0">
-          <Component type="ScriptButton" id="displayIcon-doubleUp" x="493" y="8" width="10"
-                     height="15" isMomentary="1" enableMidiLearn="0" parentComponent="display_main_waveform"
-                     saveInPreset="0" visible="0"/>
+          <Component type="ScriptButton" id="displayIcon-doubleUp" x="493.0" y="8.0"
+                     width="10.0" height="15.0" isMomentary="1" enableMidiLearn="0"
+                     parentComponent="display_main_waveform" saveInPreset="0" visible="0"/>
           <Component type="ScriptFloatingTile" id="FloatingTile1" x="8.0" y="38.79999923706055"
                      width="490.0" height="160.0" ContentType="AudioAnalyser" bgColour="16769505"
                      itemColour="4294967295" itemColour2="16711680" textColour="4294901760"
@@ -551,21 +551,21 @@
                  height="252.0" parentComponent="panelDisplay_display" itemColour2="4278190080"
                  itemColour="4278190080" textColour="16777215" bgColour="16777215"
                  visible="0">
-        <Component type="ScriptLabel" id="about_check_downloads_label" x="148" y="168"
-                   editable="0" fontName="inter-reg" text="Check your Downloads and install Reach"
-                   width="225" height="35" parentComponent="display_about" visible="0"/>
+        <Component type="ScriptLabel" id="about_check_downloads_label" x="148.0"
+                   y="168.0" editable="0" fontName="inter-reg" text="Check your Downloads and install Reach"
+                   width="225.0" height="35.0" parentComponent="display_about" visible="0"/>
         <Component type="ScriptButton" id="displayButton-updateAvailable" x="158.0"
-                   y="163.0" width="205" height="40" text="displayButton-UPDATE"
+                   y="163.0" width="205.0" height="40.0" text="displayButton-UPDATE"
                    parentComponent="display_about" enableMidiLearn="0" saveInPreset="0"
-                   defaultValue="1" isMomentary="1" visible="0"/>
+                   defaultValue="1.0" isMomentary="1" visible="0"/>
         <Component type="ScriptLabel" id="label_name1" x="8.0" y="223.0" width="180.0"
                    height="20.0" text="Oskar Schachtschneider" fontSize="18.0" fontName="jetbrains-mono"
                    parentComponent="display_about" editable="0"/>
         <Component type="ScriptButton" id="button_x1" x="486.0" y="12.0" text="displayIcon-outline-x"
                    itemColour="4294967295" width="12.0" height="12.0" parentComponent="display_about"
                    itemColour2="4222331819" saveInPreset="0" isMomentary="1"/>
-        <Component type="ScriptPanel" id="icon_panel_logo" x="363.0" y="228.0" width="145"
-                   height="20" parentComponent="display_about" allowCallbacks="Clicks Only"/>
+        <Component type="ScriptPanel" id="icon_panel_logo" x="363.0" y="228.0" width="145.0"
+                   height="20.0" parentComponent="display_about" allowCallbacks="Clicks Only"/>
         <Component type="ScriptLabel" id="label_made_in" x="133.0" y="118.0" parentComponent="display_about"
                    width="260.0" height="40.0" text="FROM BERLIN WITH &lt;3" fontSize="18.0"
                    fontName="jetbrains-mono" editable="0"/>

@@ -13,7 +13,7 @@ include("Reverb.js");
 include("ZoomHandler.js");
 include("Router.js");
 include("ThankYou.js");
-include("Gumroad.js");
+include("Supabase.js");
 include("Display.js");
 include("ReverbAnimation.js");
 include("DegradeAnimation.js");
@@ -135,10 +135,6 @@ function themeMainPanel() {
 }
 themeMainPanel();
 themePanels();
-
-
-
-
 function onNoteOn()
 {
 	

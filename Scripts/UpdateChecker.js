@@ -22,8 +22,6 @@ namespace UpdateChecker {
 	}
 	
 	inline function onGithubResponse(status, data) {
-		Console.print(status);
-	
 		if (status == 200) {
 			onDoneCallback(canUpdate(data['tag_name'], CURRENT_VERSION));
 		} else {

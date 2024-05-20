@@ -40,10 +40,10 @@ namespace UserSettings {
 	inline function ondisplayButton_activateSerialControl(component, value) {
 		if (value) {
 			if (Engine.getOS() == 'LINUX') {
-				Gumroad.unlockProduct();
+				Supabase.unlockProduct();
 				return;
 			}
-			Gumroad.activate(displayLabel_serialKey.get('text'));
+			Supabase.activate(displayLabel_serialKey.get('text'));
 		}
 	};
 	
@@ -152,7 +152,7 @@ namespace UserSettings {
 	// Buy Reach Button
 	Content.getComponent("button_buy_reach").setControlCallback(onbutton_buy_reachControl);
 	inline function onbutton_buy_reachControl(component, value) {
-		if (value) Engine.openWebsite('https://sinuslabs.io/product/reach');
+		if (value) Engine.openWebsite('https://sinuslabsio.gumroad.com/l/reach');
 	};
 	
 	const var button_not_activated = Content.getComponent("button_not_activated");
@@ -173,7 +173,7 @@ namespace UserSettings {
 	// Website
 	Content.getComponent("button_website").setControlCallback(onpanel_githubControl);
 	inline function onpanel_githubControl(component, value) {
-		if (value) Engine.openWebsite('https://sinuslabs.io/product/reach');
+		if (value) Engine.openWebsite('https://sinuslabsio.gumroad.com/l/reach');
 	};
 
 	const var displayPanel_serial = Content.getComponent("displayPanel_serial");

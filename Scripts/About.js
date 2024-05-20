@@ -5,7 +5,7 @@ namespace About {
 	const INFO = {
 		name: 'REACH',
 		homepage: 'https://sinuslabs.io',
-		product_page: 'https://sinuslabs.io/product/reach/',
+		product_page: 'https://sinuslabsio.gumroad.com/l/reach',
 		repository: 'https://github.com/Sinuslabs/Reach',
 		latest_release_windows: '/releases/latest/download/Reach-Windows.exe',
 		latest_release_macos: '/releases/latest/download/Reach-MacOS.pkg',
