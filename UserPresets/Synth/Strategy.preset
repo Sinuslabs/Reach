@@ -46,11 +46,11 @@
     <Control type="ScriptSlider" id="displayKnob_flanger_delay" value="0.6899999976158142"/>
     <Control type="ScriptSlider" id="displayKnob_flanger_offset" value="0.85999995470047"/>
     <Control type="ScriptButton" id="displayButton_flanger_bypass" value="1.0"/>
-    <Control type="ScriptSlider" id="displayKnob_distort_lowPass" value="0.0"/>
-    <Control type="ScriptSlider" id="displayKnob_distort_highpass" value="0.0"/>
+    <Control type="ScriptSlider" id="displayKnob_distort_lowPass" value="27.0"/>
+    <Control type="ScriptSlider" id="displayKnob_distort_highpass" value="140.0"/>
     <Control type="ScriptSlider" id="displayKnob_distort_amount" value="31.0"/>
     <Control type="ScriptSlider" id="displayKnob_distort_postlowcut" value="0.0"/>
-    <Control type="ScriptSlider" id="displayKnob_distort_posthighcut" value="0.0"/>
+    <Control type="ScriptSlider" id="displayKnob_distort_posthighcut" value="140.0"/>
     <Control type="ScriptButton" id="displayButton_distort_bypass" value="1.0"/>
     <Control type="ScriptSlider" id="displayKnob_chorus_Delay" value="0.08999999612569809"/>
     <Control type="ScriptSlider" id="displayKnob_chorus_depth" value="0.2199999988079071"/>

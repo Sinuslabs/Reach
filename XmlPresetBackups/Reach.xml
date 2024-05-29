@@ -248,7 +248,7 @@
           <RoutingMatrix NumSourceChannels="4" Channel0="0" Send0="-1" Channel1="1" Send1="-1"
                          Channel2="-1" Send2="2" Channel3="-1" Send3="3"/>
         </Processor>
-        <Processor Type="SimpleGain" ID="Simple Gain5" Bypassed="0" Gain="-17.06999969482422"
+        <Processor Type="SimpleGain" ID="Simple Gain5" Bypassed="1" Gain="-17.06999969482422"
                    Delay="0.0" Width="100.0" Balance="0.0" InvertPolarity="0.0">
           <ChildProcessors>
             <Processor Type="ModulatorChain" ID="Gain Modulation" Bypassed="0" Intensity="1.0">

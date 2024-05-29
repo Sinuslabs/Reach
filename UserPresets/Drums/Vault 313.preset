@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<Preset Version="1.4.0">
+<Preset Version="1.6.0">
   <Content Processor="Interface">
     <Control type="ScriptButton" id="onPresetLoad" value="0.0"/>
     <Control type="ScriptButton" id="button_quickTheme" value="0.0"/>
@@ -8,9 +8,9 @@
     <Control type="ScriptSlider" id="knob_reverb_diffusion" value="0.8100000023841858"/>
     <Control type="ScriptSlider" id="knob_reverb_damping" value="0.1299999952316284"/>
     <Control type="ScriptSlider" id="knob_reverb_mix" value="0.3199999928474426"/>
-    <Control type="ScriptSlider" id="knob_reverb_time" value="0.75"/>
-    <Control type="ScriptSlider" id="knob_cleanup_low" value="0.0"/>
-    <Control type="ScriptSlider" id="knob_cleanup_high" value="0.8100000023841858"/>
+    <Control type="ScriptSlider" id="knob_reverb_time" value="0.7500000596046448"/>
+    <Control type="ScriptSlider" id="knob_cleanup_ducking" value="0.0"/>
+    <Control type="ScriptSlider" id="knob_cleanup_preDelay" value="0.0"/>
     <Control type="ScriptSlider" id="knob_modulation_depth" value="0.2899999916553497"/>
     <Control type="ScriptSlider" id="knob_modulation_frequency" value="7.119999885559082"/>
     <Control type="ScriptButton" id="button_degrade_bypass" value="1.0"/>
@@ -25,7 +25,6 @@
     <Control type="ScriptSlider" id="knob_io_out" value="0.5899999737739563"/>
     <Control type="ScriptButton" id="button_not_activated" value="0.0"/>
     <Control type="ScriptSlider" id="displayKnob_reverb_feedback" value="0.0"/>
-    <Control type="ScriptSlider" id="displayKnob_reverb_preDelay" value="0.0"/>
     <Control type="ScriptSlider" id="displayKnob_reverb_hfgain" value="0.8100000023841858"/>
     <Control type="ScriptSlider" id="displayKnob_reverb_highcrossover" value="4122.0"/>
     <Control type="ScriptSlider" id="displayKnob_reverb_lowGain" value="0.0"/>
@@ -33,11 +32,13 @@
     <Control type="ScriptSlider" id="displayKnob_reverb_midgain" value="1.0"/>
     <Control type="ScriptButton" id="displayButton_reverb_panic" value="0.0"/>
     <Control type="ScriptButton" id="displayButton_reverb_bypass" value="1.0"/>
+    <Control type="ScriptComboBox" id="degrade_selector" value="2.0"/>
     <Control type="ScriptSlider" id="displayKnob_degrade_highcut" value="6917.0"/>
     <Control type="ScriptSlider" id="displayKnob_degrade_lowcut" value="180.0"/>
     <Control type="ScriptSlider" id="displayKnob_degrade_depth" value="0.0"/>
     <Control type="ScriptSlider" id="displayKnob_degrade_frequency" value="0.2000000029802322"/>
     <Control type="ScriptSlider" id="displayKnob_degrade_amount" value="64.0"/>
+    <Control type="ScriptSlider" id="displayKnob_degrade_crushAmount" value="6.0"/>
     <Control type="ScriptButton" id="displayButton_degrade_bypass" value="1.0"/>
     <Control type="ScriptSlider" id="displayKnob_flanger_speed" value="0.1700000017881393"/>
     <Control type="ScriptSlider" id="displayKnob_flanger_depth" value="1.0"/>
@@ -45,20 +46,23 @@
     <Control type="ScriptSlider" id="displayKnob_flanger_delay" value="0.0"/>
     <Control type="ScriptSlider" id="displayKnob_flanger_offset" value="1.0"/>
     <Control type="ScriptButton" id="displayButton_flanger_bypass" value="1.0"/>
-    <Control type="ScriptSlider" id="displayKnob_distort_lowPass" value="0.0"/>
-    <Control type="ScriptSlider" id="displayKnob_distort_highpass" value="0.0"/>
+    <Control type="ScriptSlider" id="displayKnob_distort_lowPass" value="27.0"/>
+    <Control type="ScriptSlider" id="displayKnob_distort_highpass" value="140.0"/>
     <Control type="ScriptSlider" id="displayKnob_distort_amount" value="31.0"/>
     <Control type="ScriptSlider" id="displayKnob_distort_postlowcut" value="0.0"/>
-    <Control type="ScriptSlider" id="displayKnob_distort_posthighcut" value="0.0"/>
+    <Control type="ScriptSlider" id="displayKnob_distort_posthighcut" value="140.0"/>
     <Control type="ScriptButton" id="displayButton_distort_bypass" value="1.0"/>
     <Control type="ScriptSlider" id="displayKnob_chorus_Delay" value="0.07999999821186066"/>
     <Control type="ScriptSlider" id="displayKnob_chorus_depth" value="0.8399999737739563"/>
     <Control type="ScriptSlider" id="displayKnob_chorus_feedback" value="0.6600000262260437"/>
     <Control type="ScriptSlider" id="displayKnob_chorus_rate" value="0.0"/>
     <Control type="ScriptButton" id="displayButton_chorus_bypass" value="1.0"/>
+    <Control type="ScriptButton" id="button_floatingLock" value="0.0"/>
   </Content>
   <Modules>
-    <Processor Type="CurveEq" ID="preFilter" Bypassed="0" NumFilters="0" FFTEnabled="1">
+    <Processor Type="CurveEq" ID="preFilter" Bypassed="0" NumFilters="1" Band0="9.481481552124023"
+               Band1="103.1059646606445" Band2="0.800000011920929" Band3="1.0"
+               Band4="1.0" FFTEnabled="1">
       <ChildProcessors/>
       <RoutingMatrix NumSourceChannels="4" Channel0="0" Send0="-1" Channel1="1" Send1="-1"
                      Channel2="-1" Send2="-1" Channel3="-1" Send3="-1"/>
@@ -72,7 +76,21 @@
     </Processor>
     <Processor Type="SlotFX" ID="Effect Slot1" Bypassed="0">
       <ChildProcessors>
-        <Processor Type="Hardcoded Master FX" ID="Effect Slot1_Hardcoded Master FX"
+        <Processor Type="Hardcoded Master FX" ID="Effect Slot2_Hardcoded Master FX"
+                   Bypassed="0" Network="Degrade" Degrade="1.0" Mix="0.0" HighCut="6917.0"
+                   LowCut="180.0" ModulationDepth="0.0" ModulationSpeed="0.2000000029802322"
+                   Amount="64.0" CrushMode="1.0" BitDepth="6.0" BitcrushMode="0.0">
+          <EditorStates BodyShown="1" Visible="1" Solo="0"/>
+          <ChildProcessors/>
+          <RoutingMatrix NumSourceChannels="2" Channel0="0" Send0="-1" Channel1="1" Send1="-1"/>
+        </Processor>
+      </ChildProcessors>
+      <RoutingMatrix NumSourceChannels="4" Channel0="-1" Send0="-1" Channel1="-1"
+                     Send1="-1" Channel2="2" Send2="-1" Channel3="3" Send3="-1"/>
+    </Processor>
+    <Processor Type="SlotFX" ID="Effect Slot2" Bypassed="0">
+      <ChildProcessors>
+        <Processor Type="Hardcoded Master FX" ID="Effect Slot4_Hardcoded Master FX"
                    Bypassed="0" Network="Flair" Flanger="1.0" Speed="0.1700000017881393"
                    Depth="1.0" Feedback="0.5299999713897705" Delay="0.0" Offset="1.0"
                    Mix="0.0">
@@ -84,28 +102,14 @@
       <RoutingMatrix NumSourceChannels="4" Channel0="-1" Send0="-1" Channel1="-1"
                      Send1="-1" Channel2="2" Send2="-1" Channel3="3" Send3="-1"/>
     </Processor>
-    <Processor Type="SlotFX" ID="Effect Slot2" Bypassed="0">
+    <Processor Type="SlotFX" ID="Effect Slot3" Bypassed="0">
       <ChildProcessors>
-        <Processor Type="Hardcoded Master FX" ID="Effect Slot2_Hardcoded Master FX"
+        <Processor Type="Hardcoded Master FX" ID="Effect Slot3_Hardcoded Master FX"
                    Bypassed="0" Network="Reverb" Reverb="1.0" Damping="0.1299999952316284"
                    Diffusion="0.8100000023841858" HFGain="0.8100000023841858" HighCrossover="4122.0"
                    LFGain="0.0" LowCrossover="1247.0" MidGain="1.0" ModDepth="0.2899999916553497"
                    ModFrequency="7.119999885559082" ReverbTime="0.75" Size="1.870000004768372"
-                   Mix="0.3199999928474426" preDelay="0.0" feedbacl="0.0">
-          <EditorStates BodyShown="1" Visible="1" Solo="0"/>
-          <ChildProcessors/>
-          <RoutingMatrix NumSourceChannels="2" Channel0="0" Send0="-1" Channel1="1" Send1="-1"/>
-        </Processor>
-      </ChildProcessors>
-      <RoutingMatrix NumSourceChannels="4" Channel0="-1" Send0="-1" Channel1="-1"
-                     Send1="-1" Channel2="2" Send2="-1" Channel3="3" Send3="-1"/>
-    </Processor>
-    <Processor Type="SlotFX" ID="Effect Slot3" Bypassed="0">
-      <ChildProcessors>
-        <Processor Type="Hardcoded Master FX" ID="Effect Slot3_Hardcoded Master FX"
-                   Bypassed="0" Network="Degrade" Degrade="1.0" Mix="0.0" HighCut="6917.0"
-                   LowCut="180.0" ModulationDepth="0.0" ModulationSpeed="0.2000000029802322"
-                   Amount="64.0">
+                   Mix="0.3199999928474426" preDelay="0.0" feedbacl="0.0" Smoothing="0.0">
           <EditorStates BodyShown="1" Visible="1" Solo="0"/>
           <ChildProcessors/>
           <RoutingMatrix NumSourceChannels="2" Channel0="0" Send0="-1" Channel1="1" Send1="-1"/>
@@ -116,9 +120,10 @@
     </Processor>
     <Processor Type="SlotFX" ID="Effect Slot4" Bypassed="0">
       <ChildProcessors>
-        <Processor Type="Hardcoded Master FX" ID="Effect Slot4_Hardcoded Master FX"
-                   Bypassed="0" Network="Waveshaper" Distort="1.0" Mix="0.0" Amount="0.3100000023841858"
-                   Gain="1.0" lp="0.0" hp="0.0" postlp="0.0" posthp="0.0">
+        <Processor Type="Hardcoded Master FX" ID="Effect Slot5_Hardcoded Master FX"
+                   Bypassed="0" Network="Chorus2" Chorus="1.0" CentreDelay="0.07999999821186066"
+                   Depth="0.8399999737739563" Feedback="0.6600000262260437" Rate="0.0"
+                   Mix="0.0">
           <EditorStates BodyShown="1" Visible="1" Solo="0"/>
           <ChildProcessors/>
           <RoutingMatrix NumSourceChannels="2" Channel0="0" Send0="-1" Channel1="1" Send1="-1"/>
@@ -129,10 +134,9 @@
     </Processor>
     <Processor Type="SlotFX" ID="Effect Slot5" Bypassed="0">
       <ChildProcessors>
-        <Processor Type="Hardcoded Master FX" ID="Effect Slot5_Hardcoded Master FX"
-                   Bypassed="0" Network="Chorus2" Chorus="1.0" CentreDelay="0.07999999821186066"
-                   Depth="0.8399999737739563" Feedback="0.6600000262260437" Rate="0.0"
-                   Mix="0.0">
+        <Processor Type="Hardcoded Master FX" ID="Effect Slot1_Hardcoded Master FX"
+                   Bypassed="0" Network="Waveshaper" Distort="1.0" Mix="0.0" Amount="31.0"
+                   Gain="1.0" lp="27.0" hp="140.0" postlp="0.0" posthp="140.0">
           <EditorStates BodyShown="1" Visible="1" Solo="0"/>
           <ChildProcessors/>
           <RoutingMatrix NumSourceChannels="2" Channel0="0" Send0="-1" Channel1="1" Send1="-1"/>

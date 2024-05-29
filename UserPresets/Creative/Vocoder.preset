@@ -16,12 +16,12 @@
     <Control type="ScriptButton" id="button_degrade_bypass" value="0.0"/>
     <Control type="ScriptSlider" id="knob_effects_degrade" value="0.1599999964237213"/>
     <Control type="ScriptButton" id="button_flanger_bypass" value="1.0"/>
-    <Control type="ScriptSlider" id="knob_effects_flair" value="0.0"/>
+    <Control type="ScriptSlider" id="knob_effects_flair" value="0.5299999713897705"/>
     <Control type="ScriptButton" id="button_chorus_bypass" value="1.0"/>
-    <Control type="ScriptSlider" id="knob_effects_chorus" value="0.8799999952316284"/>
+    <Control type="ScriptSlider" id="knob_effects_chorus" value="0.9100000262260437"/>
     <Control type="ScriptButton" id="button_distort_bypass" value="1.0"/>
-    <Control type="ScriptSlider" id="knob_effects_distortion" value="0.4799999892711639"/>
-    <Control type="ScriptSlider" id="knob_io_in" value="0.0"/>
+    <Control type="ScriptSlider" id="knob_effects_distortion" value="0.2099999934434891"/>
+    <Control type="ScriptSlider" id="knob_io_in" value="-5.799998760223389"/>
     <Control type="ScriptSlider" id="knob_io_out" value="1.0"/>
     <Control type="ScriptButton" id="button_not_activated" value="0.0"/>
     <Control type="ScriptSlider" id="displayKnob_reverb_feedback" value="0.0"/>
@@ -60,24 +60,27 @@
     <Control type="ScriptButton" id="button_floatingLock" value="0.0"/>
   </Content>
   <Modules>
-    <Processor Type="CurveEq" ID="preFilter" Bypassed="0" NumFilters="1" Band0="9.481481552124023"
-               Band1="103.1059646606445" Band2="1.0" Band3="1.0" Band4="1.0"
+    <Processor Type="CurveEq" ID="preFilter" Bypassed="0" NumFilters="1" Band0="9.548386573791504"
+               Band1="197.6207275390625" Band2="1.0" Band3="1.0" Band4="1.0"
                FFTEnabled="1">
       <ChildProcessors/>
       <RoutingMatrix NumSourceChannels="4" Channel0="0" Send0="-1" Channel1="1" Send1="-1"
                      Channel2="-1" Send2="-1" Channel3="-1" Send3="-1"/>
     </Processor>
-    <Processor Type="CurveEq" ID="postFilter" Bypassed="0" NumFilters="1" Band0="2.322582721710205"
-               Band1="448.0658264160156" Band2="1.448042750358582" Band3="1.0"
-               Band4="4.0" FFTEnabled="1">
+    <Processor Type="CurveEq" ID="postFilter" Bypassed="0" NumFilters="3" Band0="-5.16129207611084"
+               Band1="351.0045776367188" Band2="6.316353797912598" Band3="1.0"
+               Band4="4.0" Band5="-3.612902641296387" Band6="5002.17578125"
+               Band7="2.440196752548218" Band8="1.0" Band9="4.0" Band10="-15.22580623626709"
+               Band11="58.30246734619141" Band12="1.0" Band13="1.0" Band14="2.0"
+               FFTEnabled="1">
       <ChildProcessors/>
       <RoutingMatrix NumSourceChannels="4" Channel0="-1" Send0="-1" Channel1="-1"
                      Send1="-1" Channel2="2" Send2="-1" Channel3="3" Send3="-1"/>
     </Processor>
     <Processor Type="SlotFX" ID="Effect Slot1" Bypassed="0">
       <ChildProcessors>
-        <Processor Type="Hardcoded Master FX" ID="Effect Slot1_Hardcoded Master FX"
-                   Bypassed="0" Network="Waveshaper" Distort="1.0" Mix="0.4799999892711639"
+        <Processor Type="Hardcoded Master FX" ID="Effect Slot4_Hardcoded Master FX"
+                   Bypassed="0" Network="Waveshaper" Distort="1.0" Mix="0.2099999934434891"
                    Amount="31.0" Gain="1.0" lp="5255.0" hp="140.0" postlp="8827.0"
                    posthp="27.0">
           <EditorStates BodyShown="1" Visible="1" Solo="0"/>
@@ -90,10 +93,10 @@
     </Processor>
     <Processor Type="SlotFX" ID="Effect Slot2" Bypassed="0">
       <ChildProcessors>
-        <Processor Type="Hardcoded Master FX" ID="Effect Slot2_Hardcoded Master FX"
+        <Processor Type="Hardcoded Master FX" ID="Effect Slot3_Hardcoded Master FX"
                    Bypassed="0" Network="Chorus2" Chorus="1.0" CentreDelay="0.03999999910593033"
-                   Depth="0.9200000166893005" Feedback="0.8399999737739563" Rate="0.0"
-                   Mix="0.8799999952316284">
+                   Depth="0.9199999570846558" Feedback="0.8399999737739563" Rate="0.0"
+                   Mix="0.9100000262260437">
           <EditorStates BodyShown="1" Visible="1" Solo="0"/>
           <ChildProcessors/>
           <RoutingMatrix NumSourceChannels="2" Channel0="0" Send0="-1" Channel1="1" Send1="-1"/>
@@ -104,8 +107,8 @@
     </Processor>
     <Processor Type="SlotFX" ID="Effect Slot3" Bypassed="0">
       <ChildProcessors>
-        <Processor Type="Hardcoded Master FX" ID="Effect Slot3_Hardcoded Master FX"
-                   Bypassed="1" Network="Reverb" Reverb="1.0" Damping="0.0" Diffusion="0.6000000238418579"
+        <Processor Type="Hardcoded Master FX" ID="Effect Slot2_Hardcoded Master FX"
+                   Bypassed="1" Network="Reverb" Reverb="1.0" Damping="0.0" Diffusion="0.5999999642372131"
                    HFGain="1.0" HighCrossover="3392.0" LFGain="1.0" LowCrossover="377.0"
                    MidGain="1.0" ModDepth="0.0" ModFrequency="0.0" ReverbTime="1.0"
                    Size="1.0" Mix="0.5" preDelay="0.0" feedbacl="0.0" Smoothing="0.0">
@@ -119,10 +122,10 @@
     </Processor>
     <Processor Type="SlotFX" ID="Effect Slot4" Bypassed="0">
       <ChildProcessors>
-        <Processor Type="Hardcoded Master FX" ID="Effect Slot4_Hardcoded Master FX"
+        <Processor Type="Hardcoded Master FX" ID="Effect Slot5_Hardcoded Master FX"
                    Bypassed="1" Network="Degrade" Degrade="1.0" Mix="0.1599999964237213"
                    HighCut="16418.0" LowCut="22.0" ModulationDepth="0.0" ModulationSpeed="0.0"
-                   Amount="26.04000091552734" CrushMode="1.0" BitDepth="6.0" BitcrushMode="0.0">
+                   Amount="26.0" CrushMode="1.0" BitDepth="6.0" BitcrushMode="0.0">
           <EditorStates BodyShown="1" Visible="1" Solo="0"/>
           <ChildProcessors/>
           <RoutingMatrix NumSourceChannels="2" Channel0="0" Send0="-1" Channel1="1" Send1="-1"/>
@@ -133,10 +136,10 @@
     </Processor>
     <Processor Type="SlotFX" ID="Effect Slot5" Bypassed="0">
       <ChildProcessors>
-        <Processor Type="Hardcoded Master FX" ID="Effect Slot5_Hardcoded Master FX"
-                   Bypassed="0" Network="Flair" Flanger="1.0" Speed="0.05000000074505806"
-                   Depth="0.9800000190734863" Feedback="0.9300000071525574" Delay="0.7599999904632568"
-                   Offset="0.8899999856948853" Mix="0.0">
+        <Processor Type="Hardcoded Master FX" ID="Effect Slot1_Hardcoded Master FX"
+                   Bypassed="0" Network="Flair" Flanger="1.0" Speed="0.04999999701976776"
+                   Depth="0.9799999594688416" Feedback="0.9300000071525574" Delay="0.7599999904632568"
+                   Offset="0.8899999856948853" Mix="0.5299999713897705">
           <EditorStates BodyShown="1" Visible="1" Solo="0"/>
           <ChildProcessors/>
           <RoutingMatrix NumSourceChannels="2" Channel0="0" Send0="-1" Channel1="1" Send1="-1"/>

@@ -7,21 +7,21 @@
                height="428.0" parentComponent="panel_background" itemColour2="4278190080"
                itemColour="4278190080" text="backgrop" borderRadius="5.0" bgColour="16711680"
                textColour="4278190080"/>
-    <Component type="ScriptPanel" id="panel_header" x="0.0" y="6.0" width="1140.0"
+    <Component type="ScriptPanel" id="panel_header" x="10.0" y="5.0" width="1140.0"
                height="60.0" parentComponent="panel_background" itemColour="0"
                itemColour2="0" bgColour="16777215" textColour="16777215">
-      <Component type="ScriptSlider" id="header_vumeter_ch1" x="828.0" y="32.0"
+      <Component type="ScriptSlider" id="header_vumeter_ch1" x="799.0" y="34.0"
                  width="160.0" height="6.0" max="1.100000023841858" parentComponent="panel_header"
                  style="Horizontal" showTextBox="0" scrollWheel="0" enabled="0"
                  itemColour2="0" itemColour="4293125091" bgColour="4284835173"
                  saveInPreset="0"/>
-      <Component type="ScriptSlider" id="header_vumeter_ch2" x="828.0" y="26.0"
+      <Component type="ScriptSlider" id="header_vumeter_ch2" x="799.0" y="28.0"
                  width="160.0" height="6.0" max="1.100000023841858" parentComponent="panel_header"
                  style="Horizontal" showTextBox="0" itemColour2="0" itemColour="4293125091"
                  bgColour="4284835173" enabled="0" saveInPreset="0"/>
       <Component type="ScriptButton" id="button_title" x="20.0" y="4.0" width="35.0"
                  height="45.0" text=" REACH" parentComponent="panel_header" saveInPreset="0"/>
-      <Component type="ScriptButton" id="button_logo" x="1080.0" y="4.0" width="40.0"
+      <Component type="ScriptButton" id="button_logo" x="1056.0" y="7.0" width="40.0"
                  height="50.0" parentComponent="panel_header" text="logo" scaleFactor="2.0"
                  bgColour="4278190080" itemColour="4283387727" saveInPreset="0"/>
       <Component type="ScriptButton" id="button_preset_leftArrow" x="75.0" y="14.0"
@@ -32,7 +32,7 @@
                  y="14.0" parentComponent="panel_header" text="rightArrow" width="20.0"
                  height="30.0" saveInPreset="0" itemColour="4281545523" bgColour="4286874756"
                  textColour="4285229931" itemColour2="4285229931" isMomentary="1"/>
-      <Component type="ScriptLabel" id="themeAble_label_out" x="750.0" y="24.20000076293945"
+      <Component type="ScriptLabel" id="themeAble_label_out" x="721.0" y="26.20000076293945"
                  parentComponent="panel_header" fontName="inter-semi" text="MAIN OUT"
                  textColour="-9737365" fontSize="12.0" height="16.79999923706055"
                  editable="0" itemColour2="0" width="76.80000305175781"/>
@@ -42,10 +42,10 @@
                  bgColour="16711680" saveInPreset="0" enableMidiLearn="0"/>
       <Component type="ScriptButton" id="onPresetLoad" x="330.0" y="24.0" parentComponent="panel_header"
                  text="" visible="0" width="76.80000305175781" height="16.79999923706055"/>
-      <Component type="ScriptButton" id="button_quickTheme" x="1055.0" y="24.0"
+      <Component type="ScriptButton" id="button_quickTheme" x="1026.0" y="26.0"
                  parentComponent="panel_header" width="15.0" height="15.0" text="icon-halfCircle"
                  isMomentary="1" itemColour="1727987712"/>
-      <Component type="ScriptPanel" id="randomPanelButton" x="1015.0" y="24.0"
+      <Component type="ScriptPanel" id="randomPanelButton" x="986.0" y="26.0"
                  parentComponent="panel_header" width="15.0" height="15.0" allowCallbacks="All Callbacks"/>
     </Component>
     <Component type="ScriptPanel" id="themeablePanel_reverb" x="18.0" y="72.0"

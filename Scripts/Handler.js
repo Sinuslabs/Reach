@@ -224,16 +224,6 @@ logoButton.setLocalLookAndFeel(headerButtonsLAF);
 
 // SHORTCUT HANDLER
 const var panel_background = Content.getComponent("panel_background");
-panel_background.setKeyPressCallback(onBackgroundKeypress);
-inline function onBackgroundKeypress(key) {
-
-	// ESC -> main Screen
-	if (key.keyCode == 27) {
-		showMain();
-		SplashAnimation.cancelAnimation();
-		Randomization.hideLockMenu();
-	}
-}
 
 // Website
 Content.getComponent("button_website").setControlCallback(onpanel_githubControl);

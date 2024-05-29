@@ -2,7 +2,7 @@
 
 <ProjectSettings>
   <Name value="Reach"/>
-  <Version value="1.6.1"/>
+  <Version value="1.6.0"/>
   <Description value="Spaced Out Reverb"/>
   <BundleIdentifier value="com.sinuslabs.reach"/>
   <PluginCode value="Reac"/>

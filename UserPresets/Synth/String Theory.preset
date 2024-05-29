@@ -45,11 +45,11 @@
     <Control type="ScriptSlider" id="displayKnob_flanger_delay" value="1.0"/>
     <Control type="ScriptSlider" id="displayKnob_flanger_offset" value="0.0"/>
     <Control type="ScriptButton" id="displayButton_flanger_bypass" value="1.0"/>
-    <Control type="ScriptSlider" id="displayKnob_distort_lowPass" value="20000.0"/>
-    <Control type="ScriptSlider" id="displayKnob_distort_highpass" value="0.0"/>
+    <Control type="ScriptSlider" id="displayKnob_distort_lowPass" value="7500.0"/>
+    <Control type="ScriptSlider" id="displayKnob_distort_highpass" value="140.0"/>
     <Control type="ScriptSlider" id="displayKnob_distort_amount" value="26.0"/>
-    <Control type="ScriptSlider" id="displayKnob_distort_postlowcut" value="20000.0"/>
-    <Control type="ScriptSlider" id="displayKnob_distort_posthighcut" value="0.0"/>
+    <Control type="ScriptSlider" id="displayKnob_distort_postlowcut" value="7500.0"/>
+    <Control type="ScriptSlider" id="displayKnob_distort_posthighcut" value="140.0"/>
     <Control type="ScriptButton" id="displayButton_distort_bypass" value="1.0"/>
     <Control type="ScriptSlider" id="displayKnob_chorus_Delay" value="0.3199999928474426"/>
     <Control type="ScriptSlider" id="displayKnob_chorus_depth" value="1.0"/>
