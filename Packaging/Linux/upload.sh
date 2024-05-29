@@ -12,7 +12,7 @@ if [ -z "$NAME" ] || [ -z "$VERSION" ] || [ -z "$USERNAME" ] || [ -z "$PASSWORD"
 fi
 
 echo "Uploading to Storage ..."
-curl --progress-bar -k -u "${USERNAME}:${PASSWORD}" -T "${project_root}/build/${OS}/${NAME}-installer.zip" "${UPLOAD_LOCATION}/builds/${NAME}/${VERSION}/${NAME}-installer.zip"
+curl --progress-bar -k -u "${USERNAME}:${PASSWORD}" -T "${project_root}/build/${OS}/${NAME}-installer.zip" "${UPLOAD_LOCATION}/builds/${NAME}/${VERSION}/${NAME}-Linux.zip"
 
 # Clean up zip file
 rm -rf "${project_root}/build/${OS}/${NAME}.zip"
