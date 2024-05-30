@@ -137,18 +137,6 @@ namespace UserSettings {
 		
 	};
 	
-	// ROUTING 
-	const var wetOnlyGainSwitch = Content.getComponent("button_wetGainToggle")
-	wetOnlyGainSwitch.setControlCallback(onbutton_wetGainToggleControl);	
-	
-	inline function onbutton_wetGainToggleControl(component, value) {
-		wetOnlyGain = !value; 
-		UserSettings.saveSettings();
-
-		setGainBypass();
-
-	};
-	
 	// Buy Reach Button
 	Content.getComponent("button_buy_reach").setControlCallback(onbutton_buy_reachControl);
 	inline function onbutton_buy_reachControl(component, value) {
@@ -242,16 +230,6 @@ namespace UserSettings {
 		button_startupAnimationToggle.setValue(!startupAnimationSaved);
 		startupAnimation = startupAnimationSaved;
 		
-		// wet only gain
-		wetOnlyGainSwitch.setValue(!wetOnlyGainSaved);
-		wetOnlyGain = wetOnlyGainSaved;
-		
-		setGainBypass();
-	}
-	
-	function setGainBypass() {
-		WetOnlyGain.setBypassed(!wetOnlyGain);
-		Gain.setBypassed(wetOnlyGain);
 	}
 	
 	// checks if the settings file exist

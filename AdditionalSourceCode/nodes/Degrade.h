@@ -284,20 +284,20 @@ template <int NV> struct instance: public Degrade_impl::Degrade_t_<NV>
             0x5B00, 0x0001, 0x0000, 0x694D, 0x0078, 0x0000, 0x0000, 0x0000, 
             0x3F80, 0x0000, 0x3F80, 0x0000, 0x3F80, 0x0000, 0x0000, 0x025B, 
             0x0000, 0x4800, 0x6769, 0x4368, 0x7475, 0x0000, 0xA000, 0x0041, 
-            0x9C40, 0x0046, 0x9C40, 0x1A46, 0x6B6C, 0x003E, 0x0000, 0x5B00, 
+            0x9C40, 0x6946, 0xC609, 0x1A42, 0x6B6C, 0x003E, 0x0000, 0x5B00, 
             0x0003, 0x0000, 0x6F4C, 0x4377, 0x7475, 0x0000, 0xA000, 0x0041, 
-            0x9C40, 0x0046, 0xA000, 0x1A41, 0x6B6C, 0x003E, 0x0000, 0x5B00, 
+            0x9C40, 0x3346, 0xE5D9, 0x1A43, 0x6B6C, 0x003E, 0x0000, 0x5B00, 
             0x0004, 0x0000, 0x6F4D, 0x7564, 0x616C, 0x6974, 0x6E6F, 0x6544, 
-            0x7470, 0x0068, 0x0000, 0x0000, 0x0000, 0x3F80, 0x0000, 0x0000, 
+            0x7470, 0x0068, 0x0000, 0x0000, 0x0000, 0x3F80, 0x9DB2, 0x3DDF, 
             0x0000, 0x3F80, 0x0000, 0x0000, 0x055B, 0x0000, 0x4D00, 0x646F, 
             0x6C75, 0x7461, 0x6F69, 0x536E, 0x6570, 0x6465, 0x0000, 0x0000, 
             0x0000, 0xF000, 0x3D41, 0xD70A, 0x1A3E, 0x6B6C, 0x0A3E, 0x23D7, 
             0x5B3C, 0x0006, 0x0000, 0x6D41, 0x756F, 0x746E, 0x0000, 0x8000, 
-            0x003F, 0xC600, 0x3C42, 0xB8A5, 0x0041, 0x8000, 0x003F, 0x0000, 
+            0x003F, 0xC600, 0x6442, 0x12BB, 0x0041, 0x8000, 0x003F, 0x0000, 
             0x5B00, 0x0007, 0x0000, 0x7243, 0x7375, 0x4D68, 0x646F, 0x0065, 
-            0x0000, 0x0000, 0x0000, 0x3F80, 0x0000, 0x3F80, 0x0000, 0x3F80, 
+            0x0000, 0x0000, 0x0000, 0x3F80, 0x0000, 0x0000, 0x0000, 0x3F80, 
             0x0000, 0x3F80, 0x085B, 0x0000, 0x4200, 0x7469, 0x6544, 0x7470, 
-            0x0068, 0x0000, 0x4080, 0x0000, 0x4180, 0x17F6, 0x410D, 0x0000, 
+            0x0068, 0x0000, 0x4080, 0x0000, 0x4180, 0xE60A, 0x410C, 0x0000, 
             0x3F80, 0x0000, 0x0000, 0x095B, 0x0000, 0x4200, 0x7469, 0x7263, 
             0x7375, 0x4D68, 0x646F, 0x0065, 0x0000, 0x0000, 0x0000, 0x3F80, 
             0x0000, 0x3F80, 0x0000, 0x3F80, 0x0000, 0x3F80, 0x0000, 0x0000
@@ -434,19 +434,19 @@ template <int NV> struct instance: public Degrade_impl::Degrade_t_<NV>
 		gain.setParameterT(1, 20.); // core::gain::Smoothing
 		gain.setParameterT(2, 0.);  // core::gain::ResetValue
 		
-		;                                // one_pole::Frequency is automated
-		one_pole.setParameterT(1, 1.);   // filters::one_pole::Q
-		one_pole.setParameterT(2, 0.);   // filters::one_pole::Gain
-		one_pole.setParameterT(3, 0.01); // filters::one_pole::Smoothing
-		one_pole.setParameterT(4, 0.);   // filters::one_pole::Mode
-		one_pole.setParameterT(5, 1.);   // filters::one_pole::Enabled
+		;                                     // one_pole::Frequency is automated
+		one_pole.setParameterT(1, 1.);        // filters::one_pole::Q
+		one_pole.setParameterT(2, 0.);        // filters::one_pole::Gain
+		one_pole.setParameterT(3, 0.0523756); // filters::one_pole::Smoothing
+		one_pole.setParameterT(4, 0.);        // filters::one_pole::Mode
+		one_pole.setParameterT(5, 1.);        // filters::one_pole::Enabled
 		
-		;                                 // one_pole1::Frequency is automated
-		one_pole1.setParameterT(1, 1.);   // filters::one_pole::Q
-		one_pole1.setParameterT(2, 0.);   // filters::one_pole::Gain
-		one_pole1.setParameterT(3, 0.01); // filters::one_pole::Smoothing
-		one_pole1.setParameterT(4, 1.);   // filters::one_pole::Mode
-		one_pole1.setParameterT(5, 1.);   // filters::one_pole::Enabled
+		;                                      // one_pole1::Frequency is automated
+		one_pole1.setParameterT(1, 1.);        // filters::one_pole::Q
+		one_pole1.setParameterT(2, 0.);        // filters::one_pole::Gain
+		one_pole1.setParameterT(3, 0.0534332); // filters::one_pole::Smoothing
+		one_pole1.setParameterT(4, 1.);        // filters::one_pole::Mode
+		one_pole1.setParameterT(5, 1.);        // filters::one_pole::Enabled
 		
 		;                               // wet_gain::Gain is automated
 		wet_gain.setParameterT(1, 20.); // core::gain::Smoothing
@@ -454,13 +454,13 @@ template <int NV> struct instance: public Degrade_impl::Degrade_t_<NV>
 		
 		this->setParameterT(0, 1.);
 		this->setParameterT(1, 1.);
-		this->setParameterT(2, 20000.);
-		this->setParameterT(3, 20.);
-		this->setParameterT(4, 0.);
+		this->setParameterT(2, 99.0184);
+		this->setParameterT(3, 459.697);
+		this->setParameterT(4, 0.109188);
 		this->setParameterT(5, 0.42);
-		this->setParameterT(6, 23.0807);
-		this->setParameterT(7, 1.);
-		this->setParameterT(8, 8.81835);
+		this->setParameterT(6, 9.17075);
+		this->setParameterT(7, 0.);
+		this->setParameterT(8, 8.80616);
 		this->setParameterT(9, 1.);
 		this->setExternalData({}, -1);
 	}

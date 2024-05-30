@@ -43,9 +43,10 @@ laf.registerFunction('drawScrollbar', function(g, obj) {
 const BUTTON_BORDER_RADIUS = 1.5;
 const BUTTON_BORDER_SIZE = 1.5;
 
-laf.registerFunction('drawToggleButton', function(g, obj) {	
+const var LAF_displayButton = Content.createLocalLookAndFeel();
+
+LAF_displayButton.registerFunction('drawToggleButton', function(g, obj) {	
 	var a = obj.area;
-	
 	if (obj.text.indexOf('displayButton-') != -1) {
 		obj.text = obj.text.replace('displayButton-');
 		
@@ -154,6 +155,32 @@ laf.registerFunction('drawToggleButton', function(g, obj) {
 	}
 });
 
+const var LAF_displayIcon = Content.createLocalLookAndFeel();
+LAF_displayIcon.registerFunction('drawToggleButton', displayIcon_LAF);
+
+inline function displayIcon_LAF(g, obj) {
+	
+	local a = obj.area;
+	local padding = 10;
+	
+	local pa = [
+		a[0] + padding,
+		a[1] + padding,
+		a[2] - padding * 2,
+		a[3] - padding * 2
+	];
+	
+	local SELECTED_ICON_COLOUR = DisplayTheme.selectedIconColour;
+	
+	if (obj.over == 1) {
+		SELECTED_ICON_COLOUR = SELECTED_ICON_COLOUR.replace('0x', '0x' + PanelTheme.hoverOpacity);
+	}
+	
+	g.setColour(SELECTED_ICON_COLOUR);
+	
+	g.drawPath(Paths.icons.x, pa, 2);
+}
+
 const asyncButtonLaf = Content.createLocalLookAndFeel();
 asyncButtonLaf.registerFunction('drawToggleButton', function(g, obj) {
 	var a = obj.area;
@@ -206,14 +233,18 @@ presetBrowserButtonLAF.registerFunction('drawToggleButton', function(g, obj) {
 const headerButtonsLAF = Content.createLocalLookAndFeel();
 headerButtonsLAF.registerFunction('drawToggleButton', function(g, obj){
 	
-	var padding = 22;
+	var SIZE = 10;
+	
+	if (obj.text === 'logo') {
+		SIZE = 30;
+	}
 
 	var a = obj.area;
 	var pa = [	
-		a[0] + padding / 2, 
-		a[1] + padding / 2 ,
-		a[2] - padding / 2,
-		a[3] - padding 
+		a[2] / 2 - SIZE / 2, 
+		a[3] / 2 - SIZE / 2,
+		SIZE,
+		SIZE
 	];
 
 	var SELECTED_ICON_COLOUR = HeaderTheme.selectedIconColour;
@@ -366,19 +397,6 @@ knb_laf.registerFunction("drawRotarySlider", function(g, obj){
 	if (obj.clicked || obj.hover) {
 		
 		text = obj.valueAsText;
-		if (obj.suffix == ' ms') {
-			reg label;
-			if (obj.value < 1.0) {
-				label = ' ms';
-				obj.value *= 100;
-				obj.value = Engine.doubleToString(obj.value * 10, 0);
-			} else {
-				label = ' s';
-				obj.value = Engine.doubleToString(obj.value, 2);
-			}
-		
-			text = obj.value + label;
-		}
 		if (obj.suffix == ' Hz') {
 			if (obj.value > 1000) {
 				text = Engine.doubleToString(obj.value / 1000, 1) + 'khz';
@@ -424,7 +442,7 @@ knb_laf.registerFunction("drawRotarySlider", function(g, obj){
 	// SHADOW PATH
 	var shadowPath = Content.createPath();
 	shadowPath.addArc([0.0, 0.0, 1.0, 1.0], 0, Math.PI * 2);
-	if (!disabled) {
+	if (!disabled ) {
 		g.drawDropShadowFromPath(
 			shadowPath,
 			sa,
@@ -511,6 +529,19 @@ inline function mixKnobLAF(g, obj) {
 	local BORDER_COLOUR = SliderTheme.borderColour;
 	local TEXT_COLOUR = SliderTheme.textColour;
 	local SHADOW_COLOUR = SliderTheme.shadowColour;
+	
+	local disabled = !obj.enabled;
+	
+	if (disabled) {
+		// Special case for the ARC Colour since its black transparency is not doing much
+		ARC_COLOUR = ARC_COLOUR.replace('0x', '0x66');
+		INDICATOR_COLOUR = INDICATOR_COLOUR.replace('0x', '0x' + DISABLED_OPACITY);
+		UPPER_GRADIENT = UPPER_GRADIENT.replace('0x', '0x' + DISABLED_OPACITY);
+		LOWER_GRADIENT = LOWER_GRADIENT.replace('0x', '0x' + DISABLED_OPACITY);
+		BORDER_COLOUR = BORDER_COLOUR.replace('0x', '0x' + DISABLED_OPACITY);
+		SHADOW_COLOUR = SHADOW_COLOUR.replace('0x', '0x' + DISABLED_OPACITY);
+		TEXT_COLOUR = TEXT_COLOUR.replace('0x', '0x' + DISABLED_OPACITY);
+	}
 	
 	local text = obj.valueAsText;
 	

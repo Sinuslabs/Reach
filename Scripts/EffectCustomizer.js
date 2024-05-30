@@ -2,7 +2,7 @@
 namespace EffectCustomizer {
 	const var button_fx = Content.getComponent("button_fx")
  	button_fx.setControlCallback(onbutton_fxControl);
- 	
+ 	button_fx.setLocalLookAndFeel(LAF_displayButton);
 	const var displayKnobs = Content.getAllComponents('displayKnob');
 	
 	Engine.addModuleStateToUserPreset('Effect Slot1');
@@ -58,6 +58,10 @@ namespace EffectCustomizer {
                                     Content.getComponent("button_chorus_bypass"),
                                     Content.getComponent("button_distort_bypass")];
     
+    for (btn in bypassButtons) {
+	    btn.setLocalLookAndFeel(LAF_displayButton);
+    }
+    
 	const var displayPanel_distortIndicator = Content.getComponent("displayPanel_distortIndicator");
 	const var displayPanel_flangerIndicator = Content.getComponent("displayPanel_flangerIndicator");
 	const var displayPanel_degradeIndicator = Content.getComponent("displayPanel_degradeIndicator");
@@ -94,7 +98,10 @@ namespace EffectCustomizer {
 	], "Clicks Only", "Mouse Listener for Effect Controls");
 	indicatorShortcutWatcher.addListener("RefreshFunction", "Mute and navigate to Effect", function(component, event) {
 	
-		if (event.cmdDown && event.clicked) {		
+		if (event.cmdDown && event.clicked) {
+			
+			if (Globals.isBypassed) return;
+				
 			switch(component.get('text')) {
 				case 'Reverb':
 					Reverb.displayButton_reverb_bypass.setValue(!Reverb.displayButton_reverb_bypass.getValue());

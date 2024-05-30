@@ -71,18 +71,63 @@ template <int NV>
 using dry_path1_t = container::chain<parameter::empty, 
                                      wrap::fix<2, dry_wet_mixer1_t<NV>>, 
                                      core::gain<NV>>;
+
+template <int NV> using dry_wet_mixer2_c0 = pma_mod<NV>;
+
+template <int NV> using dry_wet_mixer2_c1 = pma_mod<NV>;
+
+template <int NV>
+using dry_wet_mixer2_multimod = parameter::list<dry_wet_mixer2_c0<NV>, dry_wet_mixer2_c1<NV>>;
+
+template <int NV>
+using dry_wet_mixer2_t = control::xfader<dry_wet_mixer2_multimod<NV>, 
+                                         faders::cosine_half>;
+
+template <int NV>
+using dry_path2_t = container::chain<parameter::empty, 
+                                     wrap::fix<2, dry_wet_mixer2_t<NV>>, 
+                                     core::gain<NV>>;
+
+template <int NV>
+using tempo_sync_t = wrap::mod<parameter::plain<project::Delay2<NV>, 0>, 
+                               control::tempo_sync<NV>>;
 using stereo_cable = cable::block<2>;
+using limiter_t = wrap::no_data<dynamics::limiter>;
 
-using feedback_delay2_t_ = container::chain<parameter::empty, 
-                                            wrap::fix<2, routing::receive<stereo_cable>>, 
-                                            core::fix_delay, 
-                                            routing::send<stereo_cable>>;
+template <int NV>
+using fix32_block_t_ = container::chain<parameter::empty, 
+                                        wrap::fix<2, routing::receive<stereo_cable>>, 
+                                        project::Delay2<NV>, 
+                                        filters::svf<NV>, 
+                                        filters::svf<NV>, 
+                                        limiter_t, 
+                                        routing::send<stereo_cable>>;
 
-using feedback_delay2_t = wrap::fix_block<32, feedback_delay2_t_>;
+template <int NV>
+using fix32_block_t = wrap::fix_block<32, fix32_block_t_<NV>>;
+
+template <int NV>
+using chain1_t = container::chain<parameter::empty, 
+                                  wrap::fix<2, tempo_sync_t<NV>>, 
+                                  fix32_block_t<NV>>;
+
+template <int NV>
+using wet_path2_t = container::chain<parameter::empty, 
+                                     wrap::fix<2, chain1_t<NV>>, 
+                                     core::gain<NV>>;
+
+namespace dry_wet3_t_parameters
+{
+}
+
+template <int NV>
+using dry_wet3_t = container::split<parameter::plain<Reverb_impl::dry_wet_mixer2_t<NV>, 0>, 
+                                    wrap::fix<2, dry_path2_t<NV>>, 
+                                    wet_path2_t<NV>>;
 
 template <int NV>
 using wet_path1_t = container::chain<parameter::empty, 
-                                     wrap::fix<2, feedback_delay2_t>, 
+                                     wrap::fix<2, dry_wet3_t<NV>>, 
                                      project::FaustReverb<NV>, 
                                      pma_t<NV>, 
                                      core::gain<NV>, 
@@ -101,88 +146,9 @@ namespace Reverb_t_parameters
 {
 // Parameter list for Reverb_impl::Reverb_t --------------------------------------------------------
 
-DECLARE_PARAMETER_RANGE_STEP(DampingRange, 
-                             0., 
-                             1, 
-                             0.01);
-
-template <int NV>
-using Damping = parameter::from0To1<project::FaustReverb<NV>, 
-                                    0, 
-                                    DampingRange>;
-
-template <int NV>
-using Diffusion = parameter::from0To1<project::FaustReverb<NV>, 
-                                      1, 
-                                      DampingRange>;
-
-template <int NV>
-using HFGain = parameter::from0To1<project::FaustReverb<NV>, 
-                                   2, 
-                                   DampingRange>;
-
-DECLARE_PARAMETER_RANGE(HighCrossover_InputRange, 
-                        1000., 
-                        10000.);
-DECLARE_PARAMETER_RANGE_STEP(HighCrossover_0Range, 
-                             1000., 
-                             10000., 
-                             1.);
-
-template <int NV>
-using HighCrossover_0 = parameter::from0To1<project::FaustReverb<NV>, 
-                                            3, 
-                                            HighCrossover_0Range>;
-
-template <int NV>
-using HighCrossover = parameter::chain<HighCrossover_InputRange, 
-                                       HighCrossover_0<NV>>;
-
-template <int NV>
-using LFGain = parameter::from0To1<project::FaustReverb<NV>, 
-                                   4, 
-                                   DampingRange>;
-
-DECLARE_PARAMETER_RANGE(LowCrossover_InputRange, 
-                        100., 
-                        6000.);
-DECLARE_PARAMETER_RANGE_STEP(LowCrossover_0Range, 
-                             100., 
-                             6000., 
-                             1.);
-
-template <int NV>
-using LowCrossover_0 = parameter::from0To1<project::FaustReverb<NV>, 
-                                           5, 
-                                           LowCrossover_0Range>;
-
-template <int NV>
-using LowCrossover = parameter::chain<LowCrossover_InputRange, 
-                                      LowCrossover_0<NV>>;
-
-template <int NV>
-using MidGain = parameter::from0To1<project::FaustReverb<NV>, 
-                                    6, 
-                                    DampingRange>;
-
-template <int NV>
-using ModDepth = parameter::from0To1<project::FaustReverb<NV>, 
-                                     7, 
-                                     DampingRange>;
-
-DECLARE_PARAMETER_RANGE_STEP(ModFrequencyRange, 
-                             0., 
-                             1, 
-                             0.01);
-
-template <int NV>
-using ModFrequency = parameter::from0To1<project::FaustReverb<NV>, 
-                                         8, 
-                                         ModFrequencyRange>;
-
 DECLARE_PARAMETER_RANGE(ReverbTime_InputRange, 
                         0., 
-                        12.);
+                        16.);
 DECLARE_PARAMETER_RANGE_STEP(ReverbTime_0Range, 
                              0.1, 
                              60., 
@@ -196,40 +162,60 @@ using ReverbTime_0 = parameter::from0To1<project::FaustReverb<NV>,
 template <int NV>
 using ReverbTime = parameter::chain<ReverbTime_InputRange, ReverbTime_0<NV>>;
 
-DECLARE_PARAMETER_RANGE(Size_InputRange, 
-                        0.5, 
-                        5.);
-DECLARE_PARAMETER_RANGE_STEP(Size_0Range, 
-                             0.5, 
-                             5, 
-                             0.01);
-
-template <int NV>
-using Size_0 = parameter::from0To1<project::FaustReverb<NV>, 
-                                   10, 
-                                   Size_0Range>;
-
-template <int NV>
-using Size = parameter::chain<Size_InputRange, Size_0<NV>>;
-
-DECLARE_PARAMETER_RANGE_SKEW(preDelayRange, 
-                             0., 
-                             1000., 
-                             0.30103);
-
-using preDelay = parameter::from0To1<core::fix_delay, 
-                                     0, 
-                                     preDelayRange>;
-
 using Reverb = parameter::empty;
+template <int NV>
+using Damping = parameter::plain<project::FaustReverb<NV>, 
+                                 0>;
+template <int NV>
+using Diffusion = parameter::plain<project::FaustReverb<NV>, 
+                                   1>;
+template <int NV>
+using HFGain = parameter::plain<project::FaustReverb<NV>, 
+                                2>;
+template <int NV>
+using HighCrossover = parameter::plain<project::FaustReverb<NV>, 
+                                       3>;
+template <int NV>
+using LFGain = parameter::plain<project::FaustReverb<NV>, 
+                                4>;
+template <int NV>
+using LowCrossover = parameter::plain<project::FaustReverb<NV>, 
+                                      5>;
+template <int NV>
+using MidGain = parameter::plain<project::FaustReverb<NV>, 
+                                 6>;
+template <int NV>
+using ModDepth = parameter::plain<project::FaustReverb<NV>, 
+                                  7>;
+template <int NV>
+using ModFrequency = parameter::plain<project::FaustReverb<NV>, 
+                                      8>;
+template <int NV>
+using Size = parameter::plain<project::FaustReverb<NV>, 
+                              10>;
 template <int NV>
 using Mix = parameter::plain<Reverb_impl::dry_wet2_t<NV>, 
                              0>;
-using feedbacl = parameter::plain<routing::receive<stereo_cable>, 
+template <int NV>
+using preDelay = parameter::plain<Reverb_impl::tempo_sync_t<NV>, 
+                                  3>;
+using Feedback = parameter::plain<routing::receive<stereo_cable>, 
                                   0>;
 template <int NV>
 using Smoothing = parameter::plain<Reverb_impl::bipolar_t<NV>, 
                                    0>;
+template <int NV>
+using DelayMix = parameter::plain<Reverb_impl::dry_wet3_t<NV>, 
+                                  0>;
+template <int NV>
+using DelayUseTempo = parameter::plain<Reverb_impl::tempo_sync_t<NV>, 
+                                       2>;
+template <int NV>
+using DelayTempo = parameter::plain<Reverb_impl::tempo_sync_t<NV>, 
+                                    0>;
+template <int NV>
+using DelayHighpass = parameter::plain<filters::svf<NV>, 0>;
+template <int NV> using DelayLowpass = DelayHighpass<NV>;
 template <int NV>
 using Reverb_t_plist = parameter::list<Reverb, 
                                        Damping<NV>, 
@@ -244,9 +230,14 @@ using Reverb_t_plist = parameter::list<Reverb,
                                        ReverbTime<NV>, 
                                        Size<NV>, 
                                        Mix<NV>, 
-                                       preDelay, 
-                                       feedbacl, 
-                                       Smoothing<NV>>;
+                                       preDelay<NV>, 
+                                       Feedback, 
+                                       Smoothing<NV>, 
+                                       DelayMix<NV>, 
+                                       DelayUseTempo<NV>, 
+                                       DelayTempo<NV>, 
+                                       DelayHighpass<NV>, 
+                                       DelayLowpass<NV>>;
 }
 
 template <int NV>
@@ -269,43 +260,54 @@ template <int NV> struct instance: public Reverb_impl::Reverb_t_<NV>
 		
 		SNEX_METADATA_ID(Reverb);
 		SNEX_METADATA_NUM_CHANNELS(2);
-		SNEX_METADATA_ENCODED_PARAMETERS(274)
+		SNEX_METADATA_ENCODED_PARAMETERS(366)
 		{
 			0x005B, 0x0000, 0x5200, 0x7665, 0x7265, 0x0062, 0x0000, 0xC170, 
             0x0000, 0x0000, 0x0000, 0x0000, 0x0000, 0x3F80, 0xD70A, 0x3C23, 
             0x015B, 0x0000, 0x4400, 0x6D61, 0x6970, 0x676E, 0x0000, 0x0000, 
-            0x0000, 0x8000, 0xD93F, 0x5C32, 0x003E, 0x8000, 0x003F, 0x0000, 
-            0x5B00, 0x0002, 0x0000, 0x6944, 0x6666, 0x7375, 0x6F69, 0x006E, 
+            0x0000, 0x8000, 0xB83F, 0x051E, 0x003F, 0x8000, 0x0A3F, 0x23D7, 
+            0x5B3C, 0x0002, 0x0000, 0x6944, 0x6666, 0x7375, 0x6F69, 0x006E, 
             0x0000, 0x0000, 0x0000, 0x3F80, 0x0000, 0x3F80, 0x0000, 0x3F80, 
-            0x0000, 0x0000, 0x035B, 0x0000, 0x4800, 0x4746, 0x6961, 0x006E, 
+            0xD70A, 0x3C23, 0x035B, 0x0000, 0x4800, 0x4746, 0x6961, 0x006E, 
             0x0000, 0x0000, 0x0000, 0x3F80, 0x0000, 0x3F80, 0x0000, 0x3F80, 
-            0x0000, 0x0000, 0x045B, 0x0000, 0x4800, 0x6769, 0x4368, 0x6F72, 
+            0xD70A, 0x3C23, 0x045B, 0x0000, 0x4800, 0x6769, 0x4368, 0x6F72, 
             0x7373, 0x766F, 0x7265, 0x0000, 0x7A00, 0x0044, 0x1C40, 0x0046, 
-            0x7A00, 0x0044, 0x8000, 0x003F, 0x0000, 0x5B00, 0x0005, 0x0000, 
+            0x14F0, 0x0045, 0x8000, 0x003F, 0x8000, 0x5B3F, 0x0005, 0x0000, 
             0x464C, 0x6147, 0x6E69, 0x0000, 0x0000, 0x0000, 0x8000, 0x003F, 
-            0x8000, 0x003F, 0x8000, 0x003F, 0x0000, 0x5B00, 0x0006, 0x0000, 
+            0x8000, 0x003F, 0x8000, 0x0A3F, 0x23D7, 0x5B3C, 0x0006, 0x0000, 
             0x6F4C, 0x4377, 0x6F72, 0x7373, 0x766F, 0x7265, 0x0000, 0xC800, 
-            0x0042, 0xBB80, 0x0045, 0x8000, 0x003F, 0x8000, 0x003F, 0x0000, 
-            0x5B00, 0x0007, 0x0000, 0x694D, 0x4764, 0x6961, 0x006E, 0x0000, 
-            0x0000, 0x0000, 0x3F80, 0x0000, 0x3F80, 0x0000, 0x3F80, 0x0000, 
-            0x0000, 0x085B, 0x0000, 0x4D00, 0x646F, 0x6544, 0x7470, 0x0068, 
+            0x0042, 0xBB80, 0x0045, 0x2350, 0x0045, 0x8000, 0x003F, 0x8000, 
+            0x5B3F, 0x0007, 0x0000, 0x694D, 0x4764, 0x6961, 0x006E, 0x0000, 
+            0x0000, 0x0000, 0x3F80, 0x0000, 0x3F80, 0x0000, 0x3F80, 0xD70A, 
+            0x3C23, 0x085B, 0x0000, 0x4D00, 0x646F, 0x6544, 0x7470, 0x0068, 
             0x0000, 0x0000, 0x0000, 0x3F80, 0x0000, 0x0000, 0x0000, 0x3F80, 
-            0x0000, 0x0000, 0x095B, 0x0000, 0x4D00, 0x646F, 0x7246, 0x7165, 
-            0x6575, 0x636E, 0x0079, 0x0000, 0x0000, 0x0000, 0x3F80, 0x0000, 
-            0x0000, 0x0000, 0x3F80, 0x0000, 0x0000, 0x0A5B, 0x0000, 0x5200, 
+            0xD70A, 0x3C23, 0x095B, 0x0000, 0x4D00, 0x646F, 0x7246, 0x7165, 
+            0x6575, 0x636E, 0x0079, 0x0000, 0x0000, 0x0000, 0x4120, 0x0000, 
+            0x0000, 0x0000, 0x3F80, 0xD70A, 0x3C23, 0x0A5B, 0x0000, 0x5200, 
             0x7665, 0x7265, 0x5462, 0x6D69, 0x0065, 0x0000, 0x0000, 0x0000, 
-            0x4140, 0x0000, 0x3F80, 0x0000, 0x3F80, 0x0000, 0x0000, 0x0B5B, 
+            0x4180, 0x0E56, 0x3ED0, 0x0000, 0x3F80, 0x0000, 0x0000, 0x0B5B, 
             0x0000, 0x5300, 0x7A69, 0x0065, 0x0000, 0x3F00, 0x0000, 0x40A0, 
-            0xB578, 0x4072, 0x0000, 0x3F80, 0x0000, 0x0000, 0x0C5B, 0x0000, 
+            0x5C29, 0x3FCF, 0x0000, 0x3F80, 0xD70A, 0x3C23, 0x0C5B, 0x0000, 
             0x4D00, 0x7869, 0x0000, 0x0000, 0x0000, 0x8000, 0x003F, 0x8000, 
             0x003F, 0x8000, 0x003F, 0x0000, 0x5B00, 0x000D, 0x0000, 0x7270, 
-            0x4465, 0x6C65, 0x7961, 0x0000, 0x0000, 0x0000, 0x8000, 0xDB3F, 
-            0x4F4F, 0x003E, 0x8000, 0x003F, 0x0000, 0x5B00, 0x000E, 0x0000, 
-            0x6566, 0x6465, 0x6162, 0x6C63, 0x0000, 0x0000, 0x0000, 0x8000, 
-            0x003F, 0x0000, 0x0000, 0x8000, 0x003F, 0x0000, 0x5B00, 0x000F, 
+            0x4465, 0x6C65, 0x7961, 0x0000, 0x0000, 0x0000, 0xFA00, 0x0044, 
+            0x0680, 0x0043, 0x0000, 0xCD3F, 0xCCCC, 0x5B3D, 0x000E, 0x0000, 
+            0x6546, 0x6465, 0x6162, 0x6B63, 0x0000, 0x0000, 0x0000, 0x8000, 
+            0x713F, 0x82C3, 0x003E, 0x8000, 0x003F, 0x0000, 0x5B00, 0x000F, 
             0x0000, 0x6D53, 0x6F6F, 0x6874, 0x6E69, 0x0067, 0x0000, 0x0000, 
             0x0000, 0x3F80, 0x0000, 0x0000, 0x0000, 0x3F80, 0x0000, 0x0000, 
-            0x0000, 0x0000
+            0x105B, 0x0000, 0x4400, 0x6C65, 0x7961, 0x694D, 0x0078, 0x0000, 
+            0x0000, 0x0000, 0x3F80, 0x8F6D, 0x3EFF, 0x0000, 0x3F80, 0x0000, 
+            0x0000, 0x115B, 0x0000, 0x4400, 0x6C65, 0x7961, 0x7355, 0x5465, 
+            0x6D65, 0x6F70, 0x0000, 0x0000, 0x0000, 0x8000, 0x003F, 0x0000, 
+            0x0000, 0x8000, 0x003F, 0x8000, 0x5B3F, 0x0012, 0x0000, 0x6544, 
+            0x616C, 0x5479, 0x6D65, 0x6F70, 0x0000, 0x0000, 0x0000, 0x9000, 
+            0x0041, 0xC000, 0x0040, 0x8000, 0x003F, 0x8000, 0x5B3F, 0x0013, 
+            0x0000, 0x6544, 0x616C, 0x4879, 0x6769, 0x7068, 0x7361, 0x0073, 
+            0x0000, 0x41A0, 0x4000, 0x469C, 0x0439, 0x438A, 0x6C1A, 0x3E6B, 
+            0x0000, 0x0000, 0x145B, 0x0000, 0x4400, 0x6C65, 0x7961, 0x6F4C, 
+            0x7077, 0x7361, 0x0073, 0x0000, 0x41A0, 0x4000, 0x469C, 0x3D9B, 
+            0x4619, 0x6C1A, 0x3E6B, 0x0000, 0x0000, 0x0000
 		};
 	};
 	
@@ -313,26 +315,38 @@ template <int NV> struct instance: public Reverb_impl::Reverb_t_<NV>
 	{
 		// Node References -------------------------------------------------------------------------
 		
-		auto& fix8_block = this->getT(0);                      // Reverb_impl::fix8_block_t<NV>
-		auto& peak = this->getT(0).getT(0);                    // Reverb_impl::peak_t<NV>
-		auto& smoothed_parameter1 = this->getT(0).getT(1);     // Reverb_impl::smoothed_parameter1_t<NV>
-		auto& bipolar = this->getT(0).getT(2);                 // Reverb_impl::bipolar_t<NV>
-		auto& dry_wet2 = this->getT(1);                        // Reverb_impl::dry_wet2_t<NV>
-		auto& dry_path1 = this->getT(1).getT(0);               // Reverb_impl::dry_path1_t<NV>
-		auto& dry_wet_mixer1 = this->getT(1).getT(0).getT(0);  // Reverb_impl::dry_wet_mixer1_t<NV>
-		auto& dry_gain1 = this->getT(1).getT(0).getT(1);       // core::gain<NV>
-		auto& wet_path1 = this->getT(1).getT(1);               // Reverb_impl::wet_path1_t<NV>
-		auto& feedback_delay2 = this->getT(1).getT(1).getT(0); // Reverb_impl::feedback_delay2_t
-		auto& fb_out1 = this->getT(1).getT(1).getT(0).getT(0); // routing::receive<stereo_cable>
-		auto& delay1 = this->getT(1).getT(1).getT(0).getT(1);  // core::fix_delay
-		auto& fb_in1 = this->getT(1).getT(1).getT(0).getT(2);  // routing::send<stereo_cable>
-		auto& faust = this->getT(1).getT(1).getT(1);           // project::FaustReverb<NV>
-		auto& pma = this->getT(1).getT(1).getT(2);             // Reverb_impl::pma_t<NV>
-		auto& gain = this->getT(1).getT(1).getT(3);            // core::gain<NV>
-		auto& wet_gain1 = this->getT(1).getT(1).getT(4);       // core::gain<NV>
+		auto& fix8_block = this->getT(0);                                              // Reverb_impl::fix8_block_t<NV>
+		auto& peak = this->getT(0).getT(0);                                            // Reverb_impl::peak_t<NV>
+		auto& smoothed_parameter1 = this->getT(0).getT(1);                             // Reverb_impl::smoothed_parameter1_t<NV>
+		auto& bipolar = this->getT(0).getT(2);                                         // Reverb_impl::bipolar_t<NV>
+		auto& dry_wet2 = this->getT(1);                                                // Reverb_impl::dry_wet2_t<NV>
+		auto& dry_path1 = this->getT(1).getT(0);                                       // Reverb_impl::dry_path1_t<NV>
+		auto& dry_wet_mixer1 = this->getT(1).getT(0).getT(0);                          // Reverb_impl::dry_wet_mixer1_t<NV>
+		auto& dry_gain1 = this->getT(1).getT(0).getT(1);                               // core::gain<NV>
+		auto& wet_path1 = this->getT(1).getT(1);                                       // Reverb_impl::wet_path1_t<NV>
+		auto& dry_wet3 = this->getT(1).getT(1).getT(0);                                // Reverb_impl::dry_wet3_t<NV>
+		auto& dry_path2 = this->getT(1).getT(1).getT(0).getT(0);                       // Reverb_impl::dry_path2_t<NV>
+		auto& dry_wet_mixer2 = this->getT(1).getT(1).getT(0).getT(0).getT(0);          // Reverb_impl::dry_wet_mixer2_t<NV>
+		auto& dry_gain2 = this->getT(1).getT(1).getT(0).getT(0).getT(1);               // core::gain<NV>
+		auto& wet_path2 = this->getT(1).getT(1).getT(0).getT(1);                       // Reverb_impl::wet_path2_t<NV>
+		auto& chain1 = this->getT(1).getT(1).getT(0).getT(1).getT(0);                  // Reverb_impl::chain1_t<NV>
+		auto& tempo_sync = this->getT(1).getT(1).getT(0).getT(1).getT(0).getT(0);      // Reverb_impl::tempo_sync_t<NV>
+		auto& fix32_block = this->getT(1).getT(1).getT(0).getT(1).getT(0).getT(1);     // Reverb_impl::fix32_block_t<NV>
+		auto& receive = this->getT(1).getT(1).getT(0).getT(1).getT(0).getT(1).getT(0); // routing::receive<stereo_cable>
+		auto& faust2 = this->getT(1).getT(1).getT(0).getT(1).getT(0).getT(1).getT(1);  // project::Delay2<NV>
+		auto& svf2 = this->getT(1).getT(1).getT(0).getT(1).getT(0).getT(1).getT(2);    // filters::svf<NV>
+		auto& svf3 = this->getT(1).getT(1).getT(0).getT(1).getT(0).getT(1).getT(3);    // filters::svf<NV>
+		auto& limiter = this->getT(1).getT(1).getT(0).getT(1).getT(0).getT(1).getT(4); // Reverb_impl::limiter_t
+		auto& send = this->getT(1).getT(1).getT(0).getT(1).getT(0).getT(1).getT(5);    // routing::send<stereo_cable>
+		auto& wet_gain2 = this->getT(1).getT(1).getT(0).getT(1).getT(1);               // core::gain<NV>
+		auto& faust = this->getT(1).getT(1).getT(1);                                   // project::FaustReverb<NV>
+		auto& pma = this->getT(1).getT(1).getT(2);                                     // Reverb_impl::pma_t<NV>
+		auto& gain = this->getT(1).getT(1).getT(3);                                    // core::gain<NV>
+		auto& wet_gain1 = this->getT(1).getT(1).getT(4);                               // core::gain<NV>
 		
 		// Parameter Connections -------------------------------------------------------------------
 		
+		dry_wet3.getParameterT(0).connectT(0, dry_wet_mixer2); // DryWet -> dry_wet_mixer2::Value
 		dry_wet2.getParameterT(0).connectT(0, dry_wet_mixer1); // DryWet -> dry_wet_mixer1::Value
 		
 		this->getParameterT(1).connectT(0, faust); // Damping -> faust::Damping
@@ -359,11 +373,21 @@ template <int NV> struct instance: public Reverb_impl::Reverb_t_<NV>
 		
 		this->getParameterT(12).connectT(0, dry_wet2); // Mix -> dry_wet2::DryWet
 		
-		this->getParameterT(13).connectT(0, delay1); // preDelay -> delay1::DelayTime
+		this->getParameterT(13).connectT(0, tempo_sync); // preDelay -> tempo_sync::UnsyncedTime
 		
-		this->getParameterT(14).connectT(0, fb_out1); // feedbacl -> fb_out1::Feedback
+		this->getParameterT(14).connectT(0, receive); // Feedback -> receive::Feedback
 		
 		this->getParameterT(15).connectT(0, bipolar); // Smoothing -> bipolar::Value
+		
+		this->getParameterT(16).connectT(0, dry_wet3); // DelayMix -> dry_wet3::DryWet
+		
+		this->getParameterT(17).connectT(0, tempo_sync); // DelayUseTempo -> tempo_sync::Enabled
+		
+		this->getParameterT(18).connectT(0, tempo_sync); // DelayTempo -> tempo_sync::Tempo
+		
+		this->getParameterT(19).connectT(0, svf3); // DelayHighpass -> svf3::Frequency
+		
+		this->getParameterT(20).connectT(0, svf2); // DelayLowpass -> svf2::Frequency
 		
 		// Modulation Connections ------------------------------------------------------------------
 		
@@ -374,10 +398,14 @@ template <int NV> struct instance: public Reverb_impl::Reverb_t_<NV>
 		auto& dry_wet_mixer1_p = dry_wet_mixer1.getWrappedObject().getParameter();
 		dry_wet_mixer1_p.getParameterT(0).connectT(0, dry_gain1); // dry_wet_mixer1 -> dry_gain1::Gain
 		dry_wet_mixer1_p.getParameterT(1).connectT(0, wet_gain1); // dry_wet_mixer1 -> wet_gain1::Gain
+		auto& dry_wet_mixer2_p = dry_wet_mixer2.getWrappedObject().getParameter();
+		dry_wet_mixer2_p.getParameterT(0).connectT(0, dry_gain2); // dry_wet_mixer2 -> dry_gain2::Gain
+		dry_wet_mixer2_p.getParameterT(1).connectT(0, wet_gain2); // dry_wet_mixer2 -> wet_gain2::Gain
+		tempo_sync.getParameter().connectT(0, faust2);            // tempo_sync -> faust2::delay
 		
 		// Send Connections ------------------------------------------------------------------------
 		
-		fb_in1.connect(fb_out1);
+		send.connect(receive);
 		
 		// Default Values --------------------------------------------------------------------------
 		
@@ -385,9 +413,9 @@ template <int NV> struct instance: public Reverb_impl::Reverb_t_<NV>
 		smoothed_parameter1.setParameterT(1, 84.7); // control::smoothed_parameter::SmoothingTime
 		smoothed_parameter1.setParameterT(2, 1.);   // control::smoothed_parameter::Enabled
 		
-		;                                   // bipolar::Value is automated
-		bipolar.setParameterT(1, -1.);      // control::bipolar::Scale
-		bipolar.setParameterT(2, 0.846863); // control::bipolar::Gamma
+		;                                  // bipolar::Value is automated
+		bipolar.setParameterT(1, -1.);     // control::bipolar::Scale
+		bipolar.setParameterT(2, 1.00043); // control::bipolar::Gamma
 		
 		; // dry_wet2::DryWet is automated
 		
@@ -397,10 +425,48 @@ template <int NV> struct instance: public Reverb_impl::Reverb_t_<NV>
 		dry_gain1.setParameterT(1, 20.); // core::gain::Smoothing
 		dry_gain1.setParameterT(2, 0.);  // core::gain::ResetValue
 		
-		; // fb_out1::Feedback is automated
+		; // dry_wet3::DryWet is automated
 		
-		;                              // delay1::DelayTime is automated
-		delay1.setParameterT(1, 533.); // core::fix_delay::FadeTime
+		; // dry_wet_mixer2::Value is automated
+		
+		;                                // dry_gain2::Gain is automated
+		dry_gain2.setParameterT(1, 20.); // core::gain::Smoothing
+		dry_gain2.setParameterT(2, 0.);  // core::gain::ResetValue
+		
+		;                                // tempo_sync::Tempo is automated
+		tempo_sync.setParameterT(1, 1.); // control::tempo_sync::Multiplier
+		;                                // tempo_sync::Enabled is automated
+		;                                // tempo_sync::UnsyncedTime is automated
+		
+		; // receive::Feedback is automated
+		
+		;                              // faust2::delay is automated
+		faust2.setParameterT(1, 0.);   // core::faust::feedback
+		faust2.setParameterT(2, 29.5); // core::faust::interpolation
+		
+		;                                 // svf2::Frequency is automated
+		svf2.setParameterT(1, 0.856745);  // filters::svf::Q
+		svf2.setParameterT(2, -18.);      // filters::svf::Gain
+		svf2.setParameterT(3, 0.0514165); // filters::svf::Smoothing
+		svf2.setParameterT(4, 0.);        // filters::svf::Mode
+		svf2.setParameterT(5, 1.);        // filters::svf::Enabled
+		
+		;                                 // svf3::Frequency is automated
+		svf3.setParameterT(1, 0.860809);  // filters::svf::Q
+		svf3.setParameterT(2, 0.);        // filters::svf::Gain
+		svf3.setParameterT(3, 0.0545963); // filters::svf::Smoothing
+		svf3.setParameterT(4, 1.);        // filters::svf::Mode
+		svf3.setParameterT(5, 1.);        // filters::svf::Enabled
+		
+		limiter.setParameterT(0, 0.);  // dynamics::limiter::Threshhold
+		limiter.setParameterT(1, 50.); // dynamics::limiter::Attack
+		limiter.setParameterT(2, 50.); // dynamics::limiter::Release
+		limiter.setParameterT(3, 1.);  // dynamics::limiter::Ratio
+		limiter.setParameterT(4, 0.);  // dynamics::limiter::Sidechain
+		
+		;                                // wet_gain2::Gain is automated
+		wet_gain2.setParameterT(1, 20.); // core::gain::Smoothing
+		wet_gain2.setParameterT(2, 0.);  // core::gain::ResetValue
 		
 		; // faust::Damping is automated
 		; // faust::Diffusion is automated
@@ -427,21 +493,26 @@ template <int NV> struct instance: public Reverb_impl::Reverb_t_<NV>
 		wet_gain1.setParameterT(2, 0.);  // core::gain::ResetValue
 		
 		this->setParameterT(0, 0.);
-		this->setParameterT(1, 0.215038);
+		this->setParameterT(1, 0.52);
 		this->setParameterT(2, 1.);
 		this->setParameterT(3, 1.);
-		this->setParameterT(4, 1000.);
-		this->setParameterT(5, 1.);
-		this->setParameterT(6, 1.);
+		this->setParameterT(4, 2383.);
+		this->setParameterT(5, 1);
+		this->setParameterT(6, 2613.);
 		this->setParameterT(7, 1.);
 		this->setParameterT(8, 0.);
 		this->setParameterT(9, 0.);
-		this->setParameterT(10, 1.);
-		this->setParameterT(11, 3.79233);
+		this->setParameterT(10, 0.406359);
+		this->setParameterT(11, 1.62);
 		this->setParameterT(12, 1.);
-		this->setParameterT(13, 0.202453);
-		this->setParameterT(14, 0.);
+		this->setParameterT(13, 134.5);
+		this->setParameterT(14, 0.255397);
 		this->setParameterT(15, 0.);
+		this->setParameterT(16, 0.499141);
+		this->setParameterT(17, 0.);
+		this->setParameterT(18, 6.);
+		this->setParameterT(19, 276.033);
+		this->setParameterT(20, 9807.4);
 		this->setExternalData({}, -1);
 	}
 	~instance() override
@@ -453,6 +524,8 @@ template <int NV> struct instance: public Reverb_impl::Reverb_t_<NV>
 	
 	static constexpr bool isPolyphonic() { return NV > 1; };
 	
+	static constexpr bool isProcessingHiseEvent() { return true; };
+	
 	static constexpr bool hasTail() { return true; };
 	
 	static constexpr bool isSuspendedOnSilence() { return false; };
@@ -461,7 +534,8 @@ template <int NV> struct instance: public Reverb_impl::Reverb_t_<NV>
 	{
 		// External Data Connections ---------------------------------------------------------------
 		
-		this->getT(0).getT(0).setExternalData(b, index); // Reverb_impl::peak_t<NV>
+		this->getT(0).getT(0).setExternalData(b, index);                                         // Reverb_impl::peak_t<NV>
+		this->getT(1).getT(1).getT(0).getT(1).getT(0).getT(1).getT(4).setExternalData(b, index); // Reverb_impl::limiter_t
 	}
 };
 }

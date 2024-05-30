@@ -9,10 +9,24 @@ knobShortcutWatcher.attachToComponentMouseEvents([
 	"knob_effects_flair",
 	"knob_effects_chorus",
 	"knob_effects_distortion",
-	"knob_reverb_mix"
+	"knob_reverb_mix",
+	"knob_io_out"
 ], "Clicks Only", "Mouse Listener for Effect Controls");
 knobShortcutWatcher.addListener("RefreshFunction", "Bypasses Effect", function (component, event) {
 	if (event.cmdDown && event.clicked) {
+		
+		if (component.get('text') === 'IO MIX') {
+			if (!Globals.isBypassed) {
+				Master.bypassAll();
+				Master.button_global_bypass.setValue(1);
+			} else {
+				Master.restoreBypass();
+				Master.button_global_bypass.setValue(0);
+			}
+		}
+	
+		if (Globals.isBypassed) return;
+		
 		switch (component.get('text')) {
 			case 'Reverb MIX':
 				Reverb.displayButton_reverb_bypass.setValue(!Reverb.displayButton_reverb_bypass.getValue());
@@ -158,6 +172,22 @@ presetBrowserWatcher.addListener("RefreshFunction", "Delays the closing of the P
 	}
 });
 
+const var PresetClickMuter = Synth.getEffect("PresetClickMuter");
+const PresetHandler = Engine.createUserPresetHandler();
+
+PresetHandler.setPreCallback(function(presetData)
+{
+	PresetClickMuter.setAttribute(PresetClickMuter.Gain, -60);
+});
+
+PresetHandler.setPostCallback(function(presetFile)
+{
+	PresetClickMuter.setAttribute(PresetClickMuter.Gain, 0);
+	 if (Globals.isBypassed) {
+		 Master.bypassAll();
+	 }
+});
+
 Content.getComponent("onPresetLoad").setControlCallback(onPresetLoad);
 inline function onPresetLoad(component, value) {
 	// Dynamically get the effects
@@ -173,12 +203,15 @@ inline function onPresetLoad(component, value) {
 		presetBrowserButton.set('text', Engine.getCurrentUserPresetName());
 	}
 
-	EffectCustomizer.init();
+	EffectCustomizer.init();	
 };
 
 
 
-Content.getComponent("button_quickTheme").setControlCallback(onbutton_quickThemeControl);
+const var button_quickTheme = Content.getComponent("button_quickTheme");
+
+button_quickTheme.setLocalLookAndFeel(LAF_displayButton);
+button_quickTheme.setControlCallback(onbutton_quickThemeControl);
 inline function onbutton_quickThemeControl(component, value) {
 	if (value) {
 		if (Theme.name == 'Light') {
@@ -231,11 +264,17 @@ inline function onpanel_githubControl(component, value) {
 	if (value) Engine.openWebsite('https://sinuslabs.io/product/reach');
 };
 
+const var button_x1 = Content.getComponent("button_x1");
+button_x1.setLocalLookAndFeel(LAF_displayIcon);
+button_x1.setControlCallback(onButtonX);
 
-// X Button
-Content.getComponent("button_x1").setControlCallback(onButtonX);
-Content.getComponent("button_x2").setControlCallback(onButtonX);
-Content.getComponent("button_x3").setControlCallback(onButtonX);
+const var button_x2 = Content.getComponent("button_x2");
+button_x2.setLocalLookAndFeel(LAF_displayIcon);
+button_x2.setControlCallback(onButtonX);
+
+const var button_x3 = Content.getComponent("button_x3");
+button_x3.setLocalLookAndFeel(LAF_displayIcon);
+button_x3.setControlCallback(onButtonX);
 
 inline function onButtonX(component, value) { showMain(); }
 
@@ -243,18 +282,20 @@ inline function onButtonX(component, value) { showMain(); }
 const var WetOnlyGain = Synth.getEffect("WetExtraGain");
 const var Gain = Synth.getEffect("Simple Gain4");
 
-const var knob_io_in = Content.getComponent("knob_io_in");
-knob_io_in.setControlCallback(onknob_io_inControl);
 
-knob_io_in.setLocalLookAndFeel(knb_laf);
-
-inline function onknob_io_inControl(component, value) {
-	UserSettings.wetOnlyGain
-		? WetOnlyGain.setAttribute(WetOnlyGain.Gain, value)
-		: Gain.setAttribute(Gain.Gain, value);
-
+const var knob_gain = Content.getComponent("knob_gain_knb");
+knob_gain.setControlCallback(on_gain);
+inline function on_gain(component, value) {
+	Gain.setAttribute(Gain.Gain, value);
 };
 
+const var knob_wet = Content.getComponent("knob_wet_knb");
+knob_wet.setControlCallback(on_wet);
+knob_wet.setLocalLookAndFeel(knb_laf);
+
+inline function on_wet(component, value) {
+	WetOnlyGain.setAttribute(WetOnlyGain.Gain, value);
+};
 
 const var DryGain = Synth.getEffect("DryGain");
 const var WetGain = Synth.getEffect("WetGain");

@@ -1,10 +1,10 @@
 include("Theme.js");
 include("Paths.js");
 include("Helpers.js");
-include("Filter.js");
 include("Config.js");
 include("UpdateChecker.js");
 include("LookAndFeel.js");
+include("Filter.js");
 include("Settings.js");
 include("Handler.js");
 include("Effects.js");
@@ -25,6 +25,7 @@ include("SplashAnimation.js");
 include("Randomization.js");
 include("About.js");
 include("PresetBrowserLogic.js");
+include("Master.js");
 include("PanicMode.js");
 
 Content.makeFrontInterface(1134, 510);
@@ -39,7 +40,7 @@ Globals.parameter = 'NONE';
 Globals.freezeMode = false;
 
 // DEBUG
-Globals.activated = false;
+Globals.activated = true;
 Globals.presetBrowserOpen = false;
 Globals.settingsOpen = false;
 Globals.effectsOpen = false;
@@ -135,6 +136,19 @@ function themeMainPanel() {
 }
 themeMainPanel();
 themePanels();
+
+
+inline function addGuides() {
+	
+	Content.addVisualGuide([0, 460], Colours.yellow);
+	Content.addVisualGuide([0, 306], Colours.yellow);
+	Content.addVisualGuide([0, 198], Colours.yellow);
+	
+	Content.addVisualGuide([0, 40], Colours.yellow);
+	Content.addVisualGuide([0, 30], Colours.yellow);
+}
+
+addGuides();
 function onNoteOn()
 {
 	

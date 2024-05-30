@@ -9,6 +9,7 @@
 
 // Include third party header files ----------------
 
+#include "Delay2.h"
 #include "Distortion.h"
 #include "FaustReverb.h"
 #include "Flanger.h"

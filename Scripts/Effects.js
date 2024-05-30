@@ -65,6 +65,10 @@ namespace Effects {
 		Flanger.setAttribute(Flanger.Offset, value);
 	};
 	
+	inline function isBypassedFlanger() {
+		return Flanger.isBypassed();
+	}
+	
 	inline function bypassFlanger(value) {
 		Flanger.setBypassed(!value);
 		effectDisplay_Flanger.set('enabled', value);
@@ -175,6 +179,11 @@ namespace Effects {
 
 	};
 	
+	
+	inline function isBypassedDegrade() {
+		return Degrade.isBypassed();
+	}
+	
 	inline function bypassDegrade(value) {
 		
 		Degrade.setBypassed(!value);
@@ -244,6 +253,10 @@ namespace Effects {
 	inline function ondisplayKnob_chorus_DelayControl(component, value) {
 		Chorus.setAttribute(Chorus.CentreDelay, value);
 	};
+	
+	inline function isBypassedChorus() {
+		return Chorus.isBypassed();
+	}
 	
 	inline function bypassChorus(value) {
 		Chorus.setBypassed(!value);
@@ -326,6 +339,9 @@ namespace Effects {
 		Distortion.setAttribute(Distortion.posthp, value);
 	};
 	
+	inline function isBypassedDistortion() {
+		return Distortion.isBypassed();
+	}
 	
 	inline function bypassDistortion(value) {
 		Distortion.setBypassed(!value);

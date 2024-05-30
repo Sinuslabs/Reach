@@ -11,12 +11,15 @@ namespace Filter {
 	const var prePostButtons = [Content.getComponent("button_filters_pre"),
 	Content.getComponent("button_filters_post")];
 
-
 	const var button_filter = Content.getComponent("button_filter");
 
 	button_filter.setControlCallback(onbutton_filterControl);
 	prePostButtons[0].setControlCallback(onPreButton);
 	prePostButtons[1].setControlCallback(onPostButton);
+	
+	prePostButtons[0].setLocalLookAndFeel(LAF_displayButton);
+	prePostButtons[1].setLocalLookAndFeel(LAF_displayButton);
+	button_filter.setLocalLookAndFeel(LAF_displayButton);
 	
 	inline function onPreButton(component, value) {
 		radioPrePost(0);
@@ -47,6 +50,10 @@ namespace Filter {
 		}
 	};
 
+	inline function bypass(bypassed) {
+		preFilter.set('enabled', bypassed);
+		postFilter.set('enabled', bypassed);
+	}
 
 	const var preFilterLaf = Content.createLocalLookAndFeel();
 
@@ -107,6 +114,11 @@ namespace Filter {
 		g.setGradientFill(['0x4E65FF', 0.0, 0.0,
 			'0x92EFFD', 768.0, 280.0,
 			false]);
+			
+		if (Globals.isBypassed) {
+			g.setColour(DisplayTheme.iconColour);
+		}
+		
 		g.drawPath(obj.path, obj.pathArea, 2);
 		g.setOpacity(0.9);
 		g.fillPath(obj.path, obj.pathArea);
@@ -176,6 +188,9 @@ namespace Filter {
 		g.setGradientFill(['0xDB3445', 0.0, 0.0,
 			'0xFF3752', 768.0, 280.0,
 			false]);
+		if (Globals.isBypassed) {
+			g.setColour(DisplayTheme.iconColour);
+		}
 		g.drawPath(obj.path, obj.pathArea, 2);
 		g.setOpacity(0.9);
 		g.fillPath(obj.path, obj.pathArea);

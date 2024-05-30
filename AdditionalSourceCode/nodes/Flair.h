@@ -13,7 +13,37 @@ using namespace snex::Types;
 
 namespace Flair_impl
 {
-// =============================| Node & Parameter type declarations |=============================
+// ==============================| Node & Parameter type declarations |==============================
+
+using faust_multimod = parameter::list<parameter::empty>;
+
+template <int NV>
+using faust_t = project::Flanger<NV, faust_multimod>;
+
+template <int NV>
+using smooth_delay2_t = wrap::mod<parameter::plain<faust_t<NV>, 5>, 
+                                  control::smoothed_parameter_unscaled<NV, smoothers::linear_ramp<NV>>>;
+
+template <int NV>
+using smooth_delay1_mod = parameter::chain<ranges::Identity, 
+                                           parameter::plain<faust_t<NV>, 5>, 
+                                           parameter::plain<smooth_delay2_t<NV>, 0>>;
+
+template <int NV>
+using smooth_delay1_t = wrap::mod<smooth_delay1_mod<NV>, 
+                                  control::smoothed_parameter_unscaled<NV, smoothers::low_pass<NV>>>;
+
+template <int NV>
+using feedback_smooth_t = wrap::mod<parameter::plain<faust_t<NV>, 4>, 
+                                    control::smoothed_parameter_unscaled<NV, smoothers::linear_ramp<NV>>>;
+
+template <int NV>
+using smoothedoffset_t = wrap::mod<parameter::plain<faust_t<NV>, 6>, 
+                                   control::smoothed_parameter_unscaled<NV, smoothers::linear_ramp<NV>>>;
+
+template <int NV>
+using smoothed_parameter_unscaled_t = wrap::mod<parameter::plain<faust_t<NV>, 3>, 
+                                                control::smoothed_parameter_unscaled<NV, smoothers::linear_ramp<NV>>>;
 
 DECLARE_PARAMETER_RANGE_SKEW(dry_wet_mixer_c0Range, 
                              -100., 
@@ -39,11 +69,6 @@ using dry_path_t = container::chain<parameter::empty,
                                     wrap::fix<2, dry_wet_mixer_t<NV>>, 
                                     core::gain<NV>>;
 
-using faust_multimod = parameter::list<parameter::empty>;
-
-template <int NV>
-using faust_t = project::Flanger<NV, faust_multimod>;
-
 template <int NV>
 using wet_path_t = container::chain<parameter::empty, 
                                     wrap::fix<2, faust_t<NV>>, 
@@ -60,47 +85,24 @@ using dry_wet1_t = container::split<parameter::plain<Flair_impl::dry_wet_mixer_t
 
 namespace Flair_t_parameters
 {
-// Parameter list for Flair_impl::Flair_t --------------------------------------------------------
-
-DECLARE_PARAMETER_RANGE_STEP(SpeedRange, 
-                             0., 
-                             10., 
-                             0.01);
-
-template <int NV>
-using Speed = parameter::from0To1<Flair_impl::faust_t<NV>, 
-                                  2, 
-                                  SpeedRange>;
-
-DECLARE_PARAMETER_RANGE_STEP(FeedbackRange, 
-                             -0.999, 
-                             0.999, 
-                             0.001);
-
-template <int NV>
-using Feedback = parameter::from0To1<Flair_impl::faust_t<NV>, 
-                                     4, 
-                                     FeedbackRange>;
-
-DECLARE_PARAMETER_RANGE_STEP(DelayRange, 
-                             0., 
-                             20., 
-                             0.001);
-
-template <int NV>
-using Delay = parameter::from0To1<Flair_impl::faust_t<NV>, 
-                                  5, 
-                                  DelayRange>;
-
-template <int NV>
-using Offset = parameter::from0To1<Flair_impl::faust_t<NV>, 
-                                   6, 
-                                   DelayRange>;
+// Parameter list for Flair_impl::Flair_t ----------------------------------------------------------
 
 using Flanger = parameter::empty;
 template <int NV>
-using Depth = parameter::plain<Flair_impl::faust_t<NV>, 
-                               3>;
+using Speed = parameter::plain<Flair_impl::faust_t<NV>, 
+                               2>;
+template <int NV>
+using Depth = parameter::plain<Flair_impl::smoothed_parameter_unscaled_t<NV>, 
+                               0>;
+template <int NV>
+using Feedback = parameter::plain<Flair_impl::feedback_smooth_t<NV>, 
+                                  0>;
+template <int NV>
+using Delay = parameter::plain<Flair_impl::smooth_delay1_t<NV>, 
+                               0>;
+template <int NV>
+using Offset = parameter::plain<Flair_impl::smoothedoffset_t<NV>, 
+                                0>;
 template <int NV>
 using Mix = parameter::plain<Flair_impl::dry_wet1_t<NV>, 
                              0>;
@@ -116,9 +118,14 @@ using Flair_t_plist = parameter::list<Flanger,
 
 template <int NV>
 using Flair_t_ = container::chain<Flair_t_parameters::Flair_t_plist<NV>, 
-                                  wrap::fix<2, dry_wet1_t<NV>>>;
+                                  wrap::fix<2, smooth_delay1_t<NV>>, 
+                                  smooth_delay2_t<NV>, 
+                                  feedback_smooth_t<NV>, 
+                                  smoothedoffset_t<NV>, 
+                                  smoothed_parameter_unscaled_t<NV>, 
+                                  dry_wet1_t<NV>>;
 
-// ================================| Root node initialiser class |================================
+// =================================| Root node initialiser class |=================================
 
 template <int NV> struct instance: public Flair_impl::Flair_t_<NV>
 {
@@ -138,56 +145,87 @@ template <int NV> struct instance: public Flair_impl::Flair_t_<NV>
 			0x005B, 0x0000, 0x4600, 0x616C, 0x676E, 0x7265, 0x0000, 0x0000, 
             0x0000, 0x8000, 0x003F, 0x8000, 0x003F, 0x8000, 0x003F, 0x0000, 
             0x5B00, 0x0001, 0x0000, 0x7053, 0x6565, 0x0064, 0x0000, 0x0000, 
-            0x0000, 0x3F80, 0x0000, 0x3F80, 0x0000, 0x3F80, 0x0000, 0x0000, 
+            0x0000, 0x4120, 0x0000, 0x4120, 0x0000, 0x3F80, 0xD70A, 0x3C23, 
             0x025B, 0x0000, 0x4400, 0x7065, 0x6874, 0x0000, 0x0000, 0x0000, 
-            0x8000, 0x003F, 0x8000, 0x003F, 0x8000, 0x003F, 0x0000, 0x5B00, 
-            0x0003, 0x0000, 0x6546, 0x6465, 0x6162, 0x6B63, 0x0000, 0x0000, 
-            0x0000, 0x8000, 0x003F, 0x8000, 0x003F, 0x8000, 0x003F, 0x0000, 
+            0x8000, 0x593F, 0x3439, 0x003F, 0x8000, 0x6F3F, 0x8312, 0x5B3A, 
+            0x0003, 0x0000, 0x6546, 0x6465, 0x6162, 0x6B63, 0x0000, 0x8000, 
+            0x00BF, 0x8000, 0x733F, 0xC8A8, 0x003D, 0x8000, 0x003F, 0x0000, 
             0x5B00, 0x0004, 0x0000, 0x6544, 0x616C, 0x0079, 0x0000, 0x0000, 
-            0x0000, 0x3F80, 0x0000, 0x3F80, 0x0000, 0x3F80, 0x0000, 0x0000, 
+            0x0000, 0x41A0, 0xB443, 0x4184, 0x0000, 0x3F80, 0x0000, 0x0000, 
             0x055B, 0x0000, 0x4F00, 0x6666, 0x6573, 0x0074, 0x0000, 0x0000, 
-            0x0000, 0x3F80, 0x0000, 0x3F80, 0x0000, 0x3F80, 0x0000, 0x0000, 
+            0x0000, 0x41A0, 0x28C8, 0x419A, 0x0000, 0x3F80, 0x0000, 0x3F80, 
             0x065B, 0x0000, 0x4D00, 0x7869, 0x0000, 0x0000, 0x0000, 0x8000, 
-            0x003F, 0x8000, 0x003F, 0x8000, 0x003F, 0x0000, 0x0000, 0x0000
+            0x1D3F, 0xF81C, 0x003E, 0x8000, 0x003F, 0x0000, 0x0000, 0x0000
 		};
 	};
 	
 	instance()
 	{
-		// Node References -----------------------------------------------------------------------
+		// Node References -------------------------------------------------------------------------
 		
-		auto& dry_wet1 = this->getT(0);                      // Flair_impl::dry_wet1_t<NV>
-		auto& dry_path = this->getT(0).getT(0);              // Flair_impl::dry_path_t<NV>
-		auto& dry_wet_mixer = this->getT(0).getT(0).getT(0); // Flair_impl::dry_wet_mixer_t<NV>
-		auto& dry_gain = this->getT(0).getT(0).getT(1);      // core::gain<NV>
-		auto& wet_path = this->getT(0).getT(1);              // Flair_impl::wet_path_t<NV>
-		auto& faust = this->getT(0).getT(1).getT(0);         // Flair_impl::faust_t<NV>
-		auto& wet_gain = this->getT(0).getT(1).getT(1);      // core::gain<NV>
+		auto& smooth_delay1 = this->getT(0);                 // Flair_impl::smooth_delay1_t<NV>
+		auto& smooth_delay2 = this->getT(1);                 // Flair_impl::smooth_delay2_t<NV>
+		auto& feedback_smooth = this->getT(2);               // Flair_impl::feedback_smooth_t<NV>
+		auto& smoothedoffset = this->getT(3);                // Flair_impl::smoothedoffset_t<NV>
+		auto& smoothed_parameter_unscaled = this->getT(4);   // Flair_impl::smoothed_parameter_unscaled_t<NV>
+		auto& dry_wet1 = this->getT(5);                      // Flair_impl::dry_wet1_t<NV>
+		auto& dry_path = this->getT(5).getT(0);              // Flair_impl::dry_path_t<NV>
+		auto& dry_wet_mixer = this->getT(5).getT(0).getT(0); // Flair_impl::dry_wet_mixer_t<NV>
+		auto& dry_gain = this->getT(5).getT(0).getT(1);      // core::gain<NV>
+		auto& wet_path = this->getT(5).getT(1);              // Flair_impl::wet_path_t<NV>
+		auto& faust = this->getT(5).getT(1).getT(0);         // Flair_impl::faust_t<NV>
+		auto& wet_gain = this->getT(5).getT(1).getT(1);      // core::gain<NV>
 		
-		// Parameter Connections -----------------------------------------------------------------
+		// Parameter Connections -------------------------------------------------------------------
 		
 		dry_wet1.getParameterT(0).connectT(0, dry_wet_mixer); // DryWet -> dry_wet_mixer::Value
 		
 		this->getParameterT(1).connectT(0, faust); // Speed -> faust::Speed
 		
-		this->getParameterT(2).connectT(0, faust); // Depth -> faust::Depth
+		this->getParameterT(2).connectT(0, smoothed_parameter_unscaled); // Depth -> smoothed_parameter_unscaled::Value
 		
-		this->getParameterT(3).connectT(0, faust); // Feedback -> faust::Feedback
+		this->getParameterT(3).connectT(0, feedback_smooth); // Feedback -> feedback_smooth::Value
 		
-		this->getParameterT(4).connectT(0, faust); // Delay -> faust::FlangeDelay
+		this->getParameterT(4).connectT(0, smooth_delay1); // Delay -> smooth_delay1::Value
 		
-		this->getParameterT(5).connectT(0, faust); // Offset -> faust::DelayOffset
+		this->getParameterT(5).connectT(0, smoothedoffset); // Offset -> smoothedoffset::Value
 		
 		this->getParameterT(6).connectT(0, dry_wet1); // Mix -> dry_wet1::DryWet
 		
-		// Modulation Connections ----------------------------------------------------------------
+		// Modulation Connections ------------------------------------------------------------------
 		
+		auto& faust_p = faust.getWrappedObject().getParameter();
+		smooth_delay2.getParameter().connectT(0, faust);               // smooth_delay2 -> faust::FlangeDelay
+		smooth_delay1.getParameter().connectT(0, faust);               // smooth_delay1 -> faust::FlangeDelay
+		smooth_delay1.getParameter().connectT(1, smooth_delay2);       // smooth_delay1 -> smooth_delay2::Value
+		feedback_smooth.getParameter().connectT(0, faust);             // feedback_smooth -> faust::Feedback
+		smoothedoffset.getParameter().connectT(0, faust);              // smoothedoffset -> faust::DelayOffset
+		smoothed_parameter_unscaled.getParameter().connectT(0, faust); // smoothed_parameter_unscaled -> faust::Depth
 		auto& dry_wet_mixer_p = dry_wet_mixer.getWrappedObject().getParameter();
 		dry_wet_mixer_p.getParameterT(0).connectT(0, dry_gain); // dry_wet_mixer -> dry_gain::Gain
 		dry_wet_mixer_p.getParameterT(1).connectT(0, wet_gain); // dry_wet_mixer -> wet_gain::Gain
-		auto& faust_p = faust.getWrappedObject().getParameter();
 		
-		// Default Values ------------------------------------------------------------------------
+		// Default Values --------------------------------------------------------------------------
+		
+		;                                      // smooth_delay1::Value is automated
+		smooth_delay1.setParameterT(1, 1000.); // control::smoothed_parameter_unscaled::SmoothingTime
+		smooth_delay1.setParameterT(2, 1.);    // control::smoothed_parameter_unscaled::Enabled
+		
+		;                                      // smooth_delay2::Value is automated
+		smooth_delay2.setParameterT(1, 1000.); // control::smoothed_parameter_unscaled::SmoothingTime
+		smooth_delay2.setParameterT(2, 1.);    // control::smoothed_parameter_unscaled::Enabled
+		
+		;                                       // feedback_smooth::Value is automated
+		feedback_smooth.setParameterT(1, 200.); // control::smoothed_parameter_unscaled::SmoothingTime
+		feedback_smooth.setParameterT(2, 1.);   // control::smoothed_parameter_unscaled::Enabled
+		
+		;                                       // smoothedoffset::Value is automated
+		smoothedoffset.setParameterT(1, 1000.); // control::smoothed_parameter_unscaled::SmoothingTime
+		smoothedoffset.setParameterT(2, 1.);    // control::smoothed_parameter_unscaled::Enabled
+		
+		;                                                   // smoothed_parameter_unscaled::Value is automated
+		smoothed_parameter_unscaled.setParameterT(1, 100.); // control::smoothed_parameter_unscaled::SmoothingTime
+		smoothed_parameter_unscaled.setParameterT(2, 1.);   // control::smoothed_parameter_unscaled::Enabled
 		
 		; // dry_wet1::DryWet is automated
 		
@@ -211,12 +249,12 @@ template <int NV> struct instance: public Flair_impl::Flair_t_<NV>
 		wet_gain.setParameterT(2, 0.);  // core::gain::ResetValue
 		
 		this->setParameterT(0, 1.);
-		this->setParameterT(1, 1.);
-		this->setParameterT(2, 1.);
-		this->setParameterT(3, 1.);
-		this->setParameterT(4, 1.);
-		this->setParameterT(5, 1.);
-		this->setParameterT(6, 1.);
+		this->setParameterT(1, 1);
+		this->setParameterT(2, 0.704);
+		this->setParameterT(3, 0.0979775);
+		this->setParameterT(4, 16.588);
+		this->setParameterT(5, 19.2699);
+		this->setParameterT(6, 0.484589);
 	}
 	
 	static constexpr bool isPolyphonic() { return NV > 1; };
@@ -232,7 +270,7 @@ template <int NV> struct instance: public Flair_impl::Flair_t_<NV>
 #undef setParameterT
 #undef setParameterWT
 #undef getParameterT
-// =====================================| Public Definition |=====================================
+// ======================================| Public Definition |======================================
 
 namespace project
 {

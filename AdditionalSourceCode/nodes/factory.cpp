@@ -28,6 +28,7 @@ struct Factory: public scriptnode::dll::StaticLibraryHostFactory
 		registerPolyNode<project::Flanger<1>, project::Flanger<NUM_POLYPHONIC_VOICES>>();
 		registerPolyNode<project::FaustReverb<1>, project::FaustReverb<NUM_POLYPHONIC_VOICES>>();
 		registerPolyNode<project::Distortion<1>, project::Distortion<NUM_POLYPHONIC_VOICES>>();
+		registerPolyNode<project::Delay2<1>, project::Delay2<NUM_POLYPHONIC_VOICES>>();
 		registerPolyNode<project::Chorus2<1>, wrap::illegal_poly<project::Chorus2<1>>>();
 		registerPolyNode<project::Degrade<1>, wrap::illegal_poly<project::Degrade<1>>>();
 		registerPolyNode<project::Flair<1>, wrap::illegal_poly<project::Flair<1>>>();

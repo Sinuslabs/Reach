@@ -11,7 +11,6 @@ namespace Reverb {
 	const var themeablePanel_modulation = Content.getComponent("themeablePanel_modulation");
 	const var themeablePanel_cleanup = Content.getComponent("themeablePanel_cleanup");
 	
-	
 	const var knob_reverb_space = Content.getComponent("knob_reverb_space");
 	const var knob_reverb_diffusion = Content.getComponent("knob_reverb_diffusion");
 	const var knob_reverb_damping = Content.getComponent("knob_reverb_damping");
@@ -166,7 +165,7 @@ namespace Reverb {
 	};
 	
 	inline function ondisplayKnob_reverb_feedbackControl(component, value) {
-	   	    JPVerb.setAttribute(JPVerb.feedbacl, value);
+	   	    JPVerb.setAttribute(JPVerb.Feedback, value);
 	   	    
 	   	    value >= 0.98 ? displayButton_reverb_panic.set('visible', true) : displayButton_reverb_panic.set('visible', false); 
 	};
@@ -198,6 +197,10 @@ namespace Reverb {
 	inline function disHFgainControl(component, value) {
 		JPVerb.setAttribute(JPVerb.HFGain, value);
 	};
+	
+	inline function isBypassed() {
+		return JPVerb.isBypassed();
+	}
 	
 	inline function bypassReverb(value) {
 		JPVerb.setBypassed(!value);
