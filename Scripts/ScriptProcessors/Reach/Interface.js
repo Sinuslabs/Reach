@@ -59,11 +59,9 @@ if (settingsExist()) {
 		SplashAnimation.animationBackground.set('visible', false);
 	}
 } else {
-	Settings.setZoomLevel(1);
+	Settings.setZoomLevel(0.81);
 	comboBox_zoom.setValue(6.0);
 	Theme.setTheme('Light');
-	UserSettings.setGainBypass();
-	UserSettings.wetOnlyGainSwitch.setValue(1);
 	SplashAnimation.init();
 }
 
