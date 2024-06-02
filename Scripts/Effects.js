@@ -175,8 +175,6 @@ namespace Effects {
 			Degrade.setAttribute(Degrade.CrushMode, 1);
 			Degrade.setAttribute(Degrade.BitcrushMode, 1);
 		}
-		
-
 	};
 	
 	
@@ -218,6 +216,10 @@ namespace Effects {
 	Content.getComponent("displayKnob_chorus_feedback").setControlCallback(ondisplayKnob_chorus_feedbackControl);
 	Content.getComponent("displayKnob_chorus_depth").setControlCallback(ondisplayKnob_chorus_depthControl);
 	Content.getComponent("displayKnob_chorus_Delay").setControlCallback(ondisplayKnob_chorus_DelayControl);
+	
+	Content.getComponent("displayKnob_chorus_rate").set('stepSize', 0.001);
+	Content.getComponent("displayKnob_chorus_Delay").set('stepSize', 0.001);
+	Content.getComponent("displayKnob_chorus_depth").set('stepSize', 0.001);
 	
 	inline function onknob_effects_chorusControl(component, value) {	
 	
@@ -293,13 +295,24 @@ namespace Effects {
 	Content.getComponent("displayKnob_distort_lowPass").setControlCallback(ondisplayKnob_distort_lowPassControl);
 	Content.getComponent("displayKnob_distort_highpass").setControlCallback(ondisplayKnob_distort_highpassControl);
 	
-
+	const var distort_selector = Content.getComponent("distort_selector");
+	distort_selector.setControlCallback(onDistort_selectorControl);
+	distort_selector.setLocalLookAndFeel(popMenuLaf);
 	
 	Content.getComponent("displayKnob_distort_postlowcut").setControlCallback(ondisplaySlider_distort_postlowcutControl);
 
 	Content.getComponent("displayKnob_distort_posthighcut").setControlCallback(ondisplaySlider_distort_posthighcutControl);
 	
-
+	inline function onDistort_selectorControl(component, value)
+	{
+	
+		if (value == 1.0) {
+			Distortion.setAttribute(Distortion.Mode, 0);
+		}
+		if (value == 2.0) {
+			Distortion.setAttribute(Distortion.Mode, 1);
+		}
+	};
 	
 	
 	inline function onknob_effects_distortionControl(component, value) {

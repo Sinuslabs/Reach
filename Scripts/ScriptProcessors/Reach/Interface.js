@@ -2,6 +2,7 @@ include("Theme.js");
 include("Paths.js");
 include("Helpers.js");
 include("Config.js");
+include("StyleHelpers.js");
 include("UpdateChecker.js");
 include("LookAndFeel.js");
 include("Filter.js");
@@ -40,7 +41,7 @@ Globals.parameter = 'NONE';
 Globals.freezeMode = false;
 
 // DEBUG
-Globals.activated = true;
+Globals.activated = false;
 Globals.presetBrowserOpen = false;
 Globals.settingsOpen = false;
 Globals.effectsOpen = false;
@@ -59,7 +60,7 @@ if (settingsExist()) {
 	}
 } else {
 	Settings.setZoomLevel(1);
-	comboBox_zoom.setValue(4.0);
+	comboBox_zoom.setValue(6.0);
 	Theme.setTheme('Light');
 	UserSettings.setGainBypass();
 	UserSettings.wetOnlyGainSwitch.setValue(1);
@@ -100,6 +101,9 @@ const var TimeoutCounter = 15000;
 	var TimeoutCurrent = 0;
 	
 	GainReductionTimer.setTimerCallback(function() {
+		
+		if (Globals.isBypassed) {return;}
+	
 	    TimeoutCurrent += 1000;
 	    
 	    if (TimeoutCurrent == TimeoutCounter) {
@@ -148,7 +152,7 @@ inline function addGuides() {
 	Content.addVisualGuide([0, 30], Colours.yellow);
 }
 
-addGuides();
+//addGuides();
 function onNoteOn()
 {
 	

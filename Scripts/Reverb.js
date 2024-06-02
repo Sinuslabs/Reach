@@ -47,11 +47,33 @@ namespace Reverb {
 	knob_cleanup_preDelay.setControlCallback(preDelayControl);
 	knob_cleanup_preDelay.setLocalLookAndFeel(knb_laf);
 	
+	const var knob_cleanup_preDelayTempo = Content.getComponent("knob_cleanup_preDelay_tempo");
+	knob_cleanup_preDelayTempo.setControlCallback(onDelayTempo);
+	knob_cleanup_preDelayTempo.setLocalLookAndFeel(knb_laf);
+	
 	// Display
+	const var delay_useTempo = Content.getComponent("delay_useTempo");
+	delay_useTempo.setLocalLookAndFeel(LAF_displayButton);
+	delay_useTempo.setControlCallback(onTempo);
+	
     const var displayKnob_reverb_feedback = Content.getComponent("displayKnob_reverb_feedback");
-    displayKnob_reverb_feedback.setControlCallback(ondisplayKnob_reverb_feedbackControl);
+    displayKnob_reverb_feedback.setLocalLookAndFeel(LAF_DisplayTextKnob);
+    displayKnob_reverb_feedback.setControlCallback(ondisplayKnob_reverb_feedbackControl); 
     
+    const var displayKnob_reverb_delaymix = Content.getComponent("displayKnob_reverb_delaymix");
+    displayKnob_reverb_delaymix.setLocalLookAndFeel(LAF_DisplayTextKnob);
+    displayKnob_reverb_delaymix.setControlCallback(ondisplayKnob_reverb_delayMixControl);
+
+	const var displayKnob_reverb_delayHighpass = Content.getComponent("displayKnob_reverb_delayHighpass");
+	displayKnob_reverb_delayHighpass.setControlCallback(ondisplayKnob_reverb_highpassControl);
+	displayKnob_reverb_delayHighpass.setLocalLookAndFeel(LAF_horizontalBar);
+	
+	const var displayKnob_reverb_delayLowpass = Content.getComponent("displayKnob_reverb_delayLowpass");
+	displayKnob_reverb_delayLowpass.setControlCallback(ondisplayKnob_reverb_lowpassControl);
+	displayKnob_reverb_delayLowpass.setLocalLookAndFeel(LAF_horizontalBar);
+	    
     const var displayButton_reverb_panic = Content.getComponent("displayButton_reverb_panic");
+    displayButton_reverb_panic.setLocalLookAndFeel(LAF_displayButton);
     displayButton_reverb_panic.setControlCallback(ondisplayButton_reverb_panicControl);
  	
  	const var displayKnob_reverb_lowcrossover = Content.getComponent("displayKnob_reverb_lowcrossover");
@@ -104,7 +126,7 @@ namespace Reverb {
 		JPVerb.setAttribute(JPVerb.ReverbTime, value);
 		showTempScreen('reverb');
 		
-		if (value <= 1) {
+		if (value < 1) {
 			component.set('stepSize', 0.001);
 		} else {
 			component.set('stepSize', 0.01);
@@ -151,8 +173,6 @@ namespace Reverb {
 		JPVerb.setAttribute(JPVerb.Smoothing , value);
 	};
 	
-	
-	
 	// Display Callbacks
 	inline function ondisplayButton_reverb_bypassControl(component, value) {
 			bypassReverb(value);
@@ -164,11 +184,39 @@ namespace Reverb {
 			JPVerb.setAttribute(JPVerb.preDelay, value);
 	};
 	
+	inline function onDelayTempo(component, value) {
+		JPVerb.setAttribute(JPVerb.DelayTempo, value);
+	}
+	
+	inline function onTempo(component, value) {
+		JPVerb.setAttribute(JPVerb.DelayUseTempo, !value);
+		if (value) {
+			component.set('text', 'displayIcon-clock');
+			knob_cleanup_preDelay.showControl(true);
+			knob_cleanup_preDelayTempo.showControl(false);
+		} else {
+			component.set('text', 'displayIcon-clockSync');
+			knob_cleanup_preDelayTempo.showControl(true);
+			knob_cleanup_preDelay.showControl(false);
+		}
+	}
+	
 	inline function ondisplayKnob_reverb_feedbackControl(component, value) {
 	   	    JPVerb.setAttribute(JPVerb.Feedback, value);
-	   	    
-	   	    value >= 0.98 ? displayButton_reverb_panic.set('visible', true) : displayButton_reverb_panic.set('visible', false); 
+	   	    value >= 0.7 ? displayButton_reverb_panic.set('visible', true) : displayButton_reverb_panic.set('visible', false); 
 	};
+	
+	inline function ondisplayKnob_reverb_delayMixControl(component, value) {
+		JPVerb.setAttribute(JPVerb.DelayMix, value);
+	}
+	
+	inline function ondisplayKnob_reverb_highpassControl(component, value) {
+		JPVerb.setAttribute(JPVerb.DelayHighpass, value);
+	}
+	
+	inline function ondisplayKnob_reverb_lowpassControl(component, value) {
+		JPVerb.setAttribute(JPVerb.DelayLowpass, value);
+	}
 	
 	inline function ondisplayButton_reverb_panicControl(component, value)
     {

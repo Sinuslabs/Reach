@@ -3,6 +3,9 @@ namespace Master {
 	const var bypassButtonLAF = Content.createLocalLookAndFeel();	
 	bypassButtonLAF.registerFunction("drawToggleButton", circleButtonLAF);
 	
+	const var RoutingMatrix1 = Synth.getEffect("Routing Matrix1");
+	const var RoutingMatrix2 = Synth.getEffect("Routing Matrix2");
+	
 	const var button_global_bypass = Content.getComponent("button_global_bypass");
 	button_global_bypass.setControlCallback(onBypass);
 	button_global_bypass.setLocalLookAndFeel(bypassButtonLAF);
@@ -21,6 +24,8 @@ namespace Master {
 	const var WetExtraGain = Synth.getEffect("WetExtraGain");
 	const var DryGain = Synth.getEffect("DryGain");
 	const var OutGain = Synth.getEffect("Simple Gain4");
+	
+	const var BypassedGain = Synth.getEffect("BypassedGain");
 	
 	reg alreadyBypassed = [];
 	
@@ -48,11 +53,23 @@ namespace Master {
 		themeAble_label_panel_effects.set('enabled', false);
 		Analyser1.setBypassed(true);
 		
+		BypassedGain.setBypassed(false);
+		
 		reverbBypassed = Reverb.isBypassed();
 		degradeBypassed = Effects.isBypassedDegrade();
 		flangerBypassed = Effects.isBypassedFlanger();
 		chorusBypassed = Effects.isBypassedChorus();
 		distortBypassed = Effects.isBypassedDistortion();
+		
+		VuMeter.knob_gain_knb.set('enabled', false);
+		
+		preFilter.setBypassed(true);
+		postFilter.setBypassed(true);
+		WetGain.setBypassed(true);
+		WetExtraGain.setBypassed(true);
+		DryGain.setBypassed(true);
+		OutGain.setBypassed(true);
+		
 		
 		// starting bypass
 		Reverb.displayButton_reverb_bypass.setValue(false);
@@ -69,13 +86,6 @@ namespace Master {
 		
 		Effects.displayButton_distort_bypass.setValue(false);
 		Effects.displayButton_distort_bypass.changed();
-		
-		preFilter.setBypassed(true);
-		postFilter.setBypassed(true);
-		WetGain.setBypassed(true);
-		WetExtraGain.setBypassed(true);
-		DryGain.setBypassed(true);
-		OutGain.setBypassed(true);
 	}
 	
 	inline function restoreBypass() {
@@ -83,9 +93,19 @@ namespace Master {
 		Globals.isBypassed = false;
 		Filter.bypass(false);
 		Analyser1.setBypassed(false);
+		VuMeter.knob_gain_knb.set('enabled', true);
+		
+		BypassedGain.setBypassed(true);
 		
 		master_bypass_pnl.set('enabled', true);
 		themeAble_label_panel_effects.set('enabled', true);
+		
+		preFilter.setBypassed(false);
+		postFilter.setBypassed(false);
+		WetGain.setBypassed(false);
+		WetExtraGain.setBypassed(false);
+		DryGain.setBypassed(false);
+		OutGain.setBypassed(false);
 		
 		if (!reverbBypassed) {
 			// starting bypass
@@ -113,12 +133,7 @@ namespace Master {
 			Effects.displayButton_distort_bypass.changed();
 		}
 	
-		preFilter.setBypassed(false);
-		postFilter.setBypassed(false);
-		WetGain.setBypassed(false);
-		WetExtraGain.setBypassed(false);
-		DryGain.setBypassed(false);
-		OutGain.setBypassed(false);
+
 	}
 	
 

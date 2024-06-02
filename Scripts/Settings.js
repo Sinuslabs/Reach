@@ -20,17 +20,17 @@ namespace UserSettings {
 	};
 	
 	// ACTIVATE SECTION
-	
 
-	
 	const var displayButton_paste = Content.getComponent("displayButton-paste");
 	displayButton_paste.setControlCallback(onPaste);
+	displayButton_paste.setLocalLookAndFeel(LAF_displayButton);
 	
 	const var serial_error_label = Content.getComponent("serial_error_label");
 	serial_error_label.set('text', '');
 	
 	const var displayButton_activateSerial = Content.getComponent("displayButton_activateSerial");
 	const var displayLabel_serialKey = Content.getComponent("displayLabel_serialKey");
+	displayButton_activateSerial.setLocalLookAndFeel(LAF_displayButton);
 	
 	displayLabel_serialKey.set('text', '');
 
@@ -91,7 +91,7 @@ namespace UserSettings {
 	// General Settings
 	
 	// Zoom factor	
-	const zoomFactors = [0.3, 0.4, 0.5, 0.6, 0.75, 1.0, 1.25, 1.50, 1.75, 2.0, 2.5, 3.0];
+	const zoomFactors = [0.3, 0.4, 0.5, 0.6, 0.75, 0.77, 1.0, 1.25, 1.50, 1.75, 2.0, 2.5, 3.0];
 	
 	const var comboBox_zoom = Content.getComponent("ComboBox_zoom")
 	comboBox_zoom.setControlCallback(onComboBox_zoomControl);
@@ -99,18 +99,14 @@ namespace UserSettings {
 	comboBox_zoom.setLocalLookAndFeel(popMenuLaf);
 	inline function onComboBox_zoomControl(component, value) {
 
-		if (value == 13.0) {
+		Console.print(value);
+		if (value == 14.0) {
 			return;
 		}
-
 		Settings.setZoomLevel(zoomFactors[value - 1]);
 		UserSettings.saveSettings();
 	};
 	
-	// Theme
-	//const var comboBox_theme = Content.getComponent("ComboBox_theme");
-	//comboBox_theme.setControlCallback(onComboBox1Control);
-	//comboBox_theme.setLocalLookAndFeel(popMenuLaf);
 	inline function onComboBox1Control(component, value)
 	{
 		if (value == 1.0) {
@@ -124,12 +120,14 @@ namespace UserSettings {
 	// Animations
 	const var button_animationToggle = Content.getComponent("button_animationToggle");
 	button_animationToggle.setControlCallback(onbutton_animationToggleControl);
+	button_animationToggle.setLocalLookAndFeel(LAF_displayButton);
 	inline function onbutton_animationToggleControl(component, value) {
 		enableAnimations = !value;
 		saveSettings();
 	};
 	
 	const var button_startupAnimationToggle = Content.getComponent("button_startupAnimationToggle");
+	button_startupAnimationToggle.setLocalLookAndFeel(LAF_displayButton);
 	button_startupAnimationToggle.setControlCallback(onbutton_startupAnimationToggleControl);
 	inline function onbutton_startupAnimationToggleControl(component, value) {
 		startupAnimation = !value;
@@ -138,7 +136,9 @@ namespace UserSettings {
 	};
 	
 	// Buy Reach Button
-	Content.getComponent("button_buy_reach").setControlCallback(onbutton_buy_reachControl);
+	const var button_buy_reach = Content.getComponent("button_buy_reach");
+	button_buy_reach.setLocalLookAndFeel(LAF_displayButton);
+	button_buy_reach.setControlCallback(onbutton_buy_reachControl);
 	inline function onbutton_buy_reachControl(component, value) {
 		if (value) Engine.openWebsite('https://sinuslabsio.gumroad.com/l/reach');
 	};

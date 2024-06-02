@@ -15,7 +15,6 @@ namespace Supabase {
     
     local singleHeader = '';
         for (header in Headers) { singleHeader += header + '\n'; }
-        Console.print(singleHeader);
         Server.setHttpHeader(singleHeader);
     }
 
@@ -41,10 +40,6 @@ inline function activate(license_key) {
 
 
 inline function onLicenseCheck(status, data) {
-
-        Console.print('status: ' + status);
-        Console.print(trace(data));
-
         if (data['valid']) {
             unlockProduct();
         } else {
@@ -72,7 +67,6 @@ inline function unlockProduct() {
     }
 
 inline function serverActivity(isWaiting) {
-        Console.print('loading: ' + isWaiting);
     }
 
     function getLocalLicense() {

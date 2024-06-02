@@ -529,7 +529,6 @@ namespace EffectCustomizer {
 		var INDICATOR_COLOUR = DisplayTheme.textColour;
 		var BORDER_COLOUR = DisplayTheme.textColour;
 		var text = obj.text;
-		var decimalPosition = 1;
 		
 		// Make transparent on disabled
 		var disabled = !obj.enabled;
@@ -540,10 +539,7 @@ namespace EffectCustomizer {
 		}
 		if (obj.clicked || obj.hover) {
 			
-			text = obj.valueAsText;
-			
-
-			
+			text = obj.valueAsText;		
 			if (obj.suffix == ' ms') {
 				reg label;
 				if (obj.value <= 1.0) {
@@ -553,14 +549,8 @@ namespace EffectCustomizer {
 				} else {
 					label = ' s';
 					obj.value = Engine.doubleToString(obj.value, 2);
-				}
-			
+				}		
 				text = obj.value + label;
-			}
-			if (obj.suffix == ' Hz') {
-				if (obj.value > 1000) {
-					text = Engine.doubleToString(obj.value / 1000, 1) + 'khz';
-				}
 			}
 		}
 		

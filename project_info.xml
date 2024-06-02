@@ -2,8 +2,8 @@
 
 <ProjectSettings>
   <Name value="Reach"/>
-  <Version value="1.6.0"/>
-  <Description value="Spaced Out Reverb"/>
+  <Version value="1.6.3"/>
+  <Description value="Handcrafted Crystal Clear Reverb"/>
   <BundleIdentifier value="com.sinuslabs.reach"/>
   <PluginCode value="Reac"/>
   <EmbedAudioFiles value="1"/>

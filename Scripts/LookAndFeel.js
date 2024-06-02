@@ -397,9 +397,13 @@ knb_laf.registerFunction("drawRotarySlider", function(g, obj){
 	if (obj.clicked || obj.hover) {
 		
 		text = obj.valueAsText;
-		if (obj.suffix == ' Hz') {
-			if (obj.value > 1000) {
-				text = Engine.doubleToString(obj.value / 1000, 1) + 'khz';
+		if (obj.text === 'TIME') {
+			if (obj.value >= 1) {
+				text = text.replace(' ms', ' s');
+				
+			}
+			if (obj.value < 1) {
+				text = text.replace('0.', '');
 			}
 		}
 	}
@@ -664,8 +668,8 @@ inline function barKnobGraphics(g, obj) {
 		BAR_COLOUR = BAR_COLOUR.replace('0x', '0x' + DisplayTheme.hoverOpacity);
 	}
 	g.setColour(BAR_COLOUR);	
-	g.drawRect(upperA, 2);
-	g.fillRect(statusBarArea);
+	g.drawRoundedRectangle(upperA, 2, 1);
+	g.fillRoundedRectangle(statusBarArea, 1);
 	g.setFont(Fonts.secondaryFont, 14);
 	g.drawAlignedText(text.toUpperCase(), lowerA, 'centred');
 }
@@ -882,7 +886,7 @@ popMenuLaf.registerFunction("drawPopupMenuItem", function(g, obj)
         g.fillRect(obj.area);
     }
     
-    g.setFont(Fonts.secondaryFont, 20.0);
+    g.setFont(Fonts.secondaryFont, 18.0);
     g.setColour(Colours.white);
     g.drawAlignedText(obj.text, [a[0] + 5, a[1], a[2] - h, a[3]], "left");
 });
@@ -890,9 +894,21 @@ popMenuLaf.registerFunction("drawPopupMenuItem", function(g, obj)
 popMenuLaf.registerFunction("drawComboBox", function(g, obj)
 {
     var a = obj.area;
-
+	var padding = 2;
+	a = [
+		a[0] + padding,
+		a[1] + padding,
+		a[2] - padding * 2,
+		a[3] - padding * 2
+	];
+	
     g.setColour(obj.bgColour);
-    g.drawRoundedRectangle([a[0], a[1], a[2], a[3]], 2.0, 2);
+    
+    if (obj.hover) {
+	    g.setColour(DisplayTheme.textColour);
+    }
+    
+    g.drawRoundedRectangle([a[0], a[1], a[2], a[3]], 0.5, 2);
     g.setColour(Colours.withAlpha(obj.textColour, (obj.enabled && obj.active) ? 1.0 : 0.2));
     g.setFont(Fonts.secondaryFont, 20.0);
    
@@ -980,7 +996,127 @@ inline function menuButton(g, obj) {
 
 }
 
+const var LAF_DisplayTextKnob = Content.createLocalLookAndFeel();	
+LAF_DisplayTextKnob.registerFunction('drawRotarySlider', DisplayTextKnob_LAF);
+
+inline function DisplayTextKnob_LAF(g, obj) {
+	
+	local a = obj.area;
+	
+	local SELECTED_COLOUR = DisplayTheme.selectedIconColour;
+	local SELECTED_COLOUR_var = DisplayTheme.iconColour;
+	
+	local padding = 1;
+	a = [
+		a[0] + padding,
+		a[1] + padding,
+		a[2] - padding * 2,
+		a[3] - padding * 2,
+	];
+	
+	local upper_a = [
+		a[0],
+		a[1],
+		a[2],
+		a[3] * 0.6
+	];
+	
+	local lower_a = [
+		a[0],
+		a[3] * 0.6,
+		a[2],
+		a[3] * 0.4
+	];
+	
+	local valueText = obj.valueAsText;
+	
+	if (!obj.enabled) {
+		SELECTED_COLOUR = SELECTED_COLOUR.replace('0x', '0x' + DisplayTheme.hoverOpacity);
+	}
+	
+	g.setColour(SELECTED_COLOUR);
+	if (obj.hover || obj.clicked) {
+		
+		g.setColour(SELECTED_COLOUR_var);
+		g.drawRoundedRectangle(a, 2, 1);
+		
+		g.setColour(SELECTED_COLOUR);
+	}
+	
+	if (obj.text === 'Low' || obj.text === 'High') {
+		if (obj.value > 0) {
+			valueText = '+' + valueText;
+		}
+	}
+	
+	g.setFont(Fonts.secondaryFont, 18);
+	g.drawAlignedText(obj.text, lower_a, 'centred');
+	
+	g.setFont(Fonts.mainFont, 24);
+	g.drawAlignedText(valueText, upper_a, 'centred');
+
+}
 
 
+
+// CUSTOM KNOBS
+const var LAF_horizontalBar = Content.createLocalLookAndFeel();
+LAF_horizontalBar.registerFunction('drawRotarySlider', horbarKnobGraphics);
+
+inline function horbarKnobGraphics(g, obj) {
+	
+	local disabled = !obj.enabled;
+	local BAR_COLOUR = DisplayTheme.buttonSelectedBackgroundColour;
+	local text = obj.text;
+	local a = obj.area;
+	local PADDING = 2;
+	a = StyleHelpers.addPadding(a, 2);
+	local label_size = 65;
+	local bar_top_bot_padding = 3;
+	
+	local left_a = [
+		a[0],
+		a[1],
+		label_size,
+		a[3]
+	];
+	
+	local right_a = [
+		label_size,
+		a[1] + bar_top_bot_padding,
+		a[2] - label_size,
+		a[3] - bar_top_bot_padding * 2
+	];
+
+	local statusBarArea = [
+		right_a[0],
+		right_a[1],
+		right_a[2] * (obj.valueNormalized),
+		right_a[3]
+	];
+	
+	if (obj.clicked || obj.hover) { text = obj.valueAsText; }
+	
+	if (disabled) {
+		BAR_COLOUR = BAR_COLOUR.replace('0x', '0x' + DisplayTheme.hoverOpacity);
+	}
+	
+	g.setColour(BAR_COLOUR);
+	g.setFont(Fonts.secondaryFont, 14);
+	g.drawAlignedText(text.toUpperCase(), left_a, 'left');
+
+	if (obj.text === 'HIGH CUT') {
+		g.fillRoundedRectangle(right_a, 1);
+		g.setColour(Colours.black);
+		g.fillRect(statusBarArea);
+
+	} else {
+		g.fillRect(statusBarArea);
+	}
+	g.setColour(BAR_COLOUR);
+	g.drawRoundedRectangle(right_a, 1, 1);
+
+	
+	}
 
 

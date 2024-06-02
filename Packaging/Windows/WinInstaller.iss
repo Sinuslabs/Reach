@@ -2,7 +2,7 @@
 ; SEE THE DOCUMENTATION FOR DETAILS ON CREATING INNO SETUP SCRIPT FILES!
 
 #define MyAppName "Reach"
-#define MyAppVersion "1.6.0"
+#define MyAppVersion "1.6.3"
 #define MyAppPublisher "Sinuslabs"
 #define MyAppURL "https://sinuslabs.io"
 #define MyAppExeName "reach.vst3"
