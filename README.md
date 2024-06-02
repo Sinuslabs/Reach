@@ -1,16 +1,14 @@
 # REACH
 
-> Extraterrestrial Reverb for Electronic Music
-
-![](./Github/reach-overview.jpg)
+> Handcrafted Reverb with psychedelic edge
 
 [-> Product Page](https://sinuslabs.io/product/reach/)
 
 ### Downloads
 
-* [Windows](https://github.com/Sinuslabs/Reach/releases/latest/download/reach-installer.exe) 
-* [MacOS](https://github.com/Sinuslabs/Reach/releases/latest/download/reach-installer.pkg)
-* [Linux](https://github.com/Sinuslabs/Reach/releases/latest/download/reach-installer.tar.gz)
+* [Windows](https://github.com/Sinuslabs/Reach/releases/latest/download/Reach-Windows.exe) 
+* [MacOS](https://github.com/Sinuslabs/Reach/releases/latest/download/Reach-MacOS.pkg)
+* [Linux](https://github.com/Sinuslabs/Reach/releases/latest/download/Reach-Linux.zip)
 
 ### Features
 
