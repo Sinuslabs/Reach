@@ -46,6 +46,18 @@ using minmax_t = control::minmax<NV,
 template <int NV>
 using minmax1_t = control::minmax<NV, 
                                   parameter::plain<project::Distortion<NV>, 0>>;
+
+template <int NV> using minmax2_t = minmax_t<NV>;
+
+template <int NV>
+using smoothed_parameter_unscaled_mod = parameter::chain<ranges::Identity, 
+                                                         parameter::plain<minmax_t<NV>, 0>, 
+                                                         parameter::plain<minmax1_t<NV>, 0>, 
+                                                         parameter::plain<minmax2_t<NV>, 0>>;
+
+template <int NV>
+using smoothed_parameter_unscaled_t = wrap::mod<smoothed_parameter_unscaled_mod<NV>, 
+                                                control::smoothed_parameter_unscaled<NV, smoothers::linear_ramp<NV>>>;
 template <int NumVoices> struct snex_softsat
 {
 	SNEX_NODE(snex_softsat);
@@ -122,7 +134,8 @@ using snex_shaper_t = wrap::no_data<core::snex_shaper<snex_softsat<NV>>>;
 template <int NV>
 using chain_t = container::chain<parameter::empty, 
                                  wrap::fix<2, core::gain<NV>>, 
-                                 snex_shaper_t<NV>>;
+                                 snex_shaper_t<NV>, 
+                                 core::gain<NV>>;
 template <int NV>
 using branch_t = container::branch<parameter::empty, 
                                    wrap::fix<2, chain_t<NV>>, 
@@ -132,7 +145,9 @@ template <int NV>
 using wet_path_t = container::chain<parameter::empty, 
                                     wrap::fix<2, filters::one_pole<NV>>, 
                                     filters::one_pole<NV>, 
+                                    smoothed_parameter_unscaled_t<NV>, 
                                     minmax_t<NV>, 
+                                    minmax2_t<NV>, 
                                     minmax1_t<NV>, 
                                     branch_t<NV>, 
                                     filters::one_pole<NV>, 
@@ -152,15 +167,13 @@ namespace Waveshaper_t_parameters
 {
 // Parameter list for Waveshaper_impl::Waveshaper_t ------------------------------------------------
 
-template <int NV>
-using Amount = parameter::chain<ranges::Identity, 
-                                parameter::plain<Waveshaper_impl::minmax_t<NV>, 0>, 
-                                parameter::plain<Waveshaper_impl::minmax1_t<NV>, 0>>;
-
 using Distort = parameter::empty;
 template <int NV>
 using Mix = parameter::plain<Waveshaper_impl::dry_wet1_t<NV>, 
                              0>;
+template <int NV>
+using Amount = parameter::plain<Waveshaper_impl::smoothed_parameter_unscaled_t<NV>, 
+                                0>;
 template <int NV>
 using Gain = parameter::plain<project::Distortion<NV>, 
                               1>;
@@ -210,9 +223,9 @@ template <int NV> struct instance: public Waveshaper_impl::Waveshaper_t_<NV>
             0x5B00, 0x0001, 0x0000, 0x694D, 0x0078, 0x0000, 0x0000, 0x0000, 
             0x3F80, 0x0000, 0x3F80, 0x0000, 0x3F80, 0x0000, 0x0000, 0x025B, 
             0x0000, 0x4100, 0x6F6D, 0x6E75, 0x0074, 0x0000, 0x0000, 0x0000, 
-            0x3F80, 0xDC7F, 0x3EA1, 0x0000, 0x3F80, 0x0000, 0x0000, 0x035B, 
+            0x3F80, 0xF705, 0x3F0E, 0x0000, 0x3F80, 0x0000, 0x0000, 0x035B, 
             0x0000, 0x4700, 0x6961, 0x006E, 0x0000, 0xC2C0, 0x0000, 0x4040, 
-            0x0000, 0x3F80, 0x0000, 0x3F80, 0xCCCD, 0x3DCC, 0x045B, 0x0000, 
+            0x0000, 0x35C0, 0x0000, 0x3F80, 0xCCCD, 0x3DCC, 0x045B, 0x0000, 
             0x6C00, 0x0070, 0x0000, 0x41A0, 0x4000, 0x469C, 0x1C08, 0x45A1, 
             0x6C1A, 0x3E6B, 0x0000, 0x0000, 0x055B, 0x0000, 0x6800, 0x0070, 
             0x0000, 0x41A0, 0x4000, 0x469C, 0xD49A, 0x4318, 0x6C1A, 0x3E6B, 
@@ -221,7 +234,7 @@ template <int NV> struct instance: public Waveshaper_impl::Waveshaper_t_<NV>
             0x0000, 0x0000, 0x075B, 0x0000, 0x7000, 0x736F, 0x6874, 0x0070, 
             0x0000, 0x41A0, 0x4000, 0x469C, 0xF1BE, 0x4234, 0x6C1A, 0x3E6B, 
             0x0000, 0x0000, 0x085B, 0x0000, 0x4D00, 0x646F, 0x0065, 0x0000, 
-            0x0000, 0x0000, 0x3F80, 0x0000, 0x3F80, 0x0000, 0x3F80, 0x0000, 
+            0x0000, 0x0000, 0x3F80, 0x0000, 0x0000, 0x0000, 0x3F80, 0x0000, 
             0x3F80, 0x0000
 		};
 	};
@@ -237,16 +250,19 @@ template <int NV> struct instance: public Waveshaper_impl::Waveshaper_t_<NV>
 		auto& wet_path = this->getT(0).getT(1);                            // Waveshaper_impl::wet_path_t<NV>
 		auto& one_pole = this->getT(0).getT(1).getT(0);                    // filters::one_pole<NV>
 		auto& one_pole1 = this->getT(0).getT(1).getT(1);                   // filters::one_pole<NV>
-		auto& minmax = this->getT(0).getT(1).getT(2);                      // Waveshaper_impl::minmax_t<NV>
-		auto& minmax1 = this->getT(0).getT(1).getT(3);                     // Waveshaper_impl::minmax1_t<NV>
-		auto& branch = this->getT(0).getT(1).getT(4);                      // Waveshaper_impl::branch_t<NV>
-		auto& chain = this->getT(0).getT(1).getT(4).getT(0);               // Waveshaper_impl::chain_t<NV>
-		auto& gain = this->getT(0).getT(1).getT(4).getT(0).getT(0);        // core::gain<NV>
-		auto& snex_shaper = this->getT(0).getT(1).getT(4).getT(0).getT(1); // Waveshaper_impl::snex_shaper_t<NV>
-		auto& faust = this->getT(0).getT(1).getT(4).getT(1);               // project::Distortion<NV>
-		auto& one_pole2 = this->getT(0).getT(1).getT(5);                   // filters::one_pole<NV>
-		auto& one_pole3 = this->getT(0).getT(1).getT(6);                   // filters::one_pole<NV>
-		auto& wet_gain = this->getT(0).getT(1).getT(7);                    // core::gain<NV>
+		auto& smoothed_parameter_unscaled = this->getT(0).getT(1).getT(2); // Waveshaper_impl::smoothed_parameter_unscaled_t<NV>
+		auto& minmax = this->getT(0).getT(1).getT(3);                      // Waveshaper_impl::minmax_t<NV>
+		auto& minmax2 = this->getT(0).getT(1).getT(4);                     // Waveshaper_impl::minmax2_t<NV>
+		auto& minmax1 = this->getT(0).getT(1).getT(5);                     // Waveshaper_impl::minmax1_t<NV>
+		auto& branch = this->getT(0).getT(1).getT(6);                      // Waveshaper_impl::branch_t<NV>
+		auto& chain = this->getT(0).getT(1).getT(6).getT(0);               // Waveshaper_impl::chain_t<NV>
+		auto& gain = this->getT(0).getT(1).getT(6).getT(0).getT(0);        // core::gain<NV>
+		auto& snex_shaper = this->getT(0).getT(1).getT(6).getT(0).getT(1); // Waveshaper_impl::snex_shaper_t<NV>
+		auto& gain1 = this->getT(0).getT(1).getT(6).getT(0).getT(2);       // core::gain<NV>
+		auto& faust = this->getT(0).getT(1).getT(6).getT(1);               // project::Distortion<NV>
+		auto& one_pole2 = this->getT(0).getT(1).getT(7);                   // filters::one_pole<NV>
+		auto& one_pole3 = this->getT(0).getT(1).getT(8);                   // filters::one_pole<NV>
+		auto& wet_gain = this->getT(0).getT(1).getT(9);                    // core::gain<NV>
 		
 		// Parameter Connections -------------------------------------------------------------------
 		
@@ -254,9 +270,7 @@ template <int NV> struct instance: public Waveshaper_impl::Waveshaper_t_<NV>
 		
 		this->getParameterT(1).connectT(0, dry_wet1); // Mix -> dry_wet1::DryWet
 		
-		auto& Amount_p = this->getParameterT(2);
-		Amount_p.connectT(0, minmax);  // Amount -> minmax::Value
-		Amount_p.connectT(1, minmax1); // Amount -> minmax1::Value
+		this->getParameterT(2).connectT(0, smoothed_parameter_unscaled); // Amount -> smoothed_parameter_unscaled::Value
 		
 		this->getParameterT(3).connectT(0, faust); // Gain -> faust::gain
 		
@@ -273,10 +287,14 @@ template <int NV> struct instance: public Waveshaper_impl::Waveshaper_t_<NV>
 		// Modulation Connections ------------------------------------------------------------------
 		
 		auto& dry_wet_mixer_p = dry_wet_mixer.getWrappedObject().getParameter();
-		dry_wet_mixer_p.getParameterT(0).connectT(0, dry_gain);       // dry_wet_mixer -> dry_gain::Gain
-		dry_wet_mixer_p.getParameterT(1).connectT(0, wet_gain);       // dry_wet_mixer -> wet_gain::Gain
-		minmax.getWrappedObject().getParameter().connectT(0, gain);   // minmax -> gain::Gain
-		minmax1.getWrappedObject().getParameter().connectT(0, faust); // minmax1 -> faust::distortion
+		dry_wet_mixer_p.getParameterT(0).connectT(0, dry_gain);          // dry_wet_mixer -> dry_gain::Gain
+		dry_wet_mixer_p.getParameterT(1).connectT(0, wet_gain);          // dry_wet_mixer -> wet_gain::Gain
+		minmax.getWrappedObject().getParameter().connectT(0, gain);      // minmax -> gain::Gain
+		minmax1.getWrappedObject().getParameter().connectT(0, faust);    // minmax1 -> faust::distortion
+		minmax2.getWrappedObject().getParameter().connectT(0, gain1);    // minmax2 -> gain1::Gain
+		smoothed_parameter_unscaled.getParameter().connectT(0, minmax);  // smoothed_parameter_unscaled -> minmax::Value
+		smoothed_parameter_unscaled.getParameter().connectT(1, minmax1); // smoothed_parameter_unscaled -> minmax1::Value
+		smoothed_parameter_unscaled.getParameter().connectT(2, minmax2); // smoothed_parameter_unscaled -> minmax2::Value
 		
 		// Default Values --------------------------------------------------------------------------
 		
@@ -302,12 +320,23 @@ template <int NV> struct instance: public Waveshaper_impl::Waveshaper_t_<NV>
 		one_pole1.setParameterT(4, 1.);        // filters::one_pole::Mode
 		one_pole1.setParameterT(5, 1.);        // filters::one_pole::Enabled
 		
+		;                                                   // smoothed_parameter_unscaled::Value is automated
+		smoothed_parameter_unscaled.setParameterT(1, 100.); // control::smoothed_parameter_unscaled::SmoothingTime
+		smoothed_parameter_unscaled.setParameterT(2, 1.);   // control::smoothed_parameter_unscaled::Enabled
+		
 		;                                  // minmax::Value is automated
 		minmax.setParameterT(1, 0.);       // control::minmax::Minimum
-		minmax.setParameterT(2, 21.5);     // control::minmax::Maximum
+		minmax.setParameterT(2, 30.5);     // control::minmax::Maximum
 		minmax.setParameterT(3, 0.492949); // control::minmax::Skew
 		minmax.setParameterT(4, 0.1);      // control::minmax::Step
 		minmax.setParameterT(5, 0.);       // control::minmax::Polarity
+		
+		;                                   // minmax2::Value is automated
+		minmax2.setParameterT(1, -9.39724); // control::minmax::Minimum
+		minmax2.setParameterT(2, 0.);       // control::minmax::Maximum
+		minmax2.setParameterT(3, 5.73463);  // control::minmax::Skew
+		minmax2.setParameterT(4, 0.);       // control::minmax::Step
+		minmax2.setParameterT(5, 1.);       // control::minmax::Polarity
 		
 		;                                  // minmax1::Value is automated
 		minmax1.setParameterT(1, 0.);      // control::minmax::Minimum
@@ -318,9 +347,13 @@ template <int NV> struct instance: public Waveshaper_impl::Waveshaper_t_<NV>
 		
 		; // branch::Index is automated
 		
-		;                           // gain::Gain is automated
-		gain.setParameterT(1, 20.); // core::gain::Smoothing
-		gain.setParameterT(2, 0.);  // core::gain::ResetValue
+		;                            // gain::Gain is automated
+		gain.setParameterT(1, 96.2); // core::gain::Smoothing
+		gain.setParameterT(2, 0.);   // core::gain::ResetValue
+		
+		;                              // gain1::Gain is automated
+		gain1.setParameterT(1, 100.6); // core::gain::Smoothing
+		gain1.setParameterT(2, 0.);    // core::gain::ResetValue
 		
 		; // faust::distortion is automated
 		; // faust::gain is automated
@@ -345,13 +378,13 @@ template <int NV> struct instance: public Waveshaper_impl::Waveshaper_t_<NV>
 		
 		this->setParameterT(0, 1.);
 		this->setParameterT(1, 1.);
-		this->setParameterT(2, 0.316135);
-		this->setParameterT(3, 1.);
+		this->setParameterT(2, 0.558457);
+		this->setParameterT(3, 1.43051e-06);
 		this->setParameterT(4, 5155.5);
 		this->setParameterT(5, 152.83);
 		this->setParameterT(6, 7118.38);
 		this->setParameterT(7, 45.2361);
-		this->setParameterT(8, 1.);
+		this->setParameterT(8, 0.);
 		this->setExternalData({}, -1);
 	}
 	~instance() override
@@ -371,7 +404,7 @@ template <int NV> struct instance: public Waveshaper_impl::Waveshaper_t_<NV>
 	{
 		// External Data Connections ---------------------------------------------------------------
 		
-		this->getT(0).getT(1).getT(4).getT(0).getT(1).setExternalData(b, index); // Waveshaper_impl::snex_shaper_t<NV>
+		this->getT(0).getT(1).getT(6).getT(0).getT(1).setExternalData(b, index); // Waveshaper_impl::snex_shaper_t<NV>
 	}
 };
 }

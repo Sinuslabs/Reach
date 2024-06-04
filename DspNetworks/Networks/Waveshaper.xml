@@ -46,7 +46,7 @@
           </Node>
           <Node ID="wet_path" FactoryPath="container.chain" Bypassed="0">
             <Nodes>
-              <Node ID="one_pole" FactoryPath="filters.one_pole" Bypassed="0">
+              <Node ID="one_pole" FactoryPath="filters.one_pole" Bypassed="0" Folded="1">
                 <ComplexData>
                   <Filters>
                     <Filter Index="-1" EmbeddedData=""/>
@@ -64,7 +64,7 @@
                   <Parameter MinValue="0.0" MaxValue="1.0" StepSize="1.0" ID="Enabled" Value="1.0"/>
                 </Parameters>
               </Node>
-              <Node ID="one_pole1" FactoryPath="filters.one_pole" Bypassed="0">
+              <Node ID="one_pole1" FactoryPath="filters.one_pole" Bypassed="0" Folded="1">
                 <ComplexData>
                   <Filters>
                     <Filter Index="-1" EmbeddedData=""/>
@@ -82,6 +82,23 @@
                   <Parameter MinValue="0.0" MaxValue="1.0" StepSize="1.0" ID="Enabled" Value="1.0"/>
                 </Parameters>
               </Node>
+              <Node ID="smoothed_parameter_unscaled" FactoryPath="control.smoothed_parameter_unscaled"
+                    Bypassed="0">
+                <Properties>
+                  <Property ID="Mode" Value="Linear Ramp"/>
+                </Properties>
+                <ModulationTargets>
+                  <Connection NodeId="minmax" ParameterId="Value"/>
+                  <Connection NodeId="minmax1" ParameterId="Value"/>
+                  <Connection NodeId="minmax2" ParameterId="Value"/>
+                </ModulationTargets>
+                <Parameters>
+                  <Parameter MinValue="0.0" MaxValue="1.0" ID="Value" Automated="1"/>
+                  <Parameter MinValue="0.1000000014901161" MaxValue="1000.0" StepSize="0.1000000014901161"
+                             ID="SmoothingTime" Value="100.0"/>
+                  <Parameter MinValue="0.0" MaxValue="1.0" StepSize="1.0" ID="Enabled" Value="1.0"/>
+                </Parameters>
+              </Node>
               <Node ID="minmax" FactoryPath="control.minmax" Bypassed="0">
                 <ModulationTargets>
                   <Connection NodeId="gain" ParameterId="Gain"/>
@@ -90,15 +107,29 @@
                   <Parameter MinValue="0.0" MaxValue="1.0" ID="Value" Automated="1"/>
                   <Parameter MinValue="-1.0" MaxValue="0.0" StepSize="0.1" SkewFactor="5.422270979580217"
                              ID="Minimum" Value="0.0"/>
-                  <Parameter MinValue="0.0" MaxValue="24.0" StepSize="0.1" SkewFactor="5.422270979580217"
-                             ID="Maximum" Value="21.5"/>
+                  <Parameter MinValue="0.0" MaxValue="36.0" StepSize="0.1" SkewFactor="5.422270979580217"
+                             ID="Maximum" Value="30.5"/>
                   <Parameter MinValue="0.1000000014901161" MaxValue="10.0" SkewFactor="0.2890648245811462"
                              ID="Skew" Value="0.492949372948036"/>
                   <Parameter MinValue="0.0" MaxValue="1.0" ID="Step" Value="0.1"/>
                   <Parameter MinValue="0.0" MaxValue="1.0" StepSize="1.0" ID="Polarity" Value="0.0"/>
                 </Parameters>
               </Node>
-              <Node ID="minmax1" FactoryPath="control.minmax" Bypassed="0">
+              <Node ID="minmax2" FactoryPath="control.minmax" Bypassed="0">
+                <ModulationTargets>
+                  <Connection NodeId="gain1" ParameterId="Gain"/>
+                </ModulationTargets>
+                <Parameters>
+                  <Parameter MinValue="0.0" MaxValue="1.0" ID="Value" Automated="1"/>
+                  <Parameter MinValue="-30.0" MaxValue="1.0" ID="Minimum" Value="-9.397238037109375"/>
+                  <Parameter MinValue="0.0" MaxValue="1.0" ID="Maximum" Value="0.0"/>
+                  <Parameter MinValue="0.1000000014901161" MaxValue="10.0" SkewFactor="0.2890648245811462"
+                             ID="Skew" Value="5.73463403812505"/>
+                  <Parameter MinValue="0.0" MaxValue="1.0" ID="Step" Value="0.0"/>
+                  <Parameter MinValue="0.0" MaxValue="1.0" StepSize="1.0" ID="Polarity" Value="1.0"/>
+                </Parameters>
+              </Node>
+              <Node ID="minmax1" FactoryPath="control.minmax" Bypassed="0" Folded="1">
                 <ModulationTargets>
                   <Connection NodeId="faust" ParameterId="distortion"/>
                 </ModulationTargets>
@@ -118,15 +149,16 @@
                     <Nodes>
                       <Node ID="gain" FactoryPath="core.gain" Bypassed="0">
                         <Parameters>
-                          <Parameter MinValue="5.551115123125783e-15" MaxValue="24.0" StepSize="0.01"
+                          <Parameter MinValue="5.551115123125783e-15" MaxValue="36.0" StepSize="0.01"
                                      SkewFactor="0.5" ID="Gain" Automated="1"/>
                           <Parameter MinValue="0.0" MaxValue="1000.0" StepSize="0.1000000014901161"
-                                     SkewFactor="0.3010300099849701" ID="Smoothing" Value="20.0"/>
+                                     SkewFactor="0.3010300099849701" ID="Smoothing" Value="96.20000143349169"/>
                           <Parameter MinValue="-100.0" MaxValue="0.0" StepSize="0.1000000014901161"
                                      SkewFactor="5.422270774841309" ID="ResetValue" Value="0.0"/>
                         </Parameters>
                       </Node>
-                      <Node ID="snex_shaper" FactoryPath="core.snex_shaper" Bypassed="0">
+                      <Node ID="snex_shaper" FactoryPath="core.snex_shaper" Bypassed="0"
+                            Folded="1">
                         <Properties>
                           <Property ID="ClassId" Value="snex_softsat"/>
                         </Properties>
@@ -140,6 +172,16 @@
                           </DisplayBuffers>
                         </ComplexData>
                         <Parameters/>
+                      </Node>
+                      <Node ID="gain1" FactoryPath="core.gain" Bypassed="0">
+                        <Parameters>
+                          <Parameter MinValue="-36.0" MaxValue="0.0" StepSize="0.1000000014901161"
+                                     SkewFactor="5.422270774841309" ID="Gain" Automated="1"/>
+                          <Parameter MinValue="0.0" MaxValue="1000.0" StepSize="0.1000000014901161"
+                                     SkewFactor="0.3010300099849701" ID="Smoothing" Value="100.6000014990568"/>
+                          <Parameter MinValue="-100.0" MaxValue="0.0" StepSize="0.1000000014901161"
+                                     SkewFactor="5.422270774841309" ID="ResetValue" Value="0.0"/>
+                        </Parameters>
                       </Node>
                     </Nodes>
                     <Parameters/>
@@ -162,7 +204,7 @@
                   <Parameter MinValue="0.0" MaxValue="1" StepSize="1.0" ID="Index" Automated="1"/>
                 </Parameters>
               </Node>
-              <Node ID="one_pole2" FactoryPath="filters.one_pole" Bypassed="0">
+              <Node ID="one_pole2" FactoryPath="filters.one_pole" Bypassed="0" Folded="1">
                 <ComplexData>
                   <Filters>
                     <Filter Index="-1" EmbeddedData=""/>
@@ -180,7 +222,7 @@
                   <Parameter MinValue="0.0" MaxValue="1.0" StepSize="1.0" ID="Enabled" Value="1.0"/>
                 </Parameters>
               </Node>
-              <Node ID="one_pole3" FactoryPath="filters.one_pole" Bypassed="0">
+              <Node ID="one_pole3" FactoryPath="filters.one_pole" Bypassed="0" Folded="1">
                 <ComplexData>
                   <Filters>
                     <Filter Index="-1" EmbeddedData=""/>
@@ -231,13 +273,13 @@
           <Connection NodeId="dry_wet1" ParameterId="DryWet"/>
         </Connections>
       </Parameter>
-      <Parameter ID="Amount" MinValue="0.0" MaxValue="1.0" Value="0.3161353759765625">
+      <Parameter ID="Amount" MinValue="0.0" MaxValue="1.0" Value="0.5584567260742187">
         <Connections>
-          <Connection NodeId="minmax" ParameterId="Value"/>
-          <Connection NodeId="minmax1" ParameterId="Value"/>
+          <Connection NodeId="smoothed_parameter_unscaled" ParameterId="Value"/>
         </Connections>
       </Parameter>
-      <Parameter ID="Gain" MinValue="-96.0" MaxValue="3.0" Value="1.0" StepSize="0.1000000014901161">
+      <Parameter ID="Gain" MinValue="-96.0" MaxValue="3.0" Value="1.430511461286699e-6"
+                 StepSize="0.1000000014901161">
         <Connections>
           <Connection NodeId="faust" ParameterId="gain"/>
         </Connections>
@@ -266,7 +308,7 @@
           <Connection NodeId="one_pole3" ParameterId="Frequency"/>
         </Connections>
       </Parameter>
-      <Parameter ID="Mode" MinValue="0.0" MaxValue="1.0" StepSize="1.0" Value="1.0">
+      <Parameter ID="Mode" MinValue="0.0" MaxValue="1.0" StepSize="1.0" Value="0.0">
         <Connections>
           <Connection NodeId="branch" ParameterId="Index"/>
         </Connections>

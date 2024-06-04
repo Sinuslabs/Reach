@@ -156,7 +156,7 @@
                                   <Parameter MinValue="0.0" MaxValue="1.0" ID="Feedback" Automated="1"/>
                                 </Parameters>
                               </Node>
-                              <Node ID="faust2" FactoryPath="core.faust" Bypassed="0" Folded="1">
+                              <Node ID="faust2" FactoryPath="core.faust" Bypassed="0">
                                 <Properties>
                                   <Property ID="ClassId" Value="Delay2"/>
                                   <Property ID="NumParameters" Value="0"/>
@@ -409,13 +409,13 @@
           <Connection NodeId="dry_wet2" ParameterId="DryWet"/>
         </Connections>
       </Parameter>
-      <Parameter ID="preDelay" MinValue="0.0" MaxValue="2000.0" Value="317.1000047251582"
-                 StepSize="0.1000000014901161" SkewFactor="0.5">
+      <Parameter ID="preDelay" MinValue="0.0" MaxValue="2000.0" Value="0.0" StepSize="0.1000000014901161"
+                 SkewFactor="0.5">
         <Connections>
           <Connection NodeId="tempo_sync" ParameterId="UnsyncedTime"/>
         </Connections>
       </Parameter>
-      <Parameter ID="Feedback" MinValue="0.0" MaxValue="1.0" Value="0.6413928833007813">
+      <Parameter ID="Feedback" MinValue="0.0" MaxValue="1.0" Value="0.0">
         <Connections>
           <Connection NodeId="receive" ParameterId="Feedback"/>
         </Connections>
@@ -425,7 +425,7 @@
           <Connection NodeId="bipolar" ParameterId="Value"/>
         </Connections>
       </Parameter>
-      <Parameter ID="DelayMix" MinValue="0.0" MaxValue="1.0" Value="0.4912278442382813">
+      <Parameter ID="DelayMix" MinValue="0.0" MaxValue="1.0" Value="1.0">
         <Connections>
           <Connection NodeId="dry_wet3" ParameterId="DryWet"/>
         </Connections>
@@ -443,13 +443,13 @@
         </Connections>
       </Parameter>
       <Parameter ID="DelayHighpass" MinValue="20.0" MaxValue="20000.0" SkewFactor="0.2299045622348785"
-                 Value="20000.0">
+                 Value="20.0">
         <Connections>
           <Connection NodeId="biquad" ParameterId="Frequency"/>
         </Connections>
       </Parameter>
       <Parameter ID="DelayLowpass" MinValue="20.0" MaxValue="20000.0" SkewFactor="0.2299045622348785"
-                 Value="20.0">
+                 Value="20000.0">
         <Connections>
           <Connection NodeId="moog" ParameterId="Frequency"/>
         </Connections>
