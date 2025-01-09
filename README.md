@@ -29,7 +29,7 @@ REACH is modern creative Reverb that is made for synthetic sound sources. There 
 
 ### Sound Demos
 
-https://soundcloud.com/sinuslabs/sets/reach-audio-examples
+https://soundcloud.com/sinuslabs/sets/reach-music-demos
 
 ### Contribution
 
