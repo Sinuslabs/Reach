@@ -153,10 +153,10 @@ inline function addGuides() {
 namespace FFTVisual {
 	
 	reg fftHistory = []; // Array to store historical paths
-	const var HISTORY_SIZE = 10; // How many paths to store and draw
+	const var HISTORY_SIZE = 15; // How many paths to store and draw
 	const var X_OFFSET_STEP = 6; // Pixels to shift right per step
 	const var Y_OFFSET_STEP = -3; // Pixels to shift up per step (negative Y is up in HISE)
-	const var MIN_ALPHA = 0.1; // Minimum alpha for the oldest paths
+	const var MIN_ALPHA = 0.0; // Minimum alpha for the oldest paths
 	const var SCALE_REDUCTION = 0.3;
 	// Minimum scale factor to prevent paths from becoming invisible
 	const var MIN_SCALE = 0.1;
@@ -165,8 +165,13 @@ namespace FFTVisual {
 	const var buffer = DB.getDisplayBuffer(0);
 	const var Panel1 = Content.getComponent("Panel1");
 	Panel1.setPaintRoutine(drawAnalyser);
-	
-	Content.callAfterDelay(1100, function() {
+	var aniDelay = 1100;
+	if (UserSettings.enableAnimations) {
+		aniDelay = 1100;
+	} else {
+		aniDelay = 1;
+	}
+	Content.callAfterDelay(aniDelay, function() {
 		Panel1.startTimer(20);	
 	}, {});
 	Panel1.setTimerCallback(function()
@@ -209,7 +214,9 @@ namespace FFTVisual {
 	inline function drawAnalyser(g)
 	{
 	    // Get the full drawing area bounds ONCE
-	    local baseBounds = this.getLocalBounds(10);
+	    // Using getLocalBounds(0) usually gets the component bounds.
+	    // Using getLocalBounds(10) might add padding - ensure this is intended.
+	    local baseBounds = this.getLocalBounds(10); // Changed back to 0, adjust if 10 is needed
 	    local baseW = baseBounds[2]; // Width
 	    local baseH = baseBounds[3]; // Height
 	    local baseX = baseBounds[0]; // X position
@@ -219,25 +226,34 @@ namespace FFTVisual {
 	
 	    local historyCount = fftHistory.length;
 	
-	    // --- Gradient Colours ---
-	    local gradColourTop = Colours.lightblue;
-	    local gradColourBottom = '0xffffff';
-	    // const var gradColourBottom = gradColourTop.darker(0.6);
-	    // const var gradColourBottom = Colours.transparentBlack;
-	
+	    // Define base colours (using local as preferred in inline functions)
+	    local strokeColourBase = Colours.lightblue; // Can be different if needed
+		local gradColourTop = '0x207DFF';
+		   // Choose a bottom colour - darkblue provides good contrast
+	   local gradColourBottom = Colours.lightblue;
+		
 	    // Iterate backwards through the history (oldest path first)
 	    for (i = historyCount - 1; i >= 0; i--)
 	    {
 	        local path = fftHistory[i]; // Get the original path
 	
 	        // Calculate the 'age' factor (0 = newest, almost 1 = oldest)
-	        local ageFactor = i / HISTORY_SIZE;
+	        local ageFactor = i / HISTORY_SIZE; // Make sure HISTORY_SIZE is defined globally
 	
 	        // --- Calculate Visual Properties based on Age ---
+	
+	        // 1. Alpha: Decays from 1.0 (newest) down towards MIN_ALPHA (oldest)
+	        // Make sure MIN_ALPHA is defined globally (e.g., 0.1)
 	        local alpha = 1.0 - ageFactor * (1.0 - MIN_ALPHA);
 	        alpha = Math.max(MIN_ALPHA, alpha);
+	
+	        // 2. Scale: Decays from 1.0 down towards MIN_SCALE
+	        // Make sure SCALE_REDUCTION and MIN_SCALE are defined globally
 	        local scaleFactor = 1.0 - ageFactor * SCALE_REDUCTION;
 	        scaleFactor = Math.max(MIN_SCALE, scaleFactor);
+	
+	        // 3. Offset: Increases for older paths
+	        // Make sure X_OFFSET_STEP and Y_OFFSET_STEP are defined globally
 	        local offsetX = i * X_OFFSET_STEP;
 	        local offsetY = i * Y_OFFSET_STEP;
 	
@@ -246,40 +262,88 @@ namespace FFTVisual {
 	        local newH = baseH * scaleFactor;
 	        local newX = baseCx - (newW / 2.0) + offsetX;
 	        local newY = baseCy - (newH / 2.0) + offsetY;
-	        local drawBounds = [newX, newY, newW, newH]; // [x, y, width, height]
-	
-	        // --- Setup Gradient Fill Data ---
-	
-	        // Apply the calculated alpha to the gradient colours
-	        local currentTopColour = Colours.withAlpha(gradColourTop, alpha);
-	        local currentBottomColour = Colours.withAlpha(gradColourBottom, alpha * 0.8); // Example fade
-	
-	        // Define gradient start and end points based on the drawBounds
-	        local gradStartX = newX;            // Start X
-	        local gradStartY = newY;            // Start Y (top edge)
-	        local gradEndX = newX;              // End X (same for vertical)
-	        local gradEndY = newY + newH;       // End Y (bottom edge)
-	
-	        // Create the gradient data array as per documentation:
-	        // [Colour1, x1, y1, Colour2, x2, y2, isRadial (optional)]
-	        local gradientData = [
-	            currentTopColour, gradStartX, gradStartY,
-	            currentBottomColour, gradEndX, gradEndY,
-	            false // Explicitly linear gradient
-	        ];
-	
-	        // Set the gradient fill using the data array
-	        //g.setGradientFill(gradientData);
+	        local drawBounds = [newX, newY, newW - 50, newH]; // [x, y, width, height]
 	
 	        // --- Draw the Path ---
-	        // Fill the path using the gradient we just set
-	        g.setColour(Colours.withAlpha(Colours.lightgrey, 0.5));
-	        g.fillPath(path, drawBounds);
-	        g.setColour(Colours.lightgrey);
-	        g.drawPath(path, drawBounds, 1);
-	    }
 	
-	}
+	        // 1. Fill the path
+	        
+
+	        // Use the calculated alpha for the fill colour
+	        //g.setColour(Colours.withAlpha(fillColourBase, alpha));
+	        
+	                // --- Setup Gradient Fill Data ---
+	        
+	                // Apply the calculated alpha to BOTH gradient colours
+	                local currentTopColour = Colours.withAlpha(gradColourTop, alpha * 0.95);
+	                // Apply alpha to bottom. You can add a multiplier for faster fade if desired (e.g., alpha * 0.8)
+	                local currentBottomColour = Colours.withAlpha(gradColourBottom, alpha * 0.95);
+	        
+	                // Define gradient start and end points for a vertical gradient
+	                local gradStartX = newX;        // Start X (at left edge of bounds)
+	                local gradStartY = newY + 40;        // Start Y (at top edge of bounds)
+	                local gradEndX = newX;          // End X (same as start X for vertical)
+	                local gradEndY = newY + newH;   // End Y (at bottom edge of bounds)
+	        
+	                // Create the gradient data array
+	                local gradientData = [
+	                    currentTopColour, gradStartX, gradStartY,
+	                    currentBottomColour, gradEndX, gradEndY,
+	                    false // Linear gradient
+	                ];
+	        
+	                // --- Draw the Path ---
+	        
+	                // 1. Set the gradient fill
+	                g.setGradientFill(gradientData);
+	        		g.fillPath(path, drawBounds);
+	        		g.setColour(Colours.withAlpha(Colours.lightblue, 0.5));
+					g.drawPath(path, drawBounds, 1);
+
+	        // 2. Stroke the path (outline)
+	        // Use the calculated alpha for the stroke colour as well
+	        // Use strokePath (or drawPath if that's what works in your HISE version)
+	
+	    } // End of loop
+	    g.addNoise({
+ 		        alpha: 0.02,
+ 		        monochromatic: true
+	    });
+	
+	    // --- Gradient Code (Currently unused based on your snippet) ---
+	    /*
+	    // If you want to use the gradient instead of solid fill:
+	    // 1. Define gradColourTop/Bottom earlier
+	    local gradColourTop = Colours.lightblue;
+	    local gradColourBottom = 0xFFFFFFFF; // HISE colour hex requires 0x AlphaRedGreenBlue
+	
+	    // 2. Calculate current colours with alpha
+	    local currentTopColour = Colours.withAlpha(gradColourTop, alpha);
+	    local currentBottomColour = Colours.withAlpha(gradColourBottom, alpha * 0.8);
+	
+	    // 3. Calculate gradient points (as you had before)
+	    local gradStartX = newX;
+	    local gradStartY = newY;
+	    local gradEndX = newX;
+	    local gradEndY = newY + newH;
+	
+	    // 4. Create gradient data array
+	    local gradientData = [
+	        currentTopColour, gradStartX, gradStartY,
+	        currentBottomColour, gradEndX, gradEndY,
+	        false // Linear
+	    ];
+	
+	    // 5. Set gradient and fill (replace the solid fill lines above)
+	    g.setGradientFill(gradientData);
+	    g.fillPath(path, drawBounds);
+	
+	    // 6. Then draw the stroke (optional)
+	    g.setColour(Colours.withAlpha(strokeColourBase, alpha));
+	    g.strokePath(path, drawBounds, 1.0);
+	    */
+	
+	} // End of function
 
 }
 

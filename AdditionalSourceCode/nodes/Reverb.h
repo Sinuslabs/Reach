@@ -98,8 +98,6 @@ template <int NV>
 using fix32_block_t_ = container::chain<parameter::empty, 
                                         wrap::fix<2, routing::receive<stereo_cable>>, 
                                         project::Delay2<NV>, 
-                                        filters::moog<NV>, 
-                                        filters::biquad<NV>, 
                                         limiter_t, 
                                         routing::send<stereo_cable>>;
 
@@ -268,19 +266,19 @@ template <int NV> struct instance: public Reverb_impl::Reverb_t_<NV>
             0x6575, 0x636E, 0x0079, 0x0000, 0x0000, 0x0000, 0x4120, 0x0000, 
             0x0000, 0x0000, 0x3F80, 0xD70A, 0x3C23, 0x095B, 0x0000, 0x5200, 
             0x7665, 0x7265, 0x5462, 0x6D69, 0x0065, 0x0000, 0x0000, 0x0000, 
-            0x4180, 0x0E56, 0x3ED0, 0x0000, 0x3F80, 0x0000, 0x0000, 0x0A5B, 
+            0x4180, 0xF8C5, 0x4036, 0x0000, 0x3F80, 0x0000, 0x0000, 0x0A5B, 
             0x0000, 0x5300, 0x7A69, 0x0065, 0x0000, 0x3F00, 0x0000, 0x40A0, 
             0x5C29, 0x3FCF, 0x0000, 0x3F80, 0xD70A, 0x3C23, 0x0B5B, 0x0000, 
             0x4D00, 0x7869, 0x0000, 0x0000, 0x0000, 0x8000, 0x003F, 0x8000, 
             0x003F, 0x8000, 0x003F, 0x0000, 0x5B00, 0x000C, 0x0000, 0x7270, 
-            0x4465, 0x6C65, 0x7961, 0x0000, 0x0000, 0x0000, 0xFA00, 0x3344, 
-            0xDD33, 0x0043, 0x0000, 0xCD3F, 0xCCCC, 0x5B3D, 0x000D, 0x0000, 
+            0x4465, 0x6C65, 0x7961, 0x0000, 0x0000, 0x0000, 0xFA00, 0x9A44, 
+            0x8849, 0x0044, 0x0000, 0xCD3F, 0xCCCC, 0x5B3D, 0x000D, 0x0000, 
             0x6546, 0x6465, 0x6162, 0x6B63, 0x0000, 0x0000, 0x0000, 0x8000, 
-            0x9C3F, 0x8918, 0x003E, 0x8000, 0x003F, 0x0000, 0x5B00, 0x000E, 
+            0xB83F, 0x399B, 0x003F, 0x8000, 0x003F, 0x0000, 0x5B00, 0x000E, 
             0x0000, 0x6D53, 0x6F6F, 0x6874, 0x6E69, 0x0067, 0x0000, 0x0000, 
             0x0000, 0x3F80, 0x0000, 0x0000, 0x0000, 0x3F80, 0x0000, 0x0000, 
             0x0F5B, 0x0000, 0x4400, 0x6C65, 0x7961, 0x694D, 0x0078, 0x0000, 
-            0x0000, 0x0000, 0x3F80, 0x28A8, 0x3F3D, 0x0000, 0x3F80, 0x0000, 
+            0x0000, 0x0000, 0x3F80, 0x0000, 0x3F80, 0x0000, 0x3F80, 0x0000, 
             0x0000, 0x0000
 		};
 	};
@@ -308,10 +306,8 @@ template <int NV> struct instance: public Reverb_impl::Reverb_t_<NV>
 		auto& fix32_block = this->getT(1).getT(1).getT(0).getT(1).getT(0).getT(1);     // Reverb_impl::fix32_block_t<NV>
 		auto& receive = this->getT(1).getT(1).getT(0).getT(1).getT(0).getT(1).getT(0); // routing::receive<stereo_cable>
 		auto& faust2 = this->getT(1).getT(1).getT(0).getT(1).getT(0).getT(1).getT(1);  // project::Delay2<NV>
-		auto& moog = this->getT(1).getT(1).getT(0).getT(1).getT(0).getT(1).getT(2);    // filters::moog<NV>
-		auto& biquad = this->getT(1).getT(1).getT(0).getT(1).getT(0).getT(1).getT(3);  // filters::biquad<NV>
-		auto& limiter = this->getT(1).getT(1).getT(0).getT(1).getT(0).getT(1).getT(4); // Reverb_impl::limiter_t
-		auto& send = this->getT(1).getT(1).getT(0).getT(1).getT(0).getT(1).getT(5);    // routing::send<stereo_cable>
+		auto& limiter = this->getT(1).getT(1).getT(0).getT(1).getT(0).getT(1).getT(2); // Reverb_impl::limiter_t
+		auto& send = this->getT(1).getT(1).getT(0).getT(1).getT(0).getT(1).getT(3);    // routing::send<stereo_cable>
 		auto& wet_gain2 = this->getT(1).getT(1).getT(0).getT(1).getT(1);               // core::gain<NV>
 		auto& faust = this->getT(1).getT(1).getT(1);                                   // project::FaustReverb<NV>
 		auto& pma = this->getT(1).getT(1).getT(2);                                     // Reverb_impl::pma_t<NV>
@@ -409,20 +405,6 @@ template <int NV> struct instance: public Reverb_impl::Reverb_t_<NV>
 		faust2.setParameterT(1, 0.);   // core::faust::feedback
 		faust2.setParameterT(2, 29.5); // core::faust::interpolation
 		
-		moog.setParameterT(0, 0.);        // filters::moog::Frequency
-		moog.setParameterT(1, 1.);        // filters::moog::Q
-		moog.setParameterT(2, 0.);        // filters::moog::Gain
-		moog.setParameterT(3, 0.0464498); // filters::moog::Smoothing
-		moog.setParameterT(4, 0.);        // filters::moog::Mode
-		moog.setParameterT(5, 1.);        // filters::moog::Enabled
-		
-		biquad.setParameterT(0, 0.);        // filters::biquad::Frequency
-		biquad.setParameterT(1, 0.617687);  // filters::biquad::Q
-		biquad.setParameterT(2, 0.);        // filters::biquad::Gain
-		biquad.setParameterT(3, 0.0543294); // filters::biquad::Smoothing
-		biquad.setParameterT(4, 1.);        // filters::biquad::Mode
-		biquad.setParameterT(5, 1.);        // filters::biquad::Enabled
-		
 		limiter.setParameterT(0, 0.);  // dynamics::limiter::Threshhold
 		limiter.setParameterT(1, 50.); // dynamics::limiter::Attack
 		limiter.setParameterT(2, 50.); // dynamics::limiter::Release
@@ -466,13 +448,13 @@ template <int NV> struct instance: public Reverb_impl::Reverb_t_<NV>
 		this->setParameterT(6, 1);
 		this->setParameterT(7, 0.);
 		this->setParameterT(8, 0.);
-		this->setParameterT(9, 0.406359);
+		this->setParameterT(9, 2.85893);
 		this->setParameterT(10, 1.62);
 		this->setParameterT(11, 1.);
-		this->setParameterT(12, 442.4);
-		this->setParameterT(13, 0.267766);
+		this->setParameterT(12, 1090.3);
+		this->setParameterT(13, 0.725032);
 		this->setParameterT(14, 0.);
-		this->setParameterT(15, 0.738902);
+		this->setParameterT(15, 1.);
 		this->setExternalData({}, -1);
 	}
 	~instance() override
@@ -495,7 +477,7 @@ template <int NV> struct instance: public Reverb_impl::Reverb_t_<NV>
 		// External Data Connections ---------------------------------------------------------------
 		
 		this->getT(0).getT(0).setExternalData(b, index);                                         // Reverb_impl::peak_t<NV>
-		this->getT(1).getT(1).getT(0).getT(1).getT(0).getT(1).getT(4).setExternalData(b, index); // Reverb_impl::limiter_t
+		this->getT(1).getT(1).getT(0).getT(1).getT(0).getT(1).getT(2).setExternalData(b, index); // Reverb_impl::limiter_t
 	}
 };
 }

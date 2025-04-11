@@ -182,7 +182,6 @@ PresetHandler.setPostCallback(function(presetFile)
 	 }
 });
 
-Engine.loadUserPreset('Creative/Anfang.preset');
 Content.getComponent("onPresetLoad").setControlCallback(onPresetLoad);
 inline function onPresetLoad(component, value) {
 	// Dynamically get the effects
@@ -193,6 +192,7 @@ inline function onPresetLoad(component, value) {
 	Reverb.JPVerb = getHardcodedEffect('Reverb');
 
 	if (Engine.getCurrentUserPresetName() == '') {
+		Engine.loadNextUserPreset(true);
 	} else {
 		presetBrowserButton.set('text', Engine.getCurrentUserPresetName());
 	}

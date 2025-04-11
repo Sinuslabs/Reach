@@ -202,12 +202,12 @@ namespace Reverb {
 	}
 	
 	inline function ondisplayKnob_reverb_feedbackControl(component, value) {
-	   ////	    JPVerb.setAttribute(JPVerb.Feedback, value);
+	      JPVerb.setAttribute(JPVerb.Feedback, value);
 	   	    value >= 0.7 ? displayButton_reverb_panic.set('visible', true) : displayButton_reverb_panic.set('visible', false); 
 	};
 	
 	inline function ondisplayKnob_reverb_delayMixControl(component, value) {
-	//	JPVerb.setAttribute(JPVerb.DelayMix, value);
+		JPVerb.setAttribute(JPVerb.DelayMix, value);
 	}
 	
 	inline function ondisplayKnob_reverb_highpassControl(component, value) {

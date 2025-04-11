@@ -115,7 +115,7 @@
         </Processor>
         <Processor Type="SlotFX" ID="Effect Slot1" Bypassed="0">
           <ChildProcessors>
-            <Processor Type="Hardcoded Master FX" ID="Effect Slot2_Hardcoded Master FX"
+            <Processor Type="Hardcoded Master FX" ID="Effect Slot1_Hardcoded Master FX"
                        Bypassed="0" Network="Reverb" Damping="0.5" Diffusion="1.0" HFGain="1.0"
                        HighCrossover="3392.0" LFGain="1.0" LowCrossover="377.0" MidGain="1.0"
                        ModDepth="0.0" ModFrequency="0.0" ReverbTime="1.0" Size="1.0"
@@ -129,7 +129,7 @@
         </Processor>
         <Processor Type="SlotFX" ID="Effect Slot2" Bypassed="0">
           <ChildProcessors>
-            <Processor Type="Hardcoded Master FX" ID="Effect Slot3_Hardcoded Master FX"
+            <Processor Type="Hardcoded Master FX" ID="Effect Slot2_Hardcoded Master FX"
                        Bypassed="0" Network="Degrade" Degrade="1.0" Mix="0.0" HighCut="14333.0"
                        LowCut="22.0" ModulationDepth="0.0" ModulationSpeed="0.0" Amount="2.75"
                        CrushMode="0.0" BitDepth="6.0" BitcrushMode="0.0">
@@ -142,7 +142,7 @@
         </Processor>
         <Processor Type="SlotFX" ID="Effect Slot3" Bypassed="0">
           <ChildProcessors>
-            <Processor Type="Hardcoded Master FX" ID="Effect Slot1_Hardcoded Master FX"
+            <Processor Type="Hardcoded Master FX" ID="Effect Slot3_Hardcoded Master FX"
                        Bypassed="0" Network="Flair" Flanger="1.0" Speed="1.5" Depth="0.5"
                        Feedback="0.6799999475479126" Delay="10.0" Offset="10.0" Mix="0.0">
               <ChildProcessors/>
@@ -285,7 +285,7 @@
           <RoutingMatrix NumSourceChannels="4" Channel0="0" Send0="-1" Channel1="1" Send1="-1"
                          Channel2="-1" Send2="-1" Channel3="-1" Send3="-1"/>
         </Processor>
-        <Processor Type="ScriptFX" ID="Script FX1" Bypassed="0">
+        <Processor Type="ScriptFX" ID="Script FX1" Bypassed="1">
           <ChildProcessors/>
           <RoutingMatrix NumSourceChannels="4" Channel0="0" Send0="-1" Channel1="1" Send1="-1"
                          Channel2="-1" Send2="-1" Channel3="-1" Send3="-1"/>
@@ -323,6 +323,45 @@
                          Channel2="-1" Send2="-1" Channel3="-1" Send3="-1"/>
         </Processor>
       </ChildProcessors>
+    </Processor>
+    <Processor Type="WaveSynth" ID="Waveform Generator1" Bypassed="0" Gain="0.5188000202178955"
+               Balance="0.0" VoiceLimit="256.0" KillFadeTime="20.0" IconColour="0"
+               OctaveTranspose1="0.0" SemiTones1="0.0" OctaveTranspose2="0.0"
+               SemiTones2="0.0" Detune1="0.0" Detune2="0.0" WaveForm1="3.0"
+               WaveForm2="3.0" Pan1="0.0" Pan2="0.0" Mix="0.5" EnableSecondOscillator="1.0"
+               PulseWidth1="0.5" PulseWidth2="0.5" HardSync="0.0">
+      <ChildProcessors>
+        <Processor Type="MidiProcessorChain" ID="Midi Processor" Bypassed="0">
+          <ChildProcessors/>
+        </Processor>
+        <Processor Type="ModulatorChain" ID="GainModulation" Bypassed="0" Intensity="1.0">
+          <ChildProcessors>
+            <Processor Type="SimpleEnvelope" ID="DefaultEnvelope1" Bypassed="0" Monophonic="0.0"
+                       Retrigger="1.0" Intensity="1.0" Attack="5.0" Release="10.0" LinearMode="1.0">
+              <ChildProcessors>
+                <Processor Type="ModulatorChain" ID="Attack Time Modulation" Bypassed="0"
+                           Intensity="1.0">
+                  <ChildProcessors/>
+                </Processor>
+              </ChildProcessors>
+            </Processor>
+          </ChildProcessors>
+        </Processor>
+        <Processor Type="ModulatorChain" ID="PitchModulation" Bypassed="0" Intensity="0.0">
+          <ChildProcessors/>
+        </Processor>
+        <Processor Type="EffectChain" ID="FX" Bypassed="0">
+          <ChildProcessors/>
+        </Processor>
+        <Processor Type="ModulatorChain" ID="Mix Modulation" Bypassed="0" Intensity="1.0">
+          <ChildProcessors/>
+        </Processor>
+        <Processor Type="ModulatorChain" ID="Osc2 Pitch Modulation" Bypassed="0"
+                   Intensity="0.0">
+          <ChildProcessors/>
+        </Processor>
+      </ChildProcessors>
+      <RoutingMatrix NumSourceChannels="2" Channel0="0" Send0="-1" Channel1="1" Send1="-1"/>
     </Processor>
   </ChildProcessors>
   <RoutingMatrix NumSourceChannels="4" Channel0="0" Send0="-1" Channel1="1" Send1="-1"

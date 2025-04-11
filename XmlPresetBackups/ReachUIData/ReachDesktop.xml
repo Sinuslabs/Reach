@@ -211,11 +211,11 @@
     <Component type="ScriptPanel" id="panelDisplay_display" x="312.0" y="72.0"
                width="510.0" height="252.0" itemColour="0" itemColour2="4278650631"
                parentComponent="panel_background" textColour="0">
-      <Component type="ScriptPanel" id="Panel1" x="8.0" y="38.0" width="490.0"
-                 height="160.0" parentComponent="panelDisplay_display"/>
       <Component type="ScriptPanel" id="display_main" x="0.0" y="0.0" width="510.0"
                  height="252.0" parentComponent="panelDisplay_display" textColour="16777215"
                  bgColour="16777215" itemColour="0" itemColour2="0">
+        <Component type="ScriptPanel" id="Panel1" x="59.0" y="28.0" width="400"
+                   height="150" parentComponent="display_main"/>
         <Component type="ScriptPanel" id="displayPanel_fx1" x="8.0" y="208.0" width="60.0"
                    height="35.0" text="Reverb" parentComponent="display_main"/>
         <Component type="ScriptPanel" id="displayPanel_fx2" x="78.0" y="208.0" width="60.0"
@@ -244,18 +244,9 @@
           <Component type="ScriptPanel" id="panel_animation_distortion" x="180.0"
                      y="30.0" width="150.0" height="150.0" parentComponent="display_main_distortion"/>
         </Component>
-        <Component type="ScriptPanel" id="display_main_waveform" x="0.0" y="0.0"
-                   width="510.0" height="198.0" parentComponent="display_main" itemColour="0"
-                   itemColour2="0" bgColour="16777215" textColour="0">
-          <Component type="ScriptButton" id="displayIcon-doubleUp" x="493.0" y="8.0"
-                     width="10.0" height="15.0" isMomentary="1" enableMidiLearn="0"
-                     parentComponent="display_main_waveform" saveInPreset="0" visible="0"/>
-          <Component type="ScriptFloatingTile" id="FloatingTile1" x="8.0" y="38.79999923706055"
-                     width="490.0" height="160.0" ContentType="AudioAnalyser" bgColour="16769505"
-                     itemColour="4294967295" itemColour2="16711680" textColour="4294901760"
-                     Data="{&#10;  &quot;ProcessorId&quot;: &quot;Analyser1&quot;,&#10;  &quot;Index&quot;: 1,&#10;  &quot;FollowWorkspace&quot;: false&#10;}"
-                     parentComponent="display_main_waveform" updateAfterInit="0" visible="0"/>
-        </Component>
+        <Component type="ScriptButton" id="displayIcon-doubleUp" x="493.0" y="8.0"
+                   width="10.0" height="15.0" isMomentary="1" enableMidiLearn="0"
+                   parentComponent="display_main" saveInPreset="0" visible="0"/>
         <Component type="ScriptPanel" id="display_main_degrade" x="0.0" y="0.0"
                    width="510.0" height="198.0" parentComponent="display_main" itemColour2="16711680"
                    itemColour="0" bgColour="16777215" textColour="16777215" visible="0">
@@ -557,12 +548,13 @@
         <Component type="ScriptFloatingTile" id="preFilter" x="0.0" y="30.0" width="510.0"
                    height="210.0" ContentType="DraggableFilterPanel" bgColour="11944257"
                    itemColour="2197749760" itemColour2="4294901760" Data="{&#10;  &quot;ProcessorId&quot;: &quot;preFilter&quot;,&#10;  &quot;Index&quot;: -1,&#10;  &quot;FollowWorkspace&quot;: false&#10;}"
-                   parentComponent="display_filter" Font="jetbrains-mono" enabled="0"/>
+                   parentComponent="display_filter" Font="jetbrains-mono" enabled="0"
+                   visible="0"/>
         <Component type="ScriptFloatingTile" id="postFilter" x="0.0" y="30.0" width="510.0"
                    height="210.0" parentComponent="display_filter" ContentType="DraggableFilterPanel"
                    bgColour="0" itemColour="2164260863" itemColour2="855638016"
                    Data="{&#10;  &quot;ProcessorId&quot;: &quot;postFilter&quot;,&#10;  &quot;Index&quot;: -1,&#10;  &quot;FollowWorkspace&quot;: false,&#10;  &quot;AllowDynamicSpectrumAnalyser&quot;: 0&#10;}"
-                   enabled="0" visible="0"/>
+                   enabled="0"/>
         <Component type="ScriptButton" id="button_filters_post" x="430.0" y="0.0"
                    width="66.0" height="30.0" text="displayButton-POST" parentComponent="display_filter"
                    saveInPreset="0"/>

@@ -219,8 +219,6 @@ namespace UserSettings {
 		
 		// animation toggle
 		// Toggle buttons are using reversed value to display on by default
-		button_animationToggle.setValue(!animationEnabledSaved);
-		UserSettings.enableAnimations = animationEnabledSaved;
 		// startup animation
 		button_startupAnimationToggle.setValue(!startupAnimationSaved);
 		startupAnimation = startupAnimationSaved;
