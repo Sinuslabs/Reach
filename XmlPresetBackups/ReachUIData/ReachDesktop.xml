@@ -24,7 +24,7 @@
                  height="30.0" saveInPreset="0" itemColour="4281545523" bgColour="4286874756"
                  textColour="4285229931" itemColour2="4285229931" isMomentary="1"/>
       <Component type="ScriptButton" id="button_presetBrowser" x="127.0" y="5.0"
-                 parentComponent="panel_header" width="200.0" height="50.0" text="INIT"
+                 parentComponent="panel_header" width="200.0" height="50.0" text="Anfang"
                  textColour="272841017" itemColour2="0" itemColour="268435456"
                  bgColour="16711680" saveInPreset="0" enableMidiLearn="0"/>
       <Component type="ScriptButton" id="onPresetLoad" x="330.0" y="24.0" parentComponent="panel_header"
@@ -211,9 +211,11 @@
     <Component type="ScriptPanel" id="panelDisplay_display" x="312.0" y="72.0"
                width="510.0" height="252.0" itemColour="0" itemColour2="4278650631"
                parentComponent="panel_background" textColour="0">
+      <Component type="ScriptPanel" id="Panel1" x="8.0" y="38.0" width="490.0"
+                 height="160.0" parentComponent="panelDisplay_display"/>
       <Component type="ScriptPanel" id="display_main" x="0.0" y="0.0" width="510.0"
                  height="252.0" parentComponent="panelDisplay_display" textColour="16777215"
-                 bgColour="16777215" itemColour="0" itemColour2="0" visible="0">
+                 bgColour="16777215" itemColour="0" itemColour2="0">
         <Component type="ScriptPanel" id="displayPanel_fx1" x="8.0" y="208.0" width="60.0"
                    height="35.0" text="Reverb" parentComponent="display_main"/>
         <Component type="ScriptPanel" id="displayPanel_fx2" x="78.0" y="208.0" width="60.0"
@@ -244,7 +246,7 @@
         </Component>
         <Component type="ScriptPanel" id="display_main_waveform" x="0.0" y="0.0"
                    width="510.0" height="198.0" parentComponent="display_main" itemColour="0"
-                   itemColour2="0" bgColour="16777215" textColour="0" visible="0">
+                   itemColour2="0" bgColour="16777215" textColour="0">
           <Component type="ScriptButton" id="displayIcon-doubleUp" x="493.0" y="8.0"
                      width="10.0" height="15.0" isMomentary="1" enableMidiLearn="0"
                      parentComponent="display_main_waveform" saveInPreset="0" visible="0"/>
@@ -252,7 +254,7 @@
                      width="490.0" height="160.0" ContentType="AudioAnalyser" bgColour="16769505"
                      itemColour="4294967295" itemColour2="16711680" textColour="4294901760"
                      Data="{&#10;  &quot;ProcessorId&quot;: &quot;Analyser1&quot;,&#10;  &quot;Index&quot;: 1,&#10;  &quot;FollowWorkspace&quot;: false&#10;}"
-                     parentComponent="display_main_waveform" updateAfterInit="0"/>
+                     parentComponent="display_main_waveform" updateAfterInit="0" visible="0"/>
         </Component>
         <Component type="ScriptPanel" id="display_main_degrade" x="0.0" y="0.0"
                    width="510.0" height="198.0" parentComponent="display_main" itemColour2="16711680"
@@ -269,11 +271,11 @@
         </Component>
         <Component type="ScriptButton" id="button_not_activated" x="338.0" y="3.0"
                    parentComponent="display_main" width="140.0" height="30.0" isMomentary="1"
-                   text="NOT ACTIVATED" enableMidiLearn="0"/>
+                   text="NOT ACTIVATED" enableMidiLearn="0" visible="0"/>
       </Component>
       <Component type="ScriptPanel" id="display_effects" x="0.0" y="0.0" parentComponent="panelDisplay_display"
                  width="510.0" height="252.0" itemColour="4278190080" itemColour2="4278190080"
-                 textColour="16777215">
+                 textColour="16777215" visible="0">
         <Component type="ScriptPanel" id="panel_effectCustomizer" x="13.0" y="13.0"
                    width="485.0" height="230.0" itemColour2="4278190080" itemColour="4278190080"
                    bgColour="16777215" parentComponent="display_effects" textColour="16777215">
@@ -319,8 +321,8 @@
           <Component type="ScriptPanel" id="effectDisplay-Reverb" x="0.0" y="40.0"
                      width="490.0" height="190.0" parentComponent="panel_effectCustomizer"
                      textColour="16777215">
-            <Component type="ScriptSlider" id="displayKnob_reverb_feedback" x="110.0"
-                       y="50.0" width="80.0" height="60.0" parentComponent="effectDisplay-Reverb"
+            <Component type="ScriptSlider" id="displayKnob_reverb_feedback" x="55.0"
+                       y="55.0" width="80.0" height="60.0" parentComponent="effectDisplay-Reverb"
                        text="FEEDBACK" mode="NormalizedPercentage" suffix="%" middlePosition="0.5"
                        isPluginParameter="1" pluginParameterName="Feedback" enableMidiLearn="0"
                        showTextBox="0" mouseSensitivity="2.0" defaultValue="0.300000011920929"/>
@@ -366,24 +368,11 @@
                        x="40.0" y="20.0" parentComponent="effectDisplay-Reverb" width="60.0"
                        height="20.0" text="DELAY" fontName="jetbrains-mono" fontSize="19.0"
                        editable="0" textColour="4290559164"/>
-            <Component type="ScriptSlider" id="displayKnob_reverb_delaymix" x="30.0"
-                       y="50.0" width="80.0" height="60.0" parentComponent="effectDisplay-Reverb"
+            <Component type="ScriptSlider" id="displayKnob_reverb_delaymix" x="55.0"
+                       y="125.0" width="80.0" height="60.0" parentComponent="effectDisplay-Reverb"
                        text="MIX" mode="NormalizedPercentage" suffix="%" middlePosition="0.5"
                        isPluginParameter="1" pluginParameterName="Delay Mix" enableMidiLearn="0"
                        showTextBox="0" mouseSensitivity="2.0" defaultValue="0.5"/>
-            <Component type="ScriptSlider" id="displayKnob_reverb_delayHighpass" x="20.0"
-                       y="145.0" width="170.0" height="25.0" text="LOW CUT" parentComponent="effectDisplay-Reverb"
-                       mode="Frequency" min="20.0" max="3100.0" stepSize="1.0" suffix=" Hz"
-                       middlePosition="1500.0" isPluginParameter="1" pluginParameterName="Feedback Low Cut"
-                       enableMidiLearn="0" showTextBox="0" mouseSensitivity="2.0" defaultValue="20.0"/>
-            <Component type="ScriptSlider" id="displayKnob_reverb_delayLowpass" x="20.0"
-                       y="120.0" width="170.0" height="25.0" text="HIGH CUT" parentComponent="effectDisplay-Reverb"
-                       mode="Frequency" min="156.0" max="20000.0" stepSize="1.0" suffix=" Hz"
-                       middlePosition="1500.0" isPluginParameter="1" pluginParameterName="Feedback High Cut"
-                       enableMidiLearn="0" showTextBox="0" mouseSensitivity="2.0" defaultValue="20000.0"/>
-            <Component type="ScriptButton" id="delay_useTempo" x="101.0" y="21.0" width="17.0"
-                       height="17.0" pluginParameterName="Delay use tempo" text="displayIcon-clock"
-                       parentComponent="effectDisplay-Reverb" isPluginParameter="1"/>
           </Component>
           <Component type="ScriptButton" id="displayButton_reverb_bypass" x="10.0"
                      y="60.0" width="12.0" height="12.0" text="displayIcon-onOff"
@@ -436,7 +425,8 @@
             <Component type="ScriptSlider" id="displayKnob_degrade_crushAmount" x="200.0"
                        y="60.0" width="90.0" height="130.0" parentComponent="effectDisplay-Degrade"
                        text="Crush" mouseSensitivity="2.0" min="4.0" max="16.0" middlePosition="8.0"
-                       defaultValue="6.0" pluginParameterName="Crush" visible="0"/>
+                       defaultValue="6.0" pluginParameterName="Crush_DC" isPluginParameter="1"
+                       visible="0"/>
           </Component>
           <Component type="ScriptButton" id="displayButton_degrade_bypass" x="10.0"
                      y="60.0" text="displayIcon-onOff" width="12.0" height="12.0"
@@ -581,8 +571,7 @@
                    saveInPreset="0"/>
       </Component>
       <Component type="ScriptButton" id="button_filter" x="8.0" y="8.0" parentComponent="panelDisplay_display"
-                 width="60.0" height="30.0" text="displayButton-EQ" saveInPreset="0"
-                 visible="0"/>
+                 width="60.0" height="30.0" text="displayButton-EQ" saveInPreset="0"/>
       <Component type="ScriptButton" id="button_fx" x="408.0" y="205.0" width="90.0"
                  height="40.0" text="displayButton-EFFECTS" parentComponent="panelDisplay_display"
                  saveInPreset="0"/>
@@ -627,19 +616,11 @@
                        width="120.0" height="40.0" items="30%&#10;40%&#10;50%&#10;60%&#10;75%&#10;80%&#10;100%&#10;125%&#10;150%&#10;175%&#10;200%&#10;250%&#10;300%&#10;Custom"
                        text="" parentComponent="dis-settings_general" saveInPreset="0"
                        bgColour="4289374890"/>
-            <Component type="ScriptLabel" id="label_settings_animation" x="85.0" y="60.0"
-                       width="150.0" height="40.0" text="ANIMATIONS" fontSize="19.0"
-                       fontName="jetbrains-mono" alignment="left" parentComponent="dis-settings_general"
-                       editable="0"/>
-            <Component type="ScriptButton" id="button_animationToggle" x="320.0" y="60.0"
-                       height="40.0" text="switch" bgColour="3506438143" textColour="16777215"
-                       itemColour2="1118481" width="40.0" saveInPreset="0" parentComponent="dis-settings_general"
-                       defaultValue="1.0"/>
             <Component type="ScriptButton" id="button_startupAnimationToggle" x="320.0"
-                       y="105.0" width="40.0" height="40.0" text="switch" parentComponent="dis-settings_general"
+                       y="60.0" width="40.0" height="40.0" text="switch" parentComponent="dis-settings_general"
                        saveInPreset="0" defaultValue="1.0"/>
             <Component type="ScriptLabel" id="label_settings_startupAnimation" x="85.0"
-                       y="105.0" width="151.0" height="40.0" text="SPLASH SCREEN" fontName="jetbrains-mono"
+                       y="60.0" width="151.0" height="40.0" text="SPLASH SCREEN" fontName="jetbrains-mono"
                        fontSize="19.0" alignment="left" parentComponent="dis-settings_general"
                        editable="0"/>
           </Component>
@@ -651,17 +632,19 @@
                        visible="0"/>
             <Component type="ScriptLabel" id="label_thank_you" x="130.0" y="155.0" text="Thank you for using REACH"
                        fontName="jetbrains-mono" width="240.0" height="30.0" fontSize="20.0"
-                       parentComponent="dis-settings_activate" editable="0" visible="0"/>
+                       parentComponent="dis-settings_activate" editable="0"/>
             <Component type="ScriptPanel" id="displayPanel_serial" x="0.0" y="-5.0"
                        width="500.0" height="250.0" parentComponent="dis-settings_activate"
-                       itemColour="16711680" itemColour2="0" bgColour="16777215" textColour="0">
+                       itemColour="16711680" itemColour2="0" bgColour="16777215" textColour="0"
+                       visible="0">
               <Component type="ScriptLabel" id="serial_error_label" x="-5.0" y="210.0"
                          width="385.0" height="35.0" textColour="4293606219" parentComponent="displayPanel_serial"
                          alignment="left" fontName="inter-reg" text="" fontSize="18.0"/>
               <Component type="ScriptButton" id="button_buy_reach" x="385.0" y="200.0"
                          width="115.0" height="45.0" text="displayButton-Buy REACH" parentComponent="displayPanel_serial"
                          bgColour="4294967295" textColour="4278190080" itemColour="4292532954"
-                         isMomentary="1" saveInPreset="0" defaultValue="1.0" enableMidiLearn="0"/>
+                         isMomentary="1" saveInPreset="0" defaultValue="1.0" enableMidiLearn="0"
+                         visible="0"/>
               <Component type="ScriptButton" id="displayButton-paste" x="180.0" y="25.0"
                          parentComponent="displayPanel_serial" width="130.0" height="35.0"
                          text="displayButton-PASTE" saveInPreset="0" isVertical="0" enableMidiLearn="0"

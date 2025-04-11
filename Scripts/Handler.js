@@ -110,13 +110,6 @@ inline function onComboBox1Control(component, value) {
 	UserSettings.saveSettings();
 };
 
-// Animations
-const var button_animationToggle = Content.getComponent("button_animationToggle");
-button_animationToggle.setControlCallback(onbutton_animationToggleControl);
-inline function onbutton_animationToggleControl(component, value) {
-	UserSettings.enableAnimations = !value;
-	UserSettings.saveSettings();
-};
 
 // Buy Reach Button
 const var button_buy_reach = Content.getComponent("button_buy_reach");
@@ -189,6 +182,7 @@ PresetHandler.setPostCallback(function(presetFile)
 	 }
 });
 
+Engine.loadUserPreset('Creative/Anfang.preset');
 Content.getComponent("onPresetLoad").setControlCallback(onPresetLoad);
 inline function onPresetLoad(component, value) {
 	// Dynamically get the effects
@@ -199,7 +193,6 @@ inline function onPresetLoad(component, value) {
 	Reverb.JPVerb = getHardcodedEffect('Reverb');
 
 	if (Engine.getCurrentUserPresetName() == '') {
-		presetBrowserButton.set('text', 'INIT');
 	} else {
 		presetBrowserButton.set('text', Engine.getCurrentUserPresetName());
 	}

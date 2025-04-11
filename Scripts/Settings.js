@@ -1,6 +1,6 @@
 namespace UserSettings {
 
-	reg enableAnimations = true;
+	reg enableAnimations = false;
 	reg startupAnimation = true;
 	reg theme = 'Light';
 	reg wetOnlyGain = false;
@@ -69,6 +69,9 @@ namespace UserSettings {
 		UserSettings.button_not_activated.set('visible', !Globals.activated);
 		UserSettings.activatePageRadio('thankyou');
 		ThankYou.thankyou_panel.showControl(true);
+		Content.callAfterDelay(2000, function() {
+			showMain();
+		}, {});
 	}
 	
 	// router for settings screen
@@ -117,14 +120,6 @@ namespace UserSettings {
 		}
 	};
 	
-	// Animations
-	const var button_animationToggle = Content.getComponent("button_animationToggle");
-	button_animationToggle.setControlCallback(onbutton_animationToggleControl);
-	button_animationToggle.setLocalLookAndFeel(LAF_displayButton);
-	inline function onbutton_animationToggleControl(component, value) {
-		enableAnimations = !value;
-		saveSettings();
-	};
 	
 	const var button_startupAnimationToggle = Content.getComponent("button_startupAnimationToggle");
 	button_startupAnimationToggle.setLocalLookAndFeel(LAF_displayButton);

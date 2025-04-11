@@ -41,9 +41,6 @@
             <Control type="ScriptSlider" id="displayKnob_reverb_midgain" value="1.0"/>
             <Control type="ScriptButton" id="displayButton_reverb_panic" value="0.0"/>
             <Control type="ScriptSlider" id="displayKnob_reverb_delaymix" value="1.0"/>
-            <Control type="ScriptSlider" id="displayKnob_reverb_delayHighpass" value="20.0"/>
-            <Control type="ScriptSlider" id="displayKnob_reverb_delayLowpass" value="20000.0"/>
-            <Control type="ScriptButton" id="delay_useTempo" value="1.0"/>
             <Control type="ScriptButton" id="displayButton_reverb_bypass" value="1.0"/>
             <Control type="ScriptComboBox" id="degrade_selector" value="1.0"/>
             <Control type="ScriptSlider" id="displayKnob_degrade_highcut" value="14333.0"/>
@@ -118,13 +115,11 @@
         </Processor>
         <Processor Type="SlotFX" ID="Effect Slot1" Bypassed="0">
           <ChildProcessors>
-            <Processor Type="Hardcoded Master FX" ID="Effect Slot1_Hardcoded Master FX"
-                       Bypassed="0" Network="Reverb" Reverb="1.0" Damping="0.5" Diffusion="1.0"
-                       HFGain="1.0" HighCrossover="3392.0" LFGain="1.0" LowCrossover="377.0"
-                       MidGain="1.0" ModDepth="0.0" ModFrequency="0.0" ReverbTime="1.0"
-                       Size="1.0" Mix="0.5" preDelay="0.0" Feedback="0.0" Smoothing="0.0"
-                       DelayMix="1.0" DelayUseTempo="0.0" DelayTempo="5.0" DelayHighpass="20.0"
-                       DelayLowpass="20000.0">
+            <Processor Type="Hardcoded Master FX" ID="Effect Slot2_Hardcoded Master FX"
+                       Bypassed="0" Network="Reverb" Damping="0.5" Diffusion="1.0" HFGain="1.0"
+                       HighCrossover="3392.0" LFGain="1.0" LowCrossover="377.0" MidGain="1.0"
+                       ModDepth="0.0" ModFrequency="0.0" ReverbTime="1.0" Size="1.0"
+                       Mix="0.5" preDelay="0.0" Feedback="0.0" Smoothing="0.0" DelayMix="1.0">
               <ChildProcessors/>
               <RoutingMatrix NumSourceChannels="2" Channel0="0" Send0="-1" Channel1="1" Send1="-1"/>
             </Processor>
@@ -134,7 +129,7 @@
         </Processor>
         <Processor Type="SlotFX" ID="Effect Slot2" Bypassed="0">
           <ChildProcessors>
-            <Processor Type="Hardcoded Master FX" ID="Effect Slot2_Hardcoded Master FX"
+            <Processor Type="Hardcoded Master FX" ID="Effect Slot3_Hardcoded Master FX"
                        Bypassed="0" Network="Degrade" Degrade="1.0" Mix="0.0" HighCut="14333.0"
                        LowCut="22.0" ModulationDepth="0.0" ModulationSpeed="0.0" Amount="2.75"
                        CrushMode="0.0" BitDepth="6.0" BitcrushMode="0.0">
@@ -147,7 +142,7 @@
         </Processor>
         <Processor Type="SlotFX" ID="Effect Slot3" Bypassed="0">
           <ChildProcessors>
-            <Processor Type="Hardcoded Master FX" ID="Effect Slot3_Hardcoded Master FX"
+            <Processor Type="Hardcoded Master FX" ID="Effect Slot1_Hardcoded Master FX"
                        Bypassed="0" Network="Flair" Flanger="1.0" Speed="1.5" Depth="0.5"
                        Feedback="0.6799999475479126" Delay="10.0" Offset="10.0" Mix="0.0">
               <ChildProcessors/>
@@ -290,8 +285,20 @@
           <RoutingMatrix NumSourceChannels="4" Channel0="0" Send0="-1" Channel1="1" Send1="-1"
                          Channel2="-1" Send2="-1" Channel3="-1" Send3="-1"/>
         </Processor>
-        <Processor Type="Analyser" ID="Analyser1" Bypassed="0" BufferSize="4096.0"
-                   PreviewType="3.0">
+        <Processor Type="ScriptFX" ID="Script FX1" Bypassed="0">
+          <ChildProcessors/>
+          <RoutingMatrix NumSourceChannels="4" Channel0="0" Send0="-1" Channel1="1" Send1="-1"
+                         Channel2="-1" Send2="-1" Channel3="-1" Send3="-1"/>
+          <Content/>
+          <Networks>
+            <Network ID="Reverb" Version="0.0.0" AllowCompilation="1"/>
+          </Networks>
+          <UIData>
+            <ContentProperties DeviceType="Desktop"/>
+          </UIData>
+        </Processor>
+        <Processor Type="Analyser" ID="Analyser1" Bypassed="0" BufferSize="8192.0"
+                   PreviewType="4.0">
           <ChildProcessors/>
           <RoutingMatrix NumSourceChannels="4" Channel0="0" Send0="-1" Channel1="1" Send1="-1"
                          Channel2="-1" Send2="2" Channel3="-1" Send3="3"/>

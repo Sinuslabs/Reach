@@ -162,7 +162,6 @@ using ReverbTime_0 = parameter::from0To1<project::FaustReverb<NV>,
 template <int NV>
 using ReverbTime = parameter::chain<ReverbTime_InputRange, ReverbTime_0<NV>>;
 
-using Reverb = parameter::empty;
 template <int NV>
 using Damping = parameter::plain<project::FaustReverb<NV>, 
                                  0>;
@@ -208,18 +207,7 @@ template <int NV>
 using DelayMix = parameter::plain<Reverb_impl::dry_wet3_t<NV>, 
                                   0>;
 template <int NV>
-using DelayUseTempo = parameter::plain<Reverb_impl::tempo_sync_t<NV>, 
-                                       2>;
-template <int NV>
-using DelayTempo = parameter::plain<Reverb_impl::tempo_sync_t<NV>, 
-                                    0>;
-template <int NV>
-using DelayHighpass = parameter::plain<filters::biquad<NV>, 0>;
-template <int NV>
-using DelayLowpass = parameter::plain<filters::moog<NV>, 0>;
-template <int NV>
-using Reverb_t_plist = parameter::list<Reverb, 
-                                       Damping<NV>, 
+using Reverb_t_plist = parameter::list<Damping<NV>, 
                                        Diffusion<NV>, 
                                        HFGain<NV>, 
                                        HighCrossover<NV>, 
@@ -234,11 +222,7 @@ using Reverb_t_plist = parameter::list<Reverb,
                                        preDelay<NV>, 
                                        Feedback, 
                                        Smoothing<NV>, 
-                                       DelayMix<NV>, 
-                                       DelayUseTempo<NV>, 
-                                       DelayTempo<NV>, 
-                                       DelayHighpass<NV>, 
-                                       DelayLowpass<NV>>;
+                                       DelayMix<NV>>;
 }
 
 template <int NV>
@@ -261,54 +245,43 @@ template <int NV> struct instance: public Reverb_impl::Reverb_t_<NV>
 		
 		SNEX_METADATA_ID(Reverb);
 		SNEX_METADATA_NUM_CHANNELS(2);
-		SNEX_METADATA_ENCODED_PARAMETERS(366)
+		SNEX_METADATA_ENCODED_PARAMETERS(274)
 		{
-			0x005B, 0x0000, 0x5200, 0x7665, 0x7265, 0x0062, 0x0000, 0xC170, 
-            0x0000, 0x0000, 0x0000, 0x0000, 0x0000, 0x3F80, 0xD70A, 0x3C23, 
-            0x015B, 0x0000, 0x4400, 0x6D61, 0x6970, 0x676E, 0x0000, 0x0000, 
+			0x005B, 0x0000, 0x4400, 0x6D61, 0x6970, 0x676E, 0x0000, 0x0000, 
             0x0000, 0x8000, 0xB83F, 0x051E, 0x003F, 0x8000, 0x0A3F, 0x23D7, 
-            0x5B3C, 0x0002, 0x0000, 0x6944, 0x6666, 0x7375, 0x6F69, 0x006E, 
+            0x5B3C, 0x0001, 0x0000, 0x6944, 0x6666, 0x7375, 0x6F69, 0x006E, 
             0x0000, 0x0000, 0x0000, 0x3F80, 0x0000, 0x3F80, 0x0000, 0x3F80, 
-            0xD70A, 0x3C23, 0x035B, 0x0000, 0x4800, 0x4746, 0x6961, 0x006E, 
+            0xD70A, 0x3C23, 0x025B, 0x0000, 0x4800, 0x4746, 0x6961, 0x006E, 
             0x0000, 0x0000, 0x0000, 0x3F80, 0x0000, 0x3F80, 0x0000, 0x3F80, 
-            0xD70A, 0x3C23, 0x045B, 0x0000, 0x4800, 0x6769, 0x4368, 0x6F72, 
+            0xD70A, 0x3C23, 0x035B, 0x0000, 0x4800, 0x6769, 0x4368, 0x6F72, 
             0x7373, 0x766F, 0x7265, 0x0000, 0x7A00, 0x0044, 0x1C40, 0x0046, 
-            0x14F0, 0x0045, 0x8000, 0x003F, 0x8000, 0x5B3F, 0x0005, 0x0000, 
+            0x14F0, 0x0045, 0x8000, 0x003F, 0x8000, 0x5B3F, 0x0004, 0x0000, 
             0x464C, 0x6147, 0x6E69, 0x0000, 0x0000, 0x0000, 0x8000, 0x003F, 
-            0x8000, 0x003F, 0x8000, 0x0A3F, 0x23D7, 0x5B3C, 0x0006, 0x0000, 
+            0x8000, 0x003F, 0x8000, 0x0A3F, 0x23D7, 0x5B3C, 0x0005, 0x0000, 
             0x6F4C, 0x4377, 0x6F72, 0x7373, 0x766F, 0x7265, 0x0000, 0xC800, 
             0x0042, 0xBB80, 0x0045, 0x2350, 0x0045, 0x8000, 0x003F, 0x8000, 
-            0x5B3F, 0x0007, 0x0000, 0x694D, 0x4764, 0x6961, 0x006E, 0x0000, 
+            0x5B3F, 0x0006, 0x0000, 0x694D, 0x4764, 0x6961, 0x006E, 0x0000, 
             0x0000, 0x0000, 0x3F80, 0x0000, 0x3F80, 0x0000, 0x3F80, 0xD70A, 
-            0x3C23, 0x085B, 0x0000, 0x4D00, 0x646F, 0x6544, 0x7470, 0x0068, 
+            0x3C23, 0x075B, 0x0000, 0x4D00, 0x646F, 0x6544, 0x7470, 0x0068, 
             0x0000, 0x0000, 0x0000, 0x3F80, 0x0000, 0x0000, 0x0000, 0x3F80, 
-            0xD70A, 0x3C23, 0x095B, 0x0000, 0x4D00, 0x646F, 0x7246, 0x7165, 
+            0xD70A, 0x3C23, 0x085B, 0x0000, 0x4D00, 0x646F, 0x7246, 0x7165, 
             0x6575, 0x636E, 0x0079, 0x0000, 0x0000, 0x0000, 0x4120, 0x0000, 
-            0x0000, 0x0000, 0x3F80, 0xD70A, 0x3C23, 0x0A5B, 0x0000, 0x5200, 
+            0x0000, 0x0000, 0x3F80, 0xD70A, 0x3C23, 0x095B, 0x0000, 0x5200, 
             0x7665, 0x7265, 0x5462, 0x6D69, 0x0065, 0x0000, 0x0000, 0x0000, 
-            0x4180, 0x0E56, 0x3ED0, 0x0000, 0x3F80, 0x0000, 0x0000, 0x0B5B, 
+            0x4180, 0x0E56, 0x3ED0, 0x0000, 0x3F80, 0x0000, 0x0000, 0x0A5B, 
             0x0000, 0x5300, 0x7A69, 0x0065, 0x0000, 0x3F00, 0x0000, 0x40A0, 
-            0x5C29, 0x3FCF, 0x0000, 0x3F80, 0xD70A, 0x3C23, 0x0C5B, 0x0000, 
+            0x5C29, 0x3FCF, 0x0000, 0x3F80, 0xD70A, 0x3C23, 0x0B5B, 0x0000, 
             0x4D00, 0x7869, 0x0000, 0x0000, 0x0000, 0x8000, 0x003F, 0x8000, 
-            0x003F, 0x8000, 0x003F, 0x0000, 0x5B00, 0x000D, 0x0000, 0x7270, 
-            0x4465, 0x6C65, 0x7961, 0x0000, 0x0000, 0x0000, 0xFA00, 0x0044, 
-            0x0000, 0x0000, 0x0000, 0xCD3F, 0xCCCC, 0x5B3D, 0x000E, 0x0000, 
+            0x003F, 0x8000, 0x003F, 0x0000, 0x5B00, 0x000C, 0x0000, 0x7270, 
+            0x4465, 0x6C65, 0x7961, 0x0000, 0x0000, 0x0000, 0xFA00, 0x3344, 
+            0xDD33, 0x0043, 0x0000, 0xCD3F, 0xCCCC, 0x5B3D, 0x000D, 0x0000, 
             0x6546, 0x6465, 0x6162, 0x6B63, 0x0000, 0x0000, 0x0000, 0x8000, 
-            0x003F, 0x0000, 0x0000, 0x8000, 0x003F, 0x0000, 0x5B00, 0x000F, 
+            0x9C3F, 0x8918, 0x003E, 0x8000, 0x003F, 0x0000, 0x5B00, 0x000E, 
             0x0000, 0x6D53, 0x6F6F, 0x6874, 0x6E69, 0x0067, 0x0000, 0x0000, 
             0x0000, 0x3F80, 0x0000, 0x0000, 0x0000, 0x3F80, 0x0000, 0x0000, 
-            0x105B, 0x0000, 0x4400, 0x6C65, 0x7961, 0x694D, 0x0078, 0x0000, 
-            0x0000, 0x0000, 0x3F80, 0x0000, 0x3F80, 0x0000, 0x3F80, 0x0000, 
-            0x0000, 0x115B, 0x0000, 0x4400, 0x6C65, 0x7961, 0x7355, 0x5465, 
-            0x6D65, 0x6F70, 0x0000, 0x0000, 0x0000, 0x8000, 0x003F, 0x0000, 
-            0x0000, 0x8000, 0x003F, 0x8000, 0x5B3F, 0x0012, 0x0000, 0x6544, 
-            0x616C, 0x5479, 0x6D65, 0x6F70, 0x0000, 0x0000, 0x0000, 0x9000, 
-            0x0041, 0xC000, 0x0040, 0x8000, 0x003F, 0x8000, 0x5B3F, 0x0013, 
-            0x0000, 0x6544, 0x616C, 0x4879, 0x6769, 0x7068, 0x7361, 0x0073, 
-            0x0000, 0x41A0, 0x4000, 0x469C, 0x0000, 0x41A0, 0x6C1A, 0x3E6B, 
-            0x0000, 0x0000, 0x145B, 0x0000, 0x4400, 0x6C65, 0x7961, 0x6F4C, 
-            0x7077, 0x7361, 0x0073, 0x0000, 0x41A0, 0x4000, 0x469C, 0x4000, 
-            0x469C, 0x6C1A, 0x3E6B, 0x0000, 0x0000, 0x0000
+            0x0F5B, 0x0000, 0x4400, 0x6C65, 0x7961, 0x694D, 0x0078, 0x0000, 
+            0x0000, 0x0000, 0x3F80, 0x28A8, 0x3F3D, 0x0000, 0x3F80, 0x0000, 
+            0x0000, 0x0000
 		};
 	};
 	
@@ -349,46 +322,37 @@ template <int NV> struct instance: public Reverb_impl::Reverb_t_<NV>
 		
 		dry_wet3.getParameterT(0).connectT(0, dry_wet_mixer2); // DryWet -> dry_wet_mixer2::Value
 		dry_wet2.getParameterT(0).connectT(0, dry_wet_mixer1); // DryWet -> dry_wet_mixer1::Value
+		this->getParameterT(0).connectT(0, faust);             // Damping -> faust::Damping
 		
-		this->getParameterT(1).connectT(0, faust); // Damping -> faust::Damping
+		this->getParameterT(1).connectT(0, faust); // Diffusion -> faust::Diffusion
 		
-		this->getParameterT(2).connectT(0, faust); // Diffusion -> faust::Diffusion
+		this->getParameterT(2).connectT(0, faust); // HFGain -> faust::HFGain
 		
-		this->getParameterT(3).connectT(0, faust); // HFGain -> faust::HFGain
+		this->getParameterT(3).connectT(0, faust); // HighCrossover -> faust::HighCrossover
 		
-		this->getParameterT(4).connectT(0, faust); // HighCrossover -> faust::HighCrossover
+		this->getParameterT(4).connectT(0, faust); // LFGain -> faust::LFGain
 		
-		this->getParameterT(5).connectT(0, faust); // LFGain -> faust::LFGain
+		this->getParameterT(5).connectT(0, faust); // LowCrossover -> faust::LowCrossover
 		
-		this->getParameterT(6).connectT(0, faust); // LowCrossover -> faust::LowCrossover
+		this->getParameterT(6).connectT(0, faust); // MidGain -> faust::MIDGain
 		
-		this->getParameterT(7).connectT(0, faust); // MidGain -> faust::MIDGain
+		this->getParameterT(7).connectT(0, faust); // ModDepth -> faust::ModDepth
 		
-		this->getParameterT(8).connectT(0, faust); // ModDepth -> faust::ModDepth
+		this->getParameterT(8).connectT(0, faust); // ModFrequency -> faust::ModFrequency
 		
-		this->getParameterT(9).connectT(0, faust); // ModFrequency -> faust::ModFrequency
+		this->getParameterT(9).connectT(0, faust); // ReverbTime -> faust::ReverbTime
 		
-		this->getParameterT(10).connectT(0, faust); // ReverbTime -> faust::ReverbTime
+		this->getParameterT(10).connectT(0, faust); // Size -> faust::Size
 		
-		this->getParameterT(11).connectT(0, faust); // Size -> faust::Size
+		this->getParameterT(11).connectT(0, dry_wet2); // Mix -> dry_wet2::DryWet
 		
-		this->getParameterT(12).connectT(0, dry_wet2); // Mix -> dry_wet2::DryWet
+		this->getParameterT(12).connectT(0, tempo_sync); // preDelay -> tempo_sync::UnsyncedTime
 		
-		this->getParameterT(13).connectT(0, tempo_sync); // preDelay -> tempo_sync::UnsyncedTime
+		this->getParameterT(13).connectT(0, receive); // Feedback -> receive::Feedback
 		
-		this->getParameterT(14).connectT(0, receive); // Feedback -> receive::Feedback
+		this->getParameterT(14).connectT(0, bipolar); // Smoothing -> bipolar::Value
 		
-		this->getParameterT(15).connectT(0, bipolar); // Smoothing -> bipolar::Value
-		
-		this->getParameterT(16).connectT(0, dry_wet3); // DelayMix -> dry_wet3::DryWet
-		
-		this->getParameterT(17).connectT(0, tempo_sync); // DelayUseTempo -> tempo_sync::Enabled
-		
-		this->getParameterT(18).connectT(0, tempo_sync); // DelayTempo -> tempo_sync::Tempo
-		
-		this->getParameterT(19).connectT(0, biquad); // DelayHighpass -> biquad::Frequency
-		
-		this->getParameterT(20).connectT(0, moog); // DelayLowpass -> moog::Frequency
+		this->getParameterT(15).connectT(0, dry_wet3); // DelayMix -> dry_wet3::DryWet
 		
 		// Modulation Connections ------------------------------------------------------------------
 		
@@ -434,9 +398,9 @@ template <int NV> struct instance: public Reverb_impl::Reverb_t_<NV>
 		dry_gain2.setParameterT(1, 20.); // core::gain::Smoothing
 		dry_gain2.setParameterT(2, 0.);  // core::gain::ResetValue
 		
-		;                                // tempo_sync::Tempo is automated
+		tempo_sync.setParameterT(0, 0.); // control::tempo_sync::Tempo
 		tempo_sync.setParameterT(1, 1.); // control::tempo_sync::Multiplier
-		;                                // tempo_sync::Enabled is automated
+		tempo_sync.setParameterT(2, 0.); // control::tempo_sync::Enabled
 		;                                // tempo_sync::UnsyncedTime is automated
 		
 		; // receive::Feedback is automated
@@ -445,14 +409,14 @@ template <int NV> struct instance: public Reverb_impl::Reverb_t_<NV>
 		faust2.setParameterT(1, 0.);   // core::faust::feedback
 		faust2.setParameterT(2, 29.5); // core::faust::interpolation
 		
-		;                                 // moog::Frequency is automated
+		moog.setParameterT(0, 0.);        // filters::moog::Frequency
 		moog.setParameterT(1, 1.);        // filters::moog::Q
 		moog.setParameterT(2, 0.);        // filters::moog::Gain
 		moog.setParameterT(3, 0.0464498); // filters::moog::Smoothing
 		moog.setParameterT(4, 0.);        // filters::moog::Mode
 		moog.setParameterT(5, 1.);        // filters::moog::Enabled
 		
-		;                                   // biquad::Frequency is automated
+		biquad.setParameterT(0, 0.);        // filters::biquad::Frequency
 		biquad.setParameterT(1, 0.617687);  // filters::biquad::Q
 		biquad.setParameterT(2, 0.);        // filters::biquad::Gain
 		biquad.setParameterT(3, 0.0543294); // filters::biquad::Smoothing
@@ -493,27 +457,22 @@ template <int NV> struct instance: public Reverb_impl::Reverb_t_<NV>
 		wet_gain1.setParameterT(1, 20.); // core::gain::Smoothing
 		wet_gain1.setParameterT(2, 0.);  // core::gain::ResetValue
 		
-		this->setParameterT(0, 0.);
-		this->setParameterT(1, 0.52);
-		this->setParameterT(2, 1.);
-		this->setParameterT(3, 1.);
-		this->setParameterT(4, 2383.);
-		this->setParameterT(5, 1);
-		this->setParameterT(6, 2613.);
-		this->setParameterT(7, 1.);
+		this->setParameterT(0, 0.52);
+		this->setParameterT(1, 1);
+		this->setParameterT(2, 1);
+		this->setParameterT(3, 2383.);
+		this->setParameterT(4, 1);
+		this->setParameterT(5, 2613.);
+		this->setParameterT(6, 1);
+		this->setParameterT(7, 0.);
 		this->setParameterT(8, 0.);
-		this->setParameterT(9, 0.);
-		this->setParameterT(10, 0.406359);
-		this->setParameterT(11, 1.62);
-		this->setParameterT(12, 1.);
-		this->setParameterT(13, 0.);
+		this->setParameterT(9, 0.406359);
+		this->setParameterT(10, 1.62);
+		this->setParameterT(11, 1.);
+		this->setParameterT(12, 442.4);
+		this->setParameterT(13, 0.267766);
 		this->setParameterT(14, 0.);
-		this->setParameterT(15, 0.);
-		this->setParameterT(16, 1.);
-		this->setParameterT(17, 0.);
-		this->setParameterT(18, 6.);
-		this->setParameterT(19, 20.);
-		this->setParameterT(20, 20000.);
+		this->setParameterT(15, 0.738902);
 		this->setExternalData({}, -1);
 	}
 	~instance() override
