@@ -228,10 +228,11 @@ namespace FFTVisual {
 	
 	    // Define base colours (using local as preferred in inline functions)
 	    local strokeColourBase = Colours.lightblue; // Can be different if needed
-		local gradColourTop = '0x207DFF';
+		local gradColourTop = Colours.lightgrey;
+		gradColourTop = Colours.mix(Colours.lightblue, gradColourTop, 1 - Reverb.knob_reverb_mix.getValue());
 		   // Choose a bottom colour - darkblue provides good contrast
 	   local gradColourBottom = Colours.lightblue;
-		
+		gradColourBottom = Colours.mix('0x7D91F9', gradColourBottom, 1 - Reverb.knob_reverb_mix.getValue());
 	    // Iterate backwards through the history (oldest path first)
 	    for (i = historyCount - 1; i >= 0; i--)
 	    {
@@ -297,53 +298,19 @@ namespace FFTVisual {
 	                // 1. Set the gradient fill
 	                g.setGradientFill(gradientData);
 	        		g.fillPath(path, drawBounds);
-	        		g.setColour(Colours.withAlpha(Colours.lightblue, 0.5));
+	        		g.setColour(Colours.mix(
+	        		Colours.withAlpha('0x8A999E', 0.5),
+	        		Colours.lightblue,
+	        		Reverb.knob_reverb_mix.getValue()));
 					g.drawPath(path, drawBounds, 1);
 
-	        // 2. Stroke the path (outline)
-	        // Use the calculated alpha for the stroke colour as well
-	        // Use strokePath (or drawPath if that's what works in your HISE version)
-	
 	    } // End of loop
 	    g.addNoise({
  		        alpha: 0.02,
  		        monochromatic: true
 	    });
-	
-	    // --- Gradient Code (Currently unused based on your snippet) ---
-	    /*
-	    // If you want to use the gradient instead of solid fill:
-	    // 1. Define gradColourTop/Bottom earlier
-	    local gradColourTop = Colours.lightblue;
-	    local gradColourBottom = 0xFFFFFFFF; // HISE colour hex requires 0x AlphaRedGreenBlue
-	
-	    // 2. Calculate current colours with alpha
-	    local currentTopColour = Colours.withAlpha(gradColourTop, alpha);
-	    local currentBottomColour = Colours.withAlpha(gradColourBottom, alpha * 0.8);
-	
-	    // 3. Calculate gradient points (as you had before)
-	    local gradStartX = newX;
-	    local gradStartY = newY;
-	    local gradEndX = newX;
-	    local gradEndY = newY + newH;
-	
-	    // 4. Create gradient data array
-	    local gradientData = [
-	        currentTopColour, gradStartX, gradStartY,
-	        currentBottomColour, gradEndX, gradEndY,
-	        false // Linear
-	    ];
-	
-	    // 5. Set gradient and fill (replace the solid fill lines above)
-	    g.setGradientFill(gradientData);
-	    g.fillPath(path, drawBounds);
-	
-	    // 6. Then draw the stroke (optional)
-	    g.setColour(Colours.withAlpha(strokeColourBase, alpha));
-	    g.strokePath(path, drawBounds, 1.0);
-	    */
-	
-	} // End of function
+	    
+	}
 
 }
 

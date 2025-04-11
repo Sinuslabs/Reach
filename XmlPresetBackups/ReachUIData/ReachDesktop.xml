@@ -214,8 +214,8 @@
       <Component type="ScriptPanel" id="display_main" x="0.0" y="0.0" width="510.0"
                  height="252.0" parentComponent="panelDisplay_display" textColour="16777215"
                  bgColour="16777215" itemColour="0" itemColour2="0">
-        <Component type="ScriptPanel" id="Panel1" x="59.0" y="28.0" width="400"
-                   height="150" parentComponent="display_main"/>
+        <Component type="ScriptPanel" id="Panel1" x="59.0" y="28.0" width="400.0"
+                   height="150.0" parentComponent="display_main"/>
         <Component type="ScriptPanel" id="displayPanel_fx1" x="8.0" y="208.0" width="60.0"
                    height="35.0" text="Reverb" parentComponent="display_main"/>
         <Component type="ScriptPanel" id="displayPanel_fx2" x="78.0" y="208.0" width="60.0"
