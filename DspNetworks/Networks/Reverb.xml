@@ -1,12 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <Network ID="Reverb" Version="0.0.0" AllowCompilation="1">
-  <Node FactoryPath="container.chain" ID="Reverb" Bypassed="0" ShowParameters="1">
+  <Node FactoryPath="container.chain" ID="Reverb" Bypassed="0" ShowParameters="1"
+        Name="Reverb">
     <Nodes>
       <Node ID="fix8_block" FactoryPath="container.fix8_block" Bypassed="0"
-            Folded="1">
+            Folded="1" Name="fix8_block">
         <Nodes>
-          <Node ID="peak" FactoryPath="core.peak" Bypassed="0">
+          <Node ID="peak" FactoryPath="core.peak" Bypassed="0" Name="peak">
             <ModulationTargets>
               <Connection NodeId="smoothed_parameter1" ParameterId="Value"/>
             </ModulationTargets>
@@ -18,7 +19,7 @@
             <Parameters/>
           </Node>
           <Node ID="smoothed_parameter1" FactoryPath="control.smoothed_parameter"
-                Bypassed="0">
+                Bypassed="0" Name="smoothed_parameter1">
             <Properties>
               <Property ID="Mode" Value="Linear Ramp"/>
             </Properties>
@@ -32,7 +33,7 @@
               <Parameter MinValue="0.0" MaxValue="1.0" StepSize="1.0" ID="Enabled" Value="1.0"/>
             </Parameters>
           </Node>
-          <Node ID="bipolar" FactoryPath="control.bipolar" Bypassed="0">
+          <Node ID="bipolar" FactoryPath="control.bipolar" Bypassed="0" Name="bipolar">
             <ModulationTargets>
               <Connection NodeId="pma" ParameterId="Multiply"/>
             </ModulationTargets>
@@ -47,12 +48,12 @@
         <Parameters/>
       </Node>
       <Node ID="dry_wet2" FactoryPath="container.split" ShowParameters="1"
-            NodeColour="4285503847" Bypassed="0">
+            NodeColour="4285503847" Bypassed="0" Name="dry_wet2">
         <Nodes>
-          <Node ID="dry_path1" FactoryPath="container.chain" Bypassed="0">
+          <Node ID="dry_path1" FactoryPath="container.chain" Bypassed="0" Name="dry_path1">
             <Nodes>
               <Node ID="dry_wet_mixer1" FactoryPath="control.xfader" Bypassed="0"
-                    NodeColour="4285503847" Folded="1">
+                    NodeColour="4285503847" Folded="1" Name="dry_wet_mixer1">
                 <Properties>
                   <Property ID="NumParameters" Value="2"/>
                   <Property ID="Mode" Value="Cosine Half"/>
@@ -74,7 +75,7 @@
                 </Parameters>
               </Node>
               <Node ID="dry_gain1" FactoryPath="core.gain" Bypassed="0" NodeColour="4285503847"
-                    Folded="1">
+                    Folded="1" Name="dry_gain1">
                 <Parameters>
                   <Parameter MinValue="-100.0" MaxValue="0.0" StepSize="0.1000000014901161"
                              SkewFactor="5.422270774841309" ID="Gain" Automated="1"/>
@@ -87,15 +88,15 @@
             </Nodes>
             <Parameters/>
           </Node>
-          <Node ID="wet_path1" FactoryPath="container.chain" Bypassed="0">
+          <Node ID="wet_path1" FactoryPath="container.chain" Bypassed="0" Name="wet_path1">
             <Nodes>
               <Node ID="dry_wet3" FactoryPath="container.split" ShowParameters="1"
-                    NodeColour="4285622169" Bypassed="0">
+                    NodeColour="4285622169" Bypassed="0" Name="dry_wet3">
                 <Nodes>
-                  <Node ID="dry_path2" FactoryPath="container.chain" Bypassed="0">
+                  <Node ID="dry_path2" FactoryPath="container.chain" Bypassed="0" Name="dry_path2">
                     <Nodes>
                       <Node ID="dry_wet_mixer2" FactoryPath="control.xfader" Bypassed="0"
-                            NodeColour="4285622169">
+                            NodeColour="4285622169" Name="dry_wet_mixer2">
                         <Properties>
                           <Property ID="NumParameters" Value="2"/>
                           <Property ID="Mode" Value="Cosine Half"/>
@@ -117,7 +118,7 @@
                         </Parameters>
                       </Node>
                       <Node ID="dry_gain2" FactoryPath="core.gain" Bypassed="0" NodeColour="4285622169"
-                            Folded="1">
+                            Folded="1" Name="dry_gain2">
                         <Parameters>
                           <Parameter MinValue="-100.0" MaxValue="0.0" StepSize="0.1000000014901161"
                                      SkewFactor="5.422270774841309" ID="Gain" Automated="1"/>
@@ -130,33 +131,35 @@
                     </Nodes>
                     <Parameters/>
                   </Node>
-                  <Node ID="wet_path2" FactoryPath="container.chain" Bypassed="0">
+                  <Node ID="wet_path2" FactoryPath="container.chain" Bypassed="0" Name="wet_path2">
                     <Nodes>
-                      <Node ID="chain1" FactoryPath="container.chain" Bypassed="0">
+                      <Node ID="chain1" FactoryPath="container.chain" Bypassed="0" Name="chain1">
                         <Nodes>
                           <Node ID="tempo_sync" FactoryPath="control.tempo_sync" Bypassed="0"
-                                Folded="1">
+                                Name="tempo_sync">
                             <ModulationTargets>
                               <Connection NodeId="faust2" ParameterId="delay"/>
                             </ModulationTargets>
                             <Parameters>
-                              <Parameter MinValue="0.0" MaxValue="18.0" StepSize="1.0" ID="Tempo" Automated="1"/>
+                              <Parameter MinValue="0.0" MaxValue="18.0" StepSize="1.0" ID="Tempo"/>
                               <Parameter MinValue="1.0" MaxValue="16.0" StepSize="1.0" ID="Multiplier"
                                          Value="1.0"/>
-                              <Parameter MinValue="0.0" MaxValue="1.0" StepSize="1.0" ID="Enabled" Automated="1"/>
+                              <Parameter MinValue="0.0" MaxValue="1.0" StepSize="1.0" ID="Enabled" DefaultValue=""
+                                         Value="0.0"/>
                               <Parameter MinValue="0.0" MaxValue="2000.0" StepSize="0.1000000014901161"
                                          SkewFactor="0.5" ID="UnsyncedTime" Automated="1"/>
                             </Parameters>
                           </Node>
                           <Node ID="fix32_block" FactoryPath="container.fix32_block" Bypassed="0"
-                                ShowParameters="0">
+                                ShowParameters="0" Name="fix32_block">
                             <Nodes>
-                              <Node ID="receive" FactoryPath="routing.receive" Bypassed="0" Folded="1">
+                              <Node ID="receive" FactoryPath="routing.receive" Bypassed="0" Folded="1"
+                                    Name="receive">
                                 <Parameters>
                                   <Parameter MinValue="0.0" MaxValue="1.0" ID="Feedback" Automated="1"/>
                                 </Parameters>
                               </Node>
-                              <Node ID="faust2" FactoryPath="core.faust" Bypassed="0">
+                              <Node ID="faust2" FactoryPath="core.faust" Bypassed="0" Name="faust2">
                                 <Properties>
                                   <Property ID="ClassId" Value="Delay2"/>
                                   <Property ID="NumParameters" Value="0"/>
@@ -170,43 +173,7 @@
                                 </Parameters>
                                 <SwitchTargets/>
                               </Node>
-                              <Node ID="moog" FactoryPath="filters.moog" Bypassed="0">
-                                <ComplexData>
-                                  <Filters>
-                                    <Filter Index="-1"/>
-                                  </Filters>
-                                </ComplexData>
-                                <Parameters>
-                                  <Parameter MinValue="20.0" MaxValue="20000.0" SkewFactor="0.2299045622348785"
-                                             ID="Frequency" Automated="1"/>
-                                  <Parameter MinValue="0.300000011920929" MaxValue="9.899999618530273" SkewFactor="0.2647178173065186"
-                                             ID="Q" Value="1.0"/>
-                                  <Parameter MinValue="-18.0" MaxValue="18.0" ID="Gain" Value="0.0"/>
-                                  <Parameter MinValue="0.0" MaxValue="1.0" SkewFactor="0.3010300099849701"
-                                             ID="Smoothing" Value="0.04644979134327495"/>
-                                  <Parameter MinValue="0.0" MaxValue="2.0" StepSize="1.0" ID="Mode" Value="0.0"/>
-                                  <Parameter MinValue="0.0" MaxValue="1.0" StepSize="1.0" ID="Enabled" Value="1.0"/>
-                                </Parameters>
-                              </Node>
-                              <Node ID="biquad" FactoryPath="filters.biquad" Bypassed="0">
-                                <ComplexData>
-                                  <Filters>
-                                    <Filter Index="-1"/>
-                                  </Filters>
-                                </ComplexData>
-                                <Parameters>
-                                  <Parameter MinValue="20.0" MaxValue="20000.0" SkewFactor="0.2299045622348785"
-                                             ID="Frequency" Automated="1"/>
-                                  <Parameter MinValue="0.300000011920929" MaxValue="9.899999618530273" SkewFactor="0.2647178173065186"
-                                             ID="Q" Value="0.6176868156836781"/>
-                                  <Parameter MinValue="-18.0" MaxValue="18.0" ID="Gain" Value="0.0"/>
-                                  <Parameter MinValue="0.0" MaxValue="1.0" SkewFactor="0.3010300099849701"
-                                             ID="Smoothing" Value="0.05432937327069697"/>
-                                  <Parameter MinValue="0.0" MaxValue="5.0" StepSize="1.0" ID="Mode" Value="1.0"/>
-                                  <Parameter MinValue="0.0" MaxValue="1.0" StepSize="1.0" ID="Enabled" Value="1.0"/>
-                                </Parameters>
-                              </Node>
-                              <Node ID="limiter" FactoryPath="dynamics.limiter" Bypassed="0" Folded="1">
+                              <Node ID="limiter" FactoryPath="dynamics.limiter" Bypassed="0" Name="limiter">
                                 <ComplexData>
                                   <DisplayBuffers>
                                     <DisplayBuffer Index="-1"/>
@@ -224,7 +191,7 @@
                                   <Parameter MinValue="0.0" MaxValue="2.0" StepSize="1.0" ID="Sidechain" Value="0.0"/>
                                 </Parameters>
                               </Node>
-                              <Node ID="send" FactoryPath="routing.send" Bypassed="0">
+                              <Node ID="send" FactoryPath="routing.send" Bypassed="0" Name="send">
                                 <Properties>
                                   <Property ID="Connection" Value="receive"/>
                                 </Properties>
@@ -237,7 +204,7 @@
                         <Parameters/>
                       </Node>
                       <Node ID="wet_gain2" FactoryPath="core.gain" Bypassed="0" NodeColour="4285622169"
-                            Folded="1">
+                            Name="wet_gain2">
                         <Parameters>
                           <Parameter MinValue="-100.0" MaxValue="0.0" StepSize="0.1000000014901161"
                                      SkewFactor="5.422270774841309" ID="Gain" Automated="1"/>
@@ -259,7 +226,7 @@
                   </Parameter>
                 </Parameters>
               </Node>
-              <Node ID="faust" FactoryPath="core.faust" Bypassed="1">
+              <Node ID="faust" FactoryPath="core.faust" Bypassed="0" Name="faust">
                 <Properties>
                   <Property ID="ClassId" Value="FaustReverb"/>
                   <Property ID="NumParameters" Value="0"/>
@@ -290,7 +257,7 @@
                 </Parameters>
                 <SwitchTargets/>
               </Node>
-              <Node ID="pma" FactoryPath="control.pma" Bypassed="0">
+              <Node ID="pma" FactoryPath="control.pma" Bypassed="0" Name="pma">
                 <ModulationTargets>
                   <Connection NodeId="gain" ParameterId="Gain"/>
                 </ModulationTargets>
@@ -301,7 +268,7 @@
                   <Parameter MinValue="-1.0" MaxValue="1.0" ID="Add" Value="1.0"/>
                 </Parameters>
               </Node>
-              <Node ID="gain" FactoryPath="core.gain" Bypassed="0">
+              <Node ID="gain" FactoryPath="core.gain" Bypassed="0" Name="gain">
                 <Parameters>
                   <Parameter MinValue="-100.0" MaxValue="0.0" StepSize="0.1000000014901161"
                              SkewFactor="5.422270774841309" ID="Gain" Automated="1"/>
@@ -312,7 +279,7 @@
                 </Parameters>
               </Node>
               <Node ID="wet_gain1" FactoryPath="core.gain" Bypassed="0" NodeColour="4285503847"
-                    Folded="1">
+                    Folded="1" Name="wet_gain1">
                 <Parameters>
                   <Parameter MinValue="-100.0" MaxValue="0.0" StepSize="0.1000000014901161"
                              SkewFactor="5.422270774841309" ID="Gain" Automated="1"/>
@@ -336,23 +303,20 @@
       </Node>
     </Nodes>
     <Parameters>
-      <Parameter ID="Reverb" MinValue="-15.0" MaxValue="0.0" Value="0.0" StepSize="0.01">
-        <Connections/>
-      </Parameter>
       <Parameter ID="Damping" MinValue="0.0" MaxValue="0.9999999776482582" Value="0.5199999883770943"
                  StepSize="0.009999999776482582">
         <Connections>
           <Connection NodeId="faust" ParameterId="Damping"/>
         </Connections>
       </Parameter>
-      <Parameter ID="Diffusion" MinValue="0.0" MaxValue="0.9999999776482582" Value="1.0"
-                 StepSize="0.009999999776482582">
+      <Parameter ID="Diffusion" MinValue="0.0" MaxValue="0.9999999776482582" Value="0.9999999776482582"
+                 StepSize="0.009999999776482582" DefaultValue="1.0">
         <Connections>
           <Connection NodeId="faust" ParameterId="Diffusion"/>
         </Connections>
       </Parameter>
-      <Parameter ID="HF Gain" MinValue="0.0" MaxValue="0.9999999776482582" Value="1.0"
-                 StepSize="0.009999999776482582">
+      <Parameter ID="HF Gain" MinValue="0.0" MaxValue="0.9999999776482582" Value="0.9999999776482582"
+                 StepSize="0.009999999776482582" DefaultValue="1.0">
         <Connections>
           <Connection NodeId="faust" ParameterId="HF Gain"/>
         </Connections>
@@ -375,8 +339,8 @@
           <Connection NodeId="faust" ParameterId="Low Crossover"/>
         </Connections>
       </Parameter>
-      <Parameter ID="Mid Gain" MinValue="0.0" MaxValue="0.9999999776482582" Value="1.0"
-                 StepSize="0.009999999776482582">
+      <Parameter ID="Mid Gain" MinValue="0.0" MaxValue="0.9999999776482582" Value="0.9999999776482582"
+                 StepSize="0.009999999776482582" DefaultValue="1.0">
         <Connections>
           <Connection NodeId="faust" ParameterId="MID Gain"/>
         </Connections>
@@ -393,7 +357,8 @@
           <Connection NodeId="faust" ParameterId="Mod Frequency"/>
         </Connections>
       </Parameter>
-      <Parameter ID="ReverbTime" MinValue="0.0" MaxValue="16.0" Value="0.406359375">
+      <Parameter ID="ReverbTime" MinValue="0.0" MaxValue="16.0" Value="2.85893359375"
+                 DefaultValue="0.406359375">
         <Connections>
           <Connection NodeId="faust" ParameterId="ReverbTime"/>
         </Connections>
@@ -409,13 +374,14 @@
           <Connection NodeId="dry_wet2" ParameterId="DryWet"/>
         </Connections>
       </Parameter>
-      <Parameter ID="preDelay" MinValue="0.0" MaxValue="2000.0" Value="0.0" StepSize="0.1000000014901161"
-                 SkewFactor="0.5">
+      <Parameter ID="preDelay" MinValue="0.0" MaxValue="2000.0" Value="1090.300016246736"
+                 StepSize="0.1000000014901161" SkewFactor="0.5" DefaultValue="0.0">
         <Connections>
           <Connection NodeId="tempo_sync" ParameterId="UnsyncedTime"/>
         </Connections>
       </Parameter>
-      <Parameter ID="Feedback" MinValue="0.0" MaxValue="1.0" Value="0.0">
+      <Parameter ID="Feedback" MinValue="0.0" MaxValue="1.0" Value="0.7250323486328125"
+                 DefaultValue="0.0">
         <Connections>
           <Connection NodeId="receive" ParameterId="Feedback"/>
         </Connections>
@@ -428,30 +394,6 @@
       <Parameter ID="DelayMix" MinValue="0.0" MaxValue="1.0" Value="1.0">
         <Connections>
           <Connection NodeId="dry_wet3" ParameterId="DryWet"/>
-        </Connections>
-      </Parameter>
-      <Parameter ID="DelayUseTempo" MinValue="0.0" MaxValue="1.0" StepSize="1.0"
-                 Value="0.0">
-        <Connections>
-          <Connection NodeId="tempo_sync" ParameterId="Enabled"/>
-        </Connections>
-      </Parameter>
-      <Parameter ID="DelayTempo" MinValue="0.0" MaxValue="18.0" StepSize="1.0"
-                 Value="6.0">
-        <Connections>
-          <Connection NodeId="tempo_sync" ParameterId="Tempo"/>
-        </Connections>
-      </Parameter>
-      <Parameter ID="DelayHighpass" MinValue="20.0" MaxValue="20000.0" SkewFactor="0.2299045622348785"
-                 Value="20.0">
-        <Connections>
-          <Connection NodeId="biquad" ParameterId="Frequency"/>
-        </Connections>
-      </Parameter>
-      <Parameter ID="DelayLowpass" MinValue="20.0" MaxValue="20000.0" SkewFactor="0.2299045622348785"
-                 Value="20000.0">
-        <Connections>
-          <Connection NodeId="moog" ParameterId="Frequency"/>
         </Connections>
       </Parameter>
     </Parameters>

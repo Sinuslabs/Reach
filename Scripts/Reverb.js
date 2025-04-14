@@ -47,14 +47,14 @@ namespace Reverb {
 	knob_cleanup_preDelay.setControlCallback(preDelayControl);
 	knob_cleanup_preDelay.setLocalLookAndFeel(knb_laf);
 	
-	const var knob_cleanup_preDelayTempo = Content.getComponent("knob_cleanup_preDelay_tempo");
-	knob_cleanup_preDelayTempo.setControlCallback(onDelayTempo);
-	knob_cleanup_preDelayTempo.setLocalLookAndFeel(knb_laf);
+	//const var knob_cleanup_preDelayTempo = Content.getComponent("knob_cleanup_preDelay_tempo");
+	//knob_cleanup_preDelayTempo.setControlCallback(onDelayTempo);
+	//knob_cleanup_preDelayTempo.setLocalLookAndFeel(knb_laf);
 	
 	// Display
-	const var delay_useTempo = Content.getComponent("delay_useTempo");
-	delay_useTempo.setLocalLookAndFeel(LAF_displayButton);
-	delay_useTempo.setControlCallback(onTempo);
+	//const var delay_useTempo = Content.getComponent("delay_useTempo");
+	//delay_useTempo.setLocalLookAndFeel(LAF_displayButton);
+	//delay_useTempo.setControlCallback(onTempo);
 	
     const var displayKnob_reverb_feedback = Content.getComponent("displayKnob_reverb_feedback");
     displayKnob_reverb_feedback.setLocalLookAndFeel(LAF_DisplayTextKnob);
@@ -64,13 +64,13 @@ namespace Reverb {
     displayKnob_reverb_delaymix.setLocalLookAndFeel(LAF_DisplayTextKnob);
     displayKnob_reverb_delaymix.setControlCallback(ondisplayKnob_reverb_delayMixControl);
 
-	const var displayKnob_reverb_delayHighpass = Content.getComponent("displayKnob_reverb_delayHighpass");
-	displayKnob_reverb_delayHighpass.setControlCallback(ondisplayKnob_reverb_highpassControl);
-	displayKnob_reverb_delayHighpass.setLocalLookAndFeel(LAF_horizontalBar);
+	//const var displayKnob_reverb_delayHighpass = Content.getComponent("displayKnob_reverb_delayHighpass");
+	//displayKnob_reverb_delayHighpass.setControlCallback(ondisplayKnob_reverb_highpassControl);
+	//displayKnob_reverb_delayHighpass.setLocalLookAndFeel(LAF_horizontalBar);
 	
-	const var displayKnob_reverb_delayLowpass = Content.getComponent("displayKnob_reverb_delayLowpass");
-	displayKnob_reverb_delayLowpass.setControlCallback(ondisplayKnob_reverb_lowpassControl);
-	displayKnob_reverb_delayLowpass.setLocalLookAndFeel(LAF_horizontalBar);
+	//const var displayKnob_reverb_delayLowpass = Content.getComponent("displayKnob_reverb_delayLowpass");
+	//displayKnob_reverb_delayLowpass.setControlCallback(ondisplayKnob_reverb_lowpassControl);
+	//displayKnob_reverb_delayLowpass.setLocalLookAndFeel(LAF_horizontalBar);
 	    
     const var displayButton_reverb_panic = Content.getComponent("displayButton_reverb_panic");
     displayButton_reverb_panic.setLocalLookAndFeel(LAF_displayButton);
@@ -185,11 +185,11 @@ namespace Reverb {
 	};
 	
 	inline function onDelayTempo(component, value) {
-		JPVerb.setAttribute(JPVerb.DelayTempo, value);
+		//JPVerb.setAttribute(JPVerb.DelayTempo, value);
 	}
 	
 	inline function onTempo(component, value) {
-		JPVerb.setAttribute(JPVerb.DelayUseTempo, !value);
+	//	JPVerb.setAttribute(JPVerb.DelayUseTempo, !value);
 		if (value) {
 			component.set('text', 'displayIcon-clock');
 			knob_cleanup_preDelay.showControl(true);
@@ -202,7 +202,7 @@ namespace Reverb {
 	}
 	
 	inline function ondisplayKnob_reverb_feedbackControl(component, value) {
-	   	    JPVerb.setAttribute(JPVerb.Feedback, value);
+	      JPVerb.setAttribute(JPVerb.Feedback, value);
 	   	    value >= 0.7 ? displayButton_reverb_panic.set('visible', true) : displayButton_reverb_panic.set('visible', false); 
 	};
 	
@@ -211,11 +211,11 @@ namespace Reverb {
 	}
 	
 	inline function ondisplayKnob_reverb_highpassControl(component, value) {
-		JPVerb.setAttribute(JPVerb.DelayHighpass, value);
+	//	JPVerb.setAttribute(JPVerb.DelayHighpass, value);
 	}
 	
 	inline function ondisplayKnob_reverb_lowpassControl(component, value) {
-		JPVerb.setAttribute(JPVerb.DelayLowpass, value);
+		//JPVerb.setAttribute(JPVerb.DelayLowpass, value);
 	}
 	
 	inline function ondisplayButton_reverb_panicControl(component, value)

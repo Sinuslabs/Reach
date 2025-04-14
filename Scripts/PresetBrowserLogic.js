@@ -7,9 +7,8 @@ namespace PresetBrowserLogic {
 	inline function onPresetInitButton(component, value) {
 		
 		if (value) {
-			
-			Engine.loadUserPreset('Creative/INIT.preset');
-			
+			Engine.loadUserPreset('Creative/Anfang.preset');
+			showMain();
 		}
 		
 	}

@@ -29,6 +29,6 @@
     <!--+==========================+
         |    Package References    |
         +==========================+-->
-    <pkg-ref id="com.sinuslabs.pkg.VST3" version="1.6.4" auth="Root" installKBytes="9320">Reach_VST3.pkg</pkg-ref>
-	<pkg-ref id="com.sinuslabs.pkg.AU" version="1.6.4" auth="Root" installKBytes="9295">Reach_AU.pkg</pkg-ref>
+    <pkg-ref id="com.sinuslabs.pkg.VST3" version="1.6.5" auth="Root" installKBytes="9320">Reach_VST3.pkg</pkg-ref>
+	<pkg-ref id="com.sinuslabs.pkg.AU" version="1.6.5" auth="Root" installKBytes="9295">Reach_AU.pkg</pkg-ref>
 </installer-script>

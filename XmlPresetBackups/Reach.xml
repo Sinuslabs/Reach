@@ -41,9 +41,6 @@
             <Control type="ScriptSlider" id="displayKnob_reverb_midgain" value="1.0"/>
             <Control type="ScriptButton" id="displayButton_reverb_panic" value="0.0"/>
             <Control type="ScriptSlider" id="displayKnob_reverb_delaymix" value="1.0"/>
-            <Control type="ScriptSlider" id="displayKnob_reverb_delayHighpass" value="20.0"/>
-            <Control type="ScriptSlider" id="displayKnob_reverb_delayLowpass" value="20000.0"/>
-            <Control type="ScriptButton" id="delay_useTempo" value="1.0"/>
             <Control type="ScriptButton" id="displayButton_reverb_bypass" value="1.0"/>
             <Control type="ScriptComboBox" id="degrade_selector" value="1.0"/>
             <Control type="ScriptSlider" id="displayKnob_degrade_highcut" value="14333.0"/>
@@ -119,12 +116,10 @@
         <Processor Type="SlotFX" ID="Effect Slot1" Bypassed="0">
           <ChildProcessors>
             <Processor Type="Hardcoded Master FX" ID="Effect Slot1_Hardcoded Master FX"
-                       Bypassed="0" Network="Reverb" Reverb="1.0" Damping="0.5" Diffusion="1.0"
-                       HFGain="1.0" HighCrossover="3392.0" LFGain="1.0" LowCrossover="377.0"
-                       MidGain="1.0" ModDepth="0.0" ModFrequency="0.0" ReverbTime="1.0"
-                       Size="1.0" Mix="0.5" preDelay="0.0" Feedback="0.0" Smoothing="0.0"
-                       DelayMix="1.0" DelayUseTempo="0.0" DelayTempo="5.0" DelayHighpass="20.0"
-                       DelayLowpass="20000.0">
+                       Bypassed="0" Network="Reverb" Damping="0.5" Diffusion="1.0" HFGain="1.0"
+                       HighCrossover="3392.0" LFGain="1.0" LowCrossover="377.0" MidGain="1.0"
+                       ModDepth="0.0" ModFrequency="0.0" ReverbTime="1.0" Size="1.0"
+                       Mix="0.5" preDelay="0.0" Feedback="0.0" Smoothing="0.0" DelayMix="1.0">
               <ChildProcessors/>
               <RoutingMatrix NumSourceChannels="2" Channel0="0" Send0="-1" Channel1="1" Send1="-1"/>
             </Processor>
@@ -290,8 +285,8 @@
           <RoutingMatrix NumSourceChannels="4" Channel0="0" Send0="-1" Channel1="1" Send1="-1"
                          Channel2="-1" Send2="-1" Channel3="-1" Send3="-1"/>
         </Processor>
-        <Processor Type="Analyser" ID="Analyser1" Bypassed="0" BufferSize="4096.0"
-                   PreviewType="3.0">
+        <Processor Type="Analyser" ID="Analyser1" Bypassed="0" BufferSize="8192.0"
+                   PreviewType="4.0">
           <ChildProcessors/>
           <RoutingMatrix NumSourceChannels="4" Channel0="0" Send0="-1" Channel1="1" Send1="-1"
                          Channel2="-1" Send2="2" Channel3="-1" Send3="3"/>

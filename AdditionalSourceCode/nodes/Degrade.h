@@ -185,7 +185,7 @@ using pma_t = control::pma<NV,
                            parameter::plain<cable_table_t<NV>, 0>>;
 template <int NV>
 using envelope_follower_t = wrap::mod<parameter::plain<pma_t<NV>, 0>, 
-                                      wrap::no_data<dynamics::envelope_follower>>;
+                                      wrap::no_data<dynamics::envelope_follower<NV>>>;
 
 template <int NV>
 using chain_t = container::chain<parameter::empty, 

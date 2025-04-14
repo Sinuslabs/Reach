@@ -349,7 +349,7 @@ namespace EffectCustomizer {
 	// gets the name from the first parameter and displays it as effect name
 	inline function setEffectNamesFromSlots() {
 		for ( i=0; i<effectSlots.length; i++ ) {
-				reg effectName = getIdFromSlot(effectSlots[i]);
+			reg effectName = getIdFromSlot(effectSlots[i]);
 			effectTabs[i].set('text', effectName);
 			effectIndicators[i].set('text', effectName);
 		}
@@ -360,10 +360,13 @@ namespace EffectCustomizer {
 	{
 	    local fx = slot.getCurrentEffect();
 	    
-	    if(isDefined(fx))
+	    if(isDefined(fx)) {
+		    if (fx.getAttributeId(0) === 'Damping') {
+   	  		    return 'Reverb';
+		    }
+	    
 	        return fx.getAttributeId(0);
-	        
-	    return undefined;
+  	    }
 	}
 	
 	// Main Screen

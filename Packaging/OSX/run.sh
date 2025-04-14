@@ -5,7 +5,7 @@ source ../../info.env
 # Start total execution time measurement with nanosecond precision
 overall_start=$(date +%s.%N)
 
-sh compile.sh && sh test.sh && sh package.sh && sh upload.sh
+sh test.sh && sh package.sh 
 
 # End total execution time measurement and print
 # End total execution time measurement
