@@ -853,18 +853,23 @@ laf.registerFunction("drawPresetBrowserListItem", function(g, obj)
        	g.fillRoundedRectangle(a, 3);
         g.setColour(Theme.DisplayTheme.buttonSelectedTextColour);
     } else {
-	    
-       	g.setColour(Colours.withAlpha(obj.textColour, 0.75));	    
-    
+       	g.setColour(Colours.withAlpha(Theme.DisplayTheme.textColour, 0.75));	    
 	    if (obj.hover) {
 			g.drawRoundedRectangle(a, 3, 1);
 	    }
-	    
     }
-   
    	g.setFont(Fonts.mainFontRegular, 22.0);
     g.drawAlignedText(obj.text, [15, a[1], a[2], a[3]], "left");
 });
+
+const var presetBrowserLaf = Content.createLocalLookAndFeel();
+presetBrowserLaf.registerFunction("drawPresetBrowserColumnBackground", function(g, obj) {
+	
+	var a = obj.area;
+	
+	
+});
+
 
 const popMenuLaf = Content.createLocalLookAndFeel();
 

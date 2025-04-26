@@ -3,10 +3,10 @@
 <ContentProperties DeviceType="Desktop">
   <Component type="ScriptPanel" id="panel_background" x="0.0" y="0.0" itemColour="4293717228"
              itemColour2="4292072403" width="1134.0" height="516.0" allowCallbacks="Clicks Only">
-    <Component type="ScriptPanel" id="panel_backdrop" x="14.0" y="68.0" width="1106.0"
-               height="428.0" parentComponent="panel_background" itemColour2="4278190080"
-               itemColour="4278190080" text="backgrop" borderRadius="5.0" bgColour="16711680"
-               textColour="4278190080"/>
+    <Component type="ScriptPanel" id="themeablePanel_panel_backdrop" x="14.0"
+               y="68.0" width="1106.0" height="428.0" parentComponent="panel_background"
+               itemColour2="4278190080" itemColour="4278190080" text="backgrop"
+               borderRadius="5.0" bgColour="16711680" textColour="4278190080"/>
     <Component type="ScriptPanel" id="panel_header" x="10.0" y="5.0" width="1140.0"
                height="60.0" parentComponent="panel_background" itemColour="0"
                itemColour2="0" bgColour="16777215" textColour="16777215">
@@ -31,7 +31,7 @@
                  text="" visible="0" width="76.80000305175781" height="16.79999923706055"/>
       <Component type="ScriptButton" id="button_quickTheme" x="1026.0" y="22.0"
                  parentComponent="panel_header" width="15.0" height="15.0" text="icon-halfCircle"
-                 isMomentary="1" itemColour="1727987712"/>
+                 isMomentary="1" itemColour="1727987712" saveInPreset="0"/>
       <Component type="ScriptPanel" id="randomPanelButton" x="986.0" y="22.5"
                  parentComponent="panel_header" width="15.0" height="15.0" allowCallbacks="All Callbacks"/>
       <Component type="ScriptSlider" id="header_vumeter_ch1" x="798.0" y="31.0"
@@ -209,11 +209,16 @@
       </Component>
     </Component>
     <Component type="ScriptPanel" id="panelDisplay_display" x="312.0" y="72.0"
-               width="510.0" height="252.0" itemColour="0" itemColour2="4278650631"
-               parentComponent="panel_background" textColour="0">
+               width="510.0" height="252.0" itemColour="0" itemColour2="16777215"
+               parentComponent="panel_background" textColour="16777215" bgColour="16777215">
       <Component type="ScriptPanel" id="display_main" x="0.0" y="0.0" width="510.0"
                  height="252.0" parentComponent="panelDisplay_display" textColour="16777215"
                  bgColour="16777215" itemColour="0" itemColour2="0">
+        <Component type="ScriptButton" id="button_filter" x="8.0" y="8.0" parentComponent="display_main"
+                   width="60.0" height="30.0" text="displayButton-EQ" saveInPreset="0"/>
+        <Component type="ScriptButton" id="button_fx" x="408.0" y="205.0" width="90.0"
+                   height="40.0" text="displayButton-EFFECTS" parentComponent="display_main"
+                   saveInPreset="0"/>
         <Component type="ScriptPanel" id="Panel1" x="59.0" y="28.0" width="400.0"
                    height="150.0" parentComponent="display_main"/>
         <Component type="ScriptPanel" id="displayPanel_fx1" x="8.0" y="208.0" width="60.0"
@@ -265,14 +270,15 @@
                    text="NOT ACTIVATED" enableMidiLearn="0" visible="0"/>
       </Component>
       <Component type="ScriptPanel" id="display_effects" x="0.0" y="0.0" parentComponent="panelDisplay_display"
-                 width="510.0" height="252.0" itemColour="4278190080" itemColour2="4278190080"
-                 textColour="16777215" visible="0">
+                 width="510.0" height="252.0" itemColour="16777215" itemColour2="16777215"
+                 textColour="16777215" bgColour="16777215" visible="0">
         <Component type="ScriptPanel" id="panel_effectCustomizer" x="13.0" y="13.0"
-                   width="485.0" height="230.0" itemColour2="4278190080" itemColour="4278190080"
+                   width="485.0" height="230.0" itemColour2="16777215" itemColour="16777215"
                    bgColour="16777215" parentComponent="display_effects" textColour="16777215">
           <Component type="ScriptPanel" id="panel_customizerHeader" x="0.0" y="0.0"
                      width="495.0" height="40.0" parentComponent="panel_effectCustomizer"
-                     textColour="16777215">
+                     textColour="16777215" bgColour="16777215" itemColour="16777215"
+                     itemColour2="16777215">
             <Component type="ScriptPanel" id="panel_slotArea1" x="1.200000047683716"
                        y="6.0" parentComponent="panel_customizerHeader" width="96.0"
                        height="30.0" itemColour="4294901760" visible="0"/>
@@ -289,7 +295,7 @@
                        y="6.0" itemColour="4294967040" width="96.0" parentComponent="panel_customizerHeader"
                        visible="0" height="30.0"/>
             <Component type="ScriptPanel" id="panel_effectTab1" x="-0.2999999523162842"
-                       y="0.0" width="99.0" height="40.0" parentComponent="panel_customizerHeader"
+                       y="0" width="99.0" height="40.0" parentComponent="panel_customizerHeader"
                        allowDragging="1" allowCallbacks="Clicks, Hover &amp; Dragging"
                        itemColour="4278239743" text="Reverb"/>
             <Component type="ScriptPanel" id="panel_effectTab2" x="96.90000152587891"
@@ -305,13 +311,14 @@
                        height="40.0" allowDragging="1" allowCallbacks="Clicks, Hover &amp; Dragging"
                        itemColour="4278239743" text="Chorus"/>
             <Component type="ScriptPanel" id="panel_effectTab5" x="387.2999877929688"
-                       y="0.0" width="99.0" height="40.0" parentComponent="panel_customizerHeader"
+                       y="0" width="99.0" height="40.0" parentComponent="panel_customizerHeader"
                        allowDragging="1" allowCallbacks="Clicks, Hover &amp; Dragging"
                        itemColour="4278239743" text="Distort"/>
           </Component>
           <Component type="ScriptPanel" id="effectDisplay-Reverb" x="0.0" y="40.0"
                      width="490.0" height="190.0" parentComponent="panel_effectCustomizer"
-                     textColour="16777215">
+                     textColour="16777215" bgColour="16777215" itemColour="16777215"
+                     itemColour2="16777215">
             <Component type="ScriptSlider" id="displayKnob_reverb_feedback" x="55.0"
                        y="55.0" width="80.0" height="60.0" parentComponent="effectDisplay-Reverb"
                        text="FEEDBACK" mode="NormalizedPercentage" suffix="%" middlePosition="0.5"
@@ -371,7 +378,8 @@
                      pluginParameterName="Reverb Bypass"/>
           <Component type="ScriptPanel" id="effectDisplay-Degrade" x="0.0" y="40.0"
                      width="490.0" height="200.0" parentComponent="panel_effectCustomizer"
-                     textColour="16777215" visible="0">
+                     textColour="16777215" itemColour="16777215" itemColour2="16777215"
+                     bgColour="16777215" visible="0">
             <Component type="ScriptComboBox" id="degrade_selector" x="180.0" y="15.0"
                        max="3" items="HOLD&#10;CRUSH&#10;CRUSH DC" parentComponent="effectDisplay-Degrade"
                        itemColour="1711276032" pluginParameterName="Degrade Select"
@@ -425,7 +433,8 @@
                      pluginParameterName="Degrade Bypass" visible="0"/>
           <Component type="ScriptPanel" id="effectDisplay-Flanger" x="0.0" y="40.0"
                      width="490.0" height="160.0" parentComponent="panel_effectCustomizer"
-                     textColour="16777215" visible="0">
+                     textColour="16777215" itemColour="16777215" itemColour2="16777215"
+                     visible="0">
             <Component type="ScriptPanel" id="displayPanel_flangerIndicator" x="3.0"
                        y="0.0" width="480.0" height="4.0" parentComponent="effectDisplay-Flanger"
                        itemColour="4284525541" itemColour2="4284525541" borderSize="1.0"
@@ -461,7 +470,8 @@
                      pluginParameterName="Flanger Bypass" visible="0"/>
           <Component type="ScriptPanel" id="effectDisplay-Distort" x="0.0" y="40.0"
                      width="490.0" height="190.0" parentComponent="panel_effectCustomizer"
-                     textColour="16777215" visible="0">
+                     textColour="16777215" itemColour="16777215" itemColour2="16777215"
+                     visible="0">
             <Component type="ScriptComboBox" id="distort_selector" x="180.0" y="15.0"
                        max="2" items="SOFT&#10;HARD" parentComponent="effectDisplay-Distort"
                        pluginParameterName="Distortion Mode" bgColour="4289374890" isPluginParameter="1"/>
@@ -510,7 +520,8 @@
                      pluginParameterName="Distortion Bypass" visible="0"/>
           <Component type="ScriptPanel" id="effectDisplay-Chorus" x="0.0" y="40.0"
                      width="490.0" height="160.0" parentComponent="panel_effectCustomizer"
-                     textColour="16777215" visible="0">
+                     textColour="16777215" itemColour="16777215" itemColour2="16777215"
+                     visible="0">
             <Component type="ScriptPanel" id="displayPanel_chorusIndicator" x="3.0"
                        y="0.0" parentComponent="effectDisplay-Chorus" width="480.0"
                        height="4.0" itemColour="4286244807" itemColour2="4286244807"
@@ -544,7 +555,8 @@
       </Component>
       <Component type="ScriptPanel" id="display_filter" x="-2.0" y="8.0" width="500.0"
                  height="240.0" textColour="16777215" parentComponent="panelDisplay_display"
-                 bgColour="16777215" visible="0">
+                 bgColour="16777215" itemColour="16777215" itemColour2="16777215"
+                 visible="0">
         <Component type="ScriptFloatingTile" id="preFilter" x="0.0" y="30.0" width="510.0"
                    height="210.0" ContentType="DraggableFilterPanel" bgColour="11944257"
                    itemColour="2197749760" itemColour2="4294901760" Data="{&#10;  &quot;ProcessorId&quot;: &quot;preFilter&quot;,&#10;  &quot;Index&quot;: -1,&#10;  &quot;FollowWorkspace&quot;: false&#10;}"
@@ -562,11 +574,6 @@
                    width="54.0" height="30.0" text="displayButton-PRE" parentComponent="display_filter"
                    saveInPreset="0"/>
       </Component>
-      <Component type="ScriptButton" id="button_filter" x="8.0" y="8.0" parentComponent="panelDisplay_display"
-                 width="60.0" height="30.0" text="displayButton-EQ" saveInPreset="0"/>
-      <Component type="ScriptButton" id="button_fx" x="408.0" y="205.0" width="90.0"
-                 height="40.0" text="displayButton-EFFECTS" parentComponent="panelDisplay_display"
-                 saveInPreset="0"/>
       <Component type="ScriptPanel" id="display_about" x="0.0" y="0.0" width="510.0"
                  height="252.0" parentComponent="panelDisplay_display" itemColour2="4278190080"
                  itemColour="4278190080" textColour="16777215" bgColour="16777215"
@@ -613,6 +620,13 @@
                        saveInPreset="0" defaultValue="1.0"/>
             <Component type="ScriptLabel" id="label_settings_startupAnimation" x="85.0"
                        y="60.0" width="151.0" height="40.0" text="SPLASH SCREEN" fontName="jetbrains-mono"
+                       fontSize="19.0" alignment="left" parentComponent="dis-settings_general"
+                       editable="0"/>
+            <Component type="ScriptSlider" id="AnimationQuality_knb" x="285.0" y="110.0"
+                       width="80.0" height="80.0" parentComponent="dis-settings_general"
+                       max="5.0" saveInPreset="0" stepSize="1.0"/>
+            <Component type="ScriptLabel" id="label_settings_quality" x="85.0" y="120.0"
+                       width="170.0" height="40.0" text="Animation Quality" fontName="jetbrains-mono"
                        fontSize="19.0" alignment="left" parentComponent="dis-settings_general"
                        editable="0"/>
           </Component>
@@ -681,12 +695,12 @@
       </Component>
       <Component type="ScriptPanel" id="display_presetBrowser" x="0.0" y="0.0"
                  width="510.0" height="252.0" parentComponent="panelDisplay_display"
-                 itemColour="4278779904" itemColour2="4278190080" textColour="16777215"
-                 bgColour="16777215" visible="0">
+                 itemColour="589824" itemColour2="0" textColour="16777215" bgColour="16777215"
+                 visible="0">
         <Component type="ScriptFloatingTile" id="FloatingTile2" x="-2.0" y="-2.0"
-                   width="520.0" height="260.0" ContentType="PresetBrowser" bgColour="4278190080"
-                   itemColour="4294967295" itemColour2="0" Data="{&#10;  &quot;ShowSaveButton&quot;: true,&#10;  &quot;ShowExpansionsAsColumn&quot;: false,&#10;  &quot;ShowFolderButton&quot;: true,&#10;  &quot;ShowNotes&quot;: false,&#10;  &quot;ShowEditButtons&quot;: true,&#10;  &quot;EditButtonOffset&quot;: 2,&#10;  &quot;ShowAddButton&quot;: true,&#10;  &quot;ShowRenameButton&quot;: true,&#10;  &quot;ShowDeleteButton&quot;: true,&#10;  &quot;ShowFavoriteIcon&quot;: false,&#10;  &quot;ButtonsInsideBorder&quot;: false,&#10;  &quot;NumColumns&quot;: 2,&#10;  &quot;ColumnWidthRatio&quot;: [&#10;    0.3333333333333333,&#10;    0.6333333333333333&#10;  ],&#10;  &quot;ListAreaOffset&quot;: [&#10;    -5,&#10;    -5,&#10;    10,&#10;    15&#10;  ],&#10;  &quot;ColumnRowPadding&quot;: [&#10;    10,&#10;    10,&#10;    5,&#10;    10&#10;  ],&#10;  &quot;SearchBarBounds&quot;: [&#10;    0,&#10;    0,&#10;    0,&#10;    0&#10;  ],&#10;  &quot;MoreButtonBounds&quot;: [&#10;    0,&#10;    5,&#10;    25,&#10;    23&#10;  ],&#10;  &quot;SaveButtonBounds&quot;: [&#10;    50,&#10;    5,&#10;    300,&#10;    23&#10;  ],&#10;  &quot;FavoriteButtonBounds&quot;: []&#10;}"
-                   Font="space" parentComponent="display_presetBrowser" itemColour3="4278190080"/>
+                   width="520.0" height="260.0" ContentType="PresetBrowser" bgColour="0"
+                   itemColour="2745793403" itemColour2="0" Data="{&#10;  &quot;ShowSaveButton&quot;: true,&#10;  &quot;ShowExpansionsAsColumn&quot;: false,&#10;  &quot;ShowFolderButton&quot;: true,&#10;  &quot;ShowNotes&quot;: false,&#10;  &quot;ShowEditButtons&quot;: true,&#10;  &quot;EditButtonOffset&quot;: 2,&#10;  &quot;ShowAddButton&quot;: true,&#10;  &quot;ShowRenameButton&quot;: true,&#10;  &quot;ShowDeleteButton&quot;: true,&#10;  &quot;ShowFavoriteIcon&quot;: false,&#10;  &quot;ButtonsInsideBorder&quot;: false,&#10;  &quot;NumColumns&quot;: 2,&#10;  &quot;ColumnWidthRatio&quot;: [&#10;    0.3333333333333333,&#10;    0.6333333333333333&#10;  ],&#10;  &quot;ListAreaOffset&quot;: [&#10;    -5,&#10;    -5,&#10;    10,&#10;    15&#10;  ],&#10;  &quot;ColumnRowPadding&quot;: [&#10;    10,&#10;    10,&#10;    5,&#10;    10&#10;  ],&#10;  &quot;SearchBarBounds&quot;: [&#10;    0,&#10;    0,&#10;    0,&#10;    0&#10;  ],&#10;  &quot;MoreButtonBounds&quot;: [&#10;    0,&#10;    5,&#10;    25,&#10;    23&#10;  ],&#10;  &quot;SaveButtonBounds&quot;: [&#10;    50,&#10;    5,&#10;    300,&#10;    23&#10;  ],&#10;  &quot;FavoriteButtonBounds&quot;: []&#10;}"
+                   Font="space" parentComponent="display_presetBrowser" textColour="4279172936"/>
         <Component type="ScriptButton" id="displayButton-initPreset" x="133.0" y="3.0"
                    parentComponent="display_presetBrowser" width="110.0" height="23.0"
                    text="INIT" saveInPreset="0" isMomentary="1" enableMidiLearn="0"
@@ -701,8 +715,8 @@
   <Component type="ScriptPanel" id="ZoomPanel" x="1110.0" y="490.0" width="25.0"
              height="20.0" allowCallbacks="Clicks, Hover &amp; Dragging"/>
   <Component type="ScriptPanel" id="animationBackground" x="310.0" y="70.0"
-             width="510.0" height="250.0" itemColour="4278190080" itemColour2="4278190080"
-             textColour="16777215" visible="0">
+             width="510.0" height="250.0" itemColour="0" itemColour2="0" textColour="0"
+             bgColour="0" visible="0">
     <Component type="ScriptPanel" id="tubeAni" x="190.0" y="50.0" width="130.0"
                height="130.0" parentComponent="animationBackground" visible="0"/>
   </Component>

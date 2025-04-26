@@ -32,10 +32,6 @@ namespace Effects {
 		Flanger.setAttribute(Flanger.Mix, value);
 		showTempScreen('flair');
 	
-		FlairAnimation.setShift(value);
-		FlairAnimation.setAmplitude(value);
-		FlairAnimation.AnimationPanel.repaintImmediately();
-		
 		// Main Display Indicator
 		
 		EffectCustomizer.repaintIndicators();
@@ -118,10 +114,6 @@ namespace Effects {
 	inline function onknob_degrade_mixControl(component, value) {
 		Degrade.setAttribute(Degrade.Mix, value);
 		showTempScreen('degrade');
-		
-		DegradeAnimation.setZoom(value);
-		DegradeAnimation.setBorderRadius(value);		
-		DegradeAnimation.AnimationPanel.repaintImmediately();
 		
 		EffectCustomizer.repaintIndicators();
 	};
@@ -227,10 +219,6 @@ namespace Effects {
 			
 			showTempScreen('chorus');
 			
-			ChorusAnimations.setShift(value);
-			ChorusAnimations.setAmplitude(value);
-			ChorusAnimations.AnimationPanel.repaintImmediately();
-			
 			EffectCustomizer.repaintIndicators();
 			EffectCustomizer.repaintTabs();
 		
@@ -319,9 +307,6 @@ namespace Effects {
 		Distortion.setAttribute(Distortion.Mix, value);
 		
 		showTempScreen('distortion');
-		
-		DistortionAnimation.setAlpha(value);
-		DistortionAnimation.setScale(value);
 		
 		EffectCustomizer.repaintIndicators();
 		EffectCustomizer.repaintTabs();

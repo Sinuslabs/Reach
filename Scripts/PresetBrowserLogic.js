@@ -12,6 +12,10 @@ namespace PresetBrowserLogic {
 		}
 		
 	}
+	const var FloatingTile2 = Content.getComponent("FloatingTile2");
+	
+	
+	//FloatingTile2.setLocalLookAndFeel(presetBrowserLaf);
 	
 	const PresetBrowserLaf = Content.createLocalLookAndFeel();
 	PresetBrowserLaf.registerFunction('drawToggleButton', btnLaf);

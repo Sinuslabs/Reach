@@ -110,17 +110,6 @@ namespace UserSettings {
 		UserSettings.saveSettings();
 	};
 	
-	inline function onComboBox1Control(component, value)
-	{
-		if (value == 1.0) {
-			Theme.setTheme('Light');
-		}
-		if (value == 2.0) {
-			Theme.setTheme('Dark');	
-		}
-	};
-	
-	
 	const var button_startupAnimationToggle = Content.getComponent("button_startupAnimationToggle");
 	button_startupAnimationToggle.setLocalLookAndFeel(LAF_displayButton);
 	button_startupAnimationToggle.setControlCallback(onbutton_startupAnimationToggleControl);

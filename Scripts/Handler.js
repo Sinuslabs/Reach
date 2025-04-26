@@ -208,13 +208,29 @@ button_quickTheme.setLocalLookAndFeel(LAF_displayButton);
 button_quickTheme.setControlCallback(onbutton_quickThemeControl);
 inline function onbutton_quickThemeControl(component, value) {
 	if (value) {
+		Console.print('here is the error: ' + Theme.name);
+		Console.print(typeof Theme.name);
 		if (Theme.name == 'Light') {
+			
+			Console.print('set theme: dark');
 			Theme.setTheme('Dark');
-		} else {
-			Theme.setTheme('Light');
+			return;
 		}
-		UserSettings.saveSettings();
+		if (Theme.name == 'Dark') {
+			
+			Console.print('set theme: SuperLight');
+		
+			Theme.setTheme('Super');
+			return;
+		} 
+		if (Theme.name == 'Super') {
+			Console.print('set theme: light');
+			Theme.setTheme('Light');
+			return;
+		}
 	}
+	
+	
 
 };
 

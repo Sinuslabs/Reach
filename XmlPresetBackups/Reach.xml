@@ -10,7 +10,6 @@
           <ChildProcessors/>
           <Content>
             <Control type="ScriptButton" id="onPresetLoad" value="0.0"/>
-            <Control type="ScriptButton" id="button_quickTheme" value="0.0"/>
             <Control type="ScriptSlider" id="knob_gain_knb" value="8.940696716308594e-7"/>
             <Control type="ScriptSlider" id="knob_reverb_space" value="1.0"/>
             <Control type="ScriptSlider" id="knob_reverb_diffusion" value="1.0"/>
@@ -178,9 +177,9 @@
           <RoutingMatrix NumSourceChannels="4" Channel0="-1" Send0="-1" Channel1="-1"
                          Send1="-1" Channel2="2" Send2="-1" Channel3="3" Send3="-1"/>
         </Processor>
-        <Processor Type="CurveEq" ID="postFilter" Bypassed="0" NumFilters="1" Band0="-0.009999807924032211"
-                   Band1="448.0" Band2="1.448042750358582" Band3="1.0" Band4="4.0"
-                   FFTEnabled="1">
+        <Processor Type="CurveEq" ID="postFilter" Bypassed="0" NumFilters="1" Band0="-1.032257199287415"
+                   Band1="12906.287109375" Band2="1.448042750358582" Band3="1.0"
+                   Band4="0.0" FFTEnabled="1">
           <ChildProcessors/>
           <RoutingMatrix NumSourceChannels="4" Channel0="-1" Send0="-1" Channel1="-1"
                          Send1="-1" Channel2="2" Send2="-1" Channel3="3" Send3="-1"/>
@@ -311,6 +310,45 @@
                          Channel2="-1" Send2="-1" Channel3="-1" Send3="-1"/>
         </Processor>
       </ChildProcessors>
+    </Processor>
+    <Processor Type="WaveSynth" ID="Waveform Generator1" Bypassed="0" Gain="0.25"
+               Balance="0.0" VoiceLimit="256.0" KillFadeTime="20.0" IconColour="0"
+               OctaveTranspose1="0.0" SemiTones1="0.0" OctaveTranspose2="0.0"
+               SemiTones2="0.0" Detune1="0.0" Detune2="0.0" WaveForm1="3.0"
+               WaveForm2="3.0" Pan1="0.0" Pan2="0.0" Mix="0.5" EnableSecondOscillator="1.0"
+               PulseWidth1="0.5" PulseWidth2="0.5" HardSync="0.0">
+      <ChildProcessors>
+        <Processor Type="MidiProcessorChain" ID="Midi Processor" Bypassed="0">
+          <ChildProcessors/>
+        </Processor>
+        <Processor Type="ModulatorChain" ID="GainModulation" Bypassed="0" Intensity="1.0">
+          <ChildProcessors>
+            <Processor Type="SimpleEnvelope" ID="DefaultEnvelope1" Bypassed="0" Monophonic="0.0"
+                       Retrigger="1.0" Intensity="1.0" Attack="5.0" Release="10.0" LinearMode="1.0">
+              <ChildProcessors>
+                <Processor Type="ModulatorChain" ID="Attack Time Modulation" Bypassed="0"
+                           Intensity="1.0">
+                  <ChildProcessors/>
+                </Processor>
+              </ChildProcessors>
+            </Processor>
+          </ChildProcessors>
+        </Processor>
+        <Processor Type="ModulatorChain" ID="PitchModulation" Bypassed="0" Intensity="0.0">
+          <ChildProcessors/>
+        </Processor>
+        <Processor Type="EffectChain" ID="FX" Bypassed="0">
+          <ChildProcessors/>
+        </Processor>
+        <Processor Type="ModulatorChain" ID="Mix Modulation" Bypassed="0" Intensity="1.0">
+          <ChildProcessors/>
+        </Processor>
+        <Processor Type="ModulatorChain" ID="Osc2 Pitch Modulation" Bypassed="0"
+                   Intensity="0.0">
+          <ChildProcessors/>
+        </Processor>
+      </ChildProcessors>
+      <RoutingMatrix NumSourceChannels="2" Channel0="0" Send0="-1" Channel1="1" Send1="-1"/>
     </Processor>
   </ChildProcessors>
   <RoutingMatrix NumSourceChannels="4" Channel0="0" Send0="-1" Channel1="1" Send1="-1"
