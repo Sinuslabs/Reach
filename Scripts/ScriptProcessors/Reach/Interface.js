@@ -49,17 +49,12 @@ Globals.screenLock = true;
 // Loading Settings
 if (settingsExist()) {
 	UserSettings.loadSettings();
-	if (UserSettings.startupAnimation) {
-		SplashAnimation.init();
-	} else {
-		SplashAnimation.tubeAniPanel.set('visible', false);
-		SplashAnimation.animationBackground.set('visible', false);
-	}
+	SplashAnimation.tubeAniPanel.set('visible', false);
+	SplashAnimation.animationBackground.set('visible', false);
 } else {
 	Settings.setZoomLevel(0.81);
 	comboBox_zoom.setValue(6.0);
 	Theme.setTheme('Light');
-	SplashAnimation.init();
 }
 
 reg i;
@@ -67,7 +62,7 @@ reg j;
 
 // Activation Label
 //const var button_not_activated = Content.getComponent("button_not_activated");
-const var label_thank_you = Content.getComponent("label_thank_you");
+const var label_thank_you = Content.getComponent("themeAble_label_thank_you");
 
 // Check License
 getActivationStatus();

@@ -120,16 +120,7 @@ namespace FFTVisual {
 	
 	
 	
-	var aniDelay = 1100;
-	if (UserSettings.enableAnimations) {
-		aniDelay = 1100;
-		
-		if (Theme.name == 'Super') {
-			aniDelay = 1;
-		}
-	} else {
-		aniDelay = 1;
-	}
+	var aniDelay = 1;
 	Content.callAfterDelay(aniDelay, function() {
 		Panel1.startTimer(timerAmount);	
 	}, {});

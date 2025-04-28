@@ -114,7 +114,7 @@
         </Processor>
         <Processor Type="SlotFX" ID="Effect Slot1" Bypassed="0">
           <ChildProcessors>
-            <Processor Type="Hardcoded Master FX" ID="Effect Slot3_Hardcoded Master FX"
+            <Processor Type="Hardcoded Master FX" ID="Effect Slot1_Hardcoded Master FX"
                        Bypassed="0" Network="Reverb" Damping="0.2899999916553497" Diffusion="1.0"
                        HFGain="1.0" HighCrossover="3392.0" LFGain="0.75" LowCrossover="377.0"
                        MidGain="0.6299999952316284" ModDepth="0.239999994635582" ModFrequency="0.3100000023841858"
@@ -143,7 +143,7 @@
         </Processor>
         <Processor Type="SlotFX" ID="Effect Slot3" Bypassed="0">
           <ChildProcessors>
-            <Processor Type="Hardcoded Master FX" ID="Effect Slot1_Hardcoded Master FX"
+            <Processor Type="Hardcoded Master FX" ID="Effect Slot3_Hardcoded Master FX"
                        Bypassed="0" Network="Degrade" Degrade="1.0" Mix="0.0" HighCut="16418.0"
                        LowCut="22.0" ModulationDepth="0.0" ModulationSpeed="0.0" Amount="5.0"
                        CrushMode="0.0" BitDepth="6.0" BitcrushMode="0.0">
@@ -286,7 +286,7 @@
           <RoutingMatrix NumSourceChannels="4" Channel0="0" Send0="-1" Channel1="1" Send1="-1"
                          Channel2="-1" Send2="-1" Channel3="-1" Send3="-1"/>
         </Processor>
-        <Processor Type="Analyser" ID="Analyser1" Bypassed="0" BufferSize="4096.0"
+        <Processor Type="Analyser" ID="Analyser1" Bypassed="0" BufferSize="8192.0"
                    PreviewType="4.0">
           <ChildProcessors/>
           <RoutingMatrix NumSourceChannels="4" Channel0="0" Send0="-1" Channel1="1" Send1="-1"

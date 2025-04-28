@@ -30,7 +30,7 @@ namespace UserSettings {
 	serial_error_label.set('text', '');
 	
 	const var displayButton_activateSerial = Content.getComponent("displayButton_activateSerial");
-	const var displayLabel_serialKey = Content.getComponent("displayLabel_serialKey");
+	const var displayLabel_serialKey = Content.getComponent("themeAble_label_displayLabel_serialKey");
 	displayButton_activateSerial.setLocalLookAndFeel(LAF_displayButton);
 	
 	displayLabel_serialKey.set('text', '');
