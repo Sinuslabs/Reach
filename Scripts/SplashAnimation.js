@@ -8,7 +8,6 @@ namespace SplashAnimation {
 	const var tubeAniPanel = Content.getComponent("tubeAni");
 	const var animationBackground = Content.getComponent("animationBackground");
 	const var tubeAniTimer = Engine.createTimerObject();
-
 	
 	inline function init() {
 		// ANIMATION SETUP

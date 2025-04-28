@@ -906,15 +906,12 @@ popMenuLaf.registerFunction("drawComboBox", function(g, obj)
 		a[2] - padding * 2,
 		a[3] - padding * 2
 	];
-	
-    g.setColour(obj.bgColour);
+
     
-    if (obj.hover) {
 	    g.setColour(DisplayTheme.textColour);
-    }
     
     g.drawRoundedRectangle([a[0], a[1], a[2], a[3]], 0.5, 2);
-    g.setColour(Colours.withAlpha(obj.textColour, (obj.enabled && obj.active) ? 1.0 : 0.2));
+    g.setColour(Colours.withAlpha(DisplayTheme.textColour, (obj.enabled && obj.active) ? 1.0 : 0.2));
     g.setFont(Fonts.secondaryFont, 20.0);
    
     g.drawAlignedText(obj.text, [a[0] + 5, a[1], a[2]-10, a[3]], "left");

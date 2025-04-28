@@ -4,6 +4,7 @@ namespace UserSettings {
 	reg startupAnimation = true;
 	reg theme = 'Light';
 	reg wetOnlyGain = false;
+	reg quality = 5;
 	
 	// Logo Click
 	const var logoButton = Content.getComponent('button_logo');
@@ -175,7 +176,7 @@ namespace UserSettings {
 			'animationEnabled': UserSettings.enableAnimations,
 			'startupAnimation': UserSettings.startupAnimation,
 			'theme': UserSettings.theme,
-			'wetOnlyGain': UserSettings.wetOnlyGain,
+			'quality': UserSettings.quality,
 		});
 	}
 	
@@ -183,7 +184,7 @@ namespace UserSettings {
 	function loadSettings() {
 	
 		var savedSettings = settingsFile.loadAsObject();
-		
+		var savedQuality = savedSettings['quality'];
 		var savedTheme = savedSettings['theme'];
 		var zoomSaved = Engine.doubleToString(savedSettings['zoom'], 1);
 		var animationEnabledSaved = savedSettings['animationEnabled'];
@@ -199,6 +200,7 @@ namespace UserSettings {
 		Theme.setTheme(savedTheme);
 		UserSettings.theme = savedTheme;
 		
+		quality = savedQuality;
 		//if (theme == 'Light') {
 		//	comboBox_theme.setValue(1.0);		
 		//}
@@ -211,7 +213,12 @@ namespace UserSettings {
 		// startup animation
 		button_startupAnimationToggle.setValue(!startupAnimationSaved);
 		startupAnimation = startupAnimationSaved;
+		Console.print('restore quality: ' + savedQuality);
 		
+		if (isDefined(savedQuality)) {
+			FFTVisual.AnimationQuality_knb.setValue(savedQuality);
+			FFTVisual.AnimationQuality_knb.changed();			
+		}
 	}
 	
 	// checks if the settings file exist

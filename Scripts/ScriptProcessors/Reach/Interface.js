@@ -83,8 +83,8 @@ MainDisplayTimer.startTimer(20);
 
 inline function showMainOnInit() {
 
-	//showMain();
-	displayShow('presetBrowser');
+	showMain();
+	//displayShow('presetBrowser');
 	Globals.screenLock = false;
 	MainDisplayTimer.stopTimer();
 }

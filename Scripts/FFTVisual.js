@@ -9,14 +9,69 @@ namespace FFTVisual {
 	// Minimum scale factor to prevent paths from becoming invisible
 	const var MIN_SCALE = 0.1;
 	
+	// Colours (Use HISE colour values, e.g., 0xFFRRGGBB or Colours.xxxxx)
+	reg analyserGradTopBase = Colours.lightgrey;          // Base colour for gradient top
+	reg analyserGradBottomBase = Colours.lightblue;         // Base colour for gradient bottom
+	reg analyserOutlineBase = Colours.withAlpha('0x8A999E', 0.1); // Base colour for outline before mixing
+	reg analyserGradMixTargetColour = Colours.lightblue;
+	reg analyserOutlineThickness = 1.0; 
+	reg analyserOutlineMixTargetColour = Colours.red;
+		
+	// Drawing Toggles
+	reg drawAnalyserFill = true;    // Set to false to hide the gradient fill
+	reg drawAnalyserOutline = true; 
+	
 	const var DB = Synth.getDisplayBufferSource("Analyser1");
 	const var buffer = DB.getDisplayBuffer(0);
 	const var Panel1 = Content.getComponent("Panel1");
 	Panel1.setPaintRoutine(drawAnalyser);
 	
+	const theme_LavenderFade = {
+	  "name": "Lavender Fade",
+	  "gradTopBase": "0xFFDEE3FE",      // Light Lavender Blue
+	  "gradBottomBase": "0xFF7D91F9",   // Medium Blue/Purple
+	  "outlineBase": "0xFF7D91F9",      // Semi-transparent darker blue outline
+	  "mixTargetColour": '0xFFDEE3FE',
+  	  "OutlineMixTargetColour": "0xFFBEC8FC",   // Mix towards White  // Mix towards White
+	  "drawFill": true,                 // Fill: Yes
+	  "drawOutline": true,
+	  "outlineThickness": 1.0
+	};
+	
+	loadVisualizerTheme(theme_LavenderFade);
+	inline function loadVisualizerTheme(themeData) {
+		
+		// Load Colours (expects hex strings like "0xFFRRGGBB" or "0xAARRGGBB")
+		    analyserGradTopBase = themeData.gradTopBase;
+		    Console.print("Loaded gradTopBase: " + themeData.gradTopBase); // Debug output
+		
+		    analyserGradBottomBase = themeData.gradBottomBase;
+		    Console.print("Loaded gradBottomBase: " + themeData.gradBottomBase); // Debug output
+		
+		    analyserOutlineBase = themeData.outlineBase;
+		    Console.print("Loaded outlineBase: " + themeData.outlineBase); // Debug output
+		
+		    analyserGradMixTargetColour = themeData.mixTargetColour;
+		    Console.print("Loaded mixTargetColour: " + themeData.mixTargetColour); // Debug output
+		
+		    drawAnalyserFill = themeData.drawFill;
+		    Console.print("Loaded drawFill: " + themeData.drawFill); // Debug output
+		
+		    drawAnalyserOutline = themeData.drawOutline;
+		    Console.print("Loaded drawOutline: " + themeData.drawOutline); // Debug output
+		
+		    analyserOutlineThickness = themeData.outlineThickness;
+		    
+		    analyserOutlineMixTargetColour = themeData.OutlineMixTargetColour;
+		    // Debug output
+		    
+	}
+	
 	const var AnimationQuality_knb = Content.getComponent("AnimationQuality_knb");
 	AnimationQuality_knb.setLocalLookAndFeel(EffectCustomizer.displayKnobLaf);
 	
+	reg timerAmount = 20;
+
 	AnimationQuality_knb.setControlCallback(onQuality);
 	inline function onQuality(component, value) {
 		switch(value) {
@@ -24,39 +79,60 @@ namespace FFTVisual {
 				HISTORY_SIZE = 0.1;
 				Y_OFFSET_STEP = 0;
 				X_OFFSET_STEP = 30;
+				timerAmount = 30;
+				Panel1.startTimer(timerAmount);
+				break;
 			case 1:
 				HISTORY_SIZE = 2;
 				Y_OFFSET_STEP = 0;
 				X_OFFSET_STEP = 35;
+				timerAmount = 25;
+				Panel1.startTimer(timerAmount);
+				break;
 			case 2: 
 				HISTORY_SIZE = 4;
 				Y_OFFSET_STEP = -0.4;
 				X_OFFSET_STEP = 17;
+				timerAmount = 22;
+				Panel1.startTimer(timerAmount);
+				break;
 			case 3:
 				HISTORY_SIZE = 7;
 				Y_OFFSET_STEP = -1;
 				X_OFFSET_STEP = 10;
+				timerAmount = 20;
+				Panel1.startTimer(timerAmount);
+				break;
 			case 4:
 				HISTORY_SIZE = 10;
 				Y_OFFSET_STEP = -2;
 				X_OFFSET_STEP = 8;
+				break;
 			case 5:
 				HISTORY_SIZE = 15;	
 				X_OFFSET_STEP = 6; // Pixels to shift right per step
 				Y_OFFSET_STEP = -3;
 				break;
 		}
+		UserSettings.quality = value;
+		UserSettings.saveSettings();
 	}
 	
+	
+	
 	var aniDelay = 1100;
-//	if (UserSettings.enableAnimations) {
-//		aniDelay = 1100;
-//	} else {
-//		aniDelay = 1;
-//	}
-//	Content.callAfterDelay(aniDelay, function() {
-		Panel1.startTimer(20);	
-//	}, {});
+	if (UserSettings.enableAnimations) {
+		aniDelay = 1100;
+		
+		if (Theme.name == 'Super') {
+			aniDelay = 1;
+		}
+	} else {
+		aniDelay = 1;
+	}
+	Content.callAfterDelay(aniDelay, function() {
+		Panel1.startTimer(timerAmount);	
+	}, {});
 	
 	
 	Panel1.setTimerCallback(function()
@@ -96,13 +172,11 @@ namespace FFTVisual {
 	    }
 	}
 	
+
 	inline function drawAnalyser(g)
-	
 	{
 	    // Get the full drawing area bounds ONCE
-	    // Using getLocalBounds(0) usually gets the component bounds.
-	    // Using getLocalBounds(10) might add padding - ensure this is intended.
-	    local baseBounds = this.getLocalBounds(10); // Changed back to 0, adjust if 10 is needed
+	    local baseBounds = this.getLocalBounds(10); // Using 10 as in original, adjust if 0 is correct
 	    local baseW = baseBounds[2]; // Width
 	    local baseH = baseBounds[3]; // Height
 	    local baseX = baseBounds[0]; // X position
@@ -110,82 +184,106 @@ namespace FFTVisual {
 	    local baseCx = baseX + baseW / 2.0; // Center X
 	    local baseCy = baseY + baseH / 2.0; // Center Y
 	
+	    // Check if fftHistory is valid and has items
+	    if (typeof fftHistory == 'undefined' || !fftHistory.length)
+	        return; // Nothing to draw
+	
 	    local historyCount = fftHistory.length;
 	
-	    // Define base colours (using local as preferred in inline functions)
-	    local strokeColourBase = Colours.lightblue; // Can be different if needed
-		local gradColourTop = Colours.lightgrey;
-		gradColourTop = Colours.mix(Colours.lightblue, gradColourTop, 1 - Reverb.knob_reverb_mix.getValue());
-		   // Choose a bottom colour - darkblue provides good contrast
-	   local gradColourBottom = Colours.lightblue;
-		gradColourBottom = Colours.mix('0x7D91F9', gradColourBottom, 1 - Reverb.knob_reverb_mix.getValue());
-	    // Iterate backwards through the history (oldest path first)
+	    // --- Get Mix Value ---
+	    // Get the mix value (e.g., from a knob)
+	    // Default to 0 if knob doesn't exist to prevent errors
+	    local reverbMixValue = 0.0;
+	    // ** IMPORTANT: Ensure 'Reverb.knob_reverb_mix' exists in your project **
+	    // ** or replace this with your actual control variable **
+        reverbMixValue = Reverb.knob_reverb_mix.getValue();
+	        // Optional: Print a warning if the knob isn't found
+	        // Console.print("Warning: Reverb.knob_reverb_mix not found. Mix set to 0.");
+	
+	    // --- Calculate Frame Base Colours (Mixed based on knob) ---
+	    // Mixes Base towards Target, Amount controlled by reverbMixValue (0=Base, 1=Target)
+	    // ** MODIFIED: Uses separate targets for gradient and outline **
+	    local frameGradTop = Colours.mix(analyserGradMixTargetColour, analyserGradTopBase, reverbMixValue);
+	    local frameGradBottom = Colours.mix(analyserGradMixTargetColour, analyserGradBottomBase, reverbMixValue);
+	    local frameOutline = Colours.mix(analyserOutlineMixTargetColour, analyserOutlineBase, reverbMixValue); // Uses separate outline target
+	
+	
+	    // --- Iterate through Path History ---
+	    // Iterate backwards through the history (oldest path first for drawing order)
 	    for (i = historyCount - 1; i >= 0; i--)
 	    {
 	        local path = fftHistory[i]; // Get the original path
 	
-	        // Calculate the 'age' factor (0 = newest, almost 1 = oldest)
-	        local ageFactor = i / HISTORY_SIZE; // Make sure HISTORY_SIZE is defined globally
-	
 	        // --- Calculate Visual Properties based on Age ---
+	         // Prevent division by zero if HISTORY_SIZE is 0 or less (e.g., from Quality knob)
+	        local ageFactor = Math.min(1.0, i / Math.max(1, HISTORY_SIZE));
 	
-	        // 1. Alpha: Decays from 1.0 (newest) down towards MIN_ALPHA (oldest)
-	        // Make sure MIN_ALPHA is defined globally (e.g., 0.1)
+	        // 1. Alpha (Fade out older paths)
 	        local alpha = 1.0 - ageFactor * (1.0 - MIN_ALPHA);
-	        alpha = Math.max(MIN_ALPHA, alpha);
+	        alpha = Math.max(MIN_ALPHA, alpha); // Clamp to minimum alpha
+	         // Ensure newest path is visible if history size is effectively zero
+	         if (HISTORY_SIZE <= 0) alpha = 1.0;
 	
-	        // 2. Scale: Decays from 1.0 down towards MIN_SCALE
-	        // Make sure SCALE_REDUCTION and MIN_SCALE are defined globally
+	        // 2. Scale (Shrink older paths)
 	        local scaleFactor = 1.0 - ageFactor * SCALE_REDUCTION;
-	        scaleFactor = Math.max(MIN_SCALE, scaleFactor);
+	        scaleFactor = Math.max(MIN_SCALE, scaleFactor); // Clamp to minimum scale
 	
-	        // 3. Offset: Increases for older paths
-	        // Make sure X_OFFSET_STEP and Y_OFFSET_STEP are defined globally
+	        // 3. Offset (Shift older paths)
 	        local offsetX = i * X_OFFSET_STEP;
 	        local offsetY = i * Y_OFFSET_STEP;
 	
-	        // --- Calculate the new drawing bounds ---
+	        // --- Calculate the new drawing bounds for this specific path ---
 	        local newW = baseW * scaleFactor;
 	        local newH = baseH * scaleFactor;
 	        local newX = baseCx - (newW / 2.0) + offsetX;
 	        local newY = baseCy - (newH / 2.0) + offsetY;
+	        // Keep the original width adjustment, ensure it's intended
 	        local drawBounds = [newX, newY, newW - 50, newH]; // [x, y, width, height]
 	
-              // --- Setup Gradient Fill Data ---
-      
-              // Apply the calculated alpha to BOTH gradient colours
-              local currentTopColour = Colours.withAlpha(gradColourTop, alpha * 0.95);
-              // Apply alpha to bottom. You can add a multiplier for faster fade if desired (e.g., alpha * 0.8)
-              local currentBottomColour = Colours.withAlpha(gradColourBottom, alpha * 0.95);
-      
-              // Define gradient start and end points for a vertical gradient
-              local gradStartX = newX;        // Start X (at left edge of bounds)
-              local gradStartY = newY + 40;        // Start Y (at top edge of bounds)
-              local gradEndX = newX;          // End X (same as start X for vertical)
-              local gradEndY = newY + newH;   // End Y (at bottom edge of bounds)
-      
-              // Create the gradient data array
-              local gradientData = [
-                  currentTopColour, gradStartX, gradStartY,
-                  currentBottomColour, gradEndX, gradEndY,
-                  false // Linear gradient
-              ];
-      
-              g.setGradientFill(gradientData);
-                         
-      		g.fillPath(path, drawBounds);
-      		g.setColour(Colours.mix(
-      		Colours.withAlpha('0x8A999E', 0.1),
-      		Colours.lightblue,
-      		Reverb.knob_reverb_mix.getValue()));
-		g.drawPath(path, drawBounds, 1);
-	    } // End of loop
-
-			    
-	  	g.addNoise({
- 	  	     alpha: 0.02,
-      			monochromatic: true
-	  	});
+	        // --- Draw Fill (Conditionally) ---
+	        if (drawAnalyserFill)
+	        {
+	            // Apply the calculated age alpha to the frame's base gradient colours
+	            local currentTopColour = Colours.withAlpha(frameGradTop, alpha * 0.95); // Slight reduction as before
+	            local currentBottomColour = Colours.withAlpha(frameGradBottom, alpha * 0.95);
+	
+	            // Define gradient start and end points using the calculated bounds
+	            local gradStartX = newX;
+	            local gradStartY = newY + 40; // Keep original vertical offset for gradient start
+	            local gradEndX = newX;        // Same X for vertical gradient
+	            local gradEndY = newY + newH; // Bottom edge of bounds
+	
+	            // Create the gradient data array
+	            local gradientData = [
+	                currentTopColour, gradStartX, gradStartY,
+	                currentBottomColour, gradEndX, gradEndY,
+	                false // Linear gradient
+	            ];
+	
+	            // Draw Fill
+	            g.setGradientFill(gradientData);
+	            g.fillPath(path, drawBounds);
+	        }
+	
+	        // --- Draw Outline (Conditionally) ---
+	        if (drawAnalyserOutline)
+	        {
+	            // Apply the calculated age alpha to the frame's base outline colour
+	            local currentOutlineColour = Colours.withAlpha(frameOutline, alpha);
+	
+	            // Draw Outline
+	            g.setColour(currentOutlineColour);
+	            // Use the external variable for thickness
+	            g.drawPath(path, drawBounds, analyserOutlineThickness);
+	        }
+	    } // End of path loop
+	
+	    // --- Add Noise Effect ---
+	    // Add noise effect at the end (applied over all drawn paths)
+	    g.addNoise({
+	        alpha: 0.02, // Keep original noise settings
+	        monochromatic: true
+	    });
 	}
 
 }

@@ -104,13 +104,13 @@ const SUPER_LIGHT_THEME = {
 		BUTTON_SELECTED_TEXT_COLOUR: '0xF8FBFC',
 		TEXT_COLOUR: '0x060606',
 		HOVER_OPACITY: 'CC',
-		SELECTED_ICON_COLOUR: '0xF8FBFC',
+		SELECTED_ICON_COLOUR: '0x060606',
 		ICON_COLOUR: '0x060606',
 		NOT_ACTIVATED_COLOUR: '0xFF0000',
 		SELECTED_TAB_COLOUR: '0xF8FBFC',
-		TAB_COLOUR: '0x32364C',
+		TAB_COLOUR: '0xA7B9BE',
 		SELECTED_TAB_TEXT_COLOUR: '0x060606',
-		TAB_TEXT_COLOUR: '0xC5C5C5',
+		TAB_TEXT_COLOUR: '0x060606',
 		BACKGROUND: '0xD2E4EA'
 	},
 	HEADER: {
@@ -171,7 +171,7 @@ const DARK_THEME = {
 		ICON_COLOUR: '0xAAAAAA',
 		NOT_ACTIVATED_COLOUR: '0xFF0000',
 		SELECTED_TAB_COLOUR: '0xF8FBFC',
-		TAB_COLOUR: '0x32364C',
+		TAB_COLOUR: '0x31364D',
 		SELECTED_TAB_TEXT_COLOUR: '0x060606',
 		TAB_TEXT_COLOUR: '0xC5C5C5',
 		BACKGROUND: '0x060606'
@@ -198,15 +198,21 @@ namespace Theme {
 		if(themeName == 'Light') {
 			theme = LIGHT_THEME;
 			UserSettings.theme = 'Light';
+			EffectCustomizer.fxColours['Chorus'] = '0x7AE7C7';
+			EffectCustomizer.fxColours['Degrade'] = '0xF4F4F4';
 		}
 		if (themeName == 'Dark') {
 			theme = DARK_THEME;
 			UserSettings.theme = 'Dark';
+			EffectCustomizer.fxColours['Chorus'] = '0x7AE7C7';
+			EffectCustomizer.fxColours['Degrade'] = '0xF4F4F4';
 		}
 		
 		if (themeName == 'Super') {
 			theme = SUPER_LIGHT_THEME;
 			UserSettings.theme = 'Super';
+			EffectCustomizer.fxColours['Chorus'] = '0x2DD4BF';
+			EffectCustomizer.fxColours['Degrade'] = '0x8A999E';
 		}
 		
 		name = theme.name;
@@ -216,6 +222,9 @@ namespace Theme {
 		SliderTheme.load(theme['SLIDER']);
 		ButtonTheme.load(theme['BUTTON']);
 		DisplayTheme.load(theme['DISPLAY']);
+		
+		EffectCustomizer.repaintIndicators();
+		EffectCustomizer.repaintTabs();
 		
 		repaintAllPanels();
 		themeLabels();

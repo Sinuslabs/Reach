@@ -42,7 +42,7 @@ namespace PresetBrowserLogic {
 		g.setColour(ICON_COLOUR);
 		
 		g.drawRoundedRectangle(pa, 2, 1);
-		g.setFont(Fonts.secondaryFont, 20.0);
+		g.setFont(Fonts.mainFontRegular, 20.0);
 		g.drawAlignedText(obj.text, pa, 'centred');
 	}
 	
