@@ -12,6 +12,10 @@ namespace PresetBrowserLogic {
 		}
 		
 	}
+	const var FloatingTile2 = Content.getComponent("FloatingTile2");
+	
+	
+	//FloatingTile2.setLocalLookAndFeel(presetBrowserLaf);
 	
 	const PresetBrowserLaf = Content.createLocalLookAndFeel();
 	PresetBrowserLaf.registerFunction('drawToggleButton', btnLaf);
@@ -38,7 +42,7 @@ namespace PresetBrowserLogic {
 		g.setColour(ICON_COLOUR);
 		
 		g.drawRoundedRectangle(pa, 2, 1);
-		g.setFont(Fonts.secondaryFont, 20.0);
+		g.setFont(Fonts.mainFontRegular, 20.0);
 		g.drawAlignedText(obj.text, pa, 'centred');
 	}
 	

@@ -319,12 +319,12 @@ namespace EffectCustomizer {
 		local SELECTED_TAB_COLOUR = getEffectColour(text);
 		local SELECTED_TAB_TEXT_COLOUR = DisplayTheme.selectedTabTextColour;
 		local TAB_TEXT_COLOUR = DisplayTheme.tabTextColour;
-		local TAB_COLOUR = '0x32364C';
+		local TAB_COLOUR = DisplayTheme.tabColour;
 		
 		value ? g.setColour(SELECTED_TAB_COLOUR) : g.setColour(TAB_COLOUR);
 		
 		if (!value) {
-			if (bypassed) g.setColour('0x0x7f7f7f');			
+			if (bypassed) g.setColour('0x7f7f7f');			
 		}
 		
 		g.fillRoundedRectangle(a, 2);
@@ -462,26 +462,26 @@ namespace EffectCustomizer {
 		g.drawAlignedText(text.toUpperCase(), upperA, 'left');
 	}
 	
+	var fxColours = {
+		'Reverb':'0x1E7DFF',
+		'Degrade':'0xF4F4F4',
+		'Flanger':'0x60ABE5',
+		'Chorus':'0x7AE7C7',
+		'Distort':'0xEB3B4B',
+		'Reverb MIX':'0x1E7DFF',
+		'IO MIX':'0xD22B2B'
+		
+	};
+	
 	inline function getEffectColour(effectName) {
-		switch(effectName) {
-			case 'Reverb':
-				return '0x1E7DFF';
-			case 'Degrade': 
-				return '0xF4F4F4';
-			case 'Flanger':
-				return '0x60ABE5';
-			case 'Chorus':
-				return '0x7AE7C7';
-			case 'Distort':
-				return '0xEB3B4B';
-			case 'Reverb MIX':
-				return '0x1E7DFF';
-			case 'IO MIX':
-				return '0xD22B2B';
-			default:
-				return Colours.black
-				break;	
+		local c = fxColours[effectName];
+		if (isDefined(c)) {
+			
+			return c;
+		} else {
+			return undefined;
 		}
+	
 	}
 	
 	inline function getEffectBypass(effectName) {

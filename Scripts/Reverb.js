@@ -102,48 +102,30 @@ namespace Reverb {
 		
 		showTempScreen('reverb');
 		
-		ReverbAnimation.setRings(value);
-		ReverbAnimation.AnimationPanel.repaintImmediately();
 	};
 	
 	inline function diffusionControl(component, value) {
 		JPVerb.setAttribute(JPVerb.Diffusion, value);
 		showTempScreen('reverb');
 		
-		ReverbAnimation.setoutterThickness(value);
-		ReverbAnimation.AnimationPanel.repaintImmediately();
 	};
 	
 	inline function dampingControl(component, value) {
 		JPVerb.setAttribute(JPVerb.Damping, value);
-		showTempScreen('reverb');
-		
-		ReverbAnimation.setRectThickness(value);
-		ReverbAnimation.AnimationPanel.repaintImmediately();
 	};
 	
 	inline function timeControl(component, value) {
 		JPVerb.setAttribute(JPVerb.ReverbTime, value);
-		showTempScreen('reverb');
 		
 		if (value < 1) {
 			component.set('stepSize', 0.001);
 		} else {
 			component.set('stepSize', 0.01);
 		}
-		
-		ReverbAnimation.setZoom(component.getValueNormalized());
-		ReverbAnimation.AnimationPanel.repaintImmediately();
 	};
 	
 	inline function onknob_reverb_mixControl(component, value) {
 		JPVerb.setAttribute(JPVerb.Mix, value);
-		
-		showTempScreen('reverb');
-	
-		ReverbAnimation.setOpacity(value);
-		ReverbAnimation.AnimationPanel.repaintImmediately();
-		
 		EffectCustomizer.repaintIndicators();
 	};
 	
@@ -151,20 +133,12 @@ namespace Reverb {
 	
 	inline function depthControl(component, value) {
 		JPVerb.setAttribute(JPVerb.ModDepth, value);
-		
-		showTempScreen('reverb');
-		
-		ReverbAnimation.setAmplitude(value);
-		ReverbAnimation.AnimationPanel.repaintImmediately();
 	};
 	
 	inline function frequencyControl(component, value) {
 		JPVerb.setAttribute(JPVerb.ModFrequency, value);
 		
 		showTempScreen('reverb');
-		
-		ReverbAnimation.setSpeed(component.getValueNormalized());
-		ReverbAnimation.AnimationPanel.repaintImmediately();
 	};
 	
 	// Cleanup Callbacks

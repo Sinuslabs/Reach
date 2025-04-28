@@ -48,7 +48,8 @@ const LIGHT_THEME = {
 		SELECTED_TAB_COLOUR: '0xF8FBFC',
 		TAB_COLOUR: '0x32364C',
 		SELECTED_TAB_TEXT_COLOUR: '0x060606',
-		TAB_TEXT_COLOUR: '0xC5C5C5'
+		TAB_TEXT_COLOUR: '0xC5C5C5',
+		BACKGROUND: '0x060606'
 	},
 	HEADER: {
 		SELECTED_ICON_COLOUR: '0xA3A3A3',
@@ -58,6 +59,69 @@ const LIGHT_THEME = {
 		HOVER_OPACITY: 'CC'
 	}
 };
+
+const SUPER_LIGHT_THEME = {
+	name: 'Super',
+	FONT: {
+		MAIN: 'inter-semi',
+		REGULAR_MAIN: 'inter-reg',
+		SECONDARY: 'jetbrains-mono'
+	},
+	SLIDER: {
+		ARC_COLOUR: '0x060606',
+		INDICATOR_COLOUR: '0x6b6b6b',
+		UPPER_GRADIENT_COLOUR: '0xF6F6F6',
+		LOWER_GRADIENT_COLOUR: '0xEAEAEA',
+		BORDER_COLOUR: '0xD5D5D5',
+		SHADOW_COLOUR: '0x3e3234',
+		RED_COLOUR: '0xFF0000',
+		BLUE_COLOUR: '0x0023FF',
+		TEXT_COLOUR: '0x6B6B6B'
+	},
+	PANEL: {
+		UPPER_GRADIENT_COLOUR: '0xD4D4DB',
+		LOWER_GRADIENT_COLOUR: '0xD1D1DA',
+		MAIN_UPPER_GRADIENT_COLOUR: '0xBDC2CD',
+		MAIN_LOWER_GRADIENT_COLOUR: '0xBCC0C9',
+		BORDER_COLOUR: '0xA5A5A5',
+		SELECTED_ICON_COLOUR: '0x6B6B6B',
+		ICON_COLOUR: '0xA3A3A3',
+		HOVER_OPACITY: 'CC',
+		TEXT_COLOUR: 4285229931
+	},					
+	BUTTON: {
+			UPPER_GRADIENT_COLOUR: '0xF6F6F6',
+			LOWER_GRADIENT_COLOUR: '0xEAEAEA',
+			BACKGROUND_HOVER_COLOUR: '0xF5F5F5',
+			BORDER_COLOUR: '0xA5A5A5',
+			SHADOW_COLOUR: '0x3e3234',
+			ICON_COLOUR: '0x6b6b6b',
+	},
+	DISPLAY: {
+		BUTTON_BACKGROUND_COLOUR: '0xD2E4EA',
+		BUTTON_SELECTED_BACKGROUND_COLOUR: '0x060606',
+		BUTTON_TEXT_COLOUR: '0xF8FBFC',
+		BUTTON_SELECTED_TEXT_COLOUR: '0xF8FBFC',
+		TEXT_COLOUR: '0x060606',
+		HOVER_OPACITY: 'CC',
+		SELECTED_ICON_COLOUR: '0x060606',
+		ICON_COLOUR: '0x060606',
+		NOT_ACTIVATED_COLOUR: '0xFF0000',
+		SELECTED_TAB_COLOUR: '0xF8FBFC',
+		TAB_COLOUR: '0xA7B9BE',
+		SELECTED_TAB_TEXT_COLOUR: '0x060606',
+		TAB_TEXT_COLOUR: '0x060606',
+		BACKGROUND: '0xD2E4EA'
+	},
+	HEADER: {
+		SELECTED_ICON_COLOUR: '0xA3A3A3',
+		ICON_COLOUR: '0x6B6B6B',
+		SELECTED_TEXT_COLOUR: '0xA3A3A3',
+		TEXT_COLOUR: '0x6B6B6B',
+		HOVER_OPACITY: 'CC'
+	}
+};
+
 
 const DARK_THEME = {
 	name: 'Dark',
@@ -107,9 +171,10 @@ const DARK_THEME = {
 		ICON_COLOUR: '0xAAAAAA',
 		NOT_ACTIVATED_COLOUR: '0xFF0000',
 		SELECTED_TAB_COLOUR: '0xF8FBFC',
-		TAB_COLOUR: '0x32364C',
+		TAB_COLOUR: '0x31364D',
 		SELECTED_TAB_TEXT_COLOUR: '0x060606',
-		TAB_TEXT_COLOUR: '0xC5C5C5'
+		TAB_TEXT_COLOUR: '0xC5C5C5',
+		BACKGROUND: '0x060606'
 	},
 	HEADER: {
 		SELECTED_ICON_COLOUR: '0xA3A3A3',
@@ -120,6 +185,8 @@ const DARK_THEME = {
 	}
 };
 
+const var PresetBrowser = Content.getComponent("FloatingTile2");
+
 namespace Theme {
 	reg name = '';
 
@@ -127,17 +194,28 @@ namespace Theme {
 	reg theme = {};
 	
 	inline function setTheme(themeName) {
+		Console.print('I want to set themeName ' + themeName);
 		if(themeName == 'Light') {
 			theme = LIGHT_THEME;
 			UserSettings.theme = 'Light';
+			EffectCustomizer.fxColours['Chorus'] = '0x7AE7C7';
+			EffectCustomizer.fxColours['Degrade'] = '0xF4F4F4';
 		}
 		if (themeName == 'Dark') {
 			theme = DARK_THEME;
 			UserSettings.theme = 'Dark';
+			EffectCustomizer.fxColours['Chorus'] = '0x7AE7C7';
+			EffectCustomizer.fxColours['Degrade'] = '0xF4F4F4';
+		}
+		
+		if (themeName == 'Super') {
+			theme = SUPER_LIGHT_THEME;
+			UserSettings.theme = 'Super';
+			EffectCustomizer.fxColours['Chorus'] = '0x2DD4BF';
+			EffectCustomizer.fxColours['Degrade'] = '0x8A999E';
 		}
 		
 		name = theme.name;
-		
 		Fonts.load(theme['FONT']);
 		PanelTheme.load(theme['PANEL']);
 		HeaderTheme.load(theme['HEADER']);
@@ -145,8 +223,13 @@ namespace Theme {
 		ButtonTheme.load(theme['BUTTON']);
 		DisplayTheme.load(theme['DISPLAY']);
 		
+		EffectCustomizer.repaintIndicators();
+		EffectCustomizer.repaintTabs();
+		
 		repaintAllPanels();
 		themeLabels();
+		
+		UserSettings.saveSettings();
 		
 	}
 }
@@ -263,6 +346,7 @@ namespace DisplayTheme {
 	reg tabColour = '';
 	reg selectedTabTextColour = '';
 	reg tabTextColour = '';
+	reg backgroundColour = '';
 	
 	inline function load(theme) {
 		buttonSelectedBackgroundColour = theme['BUTTON_SELECTED_BACKGROUND_COLOUR'];
@@ -278,5 +362,6 @@ namespace DisplayTheme {
 		tabColour = theme['TAB_COLOUR'];
 		selectedTabTextColour = theme['SELECTED_TAB_TEXT_COLOUR'];
 		tabTextColour = theme['TAB_TEXT_COLOUR'];
+		backgroundColour = theme['BACKGROUND'];
 	}
 }

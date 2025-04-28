@@ -17,6 +17,8 @@ function displayDisableAll() {
 	}
 }
 
+
+
 inline function showMain() {
 	disableStates();
 	
@@ -49,6 +51,11 @@ function disableStates() {
 	
 }
 
+
+const var button_fx = Content.getComponent("button_fx");
+
+
+
 function displayShow(route) {
 	displayDisableAll();	
 	disableStates();
@@ -56,27 +63,33 @@ function displayShow(route) {
 	switch(route) {
 		case 'settings':
 			Globals.settingsOpen = true;
+			Filter.button_filter.set('visible', false);
+			button_fx.set('visible', false);
 			logoButton.setValue(1);
 			break;
 		case 'presetBrowser':
 			Globals.presetBrowserOpen = true;
 			presetBrowserButton.setValue(1);
+			button_fx.set('visible', false);
+			Filter.button_filter.set('visible', false);
 			break;
 		case 'effects':
 			Globals.effectsOpen = true;
 			EffectCustomizer.button_fx.setValue(1);
-			
 			Filter.button_filter.set('visible', false);
+			button_fx.set('visible', true);
 			break;
 		case 'filter':
 			Globals.filterOpen = true;
 			Filter.button_filter.setValue(1);
-			
+			button_fx.set('visible', true);
 			EffectCustomizer.button_fx.set('visible', false);
 			break;
 		case 'about':
 			Globals.aboutOpen = true;
 			button_title.setValue(1);
+			button_fx.set('visible', false);
+			Filter.button_filter.set('visible', false);
 			break;
 		case 'default':
 			break;

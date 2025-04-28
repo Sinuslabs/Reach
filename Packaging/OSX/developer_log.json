@@ -1,0 +1,77 @@
+{
+  "logFormatVersion": 1,
+  "jobId": "7dc9571a-25f5-4d50-89d4-43e5db2fda01",
+  "status": "Invalid",
+  "statusSummary": "Archive contains critical validation errors",
+  "statusCode": 4000,
+  "archiveFilename": "Reach_signed.pkg",
+  "uploadDate": "2025-04-14T16:36:30.961Z",
+  "sha256": "0921ba72a1529622c7cbaa6b9e5ef0b0c1dea556a97e8157dbcb6f07470e8116",
+  "ticketContents": null,
+  "issues": [
+    {
+      "severity": "error",
+      "code": null,
+      "path": "Reach_signed.pkg/Reach_VST3.pkg Contents/Payload/Library/Audio/Plug-Ins/VST3/Reach.vst3/Contents/MacOS/Reach",
+      "message": "The binary is not signed.",
+      "docUrl": "https://developer.apple.com/documentation/security/notarizing_macos_software_before_distribution/resolving_common_notarization_issues#3087721",
+      "architecture": "x86_64"
+    },
+    {
+      "severity": "error",
+      "code": null,
+      "path": "Reach_signed.pkg/Reach_VST3.pkg Contents/Payload/Library/Audio/Plug-Ins/VST3/Reach.vst3/Contents/MacOS/Reach",
+      "message": "The signature does not include a secure timestamp.",
+      "docUrl": "https://developer.apple.com/documentation/security/notarizing_macos_software_before_distribution/resolving_common_notarization_issues#3087733",
+      "architecture": "x86_64"
+    },
+    {
+      "severity": "error",
+      "code": null,
+      "path": "Reach_signed.pkg/Reach_VST3.pkg Contents/Payload/Library/Audio/Plug-Ins/VST3/Reach.vst3/Contents/MacOS/Reach",
+      "message": "The signature of the binary is invalid.",
+      "docUrl": "https://developer.apple.com/documentation/security/notarizing_macos_software_before_distribution/resolving_common_notarization_issues#3087735",
+      "architecture": "arm64"
+    },
+    {
+      "severity": "error",
+      "code": null,
+      "path": "Reach_signed.pkg/Reach_VST3.pkg Contents/Payload/Library/Audio/Plug-Ins/VST3/Reach.vst3/Contents/MacOS/Reach",
+      "message": "The signature does not include a secure timestamp.",
+      "docUrl": "https://developer.apple.com/documentation/security/notarizing_macos_software_before_distribution/resolving_common_notarization_issues#3087733",
+      "architecture": "arm64"
+    },
+    {
+      "severity": "error",
+      "code": null,
+      "path": "Reach_signed.pkg/Reach_AU.pkg Contents/Payload/Library/Audio/Plug-Ins/Components/Reach.component/Contents/MacOS/Reach",
+      "message": "The binary is not signed.",
+      "docUrl": "https://developer.apple.com/documentation/security/notarizing_macos_software_before_distribution/resolving_common_notarization_issues#3087721",
+      "architecture": "x86_64"
+    },
+    {
+      "severity": "error",
+      "code": null,
+      "path": "Reach_signed.pkg/Reach_AU.pkg Contents/Payload/Library/Audio/Plug-Ins/Components/Reach.component/Contents/MacOS/Reach",
+      "message": "The signature does not include a secure timestamp.",
+      "docUrl": "https://developer.apple.com/documentation/security/notarizing_macos_software_before_distribution/resolving_common_notarization_issues#3087733",
+      "architecture": "x86_64"
+    },
+    {
+      "severity": "error",
+      "code": null,
+      "path": "Reach_signed.pkg/Reach_AU.pkg Contents/Payload/Library/Audio/Plug-Ins/Components/Reach.component/Contents/MacOS/Reach",
+      "message": "The signature of the binary is invalid.",
+      "docUrl": "https://developer.apple.com/documentation/security/notarizing_macos_software_before_distribution/resolving_common_notarization_issues#3087735",
+      "architecture": "arm64"
+    },
+    {
+      "severity": "error",
+      "code": null,
+      "path": "Reach_signed.pkg/Reach_AU.pkg Contents/Payload/Library/Audio/Plug-Ins/Components/Reach.component/Contents/MacOS/Reach",
+      "message": "The signature does not include a secure timestamp.",
+      "docUrl": "https://developer.apple.com/documentation/security/notarizing_macos_software_before_distribution/resolving_common_notarization_issues#3087733",
+      "architecture": "arm64"
+    }
+  ]
+}

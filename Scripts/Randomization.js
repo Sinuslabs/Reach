@@ -236,8 +236,8 @@ namespace Randomization {
 	                             Content.getComponent("themeablePanel_io"),
 	                             Content.getComponent("themeablePanel_effects"),
 	                             Content.getComponent("panelDisplay_display"),
-	                             Content.getComponent("panel_backdrop"),
 	                             Content.getComponent("panel_background"),
+	                             Content.getComponent("themeablePanel_panel_backdrop"),
 	                             ];
 
 	

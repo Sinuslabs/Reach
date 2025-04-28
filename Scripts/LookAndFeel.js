@@ -853,18 +853,23 @@ laf.registerFunction("drawPresetBrowserListItem", function(g, obj)
        	g.fillRoundedRectangle(a, 3);
         g.setColour(Theme.DisplayTheme.buttonSelectedTextColour);
     } else {
-	    
-       	g.setColour(Colours.withAlpha(obj.textColour, 0.75));	    
-    
+       	g.setColour(Colours.withAlpha(Theme.DisplayTheme.textColour, 0.75));	    
 	    if (obj.hover) {
 			g.drawRoundedRectangle(a, 3, 1);
 	    }
-	    
     }
-   
    	g.setFont(Fonts.mainFontRegular, 22.0);
     g.drawAlignedText(obj.text, [15, a[1], a[2], a[3]], "left");
 });
+
+const var presetBrowserLaf = Content.createLocalLookAndFeel();
+presetBrowserLaf.registerFunction("drawPresetBrowserColumnBackground", function(g, obj) {
+	
+	var a = obj.area;
+	
+	
+});
+
 
 const popMenuLaf = Content.createLocalLookAndFeel();
 
@@ -901,15 +906,12 @@ popMenuLaf.registerFunction("drawComboBox", function(g, obj)
 		a[2] - padding * 2,
 		a[3] - padding * 2
 	];
-	
-    g.setColour(obj.bgColour);
+
     
-    if (obj.hover) {
 	    g.setColour(DisplayTheme.textColour);
-    }
     
     g.drawRoundedRectangle([a[0], a[1], a[2], a[3]], 0.5, 2);
-    g.setColour(Colours.withAlpha(obj.textColour, (obj.enabled && obj.active) ? 1.0 : 0.2));
+    g.setColour(Colours.withAlpha(DisplayTheme.textColour, (obj.enabled && obj.active) ? 1.0 : 0.2));
     g.setFont(Fonts.secondaryFont, 20.0);
    
     g.drawAlignedText(obj.text, [a[0] + 5, a[1], a[2]-10, a[3]], "left");
