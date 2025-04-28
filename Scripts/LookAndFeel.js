@@ -15,6 +15,13 @@ const var themeableLabels = Content.getAllComponents('themeAble_label');
 function themeLabels() {
 	for (label in themeableLabels) {
 		label.setColour(3, PanelTheme.textColour);
+		
+		if (Theme.theme.name == 'Light') {
+			if (label.getId() === 'themeAble_label_displayLabel_serialKey') {
+				label.setColour(3, '4293125091');
+			}	
+		} 		
+		
 	}
 }
 themeLabels();
