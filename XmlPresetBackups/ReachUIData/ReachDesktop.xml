@@ -88,8 +88,7 @@
       <Component type="ScriptSlider" id="knob_reverb_time" x="48.0" y="38.0" parentComponent="themeablePanel_reverb"
                  width="70.0" height="100.0" mouseSensitivity="2.0" max="16.0"
                  middlePosition="6.0" suffix=" ms" pluginParameterName="Time"
-                 isPluginParameter="1" text="TIME" enableMidiLearn="0" defaultValue="1.0"
-                 stepSize="0.001"/>
+                 isPluginParameter="1" text="TIME" enableMidiLearn="0" defaultValue="1.0"/>
     </Component>
     <Component type="ScriptPanel" id="themeablePanel_cleanup" x="576.0" y="330.0"
                width="246.0" height="162.0" parentComponent="panel_background"
@@ -220,13 +219,13 @@
         <Component type="ScriptPanel" id="displayPanel_fx1" x="8.0" y="208.0" width="60.0"
                    height="35.0" text="Reverb" parentComponent="display_main"/>
         <Component type="ScriptPanel" id="displayPanel_fx2" x="78.0" y="208.0" width="60.0"
-                   height="35.0" text="Distort" parentComponent="display_main"/>
+                   height="35.0" text="Degrade" parentComponent="display_main"/>
         <Component type="ScriptPanel" id="displayPanel_fx3" x="148.0" y="208.0"
-                   width="60.0" height="35.0" text="Degrade" parentComponent="display_main"/>
-        <Component type="ScriptPanel" id="displayPanel_fx4" x="218.0" y="208.0"
                    width="60.0" height="35.0" text="Flanger" parentComponent="display_main"/>
+        <Component type="ScriptPanel" id="displayPanel_fx4" x="218.0" y="208.0"
+                   width="60.0" height="35.0" text="Chorus" parentComponent="display_main"/>
         <Component type="ScriptPanel" id="displayPanel_fx5" x="288.0" y="208.0"
-                   width="60.0" text="Chorus" height="35.0" parentComponent="display_main"/>
+                   width="60.0" text="Distort" height="35.0" parentComponent="display_main"/>
         <Component type="ScriptPanel" id="display_main_reverb" x="0.0" y="0.0" parentComponent="display_main"
                    width="510.0" height="198.0" itemColour2="0" itemColour="0" bgColour="16777215"
                    textColour="16777215" visible="0">
@@ -297,19 +296,19 @@
             <Component type="ScriptPanel" id="panel_effectTab2" x="96.90000152587891"
                        y="0.0" width="99.0" height="40.0" parentComponent="panel_customizerHeader"
                        allowDragging="1" allowCallbacks="Clicks, Hover &amp; Dragging"
-                       itemColour="4278239743" text="Distort"/>
+                       itemColour="4278239743" text="Degrade"/>
             <Component type="ScriptPanel" id="panel_effectTab3" x="194.1000061035156"
                        y="0.0" width="99.0" height="40.0" parentComponent="panel_customizerHeader"
                        allowDragging="1" allowCallbacks="Clicks, Hover &amp; Dragging"
-                       itemColour="4278239743" text="Degrade"/>
+                       itemColour="4278239743" text="Flanger"/>
             <Component type="ScriptPanel" id="panel_effectTab4" x="291.2999877929688"
                        y="0.0" parentComponent="panel_customizerHeader" width="99.0"
                        height="40.0" allowDragging="1" allowCallbacks="Clicks, Hover &amp; Dragging"
-                       itemColour="4278239743" text="Flanger"/>
+                       itemColour="4278239743" text="Chorus"/>
             <Component type="ScriptPanel" id="panel_effectTab5" x="387.2999877929688"
                        y="0.0" width="99.0" height="40.0" parentComponent="panel_customizerHeader"
                        allowDragging="1" allowCallbacks="Clicks, Hover &amp; Dragging"
-                       itemColour="4278239743" text="Chorus"/>
+                       itemColour="4278239743" text="Distort"/>
           </Component>
           <Component type="ScriptPanel" id="effectDisplay-Reverb" x="0.0" y="40.0"
                      width="490.0" height="190.0" parentComponent="panel_effectCustomizer"
