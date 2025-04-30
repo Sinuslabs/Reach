@@ -33,6 +33,8 @@ namespace PresetBrowserLAF {
    	laf.loadImage("{PROJECT_FOLDER}PresetBrowser/User_light_selected.png", "User_light_selected");
     laf.loadImage("{PROJECT_FOLDER}PresetBrowser/Creative_light_selected.png", "Creative_light_selected");   
         
+    reg selected = null;    
+      
     laf.registerFunction("drawPresetBrowserListItem", function(g, obj)
     {
 	   	g.setFont(Fonts.mainFontRegular, 22);
@@ -47,9 +49,9 @@ namespace PresetBrowserLAF {
 	   	}
 		
 		if (obj.columnIndex == 1) {
+			
 			if (isFactory) {
 				g.drawImage(obj.text + (obj.selected ? opposite + '_selected' : theme) , a, 0, 0);	
-				
 			} else {
 				g.drawImage('User' + (obj.selected ? opposite + '_selected' : theme) , a, 0, 0);	
 	 		}
@@ -59,7 +61,7 @@ namespace PresetBrowserLAF {
 				g.setColour(Colours.withAlpha(DisplayTheme.buttonSelectedBackgroundColour, 0.5));
 			}
 			
-			
+
 	 		g.setColour(Colours.withAlpha(DisplayTheme.buttonSelectedBackgroundColour, 0.6));		
 			obj.selected && g.setColour(DisplayTheme.buttonBackgroundColour);
 	 		g.drawAlignedText(obj.text, [a[0] + 15, a[1], a[2] , a[3]], "left");

@@ -311,9 +311,9 @@
         </Processor>
       </ChildProcessors>
     </Processor>
-    <Processor Type="WaveSynth" ID="Waveform Generator1" Bypassed="0" Gain="0.25"
+    <Processor Type="WaveSynth" ID="Waveform Generator1" Bypassed="0" Gain="0.5011872053146362"
                Balance="0.0" VoiceLimit="256.0" KillFadeTime="20.0" IconColour="0"
-               OctaveTranspose1="0.0" SemiTones1="0.0" OctaveTranspose2="0.0"
+               OctaveTranspose1="-1.0" SemiTones1="0.0" OctaveTranspose2="-1.0"
                SemiTones2="0.0" Detune1="0.0" Detune2="0.0" WaveForm1="3.0"
                WaveForm2="3.0" Pan1="0.0" Pan2="0.0" Mix="0.5" EnableSecondOscillator="1.0"
                PulseWidth1="0.5" PulseWidth2="0.5" HardSync="0.0">

@@ -38,10 +38,8 @@ Engine.loadFontAs("{PROJECT_FOLDER}Fonts/JetBrainsMono-Medium.ttf", "jetbrains-m
 
 Engine.loadFontAs("{PROJECT_FOLDER}Fonts/OverusedGrotesk-SemiBold.ttf", "inter-semi");
 Engine.loadFontAs("{PROJECT_FOLDER}Fonts/OverusedGrotesk-Roman.ttf", "inter-reg");
-
-
 Engine.setGlobalFont("inter-semi");
-Engine.loadNextUserPreset(true);
+
 
 // Setting Global State
 Globals.parameter = 'NONE';
@@ -156,16 +154,19 @@ const var panel_backdrop = Content.getComponent("themeablePanel_panel_backdrop")
 panel_backdrop.setPaintRoutine(drawBackdrop);
 
 inline function drawBackdrop(g) {
-	
+	Console.print('redraaaaw');
 	local a = this.getLocalBounds(0);
 	
 	g.setColour(DisplayTheme.backgroundColour);
 	g.fillRoundedRectangle(a, 5);
+	g.addNoise({
+	    alpha: 0.02, // Keep original noise settings
+	    monochromatic: false
+	});
 	
 	
 } 
-
-  function onNoteOn()
+function onNoteOn()
 {
 	
 }
