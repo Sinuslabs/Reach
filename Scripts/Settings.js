@@ -184,8 +184,10 @@ namespace UserSettings {
 		
 		// zoom level
 		Settings.setZoomLevel(zoomSaved);
-		comboBox_zoom.setValue(zoomCmbSaved);
-		comboBox_zoom.sendRepaintMessage();
+		if (zoomCmbSaved) {
+			comboBox_zoom.setValue(zoomCmbSaved);
+			comboBox_zoom.sendRepaintMessage();
+		}
 		
 		//Theming
 		Theme.setTheme(savedTheme);
