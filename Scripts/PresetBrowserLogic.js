@@ -7,43 +7,32 @@ namespace PresetBrowserLogic {
 	inline function onPresetInitButton(component, value) {
 		
 		if (value) {
-			Engine.loadUserPreset('Creative/Anfang.preset');
+			Engine.loadUserPreset('Factory/Creative/Anfang.preset');
 			showMain();
 		}
 		
 	}
 	const var FloatingTile2 = Content.getComponent("FloatingTile2");
-	
-	
-	//FloatingTile2.setLocalLookAndFeel(presetBrowserLaf);
+	FloatingTile2.setLocalLookAndFeel(PresetBrowserLAF.laf);
 	
 	const PresetBrowserLaf = Content.createLocalLookAndFeel();
 	PresetBrowserLaf.registerFunction('drawToggleButton', btnLaf);
 	
 	inline function btnLaf(g, obj) {
 		local a = obj.area;
-		local PADDING = 1;
-		
-		local pa = [
-			a[0] + PADDING,
-			a[1] + PADDING,
-			a[2] - PADDING * 2,
-			a[3] - PADDING * 2,
-		];
-		
-		obj.text = obj.text.replace('');
-		
-		local ICON_COLOUR = DisplayTheme.iconColour;	
-		
-		if (obj.over) {
-			ICON_COLOUR = ICON_COLOUR.replace('0x', '0x' + DisplayTheme.hoverOpacity);
-		}
-		
-		g.setColour(ICON_COLOUR);
-		
-		g.drawRoundedRectangle(pa, 2, 1);
+		a = StyleHelpers.addPadding(a, 1);
+
 		g.setFont(Fonts.mainFontRegular, 20.0);
-		g.drawAlignedText(obj.text, pa, 'centred');
+		
+		g.setColour(Colours.withAlpha(DisplayTheme.selectedIconColour, 0.2));
+		g.drawRoundedRectangle(a, 3, 1);
+		g.setColour(Colours.withAlpha(DisplayTheme.selectedIconColour, 0.75));
+		if (obj.over) {
+			g.setColour(Colours.withAlpha(DisplayTheme.selectedIconColour, 0.1));
+			g.fillRoundedRectangle(a, 3);
+			g.setColour(Colours.withAlpha(DisplayTheme.selectedIconColour, 0.9));
+		}	
+		g.drawAlignedText(obj.text.toUpperCase(), a, 'centred');
 	}
 	
 	InitPreset_btn.setLocalLookAndFeel(PresetBrowserLaf);

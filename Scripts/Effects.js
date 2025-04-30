@@ -30,7 +30,6 @@ namespace Effects {
 	inline function onknob_flair_flairControl(component, value)
 	{
 		Flanger.setAttribute(Flanger.Mix, value);
-		showTempScreen('flair');
 	
 		// Main Display Indicator
 		
@@ -113,7 +112,6 @@ namespace Effects {
 	
 	inline function onknob_degrade_mixControl(component, value) {
 		Degrade.setAttribute(Degrade.Mix, value);
-		showTempScreen('degrade');
 		
 		EffectCustomizer.repaintIndicators();
 	};
@@ -217,7 +215,6 @@ namespace Effects {
 	
 			Chorus.setAttribute(Chorus.Mix, value);
 			
-			showTempScreen('chorus');
 			
 			EffectCustomizer.repaintIndicators();
 			EffectCustomizer.repaintTabs();
@@ -305,8 +302,6 @@ namespace Effects {
 	
 	inline function onknob_effects_distortionControl(component, value) {
 		Distortion.setAttribute(Distortion.Mix, value);
-		
-		showTempScreen('distortion');
 		
 		EffectCustomizer.repaintIndicators();
 		EffectCustomizer.repaintTabs();

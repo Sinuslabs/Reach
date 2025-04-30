@@ -5,7 +5,7 @@ namespace About {
 	const INFO = {
 		name: 'REACH',
 		homepage: 'https://sinuslabs.io',
-		product_page: 'https://sinuslabsio.gumroad.com/l/reach',
+		product_page: 'https://www.sinuslabs.io/product/reach',
 		repository: 'https://github.com/Sinuslabs/Reach',
 		latest_release_windows: '/releases/latest/download/Reach-Windows.exe',
 		latest_release_macos: '/releases/latest/download/Reach-MacOS.pkg',
@@ -14,13 +14,12 @@ namespace About {
 	
 	const var displayUpdateIcon = Content.getComponent("displayIcon-doubleUp");
 	const var updateButton = Content.getComponent("displayButton-updateAvailable");
-	const var about_check_downloads_label = Content.getComponent("about_check_downloads_label");
+	const var about_check_downloads_label = Content.getComponent("displayTheme_about_check_downloads_label");
+
 	
 	displayUpdateIcon.showControl(false);
 	updateButton.showControl(false);
 	about_check_downloads_label.showControl(false);
-	
-	displayUpdateIcon.showControl(false);
 	updateButton.showControl(false);
 	
 	displayUpdateIcon.setControlCallback(onDoubleArrow);
@@ -31,6 +30,7 @@ namespace About {
 	inline function onDoubleArrow(component, value) {
 		value && displayShow('about');
 	}
+	
 	
 	// skip update check for linux - no network calls :()
 	// when Reach is build a the libcurl4 library needs to be linked
@@ -95,25 +95,28 @@ namespace About {
 		local versionArea = [textArea[0], a[1] + textHeight, 60, textHeight];
 		local buildArea = [textArea[0], a[1] + textHeight * 2, a[2], textHeight];
 		
-		g.setColour(DisplayTheme.buttonSelectedBackgroundColour);
+		g.setColour(DisplayTheme.defaultText);
 		g.fillPath(Paths.icons.reachLogo, logoArea);
 		
 		g.setFont(Fonts.mainFont, 20);
 		g.drawAlignedText(INFO.name, nameArea, 'left');
 		
-		g.setColour('0xF2F63E');
+		g.setFont(Fonts.secondaryFont, 16);
+		g.drawAlignedText(getDate(), buildArea, 'left');
+		
+		g.setColour('0xE6FF03');
 		g.fillRoundedRectangle(versionArea, 2);
 		
-		g.setColour(Colours.black);
+		
+		g.setColour('0x1F2329');
+		g.drawRoundedRectangle(versionArea, 2, 1);
 		g.drawAlignedText('V'+Engine.getVersion(), versionArea, 'centred');
 		
-		g.setColour(DisplayTheme.buttonSelectedBackgroundColour);
-		g.setFont(Fonts.secondaryFont, 14);
-		g.drawAlignedText(getDate(), buildArea, 'left');
+
 	}
 	
 	icon_panel_logo.setPaintRoutine(function(g) {
-		g.setColour('0xffffff');
+		g.setColour(DisplayTheme.defaultText);
 		g.fillPath(Paths.icons['fullLogo'], [0, 0, 140, 17]);
 	});
 	

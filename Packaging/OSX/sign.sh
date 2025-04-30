@@ -22,7 +22,7 @@ INSTALLER_CERT_NAME="Developer ID Installer: Oskar Schachtschneider (TAB2SW2F2U)
 KEYCHAIN_PROFILE="dmdt-tilp-eubc-xqwb" # Make sure this is the PROFILE NAME, not the password itself
 
 # --- PATHS ---
-BUILD_DIR="$project_root/build/MacOS"
+BUILD_DIR="$project_root/Binaries/Builds/MacOSX/build/Release"
 # *** IMPORTANT: Target the EXECUTABLE inside the bundle ***
 VST3_EXEC_PATH="$BUILD_DIR/${NAME}.vst3/Contents/MacOS/${NAME}"
 AU_EXEC_PATH="$BUILD_DIR/${NAME}.component/Contents/MacOS/${NAME}"

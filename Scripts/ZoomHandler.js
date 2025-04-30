@@ -73,7 +73,8 @@ namespace ZoomHandler
 			var zoomToUse = diagonalDrag;
 	
 			if(currentZoom != zoomToUse) {
-				comboBox_zoom.setValue(13.0);
+				UserSettings.comboBox_zoom.setValue(14.0);
+				UserSettings.zoomCmb = 14.0;
 				UserSettings.saveSettings();	
 				Settings.setZoomLevel(zoomToUse);
 			}

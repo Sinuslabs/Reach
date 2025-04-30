@@ -2,7 +2,7 @@
 
 <ProjectSettings>
   <Name value="Reach"/>
-  <Version value="1.6.5"/>
+  <Version value="1.6.6"/>
   <Description value="Handcrafted Crystal Clear Reverb"/>
   <BundleIdentifier value="com.sinuslabs.reach"/>
   <PluginCode value="Reac"/>
@@ -37,7 +37,7 @@
   <OverwriteOldUserPresets value="1"/>
   <UseGlobalAppDataFolderWindows value="No"/>
   <UseGlobalAppDataFolderMacOS value="No"/>
-  <DefaultUserPreset value="Creative/Anfang.preset"/>
+  <DefaultUserPreset value="Factory/Creative/Anfang.preset"/>
   <CompileWithPerfetto value="No"/>
   <CompileWithDebugSymbols value="No"/>
   <IncludeLorisInFrontend value="No"/>

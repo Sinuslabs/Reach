@@ -171,7 +171,7 @@ namespace Master {
 		g.setColour(BUTTON_COLOUR);
 		obj.value ? g.drawEllipse(dot_a, 1) : g.fillEllipse(dot_a); 
 
-		g.setFont(Fonts.mainFont, 16);
+		g.setFont(Fonts.mainFont, 18);
 		g.drawAlignedText(obj.text, text_a, 'centred');
 	}
 

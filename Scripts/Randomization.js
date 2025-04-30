@@ -360,7 +360,7 @@ namespace Randomization {
 		g.setColour(SELECTED_ICON_COLOUR);
 		g.fillPath(Paths.icons[icon], iconArea);
 		
-		g.setFont(Fonts.secondaryFont, 14);
+		g.setFont(Fonts.secondaryFont, 16);
 		g.drawAlignedText(text + ' KNOB', textArea, 'left');
 	}
 	button_floatingLock.setLocalLookAndFeel(floatButtonLAF);

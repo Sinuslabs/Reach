@@ -5,6 +5,7 @@ namespace UserSettings {
 	reg theme = 'Light';
 	reg wetOnlyGain = false;
 	reg quality = 5;
+	reg zoomCmb = 6;
 	
 	// Logo Click
 	const var logoButton = Content.getComponent('button_logo');
@@ -30,7 +31,7 @@ namespace UserSettings {
 	serial_error_label.set('text', '');
 	
 	const var displayButton_activateSerial = Content.getComponent("displayButton_activateSerial");
-	const var displayLabel_serialKey = Content.getComponent("themeAble_label_displayLabel_serialKey");
+	const var displayLabel_serialKey = Content.getComponent("displayTheme_serialKey");
 	displayButton_activateSerial.setLocalLookAndFeel(LAF_displayButton);
 	
 	displayLabel_serialKey.set('text', '');
@@ -104,21 +105,13 @@ namespace UserSettings {
 	inline function onComboBox_zoomControl(component, value) {
 
 		Console.print(value);
-		if (value == 14.0) {
-			return;
+		if (value !== 14.0) {
+			Settings.setZoomLevel(zoomFactors[value - 1]);
 		}
-		Settings.setZoomLevel(zoomFactors[value - 1]);
+		UserSettings.zoomCmb = value;
 		UserSettings.saveSettings();
 	};
 	
-	const var button_startupAnimationToggle = Content.getComponent("button_startupAnimationToggle");
-	button_startupAnimationToggle.setLocalLookAndFeel(LAF_displayButton);
-	button_startupAnimationToggle.setControlCallback(onbutton_startupAnimationToggleControl);
-	inline function onbutton_startupAnimationToggleControl(component, value) {
-		startupAnimation = !value;
-		UserSettings.saveSettings();
-		
-	};
 	
 	// Buy Reach Button
 	const var button_buy_reach = Content.getComponent("button_buy_reach");
@@ -173,8 +166,7 @@ namespace UserSettings {
 	function saveSettings() {
 		settingsFile.writeObject({
 			'zoom': Settings.getZoomLevel(),
-			'animationEnabled': UserSettings.enableAnimations,
-			'startupAnimation': UserSettings.startupAnimation,
+			'zoomCmb': UserSettings.zoomCmb,
 			'theme': UserSettings.theme,
 			'quality': UserSettings.quality,
 		});
@@ -187,33 +179,19 @@ namespace UserSettings {
 		var savedQuality = savedSettings['quality'];
 		var savedTheme = savedSettings['theme'];
 		var zoomSaved = Engine.doubleToString(savedSettings['zoom'], 1);
-		var animationEnabledSaved = savedSettings['animationEnabled'];
-		var startupAnimationSaved = savedSettings['startupAnimation'];
+		var zoomCmbSaved = savedSettings['zoomCmb'];
 		var wetOnlyGainSaved = savedSettings['wetOnlyGain'];		
 		
 		// zoom level
 		Settings.setZoomLevel(zoomSaved);
-		var zoomFactorsIndex = zoomFactors.indexOf(zoomSaved, 0, 0);
-		comboBox_zoom.setValue(zoomFactorsIndex + 1);
+		comboBox_zoom.setValue(zoomCmbSaved);
+		comboBox_zoom.sendRepaintMessage();
 		
 		//Theming
 		Theme.setTheme(savedTheme);
 		UserSettings.theme = savedTheme;
 		
 		quality = savedQuality;
-		//if (theme == 'Light') {
-		//	comboBox_theme.setValue(1.0);		
-		//}
-		//if (theme == 'Dark') {
-		//	comboBox_theme.setValue(2.0);	
-		//}
-		
-		// animation toggle
-		// Toggle buttons are using reversed value to display on by default
-		// startup animation
-		button_startupAnimationToggle.setValue(!startupAnimationSaved);
-		startupAnimation = startupAnimationSaved;
-		Console.print('restore quality: ' + savedQuality);
 		
 		if (isDefined(savedQuality)) {
 			FFTVisual.AnimationQuality_knb.setValue(savedQuality);

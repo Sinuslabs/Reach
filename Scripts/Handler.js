@@ -90,13 +90,6 @@ const zoomFactors = [
 	3.0
 ];
 
-const var comboBox_zoom = Content.getComponent("ComboBox_zoom")
-comboBox_zoom.setControlCallback(onComboBox_zoomControl);
-inline function onComboBox_zoomControl(component, value) {
-	Settings.setZoomLevel(zoomFactors[value - 1]);
-	UserSettings.saveSettings();
-};
-
 // Theme
 //const var comboBox_theme = Content.getComponent("ComboBox_theme");
 //comboBox_theme.setControlCallback(onComboBox1Control);
@@ -180,7 +173,10 @@ PresetHandler.setPostCallback(function(presetFile)
 	 if (Globals.isBypassed) {
 		 Master.bypassAll();
 	 }
+	 Console.print('yes');
+	 PresetBrowserLogic.FloatingTile2.sendRepaintMessage();
 });
+
 
 Content.getComponent("onPresetLoad").setControlCallback(onPresetLoad);
 inline function onPresetLoad(component, value) {
@@ -190,7 +186,7 @@ inline function onPresetLoad(component, value) {
 	Effects.Chorus = getHardcodedEffect('Chorus');
 	Effects.Distortion = getHardcodedEffect('Distort');
 	Reverb.JPVerb = getHardcodedEffect('Reverb');
-
+	Console.print('current preset' + Engine.getCurrentUserPresetName());
 	if (Engine.getCurrentUserPresetName() == '') {
 		Engine.loadNextUserPreset(true);
 	} else {
@@ -246,7 +242,6 @@ button_preset_leftArrow.setControlCallback(onbutton_preset_leftArrowControl);
 inline function onbutton_preset_leftArrowControl(component, value) {
 	if (value) {
 		Engine.loadPreviousUserPreset(false);
-		presetChangedTimer.startTimer(200);
 	}
 
 };
@@ -256,7 +251,6 @@ button_preset_rightArrow.setControlCallback(onbutton_preset_rightArrowControl);
 inline function onbutton_preset_rightArrowControl(component, value) {
 	if (value) {
 		Engine.loadNextUserPreset(false);
-		presetChangedTimer.startTimer(200);
 	}
 };
 

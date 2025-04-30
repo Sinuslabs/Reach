@@ -99,7 +99,7 @@ namespace Filter {
 			g.fillRoundedRectangle(freqArea, 1);
 		}
 
-		g.setFont(Fonts.secondaryFont, 17);
+		g.setFont(Fonts.secondaryFont, 18);
 		g.drawAlignedText(obj.index, a, "centred");
 
 		if (obj.hover) {
@@ -171,7 +171,7 @@ namespace Filter {
 			g.fillRoundedRectangle(freqArea, 1);
 		}
 
-		g.setFont(Fonts.secondaryFont, 17);
+		g.setFont(Fonts.secondaryFont, 18);
 		g.drawAlignedText(obj.index, a, "centred");
 
 		if (obj.hover) {

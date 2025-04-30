@@ -272,8 +272,8 @@ namespace FFTVisual {
 	    // --- Add Noise Effect ---
 	    // Add noise effect at the end (applied over all drawn paths)
 	    g.addNoise({
-	        alpha: 0.02, // Keep original noise settings
-	        monochromatic: true
+	        alpha: 0.01, // Keep original noise settings
+	        monochromatic: false
 	    });
 	}
 

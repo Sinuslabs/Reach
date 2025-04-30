@@ -41,15 +41,18 @@ const LIGHT_THEME = {
 		BUTTON_TEXT_COLOUR: '0xF8FBFC',
 		BUTTON_SELECTED_TEXT_COLOUR: '0x060606',
 		TEXT_COLOUR: '0xF8FBFC',
+		DEFAULT_TEXT_COLOUR: '0xD4E7ED',
 		HOVER_OPACITY: 'CC',
 		SELECTED_ICON_COLOUR: '0xF8FBFC',
 		ICON_COLOUR: '0xAAAAAA',
+		TEXT: 4293125091,
 		NOT_ACTIVATED_COLOUR: '0xFF0000',
 		SELECTED_TAB_COLOUR: '0xF8FBFC',
 		TAB_COLOUR: '0x32364C',
 		SELECTED_TAB_TEXT_COLOUR: '0x060606',
 		TAB_TEXT_COLOUR: '0xC5C5C5',
-		BACKGROUND: '0x060606'
+		BACKGROUND: '0x060606',
+		PRESET_SELECTED: '0xD3E4EA'
 	},
 	HEADER: {
 		SELECTED_ICON_COLOUR: '0xA3A3A3',
@@ -103,15 +106,20 @@ const SUPER_LIGHT_THEME = {
 		BUTTON_TEXT_COLOUR: '0xF8FBFC',
 		BUTTON_SELECTED_TEXT_COLOUR: '0xF8FBFC',
 		TEXT_COLOUR: '0x060606',
+		DEFAULT_TEXT_COLOUR: '0x1F2329',
+		TEXT: 4285229931,
 		HOVER_OPACITY: 'CC',
-		SELECTED_ICON_COLOUR: '0x060606',
-		ICON_COLOUR: '0x060606',
+		SELECTED_ICON_COLOUR: '0x1F2329',
+		ICON_COLOUR: '0x1F2329',
 		NOT_ACTIVATED_COLOUR: '0xFF0000',
 		SELECTED_TAB_COLOUR: '0xF8FBFC',
 		TAB_COLOUR: '0xA7B9BE',
 		SELECTED_TAB_TEXT_COLOUR: '0x060606',
 		TAB_TEXT_COLOUR: '0x060606',
-		BACKGROUND: '0xD2E4EA'
+		BACKGROUND: '0xD2E4EA',
+		PRESET_SELECTED: '0x060606',
+		
+		
 	},
 	HEADER: {
 		SELECTED_ICON_COLOUR: '0xA3A3A3',
@@ -166,6 +174,8 @@ const DARK_THEME = {
 		BUTTON_TEXT_COLOUR: '0xF8FBFC',
 		BUTTON_SELECTED_TEXT_COLOUR: '0x060606',
 		TEXT_COLOUR: '0xF8FBFC',
+		DEFAULT_TEXT_COLOUR: '0xD4E7ED',
+		TEXT: 4293125091,
 		HOVER_OPACITY: 'CC',
 		SELECTED_ICON_COLOUR: '0xF8FBFC',
 		ICON_COLOUR: '0xAAAAAA',
@@ -174,7 +184,8 @@ const DARK_THEME = {
 		TAB_COLOUR: '0x31364D',
 		SELECTED_TAB_TEXT_COLOUR: '0x060606',
 		TAB_TEXT_COLOUR: '0xC5C5C5',
-		BACKGROUND: '0x060606'
+		BACKGROUND: '0x060606',
+		PRESET_SELECTED: '0xD3E4EA'
 	},
 	HEADER: {
 		SELECTED_ICON_COLOUR: '0xA3A3A3',
@@ -192,6 +203,8 @@ namespace Theme {
 
 	reg defaultTheme = LIGHT_THEME;
 	reg theme = {};
+	
+	const var displayLabels = Content.getAllComponents('displayTheme_');
 	
 	inline function setTheme(themeName) {
 		Console.print('I want to set themeName ' + themeName);
@@ -226,8 +239,17 @@ namespace Theme {
 		EffectCustomizer.repaintIndicators();
 		EffectCustomizer.repaintTabs();
 		
+		About.about_info.repaint();
+		About.icon_panel_logo.repaint();
+		
 		repaintAllPanels();
 		themeLabels();
+		
+		for (l in displayLabels) {
+			l.setColour(3, DisplayTheme.text);
+		}
+		
+		EffectCustomizer.displayPanel_degradeIndicator.repaint();
 		
 		UserSettings.saveSettings();
 		
@@ -347,6 +369,10 @@ namespace DisplayTheme {
 	reg selectedTabTextColour = '';
 	reg tabTextColour = '';
 	reg backgroundColour = '';
+	reg defaultText = '';
+	reg text = '';
+	reg selectedPreset = '';
+	
 	
 	inline function load(theme) {
 		buttonSelectedBackgroundColour = theme['BUTTON_SELECTED_BACKGROUND_COLOUR'];
@@ -354,10 +380,13 @@ namespace DisplayTheme {
 		buttonTextColour = theme['BUTTON_TEXT_COLOUR'];
 		buttonSelectedTextColour = theme['BUTTON_SELECTED_TEXT_COLOUR'];
 		textColour = theme['TEXT_COLOUR'];
+		selectedPreset = theme['PRESET_SELECTED'];
+		text = theme['TEXT'];
 		hoverOpacity = theme['HOVER_OPACITY'];
 		selectedIconColour = theme['SELECTED_ICON_COLOUR'];
 		iconColour = theme['ICON_COLOUR'];
 		notActivatedColour = theme['NOT_ACTIVATED_COLOUR'];
+		defaultText = theme['DEFAULT_TEXT_COLOUR'];
 		selectedTabColour = theme['SELECTED_TAB_COLOUR'];
 		tabColour = theme['TAB_COLOUR'];
 		selectedTabTextColour = theme['SELECTED_TAB_TEXT_COLOUR'];
