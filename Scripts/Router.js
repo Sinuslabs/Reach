@@ -25,7 +25,6 @@ inline function showMain() {
 	
 	Filter.button_filter.set('visible', true);
 	EffectCustomizer.button_fx.set('visible', true);
-	Console.print('show main');
 	displayShowMain('waveform');
 }
 

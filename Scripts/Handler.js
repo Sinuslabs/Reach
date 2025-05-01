@@ -173,7 +173,6 @@ PresetHandler.setPostCallback(function(presetFile)
 	 if (Globals.isBypassed) {
 		 Master.bypassAll();
 	 }
-	 Console.print('yes');
 	 PresetBrowserLogic.FloatingTile2.sendRepaintMessage();
 });
 
@@ -186,7 +185,6 @@ inline function onPresetLoad(component, value) {
 	Effects.Chorus = getHardcodedEffect('Chorus');
 	Effects.Distortion = getHardcodedEffect('Distort');
 	Reverb.JPVerb = getHardcodedEffect('Reverb');
-	Console.print('current preset' + Engine.getCurrentUserPresetName());
 	if (Engine.getCurrentUserPresetName() == '') {
 		Engine.loadNextUserPreset(true);
 	} else {
@@ -204,23 +202,17 @@ button_quickTheme.setLocalLookAndFeel(LAF_displayButton);
 button_quickTheme.setControlCallback(onbutton_quickThemeControl);
 inline function onbutton_quickThemeControl(component, value) {
 	if (value) {
-		Console.print('here is the error: ' + Theme.name);
-		Console.print(typeof Theme.name);
 		if (Theme.name == 'Light') {
 			
-			Console.print('set theme: dark');
 			Theme.setTheme('Dark');
 			return;
 		}
 		if (Theme.name == 'Dark') {
-			
-			Console.print('set theme: SuperLight');
 		
 			Theme.setTheme('Super');
 			return;
 		} 
 		if (Theme.name == 'Super') {
-			Console.print('set theme: light');
 			Theme.setTheme('Light');
 			return;
 		}

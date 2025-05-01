@@ -15,9 +15,7 @@ namespace ThankYou {
 	thankyou_panel.setPaintRoutine(function (g) {
 		
 		var a = this.getLocalBounds(0);
-		Console.print(DisplayTheme.defaultText);
 		g.setColour(DisplayTheme.defaultText);
-		//g.fillRect(a);
 		g.fillPath(Paths.icons['highfive'], a);
 		
 	});

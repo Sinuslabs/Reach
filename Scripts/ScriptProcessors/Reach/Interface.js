@@ -31,6 +31,7 @@ include("PresetBrowserLAF.js");
 Content.makeFrontInterface(1134, 510);
 
 Engine.loadFontAs("{PROJECT_FOLDER}Fonts/JetBrainsMono-Medium.ttf", "jetbrains-mono");
+Engine.loadNextUserPreset(true);
 
 //Engine.loadFontAs("{PROJECT_FOLDER}Fonts/Inter-SemiBold.ttf", "inter-semi");
 //Engine.loadFontAs("{PROJECT_FOLDER}Fonts/Inter-Regular.ttf", "inter-semi");

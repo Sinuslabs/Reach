@@ -7,7 +7,7 @@ namespace PresetBrowserLogic {
 	inline function onPresetInitButton(component, value) {
 		
 		if (value) {
-			Engine.loadUserPreset('Creative/Anfang.preset');
+			Engine.loadUserPreset('Factory/Creative/Anfang.preset');
 			showMain();
 		}
 		
@@ -37,3 +37,45 @@ namespace PresetBrowserLogic {
 	
 	InitPreset_btn.setLocalLookAndFeel(PresetBrowserLaf);
 }
+
+
+const up_folder = FileSystem.getFolder(FileSystem.UserPresets);
+const files = FileSystem.findFiles(up_folder, '*', false);
+
+checkFactoryFolder();
+
+inline function checkFactoryFolder() {
+	local files = FileSystem.findFiles(up_folder, '*', false);
+	local hasFactory = false;
+	for (f in files) {
+		local name = f.toString(3);
+		if (name == 'Factory') {
+			hasFactory = true;
+			break;
+		}
+	}
+	if (hasFactory) {
+		return;
+	} else {
+		migratePresets();
+	}
+}
+
+inline function migratePresets() {
+
+	up_folder.createDirectory('Factory');
+
+	for (f in files) {
+		local name = f.toString(3);
+		local isDir = f.isDirectory();
+		local newLoc = up_folder.toString(0) + '/Factory/' + name;
+		
+		local mvFile = FileSystem.fromAbsolutePath(newLoc);
+		if (isDir) {
+			f.move(mvFile);
+		}
+	}
+}
+
+
+
