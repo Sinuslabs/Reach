@@ -250,7 +250,7 @@ namespace Theme {
 		}
 		
 		EffectCustomizer.displayPanel_degradeIndicator.repaint();
-		
+		ThankYou.thankyou_panel.repaint();
 		UserSettings.saveSettings();
 		
 	}

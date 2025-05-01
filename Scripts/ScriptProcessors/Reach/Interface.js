@@ -59,8 +59,8 @@ Globals.screenLock = true;
 if (settingsExist()) {
 	UserSettings.loadSettings();
 } else {
-	Settings.setZoomLevel(0.81);
-	comboBox_zoom.setValue(6.0);
+	Settings.setZoomLevel(1);
+	UserSettings.comboBox_zoom.setValue(7.0);
 	Theme.setTheme('Light');
 }
 

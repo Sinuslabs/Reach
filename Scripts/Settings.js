@@ -5,7 +5,7 @@ namespace UserSettings {
 	reg theme = 'Light';
 	reg wetOnlyGain = false;
 	reg quality = 5;
-	reg zoomCmb = 6;
+	reg zoomCmb = 7.0;
 	
 	// Logo Click
 	const var logoButton = Content.getComponent('button_logo');
