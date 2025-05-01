@@ -1,33 +1,15 @@
-// Icons
-const var icon_panel_logo = Content.getComponent("icon_panel_logo");
-//const var icon_panel_heart = Content.getComponent("icon_panel_heart");
-
-
-icon_panel_logo.setPaintRoutine(function(g) {
-	g.setColour('0xffffff');
-	g.fillPath(Paths.icons['fullLogo'], [0, 0, 131, 17]);
-});
-
 
 
 // LABELS
 const var themeableLabels = Content.getAllComponents('themeAble_label');
 function themeLabels() {
 	for (label in themeableLabels) {
-		label.setColour(3, PanelTheme.textColour);
-		
-		if (Theme.theme.name == 'Light') {
-			if (label.getId() === 'themeAble_label_displayLabel_serialKey') {
-				label.setColour(3, '4293125091');
-			}	
-		} 		
-		
+		label.setColour(3, PanelTheme.textColour);		
 	}
 }
 themeLabels();
 
 // Buttons
-const laf = Engine.createGlobalScriptLookAndFeel();
 
 const SCROLLBAR_PADDING = 5;
 
@@ -84,7 +66,7 @@ LAF_displayButton.registerFunction('drawToggleButton', function(g, obj) {
 			g.setColour(BUTTON_BACKGROUND_COLOUR);
 		}
 				
-		g.setFont(Fonts.secondaryFont, 19.0);
+		g.setFont(Fonts.secondaryFont, 18.0);
 		g.drawAlignedText(obj.text, a, 'centred');
 		return;
 	}
@@ -500,7 +482,7 @@ knb_laf.registerFunction("drawRotarySlider", function(g, obj){
 	];
 	
 	g.setColour(TEXT_COLOUR);
-	g.setFont(Fonts.mainFont, 15);
+	g.setFont(Fonts.mainFont, 18);
 	g.drawAlignedText(text.toUpperCase(), [a[0], ka[1] + ka[3] * 0.9, a[2], ka[3]], 'centred');
 	
 	g.setColour(ARC_COLOUR);	
@@ -639,7 +621,7 @@ inline function mixKnobLAF(g, obj) {
 	g.setFont(Fonts.secondaryFont, 25);
 	g.drawAlignedText(text, ka, 'centred');
 	
-	g.setFont(Fonts.mainFont, 15);
+	g.setFont(Fonts.mainFont, 18);
 	g.drawAlignedText('MIX', [a[0], ka[1] + ka[3] * 0.7, a[2], ka[3]], 'centred');
 	
 	g.setColour(ARC_COLOUR);	
@@ -677,7 +659,7 @@ inline function barKnobGraphics(g, obj) {
 	g.setColour(BAR_COLOUR);	
 	g.drawRoundedRectangle(upperA, 2, 1);
 	g.fillRoundedRectangle(statusBarArea, 1);
-	g.setFont(Fonts.secondaryFont, 14);
+	g.setFont(Fonts.secondaryFont, 16);
 	g.drawAlignedText(text.toUpperCase(), lowerA, 'centred');
 }
 
@@ -751,131 +733,6 @@ function themePanels() {
 
 
 
-// override preset browser search bar to hide it
-laf.registerFunction("drawPresetBrowserSearchBar", function(g, obj){});
-
-laf.registerFunction("drawPresetBrowserDialog", function(g, obj)
-{
-	
-	var TOP_PADDING = 5;
-	var PADDING = 5;
-	var a = obj.area;
-	
-	var pa = [a[0] - PADDING, a[1] - PADDING, a[2] + PADDING * 2, a[3] + PADDING * 3];
-	
-	obj.labelArea = [obj.labelArea[0], obj.labelArea[1], obj.labelArea[2], obj.labelArea[3] + 20];
-	
-   g.setColour(Theme.DisplayTheme.buttonSelectedTextColour);
-   g.fillRoundedRectangle(pa, 5.0);
-   g.setColour(Theme.DisplayTheme.buttonSelectedBackgroundColour);
-   g.drawRoundedRectangle(pa, 5, 2);
-   g.setFont(Fonts.secondaryFont, 28.0);
-   obj.text = obj.text.replace('Are you sure you want to replace the file', 'Replace');
-   obj.text = obj.text.replace('Are you sure you want to delete the file ?', 'Delete Preset?');
-   g.drawAlignedText(obj.text, [pa[0], pa[1] + PADDING + TOP_PADDING, pa[2], pa[3]], "centredTop");
-    
-});
-
-laf.registerFunction("drawDialogButton", function(g, obj){	
-
-	var WIDTH = 17;
-	var PADDING = 1;
-	var a = obj.area;
-	var pa = [
-		(a[2] / 2 - WIDTH / 2) + PADDING,
-		(a[3] / 2 - WIDTH / 2) ,
-		WIDTH,
-		a[3] - PADDING * 2
-	];
-	
-	var SAVE_PADDING = 1;
-	
-	var save_area = [
-		a[0] + SAVE_PADDING,
-		a[1] + SAVE_PADDING,
-		80,
-		a[3] - SAVE_PADDING * 2
-	];
-	
-	var dialogButtonPadding = 1;
-	var dialogButtonPadding = [
-		a[0] + dialogButtonPadding,
-		a[1] + dialogButtonPadding,
-		a[2] - dialogButtonPadding * 2,
-		a[3] - dialogButtonPadding * 2
-	];
-	
-	var ICON_COLOUR = DisplayTheme.iconColour;	
-	
-	if (obj.over) {
-		ICON_COLOUR = ICON_COLOUR.replace('0x', '0x' + DisplayTheme.hoverOpacity);
-	}
-	
-	g.setColour(ICON_COLOUR);
-	
-	if (obj.text == 'OK' || obj.text == 'Cancel') {
-		if (obj.over) {
-			g.setColour(Colours.withAlpha(DisplayTheme.buttonSelectedBackgroundColour, 0.75));
-		} else {
-			g.setColour(DisplayTheme.buttonSelectedBackgroundColour);	
-		}
-		g.drawRoundedRectangle(dialogButtonPadding, 4, 2);
-		g.drawAlignedText(obj.text, a, 'centred');
-		
-		return;
-	}
-	
-	
-	if (obj.text == 'More') {
-		g.drawPath(Paths.icons['menu'], pa, 2);
-		return;
-	}
-	
-	if (obj.text == 'Save Preset') {
-		g.setFont(Fonts.mainFontRegular, 20.0);
-		g.drawRoundedRectangle(save_area, 2, 1 );
-		g.drawAlignedText('SAVE', [ 20 + a[0], a[1], 120, a[3]], 'left');
-		return;
-	}
-	
-	g.setFont(Fonts.mainFontRegular, 14);
-	g.drawAlignedText(obj.text, a, 'centred');
-	
-});
-
-laf.registerFunction("drawPresetBrowserListItem", function(g, obj)
-{
-	var a = obj.area;
-	var padding = 2;
-	a = [
-		a[0] + padding,
-		a[1] + padding,
-		a[2] - padding * 2,
-		a[3] - padding * 2
-	];
-
-    if(obj.selected)
-    {
-        g.setColour(Theme.DisplayTheme.buttonSelectedBackgroundColour);
-       	g.fillRoundedRectangle(a, 3);
-        g.setColour(Theme.DisplayTheme.buttonSelectedTextColour);
-    } else {
-       	g.setColour(Colours.withAlpha(Theme.DisplayTheme.textColour, 0.75));	    
-	    if (obj.hover) {
-			g.drawRoundedRectangle(a, 3, 1);
-	    }
-    }
-   	g.setFont(Fonts.mainFontRegular, 22.0);
-    g.drawAlignedText(obj.text, [15, a[1], a[2], a[3]], "left");
-});
-
-const var presetBrowserLaf = Content.createLocalLookAndFeel();
-presetBrowserLaf.registerFunction("drawPresetBrowserColumnBackground", function(g, obj) {
-	
-	var a = obj.area;
-	
-	
-});
 
 
 const popMenuLaf = Content.createLocalLookAndFeel();
@@ -977,7 +834,7 @@ inline function floatButtonGraphics(g, obj) {
 	g.setColour(SELECTED_ICON_COLOUR);
 	g.fillPath(Paths.icons[obj.text], iconArea);
 	
-	g.setFont(Fonts.secondaryFont, 14);
+	g.setFont(Fonts.secondaryFont, 16);
 	g.drawAlignedText('LOCK PARAMETER', textArea, 'left');
 }
 	
@@ -1000,7 +857,7 @@ inline function menuButton(g, obj) {
 	}
 	
 	g.setColour(COLOUR);
-	g.setFont(Fonts.secondaryFont, 14);
+	g.setFont(Fonts.secondaryFont, 16);
 	g.drawAlignedText(obj.text, a, 'left');
 
 }
@@ -1111,7 +968,7 @@ inline function horbarKnobGraphics(g, obj) {
 	}
 	
 	g.setColour(BAR_COLOUR);
-	g.setFont(Fonts.secondaryFont, 14);
+	g.setFont(Fonts.secondaryFont, 16);
 	g.drawAlignedText(text.toUpperCase(), left_a, 'left');
 
 	if (obj.text === 'HIGH CUT') {

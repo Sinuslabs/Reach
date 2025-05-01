@@ -14,7 +14,8 @@ KEYCHAIN_PROFILE="dmdt-tilp-eubc-xqwb" # Use the PROFILE NAME you created with s
 # --- Paths ---
 SCRIPT_ROOT=$PWD
 PROJECT_ROOT=$(cd "$SCRIPT_ROOT"/../.. && pwd)
-BUILD_DIR="$PROJECT_ROOT/build/MacOS"
+BUILD_DIR="$PROJECT_ROOT/Binaries/Builds/MacOSX/build/Release"
+
 
 # Temporary directories for packaging within script's CWD
 TEMP_AU_DIR="$SCRIPT_ROOT/au"

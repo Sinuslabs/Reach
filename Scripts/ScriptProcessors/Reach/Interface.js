@@ -1,3 +1,5 @@
+
+const laf = Engine.createGlobalScriptLookAndFeel();
 include("Theme.js");
 include("Paths.js");
 include("Helpers.js");
@@ -19,19 +21,26 @@ include("Display.js");
 include("FlairAnimation.js");
 include("ChorusAnimation.js");
 include("VuMeter.js");
-include("SplashAnimation.js");
 include("Randomization.js");
 include("About.js");
 include("PresetBrowserLogic.js");
 include("Master.js");
 include("PanicMode.js");
 include("FFTVisual.js");
+include("PresetBrowserLAF.js");
 Content.makeFrontInterface(1134, 510);
 
 Engine.loadFontAs("{PROJECT_FOLDER}Fonts/JetBrainsMono-Medium.ttf", "jetbrains-mono");
-Engine.loadFontAs("{PROJECT_FOLDER}Fonts/Inter-SemiBold.ttf", "inter-semi");
-Engine.loadFontAs("{PROJECT_FOLDER}Fonts/Inter-Regular.ttf", "inter-reg");
+Engine.loadNextUserPreset(true);
+
+//Engine.loadFontAs("{PROJECT_FOLDER}Fonts/Inter-SemiBold.ttf", "inter-semi");
+//Engine.loadFontAs("{PROJECT_FOLDER}Fonts/Inter-Regular.ttf", "inter-semi");
+
+
+Engine.loadFontAs("{PROJECT_FOLDER}Fonts/OverusedGrotesk-SemiBold.ttf", "inter-semi");
+Engine.loadFontAs("{PROJECT_FOLDER}Fonts/OverusedGrotesk-Roman.ttf", "inter-reg");
 Engine.setGlobalFont("inter-semi");
+
 
 // Setting Global State
 Globals.parameter = 'NONE';
@@ -49,20 +58,20 @@ Globals.screenLock = true;
 // Loading Settings
 if (settingsExist()) {
 	UserSettings.loadSettings();
-	SplashAnimation.tubeAniPanel.set('visible', false);
-	SplashAnimation.animationBackground.set('visible', false);
 } else {
-	Settings.setZoomLevel(0.81);
-	comboBox_zoom.setValue(6.0);
+	Settings.setZoomLevel(1);
+	UserSettings.comboBox_zoom.setValue(7.0);
 	Theme.setTheme('Light');
 }
 
 reg i;
 reg j;
 
+
+
 // Activation Label
 //const var button_not_activated = Content.getComponent("button_not_activated");
-const var label_thank_you = Content.getComponent("themeAble_label_thank_you");
+const var label_thank_you = Content.getComponent("displayTheme_thank_you");
 
 // Check License
 getActivationStatus();
@@ -146,16 +155,19 @@ const var panel_backdrop = Content.getComponent("themeablePanel_panel_backdrop")
 panel_backdrop.setPaintRoutine(drawBackdrop);
 
 inline function drawBackdrop(g) {
-	
+	Console.print('redraaaaw');
 	local a = this.getLocalBounds(0);
 	
 	g.setColour(DisplayTheme.backgroundColour);
 	g.fillRoundedRectangle(a, 5);
+	g.addNoise({
+	    alpha: 0.02, // Keep original noise settings
+	    monochromatic: false
+	});
 	
 	
 } 
-
-  function onNoteOn()
+function onNoteOn()
 {
 	
 }

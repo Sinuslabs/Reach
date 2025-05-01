@@ -99,15 +99,10 @@ namespace Reverb {
 	// CALLBACKS
 	inline function sizeControl(component, value) {
 		JPVerb.setAttribute(JPVerb.Size, value);
-		
-		showTempScreen('reverb');
-		
 	};
 	
 	inline function diffusionControl(component, value) {
 		JPVerb.setAttribute(JPVerb.Diffusion, value);
-		showTempScreen('reverb');
-		
 	};
 	
 	inline function dampingControl(component, value) {
@@ -137,8 +132,6 @@ namespace Reverb {
 	
 	inline function frequencyControl(component, value) {
 		JPVerb.setAttribute(JPVerb.ModFrequency, value);
-		
-		showTempScreen('reverb');
 	};
 	
 	// Cleanup Callbacks

@@ -458,7 +458,7 @@ namespace EffectCustomizer {
 		
 		g.fillRect(statusBarArea);
 		
-		g.setFont(Fonts.secondaryFont, 14);
+		g.setFont(Fonts.secondaryFont, 16);
 		g.drawAlignedText(text.toUpperCase(), upperA, 'left');
 	}
 	
