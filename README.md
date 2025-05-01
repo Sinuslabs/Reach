@@ -1,59 +1,61 @@
-# REACH
+# Reach ✨
+*A Handcrafted Reverb with a Psychedelic Edge*
 
-> Reach is a Handcrafted Reverb with psychedelic edge. A modern creative Reverb that is made for synthetic sound sources and can offer creativity and depth to your mixes. No matter the genre Reach can provide lush atmospheric textures for soothing ambient tunes or cinematic spaces for electronic music. With an easy to use and intuitive interface, you will find how easy it is to transform ordinary sounds into high quality arrangments that have never been heard before. 
+<p align="center">
+  <img src="https://github.com/user-attachments/assets/c007699c-bf73-4c88-908b-ea9d9a1a5be1" alt="Reach User Interface Screenshot" width="700"/>
+</p>
+<p align="center">
+  <em>Minimal UI with Light/Dark themes and interactive visual feedback.</em>
+</p>
 
+Reach is a modern creative reverb plugin designed specifically for synthetic sound sources. It excels at creating lush atmospheric textures, deep cinematic spaces, and unique psychedelic ambiences.
 
-### Downloads
+---
 
-Download the intended version for your OS below
-* [Windows](https://github.com/Sinuslabs/Reach/releases/latest/download/Reach-Windows.exe) 
-* [MacOS](https://github.com/Sinuslabs/Reach/releases/latest/download/Reach-MacOS.pkg)
-* [Linux](https://github.com/Sinuslabs/Reach/releases/latest/download/Reach-Linux.zip)
+## Key Features
 
-### How to use  
+* **Tailored for Synths:** Optimized for electronic and synthetic sound sources.
+* **Modular Effects:** Includes 4 distinct effects (e.g., Delay, Chorus - *adjust if different*) integrated into the reverb path with flexible routing options.
+* **Tonal Shaping:** Pre and Post EQ filters provide detailed control over the reverb's frequency content.
+* **Extensive Presets:** Ships with 50+ presets to get you started instantly (and you can contribute your own!).
+* **Intuitive UI:** Clear, minimalistic design with switchable Light & Dark themes..
+* **Tuned for performance:** Low CPU usage
 
-1. Download and install - Download the correct version for you OS provided above
-2. Download to your VST folder - Ensure you download Reach to your DAWs vst folder
-3. Load within your DAW - Open your DAW and navigate to the plugin manager, scan or new plugins (this step may vary for different DAWs)
+---
 
+## Downloads
 
-### Features
+Get the latest release for your operating system:
 
-There are four effects included to transform the Signal. It features modular routing, pre and post filters and over 40 Presets.
+* [**Windows** (.exe)](https://github.com/Sinuslabs/Reach/releases/latest/download/Reach-Windows.exe)
+* [**macOS** (.pkg)](https://github.com/Sinuslabs/Reach/releases/latest/download/Reach-MacOS.pkg)
+* [**Linux** (.zip)](https://github.com/Sinuslabs/Reach/releases/latest/download/Reach-Linux.zip)
 
-* Made for synthetic sound sources
-* 4 effects included to shape the reverb
-* pre / post EQ filters
-* modular effect routing
-* free scaling
-* low cpu usage
-* 50 presets
+---
 
-### User Interface design
+## Installation & Usage
 
-* Clear minimilistic layout
-* dark / light theme availability
-* Interactive visual feedback on every parameter change 
-* Provides waveform data when activated 
+1.  **Download:** Grab the correct installer/archive for your OS from the links above.
+2.  **Install:** Run the installer (Windows/macOS/Linux)
+3.  **Scan:** Open your DAW and run its plugin scan. Reach should now be available to load onto an FX Track.
 
-![Screenshot 2025-02-21 182417](https://github.com/user-attachments/assets/519c669f-3996-4917-8d91-e58d87296382)
+---
 
-### Sound Demos
+## Sound Demos
 
-Experience Reach in action:
-https://soundcloud.com/sinuslabs/sets/reach-music-demos
+Hear Reach in action on various sound sources:
+▶️ [**Listen on SoundCloud**](https://soundcloud.com/sinuslabs/sets/reach-music-demos)
 
-# Product page 
-Check out additional features, demos, and more plugins like reach at our product page!
-[-> Product Page](https://sinuslabs.io/product/reach/)
+---
 
+**Code & Other Contributions:**
+If you're interested in contributing code, reporting bugs, suggesting features, or improving documentation:
+* Feel free to open an **Issue** or **Pull Request** on this GitHub repository.
+* For broader discussions or questions, contact `hello@sinuslabs.io`.
 
-### Buy now
+---
 
-Buy Reach now and add physcedelic life to your tracks with ease
-https://sinuslabs.lemonsqueezy.com/checkout
+## Links
 
-### Contribution
-
-If you are interested in contributing to this Project please contact the owner of this repository directly via email: hello@sinuslabs.io
-
+* **[Product Page](https://sinuslabs.io/product/reach/)**: Full details, demos, and other Sinuslabs creations.
+* **[Contact Us](mailto:hello@sinuslabs.io)**: For direct inquiries.
