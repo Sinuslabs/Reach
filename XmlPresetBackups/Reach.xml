@@ -44,9 +44,9 @@
             <Control type="ScriptSlider" id="displayKnob_degrade_amount" value="2.75"/>
             <Control type="ScriptSlider" id="displayKnob_degrade_crushAmount" value="6.0"/>
             <Control type="ScriptButton" id="displayButton_degrade_bypass" value="1.0"/>
-            <Control type="ScriptSlider" id="displayKnob_flanger_speed" value="3.179999828338623"/>
+            <Control type="ScriptSlider" id="displayKnob_flanger_speed" value="0.8199999928474426"/>
             <Control type="ScriptSlider" id="displayKnob_flanger_depth" value="0.7599999904632568"/>
-            <Control type="ScriptSlider" id="displayKnob_flanger_feedback" value="0.9299999475479126"/>
+            <Control type="ScriptSlider" id="displayKnob_flanger_feedback" value="0.7300000190734863"/>
             <Control type="ScriptSlider" id="displayKnob_flanger_delay" value="10.0"/>
             <Control type="ScriptSlider" id="displayKnob_flanger_offset" value="10.0"/>
             <Control type="ScriptButton" id="displayButton_flanger_bypass" value="1.0"/>
@@ -118,32 +118,7 @@
                        HighCrossover="3392.0" LFGain="1.0" LowCrossover="377.0" MidGain="1.0"
                        ModDepth="0.0" ModFrequency="0.0" ReverbTime="1.0" Size="1.0"
                        Mix="0.5" preDelay="0.0" Feedback="0.0" Smoothing="0.0" DelayMix="1.0">
-              <ChildProcessors>
-                <Processor Type="ModulatorChain" ID="P1 Modulation" Bypassed="0" Intensity="1.0">
-                  <ChildProcessors/>
-                </Processor>
-                <Processor Type="ModulatorChain" ID="P2 Modulation" Bypassed="0" Intensity="1.0">
-                  <ChildProcessors/>
-                </Processor>
-                <Processor Type="ModulatorChain" ID="P3 Modulation" Bypassed="0" Intensity="1.0">
-                  <ChildProcessors/>
-                </Processor>
-                <Processor Type="ModulatorChain" ID="P4 Modulation" Bypassed="0" Intensity="1.0">
-                  <ChildProcessors/>
-                </Processor>
-                <Processor Type="ModulatorChain" ID="P5 Modulation" Bypassed="0" Intensity="1.0">
-                  <ChildProcessors/>
-                </Processor>
-                <Processor Type="ModulatorChain" ID="P6 Modulation" Bypassed="0" Intensity="1.0">
-                  <ChildProcessors/>
-                </Processor>
-                <Processor Type="ModulatorChain" ID="P7 Modulation" Bypassed="0" Intensity="1.0">
-                  <ChildProcessors/>
-                </Processor>
-                <Processor Type="ModulatorChain" ID="P8 Modulation" Bypassed="0" Intensity="1.0">
-                  <ChildProcessors/>
-                </Processor>
-              </ChildProcessors>
+              <ChildProcessors/>
               <RoutingMatrix NumSourceChannels="2" Channel0="0" Send0="-1" Channel1="1" Send1="-1"/>
             </Processor>
           </ChildProcessors>
@@ -156,32 +131,7 @@
                        Bypassed="0" Network="Degrade" Degrade="1.0" Mix="0.0" HighCut="14333.0"
                        LowCut="22.0" ModulationDepth="0.0" ModulationSpeed="0.0" Amount="2.75"
                        CrushMode="0.0" BitDepth="6.0" BitcrushMode="0.0">
-              <ChildProcessors>
-                <Processor Type="ModulatorChain" ID="P1 Modulation" Bypassed="0" Intensity="1.0">
-                  <ChildProcessors/>
-                </Processor>
-                <Processor Type="ModulatorChain" ID="P2 Modulation" Bypassed="0" Intensity="1.0">
-                  <ChildProcessors/>
-                </Processor>
-                <Processor Type="ModulatorChain" ID="P3 Modulation" Bypassed="0" Intensity="1.0">
-                  <ChildProcessors/>
-                </Processor>
-                <Processor Type="ModulatorChain" ID="P4 Modulation" Bypassed="0" Intensity="1.0">
-                  <ChildProcessors/>
-                </Processor>
-                <Processor Type="ModulatorChain" ID="P5 Modulation" Bypassed="0" Intensity="1.0">
-                  <ChildProcessors/>
-                </Processor>
-                <Processor Type="ModulatorChain" ID="P6 Modulation" Bypassed="0" Intensity="1.0">
-                  <ChildProcessors/>
-                </Processor>
-                <Processor Type="ModulatorChain" ID="P7 Modulation" Bypassed="0" Intensity="1.0">
-                  <ChildProcessors/>
-                </Processor>
-                <Processor Type="ModulatorChain" ID="P8 Modulation" Bypassed="0" Intensity="1.0">
-                  <ChildProcessors/>
-                </Processor>
-              </ChildProcessors>
+              <ChildProcessors/>
               <RoutingMatrix NumSourceChannels="2" Channel0="0" Send0="-1" Channel1="1" Send1="-1"/>
             </Processor>
           </ChildProcessors>
@@ -191,35 +141,10 @@
         <Processor Type="SlotFX" ID="Effect Slot3" Bypassed="0">
           <ChildProcessors>
             <Processor Type="Hardcoded Master FX" ID="Effect Slot3_Hardcoded Master FX"
-                       Bypassed="0" Network="Flair" Flanger="1.0" Speed="3.179999828338623"
-                       Depth="0.7599999904632568" Feedback="0.9299999475479126" Delay="10.0"
+                       Bypassed="0" Network="Flair" Flanger="1.0" Speed="0.8199999928474426"
+                       Depth="0.7599999904632568" Feedback="0.7300000190734863" Delay="10.0"
                        Offset="10.0" Mix="0.0">
-              <ChildProcessors>
-                <Processor Type="ModulatorChain" ID="P1 Modulation" Bypassed="0" Intensity="1.0">
-                  <ChildProcessors/>
-                </Processor>
-                <Processor Type="ModulatorChain" ID="P2 Modulation" Bypassed="0" Intensity="1.0">
-                  <ChildProcessors/>
-                </Processor>
-                <Processor Type="ModulatorChain" ID="P3 Modulation" Bypassed="0" Intensity="1.0">
-                  <ChildProcessors/>
-                </Processor>
-                <Processor Type="ModulatorChain" ID="P4 Modulation" Bypassed="0" Intensity="1.0">
-                  <ChildProcessors/>
-                </Processor>
-                <Processor Type="ModulatorChain" ID="P5 Modulation" Bypassed="0" Intensity="1.0">
-                  <ChildProcessors/>
-                </Processor>
-                <Processor Type="ModulatorChain" ID="P6 Modulation" Bypassed="0" Intensity="1.0">
-                  <ChildProcessors/>
-                </Processor>
-                <Processor Type="ModulatorChain" ID="P7 Modulation" Bypassed="0" Intensity="1.0">
-                  <ChildProcessors/>
-                </Processor>
-                <Processor Type="ModulatorChain" ID="P8 Modulation" Bypassed="0" Intensity="1.0">
-                  <ChildProcessors/>
-                </Processor>
-              </ChildProcessors>
+              <ChildProcessors/>
               <RoutingMatrix NumSourceChannels="2" Channel0="0" Send0="-1" Channel1="1" Send1="-1"/>
             </Processor>
           </ChildProcessors>
@@ -232,32 +157,7 @@
                        Bypassed="0" Network="Chorus2" Chorus="1.0" CentreDelay="96.88500213623047"
                        Depth="0.2910000085830688" Feedback="0.7999999523162842" Rate="0.1330000013113022"
                        Mix="0.0">
-              <ChildProcessors>
-                <Processor Type="ModulatorChain" ID="P1 Modulation" Bypassed="0" Intensity="1.0">
-                  <ChildProcessors/>
-                </Processor>
-                <Processor Type="ModulatorChain" ID="P2 Modulation" Bypassed="0" Intensity="1.0">
-                  <ChildProcessors/>
-                </Processor>
-                <Processor Type="ModulatorChain" ID="P3 Modulation" Bypassed="0" Intensity="1.0">
-                  <ChildProcessors/>
-                </Processor>
-                <Processor Type="ModulatorChain" ID="P4 Modulation" Bypassed="0" Intensity="1.0">
-                  <ChildProcessors/>
-                </Processor>
-                <Processor Type="ModulatorChain" ID="P5 Modulation" Bypassed="0" Intensity="1.0">
-                  <ChildProcessors/>
-                </Processor>
-                <Processor Type="ModulatorChain" ID="P6 Modulation" Bypassed="0" Intensity="1.0">
-                  <ChildProcessors/>
-                </Processor>
-                <Processor Type="ModulatorChain" ID="P7 Modulation" Bypassed="0" Intensity="1.0">
-                  <ChildProcessors/>
-                </Processor>
-                <Processor Type="ModulatorChain" ID="P8 Modulation" Bypassed="0" Intensity="1.0">
-                  <ChildProcessors/>
-                </Processor>
-              </ChildProcessors>
+              <ChildProcessors/>
               <RoutingMatrix NumSourceChannels="2" Channel0="0" Send0="-1" Channel1="1" Send1="-1"/>
             </Processor>
           </ChildProcessors>
@@ -270,32 +170,7 @@
                        Bypassed="0" Network="Waveshaper" Distort="1.0" Mix="0.0" Amount="0.6299999952316284"
                        Gain="1.0" lp="9465.0" hp="140.0" postlp="8827.0" posthp="26.0"
                        Mode="0.0">
-              <ChildProcessors>
-                <Processor Type="ModulatorChain" ID="P1 Modulation" Bypassed="0" Intensity="1.0">
-                  <ChildProcessors/>
-                </Processor>
-                <Processor Type="ModulatorChain" ID="P2 Modulation" Bypassed="0" Intensity="1.0">
-                  <ChildProcessors/>
-                </Processor>
-                <Processor Type="ModulatorChain" ID="P3 Modulation" Bypassed="0" Intensity="1.0">
-                  <ChildProcessors/>
-                </Processor>
-                <Processor Type="ModulatorChain" ID="P4 Modulation" Bypassed="0" Intensity="1.0">
-                  <ChildProcessors/>
-                </Processor>
-                <Processor Type="ModulatorChain" ID="P5 Modulation" Bypassed="0" Intensity="1.0">
-                  <ChildProcessors/>
-                </Processor>
-                <Processor Type="ModulatorChain" ID="P6 Modulation" Bypassed="0" Intensity="1.0">
-                  <ChildProcessors/>
-                </Processor>
-                <Processor Type="ModulatorChain" ID="P7 Modulation" Bypassed="0" Intensity="1.0">
-                  <ChildProcessors/>
-                </Processor>
-                <Processor Type="ModulatorChain" ID="P8 Modulation" Bypassed="0" Intensity="1.0">
-                  <ChildProcessors/>
-                </Processor>
-              </ChildProcessors>
+              <ChildProcessors/>
               <RoutingMatrix NumSourceChannels="2" Channel0="0" Send0="-1" Channel1="1" Send1="-1"/>
             </Processor>
           </ChildProcessors>
@@ -435,45 +310,6 @@
                          Channel2="-1" Send2="-1" Channel3="-1" Send3="-1"/>
         </Processor>
       </ChildProcessors>
-    </Processor>
-    <Processor Type="WaveSynth" ID="Waveform Generator1" Bypassed="0" Gain="0.5011872053146362"
-               Balance="0.0" VoiceLimit="256.0" KillFadeTime="20.0" IconColour="0"
-               OctaveTranspose1="-1.0" SemiTones1="0.0" OctaveTranspose2="-1.0"
-               SemiTones2="0.0" Detune1="0.0" Detune2="0.0" WaveForm1="3.0"
-               WaveForm2="3.0" Pan1="0.0" Pan2="0.0" Mix="0.5" EnableSecondOscillator="1.0"
-               PulseWidth1="0.5" PulseWidth2="0.5" HardSync="0.0">
-      <ChildProcessors>
-        <Processor Type="MidiProcessorChain" ID="Midi Processor" Bypassed="0">
-          <ChildProcessors/>
-        </Processor>
-        <Processor Type="ModulatorChain" ID="GainModulation" Bypassed="0" Intensity="1.0">
-          <ChildProcessors>
-            <Processor Type="SimpleEnvelope" ID="DefaultEnvelope1" Bypassed="0" Monophonic="0.0"
-                       Retrigger="1.0" Intensity="1.0" Attack="5.0" Release="10.0" LinearMode="1.0">
-              <ChildProcessors>
-                <Processor Type="ModulatorChain" ID="Attack Time Modulation" Bypassed="0"
-                           Intensity="1.0">
-                  <ChildProcessors/>
-                </Processor>
-              </ChildProcessors>
-            </Processor>
-          </ChildProcessors>
-        </Processor>
-        <Processor Type="ModulatorChain" ID="PitchModulation" Bypassed="0" Intensity="0.0">
-          <ChildProcessors/>
-        </Processor>
-        <Processor Type="EffectChain" ID="FX" Bypassed="0">
-          <ChildProcessors/>
-        </Processor>
-        <Processor Type="ModulatorChain" ID="Mix Modulation" Bypassed="0" Intensity="1.0">
-          <ChildProcessors/>
-        </Processor>
-        <Processor Type="ModulatorChain" ID="Osc2 Pitch Modulation" Bypassed="0"
-                   Intensity="0.0">
-          <ChildProcessors/>
-        </Processor>
-      </ChildProcessors>
-      <RoutingMatrix NumSourceChannels="2" Channel0="0" Send0="-1" Channel1="1" Send1="-1"/>
     </Processor>
   </ChildProcessors>
   <RoutingMatrix NumSourceChannels="4" Channel0="0" Send0="-1" Channel1="1" Send1="-1"
