@@ -147,4 +147,40 @@ mv "$SCRIPT_ROOT/$FINAL_SIGNED_PKG" "$BUILD_DIR/$FINAL_SIGNED_PKG"
 echo "Script finished successfully. Final package:"
 echo "$BUILD_DIR/$FINAL_SIGNED_PKG"
 
-# Cleanup will run automatically on successful exit via trap
+# Check if the original file path variable is set and the file exists
+if [ -z "$CURRENT_PKG_PATH" ] || [ ! -f "$CURRENT_PKG_PATH" ]; then
+  echo "Error: Original package file path not set or file does not exist."
+  exit 1 # Exit with an error code
+fi
+
+# Check if the app name variable is set
+if [ -z "$APP_NAME" ]; then
+  echo "Error: APP_NAME variable is not set."
+  exit 1 # Exit with an error code
+fi
+
+# Get the directory containing the original file
+PKG_DIR=$(dirname "$CURRENT_PKG_PATH")
+
+# Construct the new filename
+NEW_FILENAME="${APP_NAME}-MacOS.pkg"
+NEW_PKG_PATH="${PKG_DIR}/${NEW_FILENAME}"
+
+echo "Renaming '$CURRENT_PKG_PATH' to '$NEW_PKG_PATH'..."
+
+# Rename the file (mv command moves/renames)
+mv "$CURRENT_PKG_PATH" "$NEW_PKG_PATH"
+
+# Check if the rename was successful
+if [ $? -eq 0 ]; then
+  echo "Rename successful."
+  echo "Opening location: $PKG_DIR"
+  # Open the containing folder in Finder
+  open "$PKG_DIR"
+else
+  echo "Error: Failed to rename the file."
+  exit 1 # Exit with an error code
+fi
+
+echo "Script finished."
+exit 0 # Exit successfully

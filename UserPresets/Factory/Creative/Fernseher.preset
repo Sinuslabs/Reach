@@ -5,9 +5,9 @@
     <Control type="ScriptButton" id="onPresetLoad" value="0.0"/>
     <Control type="ScriptSlider" id="knob_gain_knb" value="8.940696716308594e-7"/>
     <Control type="ScriptSlider" id="knob_reverb_space" value="4.690000057220459"/>
-    <Control type="ScriptSlider" id="knob_reverb_diffusion" value="0.9200000166893005"/>
+    <Control type="ScriptSlider" id="knob_reverb_diffusion" value="0.9199999570846558"/>
     <Control type="ScriptSlider" id="knob_reverb_damping" value="0.03999999910593033"/>
-    <Control type="ScriptSlider" id="knob_reverb_mix" value="0.7900000214576721"/>
+    <Control type="ScriptSlider" id="knob_reverb_mix" value="0.7899999618530273"/>
     <Control type="ScriptSlider" id="knob_reverb_time" value="9.260000228881836"/>
     <Control type="ScriptButton" id="button_degrade_bypass" value="1.0"/>
     <Control type="ScriptSlider" id="knob_effects_degrade" value="0.2099999934434891"/>
@@ -17,10 +17,10 @@
     <Control type="ScriptSlider" id="knob_effects_chorus" value="0.0"/>
     <Control type="ScriptButton" id="button_distort_bypass" value="1.0"/>
     <Control type="ScriptSlider" id="knob_effects_distortion" value="0.7599999904632568"/>
-    <Control type="ScriptSlider" id="knob_wet_knb" value="12.0"/>
+    <Control type="ScriptSlider" id="knob_wet_knb" value="9.700000762939453"/>
     <Control type="ScriptSlider" id="knob_io_out" value="0.5699999928474426"/>
     <Control type="ScriptButton" id="button_not_activated" value="0.0"/>
-    <Control type="ScriptSlider" id="displayKnob_reverb_feedback" value="0.4900000095367432"/>
+    <Control type="ScriptSlider" id="displayKnob_reverb_feedback" value="0.4899999797344208"/>
     <Control type="ScriptSlider" id="displayKnob_reverb_hfgain" value="0.9700000286102295"/>
     <Control type="ScriptSlider" id="displayKnob_reverb_highcrossover" value="3398.0"/>
     <Control type="ScriptSlider" id="displayKnob_reverb_lowGain" value="0.7799999713897705"/>
@@ -50,10 +50,10 @@
     <Control type="ScriptSlider" id="displayKnob_distort_postlowcut" value="2409.0"/>
     <Control type="ScriptSlider" id="displayKnob_distort_posthighcut" value="32.0"/>
     <Control type="ScriptButton" id="displayButton_distort_bypass" value="1.0"/>
-    <Control type="ScriptSlider" id="displayKnob_chorus_Delay" value="59.0"/>
-    <Control type="ScriptSlider" id="displayKnob_chorus_depth" value="0.1799999922513962"/>
+    <Control type="ScriptSlider" id="displayKnob_chorus_Delay" value="59.00000381469727"/>
+    <Control type="ScriptSlider" id="displayKnob_chorus_depth" value="0.1800000071525574"/>
     <Control type="ScriptSlider" id="displayKnob_chorus_feedback" value="0.2599999606609344"/>
-    <Control type="ScriptSlider" id="displayKnob_chorus_rate" value="15.19999980926514"/>
+    <Control type="ScriptSlider" id="displayKnob_chorus_rate" value="15.20000076293945"/>
     <Control type="ScriptButton" id="displayButton_chorus_bypass" value="1.0"/>
     <Control type="ScriptSlider" id="knob_cleanup_ducking" value="0.0"/>
     <Control type="ScriptSlider" id="knob_cleanup_preDelay" value="186.9000091552734"/>
