@@ -24,7 +24,7 @@
                  height="30.0" saveInPreset="0" itemColour="4281545523" bgColour="4286874756"
                  textColour="4285229931" itemColour2="4285229931" isMomentary="1"/>
       <Component type="ScriptButton" id="button_presetBrowser" x="127.0" y="5.0"
-                 parentComponent="panel_header" width="200.0" height="50.0" text="Anfang"
+                 parentComponent="panel_header" width="200.0" height="50.0" text="Fernseher"
                  textColour="272841017" itemColour2="0" itemColour="268435456"
                  bgColour="16711680" saveInPreset="0" enableMidiLearn="0"/>
       <Component type="ScriptButton" id="onPresetLoad" x="330.0" y="24.0" parentComponent="panel_header"
@@ -91,7 +91,7 @@
                  isPluginParameter="1" text="TIME" enableMidiLearn="0" defaultValue="1.0"/>
     </Component>
     <Component type="ScriptPanel" id="themeablePanel_effects" x="828.0" y="72.0"
-               width="288.0" height="252.0" parentComponent="panel_background"
+               width="288.0" height="254.0" parentComponent="panel_background"
                itemColour="4292730333" itemColour2="4293059298" textColour="4289045925"
                borderRadius="5.0">
       <Component type="ScriptLabel" id="themeAble_label_panel_effects" x="5.0"
@@ -269,7 +269,7 @@
           <Component type="ScriptPanel" id="effectDisplay-Reverb" x="0.0" y="40.0"
                      width="490.0" height="190.0" parentComponent="panel_effectCustomizer"
                      textColour="16777215" bgColour="16777215" itemColour="16777215"
-                     itemColour2="16777215" visible="0">
+                     itemColour2="16777215">
             <Component type="ScriptSlider" id="displayKnob_reverb_feedback" x="55.0"
                        y="55.0" width="80.0" height="60.0" parentComponent="effectDisplay-Reverb"
                        text="FEEDBACK" mode="NormalizedPercentage" suffix="%" middlePosition="0.5"
@@ -326,7 +326,7 @@
           <Component type="ScriptButton" id="displayButton_reverb_bypass" x="10.0"
                      y="60.0" width="12.0" height="12.0" text="displayIcon-onOff"
                      parentComponent="panel_effectCustomizer" isPluginParameter="1"
-                     pluginParameterName="Reverb Bypass" visible="0"/>
+                     pluginParameterName="Reverb Bypass"/>
           <Component type="ScriptPanel" id="effectDisplay-Degrade" x="0.0" y="40.0"
                      width="490.0" height="200.0" parentComponent="panel_effectCustomizer"
                      textColour="16777215" itemColour="16777215" itemColour2="16777215"
@@ -371,12 +371,11 @@
                        y="60.0" text="HOLD" width="90.0" height="140.0" parentComponent="effectDisplay-Degrade"
                        max="99.0" isPluginParameter="1" pluginParameterName="Degrade Amount"
                        middlePosition="30.0" enableMidiLearn="0" showTextBox="0" mouseSensitivity="2.0"
-                       min="1.0"/>
+                       min="1.0" visible="0"/>
             <Component type="ScriptSlider" id="displayKnob_degrade_crushAmount" x="200.0"
                        y="60.0" width="90.0" height="130.0" parentComponent="effectDisplay-Degrade"
                        text="Crush" mouseSensitivity="2.0" min="4.0" max="16.0" middlePosition="8.0"
-                       defaultValue="6.0" pluginParameterName="Crush_DC" isPluginParameter="1"
-                       visible="0"/>
+                       defaultValue="6.0" pluginParameterName="Crush_DC" isPluginParameter="1"/>
           </Component>
           <Component type="ScriptButton" id="displayButton_degrade_bypass" x="10.0"
                      y="60.0" text="displayIcon-onOff" width="12.0" height="12.0"
@@ -384,7 +383,8 @@
                      pluginParameterName="Degrade Bypass" visible="0"/>
           <Component type="ScriptPanel" id="effectDisplay-Flanger" x="0.0" y="40.0"
                      width="490.0" height="160.0" parentComponent="panel_effectCustomizer"
-                     textColour="16777215" itemColour="16777215" itemColour2="16777215">
+                     textColour="16777215" itemColour="16777215" itemColour2="16777215"
+                     visible="0">
             <Component type="ScriptPanel" id="displayPanel_flangerIndicator" x="3.0"
                        y="0.0" width="480.0" height="4.0" parentComponent="effectDisplay-Flanger"
                        itemColour="4284525541" itemColour2="4284525541" borderSize="1.0"
@@ -417,7 +417,7 @@
           <Component type="ScriptButton" id="displayButton_flanger_bypass" x="10.0"
                      y="60.0" width="12.0" height="12.0" text="displayIcon-onOff"
                      parentComponent="panel_effectCustomizer" isPluginParameter="1"
-                     pluginParameterName="Flanger Bypass"/>
+                     pluginParameterName="Flanger Bypass" visible="0"/>
           <Component type="ScriptPanel" id="effectDisplay-Distort" x="0.0" y="40.0"
                      width="490.0" height="190.0" parentComponent="panel_effectCustomizer"
                      textColour="16777215" itemColour="16777215" itemColour2="16777215"
@@ -657,8 +657,8 @@
                    saveInPreset="0" isMomentary="1"/>
       </Component>
     </Component>
-    <Component type="ScriptPanel" id="themeablePanel_cleanup" x="576.0" y="330.0"
-               width="246.0" height="162.0" parentComponent="panel_background"
+    <Component type="ScriptPanel" id="themeablePanel_cleanup" x="569.0" y="330.0"
+               width="255.0" height="162.0" parentComponent="panel_background"
                itemColour="4292730333" itemColour2="4293322470" textColour="4289045925"
                borderRadius="5.0">
       <Component type="ScriptSlider" id="knob_cleanup_ducking" x="34.0" y="40.0"
@@ -676,8 +676,8 @@
                  fontSize="18.0" textColour="-9737365" parentComponent="themeablePanel_cleanup"
                  editable="0" itemColour2="0" alignment="left"/>
     </Component>
-    <Component type="ScriptPanel" id="themeablePanel_modulation" x="312.0" y="330.0"
-               width="258.0" height="162.0" parentComponent="panel_background"
+    <Component type="ScriptPanel" id="themeablePanel_modulation" x="310.0" y="330.0"
+               width="255.0" height="162.0" parentComponent="panel_background"
                itemColour="4292730333" itemColour2="4293125091" textColour="4289045925"
                borderRadius="5.0">
       <Component type="ScriptSlider" id="knob_modulation_depth" x="36.0" y="40.0"
@@ -723,5 +723,19 @@
     <Component type="ScriptButton" id="random_panel" x="5.0" y="95.0" width="90.0"
                height="30.0" parentComponent="RandomizerPopup" text="FRONT"
                saveInPreset="0" isMomentary="1"/>
+  </Component>
+  <Component type="ScriptPanel" id="crc_pnl" x="0.0" y="0.0" width="1140.0"
+             height="510.0" itemColour2="3321888768" itemColour="3321888768"
+             visible="0">
+    <Component type="ScriptPanel" id="Panel3" x="330.0" y="60.0" parentComponent="crc_pnl"
+               width="460.0" height="390.0" itemColour="4278190080" itemColour2="4278190080">
+      <Component type="ScriptButton" id="close_crc" x="410.0" y="20.0" width="30.0"
+                 height="30.0" parentComponent="Panel3"/>
+      <Component type="ScriptLabel" id="Label1" x="110.0" y="50.0" parentComponent="Panel3"
+                 text="You cracked my plugin?. Well I also do :) Stuff is expensive!  I just want you Guys to make Music so you can just use this Version of REACH. If you would like to support what I am doing consider buying REACH for a small Price of 10&#8364;. This helps keep me going and make more OPEN SOURCE Audio Plugins."
+                 width="260" height="180" fontSize="16.0" fontName="Default"/>
+      <Component type="ScriptButton" id="displayButton-thanks" x="70.0" y="260.0"
+                 width="350" height="60" parentComponent="Panel3" text="displayButton-Get official license for 10&#8364; :)"/>
+    </Component>
   </Component>
 </ContentProperties>

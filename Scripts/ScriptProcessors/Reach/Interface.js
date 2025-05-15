@@ -18,8 +18,6 @@ include("Router.js");
 include("ThankYou.js");
 include("Supabase.js");
 include("Display.js");
-include("FlairAnimation.js");
-include("ChorusAnimation.js");
 include("VuMeter.js");
 include("Randomization.js");
 include("About.js");
@@ -33,14 +31,11 @@ Content.makeFrontInterface(1134, 510);
 Engine.loadFontAs("{PROJECT_FOLDER}Fonts/JetBrainsMono-Medium.ttf", "jetbrains-mono");
 Engine.loadNextUserPreset(true);
 
-//Engine.loadFontAs("{PROJECT_FOLDER}Fonts/Inter-SemiBold.ttf", "inter-semi");
-//Engine.loadFontAs("{PROJECT_FOLDER}Fonts/Inter-Regular.ttf", "inter-semi");
-
+Synth.deferCallbacks(true);
 
 Engine.loadFontAs("{PROJECT_FOLDER}Fonts/OverusedGrotesk-SemiBold.ttf", "inter-semi");
 Engine.loadFontAs("{PROJECT_FOLDER}Fonts/OverusedGrotesk-Roman.ttf", "inter-reg");
 Engine.setGlobalFont("inter-semi");
-
 
 // Setting Global State
 Globals.parameter = 'NONE';
@@ -146,16 +141,17 @@ inline function addGuides() {
 	Content.addVisualGuide([0, 460], Colours.yellow);
 	Content.addVisualGuide([0, 306], Colours.yellow);
 	Content.addVisualGuide([0, 198], Colours.yellow);
-	
+	Content.addVisualGuide([567, 0], Colours.yellow);
 	Content.addVisualGuide([0, 40], Colours.yellow);
 	Content.addVisualGuide([0, 30], Colours.yellow);
 }
+
+//addGuides();
 
 const var panel_backdrop = Content.getComponent("themeablePanel_panel_backdrop");
 panel_backdrop.setPaintRoutine(drawBackdrop);
 
 inline function drawBackdrop(g) {
-	Console.print('redraaaaw');
 	local a = this.getLocalBounds(0);
 	
 	g.setColour(DisplayTheme.backgroundColour);
@@ -164,9 +160,9 @@ inline function drawBackdrop(g) {
 	    alpha: 0.02, // Keep original noise settings
 	    monochromatic: false
 	});
-	
-	
-} 
+}
+
+//include("crc.js");
 function onNoteOn()
 {
 	

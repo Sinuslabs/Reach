@@ -100,8 +100,6 @@ namespace VuMeter{
 	
 		g.setColour(HeaderTheme.textColour);
 		g.fillRoundedRectangle([a[0]  * (1 - obj.valueNormalized), a[1], a[2] - a[2] * (1 - obj.valueNormalized), a[3]], thickness);
-		
-
 	});
 
 }
