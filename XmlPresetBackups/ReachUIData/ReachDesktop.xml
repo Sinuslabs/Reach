@@ -24,7 +24,7 @@
                  height="30.0" saveInPreset="0" itemColour="4281545523" bgColour="4286874756"
                  textColour="4285229931" itemColour2="4285229931" isMomentary="1"/>
       <Component type="ScriptButton" id="button_presetBrowser" x="127.0" y="5.0"
-                 parentComponent="panel_header" width="200.0" height="50.0" text="Fernseher"
+                 parentComponent="panel_header" width="200.0" height="50.0" text="Anfang"
                  textColour="272841017" itemColour2="0" itemColour="268435456"
                  bgColour="16711680" saveInPreset="0" enableMidiLearn="0"/>
       <Component type="ScriptButton" id="onPresetLoad" x="330.0" y="24.0" parentComponent="panel_header"
@@ -371,11 +371,12 @@
                        y="60.0" text="HOLD" width="90.0" height="140.0" parentComponent="effectDisplay-Degrade"
                        max="99.0" isPluginParameter="1" pluginParameterName="Degrade Amount"
                        middlePosition="30.0" enableMidiLearn="0" showTextBox="0" mouseSensitivity="2.0"
-                       min="1.0" visible="0"/>
+                       min="1.0"/>
             <Component type="ScriptSlider" id="displayKnob_degrade_crushAmount" x="200.0"
                        y="60.0" width="90.0" height="130.0" parentComponent="effectDisplay-Degrade"
                        text="Crush" mouseSensitivity="2.0" min="4.0" max="16.0" middlePosition="8.0"
-                       defaultValue="6.0" pluginParameterName="Crush_DC" isPluginParameter="1"/>
+                       defaultValue="6.0" pluginParameterName="Crush_DC" isPluginParameter="1"
+                       visible="0"/>
           </Component>
           <Component type="ScriptButton" id="displayButton_degrade_bypass" x="10.0"
                      y="60.0" text="displayIcon-onOff" width="12.0" height="12.0"
@@ -510,12 +511,13 @@
         <Component type="ScriptFloatingTile" id="preFilter" x="0.0" y="30.0" width="510.0"
                    height="210.0" ContentType="DraggableFilterPanel" bgColour="11944257"
                    itemColour="2197749760" itemColour2="4294901760" Data="{&#10;  &quot;ProcessorId&quot;: &quot;preFilter&quot;,&#10;  &quot;Index&quot;: -1,&#10;  &quot;FollowWorkspace&quot;: false&#10;}"
-                   parentComponent="display_filter" Font="jetbrains-mono" enabled="0"/>
+                   parentComponent="display_filter" Font="jetbrains-mono" enabled="0"
+                   visible="0"/>
         <Component type="ScriptFloatingTile" id="postFilter" x="0.0" y="30.0" width="510.0"
                    height="210.0" parentComponent="display_filter" ContentType="DraggableFilterPanel"
                    bgColour="0" itemColour="2164260863" itemColour2="855638016"
                    Data="{&#10;  &quot;ProcessorId&quot;: &quot;postFilter&quot;,&#10;  &quot;Index&quot;: -1,&#10;  &quot;FollowWorkspace&quot;: false,&#10;  &quot;AllowDynamicSpectrumAnalyser&quot;: 0&#10;}"
-                   enabled="0" visible="0"/>
+                   enabled="0"/>
         <Component type="ScriptButton" id="button_filters_post" x="430.0" y="0.0"
                    width="66.0" height="30.0" text="displayButton-POST" parentComponent="display_filter"
                    saveInPreset="0"/>
@@ -733,9 +735,9 @@
                  height="30.0" parentComponent="Panel3"/>
       <Component type="ScriptLabel" id="Label1" x="110.0" y="50.0" parentComponent="Panel3"
                  text="You cracked my plugin?. Well I also do :) Stuff is expensive!  I just want you Guys to make Music so you can just use this Version of REACH. If you would like to support what I am doing consider buying REACH for a small Price of 10&#8364;. This helps keep me going and make more OPEN SOURCE Audio Plugins."
-                 width="260" height="180" fontSize="16.0" fontName="Default"/>
+                 width="260.0" height="180.0" fontSize="16.0" fontName="Default"/>
       <Component type="ScriptButton" id="displayButton-thanks" x="70.0" y="260.0"
-                 width="350" height="60" parentComponent="Panel3" text="displayButton-Get official license for 10&#8364; :)"/>
+                 width="350.0" height="60.0" parentComponent="Panel3" text="displayButton-Get official license for 10&#8364; :)"/>
     </Component>
   </Component>
 </ContentProperties>

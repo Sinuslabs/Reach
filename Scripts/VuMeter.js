@@ -8,7 +8,7 @@ namespace VuMeter{
 	const var knob_gain_knb = Content.getComponent("knob_gain_knb");
 	const header_vumeter_ch1 = Content.getComponent("header_vumeter_ch1");
 	const header_vumeter_ch2 = Content.getComponent("header_vumeter_ch2");
-	const Analyser1 = Synth.getEffect("Analyser1");
+	const Analyser1 = Synth.getEffect("FFT Analyser");
 	
 	header_vumeter_ch1.setLocalLookAndFeel(locl_vu_laf);
 	header_vumeter_ch2.setLocalLookAndFeel(locl_vu_laf);

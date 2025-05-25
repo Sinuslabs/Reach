@@ -17,6 +17,7 @@
 
 // Include compiled network files ------------------
 
+#include "Analyser.h"
 #include "Chorus2.h"
 #include "Degrade.h"
 #include "Flair.h"

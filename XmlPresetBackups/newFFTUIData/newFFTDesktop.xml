@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ContentProperties DeviceType="Desktop">
+  <Component type="ScriptPanel" id="Panel1" x="70.0" y="90.0" width="470.0"
+             height="370.0"/>
+</ContentProperties>

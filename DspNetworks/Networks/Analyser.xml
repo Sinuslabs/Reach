@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<Network ID="Analyser" Version="0.0.0" AllowCompilation="1">
+  <Node FactoryPath="container.chain" ID="Analyser" Bypassed="0" Name="Analyser">
+    <Nodes>
+      <Node ID="fft" FactoryPath="analyse.fft" Bypassed="0" Name="fft">
+        <ComplexData>
+          <DisplayBuffers>
+            <DisplayBuffer Index="0"/>
+          </DisplayBuffers>
+        </ComplexData>
+        <Parameters/>
+      </Node>
+    </Nodes>
+    <Parameters/>
+  </Node>
+</Network>

@@ -16,7 +16,7 @@ namespace Master {
 	
 	const var master_bypass_pnl = Content.getComponent("master_bypass_pnl");
 	
-	const var Analyser1 = Synth.getEffect("Analyser1");
+	const var Analyser1 = Synth.getEffect("FFT Analyser");
 	
 	const var preFilter = Synth.getEffect("preFilter");
 	const var postFilter = Synth.getEffect("postFilter");

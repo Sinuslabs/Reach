@@ -5,11 +5,11 @@ namespace EffectCustomizer {
  	button_fx.setLocalLookAndFeel(LAF_displayButton);
 	const var displayKnobs = Content.getAllComponents('displayKnob');
 	
-	Engine.addModuleStateToUserPreset('Effect Slot1');
-	Engine.addModuleStateToUserPreset('Effect Slot2');
-	Engine.addModuleStateToUserPreset('Effect Slot3');
-	Engine.addModuleStateToUserPreset('Effect Slot4');
-	Engine.addModuleStateToUserPreset('Effect Slot5');
+	//Engine.addModuleStateToUserPreset('Effect Slot1');
+	//Engine.addModuleStateToUserPreset('Effect Slot2');
+	//Engine.addModuleStateToUserPreset('Effect Slot3');
+	//Engine.addModuleStateToUserPreset('Effect Slot4');
+	//Engine.addModuleStateToUserPreset('Effect Slot5');
 	
 	const var effectSlots = [Synth.getSlotFX("Effect Slot1"),
 							 Synth.getSlotFX("Effect Slot2"),
